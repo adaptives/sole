@@ -1,68 +1,79 @@
 package models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.*;
 
-import play.db.jpa.Model;
+import play.*;
+import play.db.jpa.*;
+import play.libs.*;
+import play.data.validation.*;
 
 @Entity
 public class User extends Model {
-	
-	public String email;
-	public String password;
-	public String fullName;
-	public boolean isAdmin;
-	
-	public User(String email, String password, String fullName) {
-		this.email = email;
-		this.password = password;
-		this.fullName = fullName;
-	}
 
-	public static User connect(String email, String password) {
-		return User.find("byEmailAndPassword", email, password).first();
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result
-				+ ((fullName == null) ? 0 : fullName.hashCode());
-		result = prime * result + (isAdmin ? 1231 : 1237);
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
-		return result;
-	}
+    @Email
+    @Required
+    public String email;
+    
+    @Required
+    public String passwordHash;
+    
+    @Required
+    public String name;
+    
+    public String needConfirmation;
+    
+    // ~~~~~~~~~~~~ 
+    
+    public User(String email, String password, String name) {
+        this.email = email;
+        this.passwordHash = Codec.hexMD5(password);
+        this.name = name;
+        this.needConfirmation = Codec.UUID();
+        create();
+    }
+    
+    // ~~~~~~~~~~~~ 
+    
+    public boolean checkPassword(String password) {
+        return passwordHash.equals(Codec.hexMD5(password));
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (fullName == null) {
-			if (other.fullName != null)
-				return false;
-		} else if (!fullName.equals(other.fullName))
-			return false;
-		if (isAdmin != other.isAdmin)
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		return true;
-	}
-	
-	
+    public boolean isAdmin() {
+        return email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
+    }
+    
+    // ~~~~~~~~~~~~ 
+    
+//    public List<Post> getRecentsPosts() {
+//        return Post.find("postedBy = ? order by postedAt", this).fetch(1, 10);
+//    }
+//
+//    public Long getPostsCount() {
+//        return Post.count("postedBy", this);
+//    }
+//
+//    public Long getTopicsCount() {
+//        return Post.count("select count(distinct t) from Topic t, Post p, User u where p.postedBy = ? and p.topic = t", this);
+//    }
+    
+    // ~~~~~~~~~~~~ 
+    
+    public static User findByEmail(String email) {
+        return find("email", email).first();
+    }
+
+    public static User findByRegistrationUUID(String uuid) {
+        return find("needConfirmation", uuid).first();
+    }
+
+    public static List<User> findAll(int page, int pageSize) {
+        return User.all().fetch(page, pageSize);
+    }
+
+    public static boolean isEmailAvailable(String email) {
+        return findByEmail(email) == null;
+    }
+    
 }
+

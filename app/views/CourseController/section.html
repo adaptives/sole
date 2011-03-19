@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+
+<a href="@{CourseController.sections(courseSection.course.id)}" class="back-link">Back to course</a>
+<h3 class="course-section-title">${courseSection.title}</h3>
+<div class="course-section-content">
+	${courseSection.content.nl2br()}
+</div>

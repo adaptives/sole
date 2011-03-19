@@ -1,4 +1,14 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
 
-#{welcome /}
+<div class="courses">
+#{list items:courses, as:'course'}
+	<div class="course">
+		<div class="course-title">
+			<a href="@{CourseController.sections(course.id)}">${course.title}</a>
+		</div>
+		<div class="course-description">
+			<span>${course.description}</span>
+		</div>
+	</div>
+#{/list}
+</div>
