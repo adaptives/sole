@@ -1,0 +1,18 @@
+#{extends 'main.html' /}
+%{
+	flash.put("url", request.method == "GET" ? request.url : "/");
+}%
+
+<h3 class="study-session-title">${sessionPart.title}</h3>
+<div class="spaced">
+	#{if !user || !sessionPart.studySession.isUserEnrolled(session.username)}
+		<span class="study-session-enrollment"><a href="@{Application.registerInStudySession(sessionPart.studySession.id)}">Register</a></span>
+	#{/if}	
+</div>
+<hr/>
+<div class="study-session-dates">
+	Starts: <span class="study-session-date">${sessionPart.startDate}</span> - End: <span class="study-session-date">${sessionPart.endDate}</span>
+</div>
+<div class="study-session-description-full">
+	${sessionPart.content}
+</div>

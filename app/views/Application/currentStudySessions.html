@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+%{
+	flash.put("url", request.method == "GET" ? request.url : "/");
+}%
+<div class="study-sessions">
+#{list items:studySessions, as:'studySession'}
+	<div class="study-session, study-session- ${studySession.privateSession ? 'private' : 'public'}" >
+		<div class="study-session-title">
+			<a href="@{Application.studySession(studySession.id)}">${studySession.title}</a>
+		</div>
+		<div class="study-session-description">${studySession.description}</div>
+		<div class="study-session-dates">Starting: <span>${studySession.startDate.format('dd MMM yy')}</span> - Ending: <span>${studySession.endDate.format('dd MMM yy')}</span></div>
+		#{ifnot studySession.privateSession}
+			<div class="study-session-details-panel">
+				#{if !user || !studySession.isUserEnrolled(session.username)}
+					<span class="study-session-enrollment"><a href="@{Application.registerInStudySession(studySession.id)}">Register</a></span>
+				#{/if}
+				#{else}
+					#{if studySession.locked}
+						<span class="study-session-locked">Participation locked</span>
+					#{/if}
+					#{if studySession.canceled}
+						<span class="study-session-canceled">Canceled</span>	
+					#{/if}
+				#{/else}
+			</div>			
+		#{/ifnot}		
+	</div>
+#{/list}
+</div>

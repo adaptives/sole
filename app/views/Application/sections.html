@@ -1,0 +1,22 @@
+#{extends 'main.html' /}
+
+<h2 class="course-title">${course.title}</h2>
+<div class="course-description">
+	${course.description}
+</div>
+<div class="course-sections">
+<table id="forums-list">
+	<thead>
+		<tr>
+			<th class="course-sections-header">Course Sections</th>
+		</tr>
+	</thead>
+	#{list items:courseSections, as:'section'}
+		<tr>
+			<td class="main">
+				<a href="@{Application.section(section.course.id, section.id)}">${section.title}</a>
+			</td>
+		</tr>
+	#{/list}
+</table>
+</div>

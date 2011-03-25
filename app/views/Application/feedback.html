@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+
+<div class="feedbacks">
+#{list items:feedbacks, as:'feedback'}
+	<div class="feedback">
+		<div class="feedback-message">
+			${feedback.message.nl2br()}
+		</div>
+		<div class="feedback-name">
+			By ${feedback.name}
+		</div>
+	</div>
+#{/list}
+</div>
+
+<div class="feedback-form">
+	<form action=@{Application.createFeedback()}>
+		<p>
+			<div><label>Name <span class="required-field">(required)</span> </label></div>
+			<input type="text" name="name" value="" id="name" /> <span class="error">#{error 'name' /}</span>
+		</p>
+		<p>
+			<div><label>Email <span class="required-field">(required, but will not be displayed)</span></label></div>
+			<input type="text" name="email" value="" id="email" /> <span class="error">#{error 'email' /}</span>
+		</p>
+		<p>
+			<div><label>Message <span class="required-field">(required)</span></label></div>
+			<textarea name="message" rows="8" cols="40" id="message"></textarea>
+		</p>
+		<p>
+			<input type="submit" value="Submit" id="postFeedback" />
+			<input type="reset" value="Clear" />
+		</p>
+	</form>
+</div>
+

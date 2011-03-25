@@ -1,0 +1,121 @@
+#{extends 'main.html' /}
+%{
+	flash.put("url", request.method == "GET" ? request.url : "/");
+}%
+<h3 class="course-section-title"><a href="@{Application.sections(courseSection.course.id)}">${courseSection.course.title}</a> : ${courseSection.title}</h3>
+<div class="course-description">
+	${courseSection.content.nl2br()}
+</div>
+<hr/>
+<div class="tabbed-panel">
+	<ul id="tabMenu">
+		<li id="questions_tab" class=""><a href="#" id="questions_tab_link">Questions</a></li>
+		<li id="selected-question_tab" class=""><a href="#" id="question_tab_link">Selected Question</a></li>
+		<li id="comments_tab" class=""><a href="#" id="comments_tab_link">Comments</a></li>
+	</ul>
+</div>
+<div class="section-questions">
+#{list items:questions, as:'question'}
+	<div class="section-question">
+		<a href="#">${question.title}</a>
+		<div class="tab-menu">
+			<span class="question-asked-at">${question.askedAt.format('dd MMM yy, hh:mm')}</span>
+			<span class="question-author">${question.author.name}</span>
+		</div>
+	</div>
+#{/list}
+	<div class="section-question-form">
+		#{if user}
+			#{form @Application.courseSectionQuestion(courseSection.id)}
+				
+				<p>
+					<div><label>Title <span class="required-field">(required)</span></label></div>
+					<input type="text" name="title" value="" id="title" /> <span class="error">#{error 'email' /}</span>
+				</p>
+				<p>
+					<div><label>Question <span class="required-field">(required)</span></label></div>
+					<textarea name="content" rows="8" cols="40" id="question-content"></textarea>
+				</p>
+				<p>
+					<div><label>Tags <span class="required-field">(you can specify multiple tags, separated with commas)</span></label></div>
+					<input type="text" name="tags" value="" id="tags" /> <span class="error">#{error 'email' /}</span>
+				</p>
+				<p>
+					<input type="submit" value="Submit" id="postComment" />
+					<input type="reset" value="Clear" />
+				</p>	
+			#{/form}		
+		#{/if}
+		#{else}
+			Please <a href="@{Secure.login}">login</a> to post questions.
+		#{/else}
+	</div>
+</div>
+
+<div class="selected-question">
+	
+</div>
+
+<div class="comments">
+#{list items:comments, as:'comment'}
+	<div class="comment">
+		<div class="comment-content">
+			${comment.content}
+		</div>
+		<div class="comment-at-by">
+			<span>Posted on: </span><span>${comment.time.format('dd MMM yy')}</span>
+			<span>By: </span>
+			#{if comment.website}
+				<a href="${comment.website}">${comment.author}</a>
+			#{/if}
+			#{else}
+				${comment.author}
+			#{/else}
+		</div>
+	</div>
+#{/list}
+<div class="comment-form-header">Leave a comment or ask a question</div>
+<div class="comment-form">
+	#{form @Application.comment(courseSection.id)}
+		<p>
+			<div><label>Name <span class="required-field">(required)</span> </label></div>
+			<input type="text" name="name" value="" id="name" /> <span class="error">#{error 'name' /}</span>
+		</p>
+		<p>
+			<div><label>Email <span class="required-field">(required, but will not be displayed)</span></label></div>
+			<input type="text" name="email" value="" id="email" /> <span class="error">#{error 'email' /}</span>
+		</p>
+		<p>
+			<div><label>Website <span class="required-field"></span></label></div>
+			<input type="text" name="website" value="" id="website" /> <span class="error">#{error 'website' /}</span>
+		</p>
+		<p>
+			<div><label>Comment <span class="required-field">(required)</span></label></div>
+			<textarea name="message" rows="8" cols="40" id="message"></textarea>
+		</p>
+		<p>
+			<input type="submit" value="Submit" id="postComment" />
+			<input type="reset" value="Clear" />
+		</p>
+	#{/form}
+</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+	   $('.comments').hide();
+	   $('#questions_tab').addClass('selected');
+	 });
+	
+	$('#comments_tab_link').click(function(event) {
+		$('.section-questions').hide()
+		$('#questions_tab').removeClass('selected');
+		$('#comments_tab').addClass('selected');
+		$('.comments').show();		
+	})
+	$('#questions_tab_link').click(function(event) {
+		$('#questions_tab').addClass('selected');
+		$('.section-questions').show();
+		$('.comments').hide();
+		$('#comments_tab').removeClass('selected');
+	})
+</script>

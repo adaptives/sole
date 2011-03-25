@@ -1,0 +1,123 @@
+#{extends 'main.html' /}
+<div>Study Session - 
+	<a href="@{Application.studySession(studySession.id)}">${studySession.title}</a>
+</div>
+<h3 class="study-session-title">${studySession.forum.title}</h3>
+
+<div class="course-description">
+	${studySession.forum.description}
+</div>
+
+<div class="tabbed-panel">
+	<ul id="tabMenu">
+		<li id="questions_tab" class=""><a href="#" id="questions_tab_link">Questions</a></li>
+		<li id="question_tab" class=""><a href="#" id="question_tab_link">Selected Question</a></li>
+	</ul>
+</div>
+
+<div id="question-list" class="section-questions">
+#{list items:studySession.forum.questions, as:'forumQuestion'}
+	<div class="section-question">
+		<a href="@{Application.studySessionForumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
+		<div class="tab-menu">
+			<span class="question-asked-at">${forumQuestion.askedAt.format('dd MMM yy, hh:mm')}</span>
+			<span class="question-author">${forumQuestion.author.name}</span>
+		</div>
+	</div>
+#{/list}
+
+<div id="question-form" class="section-question-form">
+		#{if user}
+			#{form @Application.studySessionQuestion(studySession.id, studySession.forum.id)}
+				
+				<p>
+					<div><label>Title <span class="required-field">(required)</span></label></div>
+					<input type="text" name="title" value="" id="title" /> <span class="error">#{error 'email' /}</span>
+				</p>
+				<p>
+					<div><label>Question <span class="required-field">(required)</span></label></div>
+					<textarea name="content" rows="8" cols="40" id="question-content"></textarea>
+				</p>
+				<p>
+					<div><label>Tags <span class="required-field">(you can specify multiple tags, separated with commas)</span></label></div>
+					<input type="text" name="tags" value="" id="tags" /> <span class="error">#{error 'email' /}</span>
+				</p>
+				<p>
+					<input type="submit" value="Submit" id="postComment" />
+					<input type="reset" value="Clear" />
+				</p>	
+			#{/form}		
+		#{/if}
+		#{else}
+			Please <a href="@{Secure.login}">login</a> to post questions.
+		#{/else}
+</div>
+
+</div>
+
+
+<div id="selected-question">
+	#{if question}
+		<div class="study-session-title">
+			${question.title}
+		</div>
+		<div class="question-content">
+			${question.content}
+		</div>
+		
+		<div id="answers">
+			#{list items:question.answers, as:'theAnswer'}
+				#{if theAnswer.content}
+					<div class="answer-content">
+						${theAnswer.content}
+					</div>
+				#{/if}
+			#{/list}
+		</div>
+		
+		<div id="answer-form" class="section-question-form">
+		#{if user}
+			#{form @Application.studySessionAnswer(studySession.id, studySession.forum.id, question.id)}				
+				<p>
+					<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
+				</p>
+				<p>
+					<input type="submit" value="Submit" id="postAnswer" />
+					<input type="reset" value="Clear" />
+				</p>	
+			#{/form}		
+		#{/if}
+		#{else}
+			Please <a href="@{Secure.login}">login</a> to post an answer.
+		#{/else}
+		</div>
+	#{/if}
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		#{if question}
+			$('#question-list').hide();
+	    	$('#question_tab').addClass('selected');
+		#{/if}
+		#{else}
+			$('#selected-question').hide();
+		    $('#questions_tab').addClass('selected');
+		#{/else}	   
+	 });
+	
+	$('#questions_tab_link').click(function(event) {
+		$('#questions_tab').addClass('selected');
+		$('#selected-question').hide();
+		$('#question-list').show();
+		$('#question_tab').removeClass('selected');
+	})
+	
+	$('#question_tab_link').click(function(event) {
+		$('#question_tab').addClass('selected');
+		$('#selected-question').show();
+		$('#question-list').hide();
+		$('#questions_tab').removeClass('selected');
+	})
+</script>	
