@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+
 import java.util.*;
 
 import play.*;
@@ -20,6 +21,9 @@ public class User extends Model {
     
     @Required
     public String name;
+    
+    @ManyToMany(cascade=CascadeType.PERSIST)
+    public Set<Role> roles;
     
     public String needConfirmation;
     
@@ -74,6 +78,67 @@ public class User extends Model {
     public static boolean isEmailAvailable(String email) {
         return findByEmail(email) == null;
     }
+
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = super.hashCode();
+//		result = prime * result + ((email == null) ? 0 : email.hashCode());
+//		result = prime * result + ((name == null) ? 0 : name.hashCode());
+//		result = prime
+//				* result
+//				+ ((needConfirmation == null) ? 0 : needConfirmation.hashCode());
+//		result = prime * result
+//				+ ((passwordHash == null) ? 0 : passwordHash.hashCode());
+//		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (!super.equals(obj))
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		User other = (User) obj;
+//		if (email == null) {
+//			if (other.email != null)
+//				return false;
+//		} else if (!email.equals(other.email))
+//			return false;
+//		if (name == null) {
+//			if (other.name != null)
+//				return false;
+//		} else if (!name.equals(other.name))
+//			return false;
+//		if (needConfirmation == null) {
+//			if (other.needConfirmation != null)
+//				return false;
+//		} else if (!needConfirmation.equals(other.needConfirmation))
+//			return false;
+//		if (passwordHash == null) {
+//			if (other.passwordHash != null)
+//				return false;
+//		} else if (!passwordHash.equals(other.passwordHash))
+//			return false;
+//		if (roles == null) {
+//			if (other.roles != null)
+//				return false;
+//		} else if (!roles.equals(other.roles))
+//			return false;
+//		return true;
+//	}
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", passwordHash=" + passwordHash
+				+ ", name=" + name + ", roles=" + roles + ", needConfirmation="
+				+ needConfirmation + "]";
+	}
+	
+	
     
 }
 

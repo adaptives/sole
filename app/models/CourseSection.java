@@ -1,18 +1,36 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class CourseSection extends Model {
 	
+	@Required
 	public String title;
+	public int placement;
+	
+	@Lob
 	public String content;
 
+	@Required
 	@ManyToOne
 	public Course course;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	public Set<Comment> comments;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	public Set<Question> questions;
 	
 	public CourseSection(Course course, String title, String content) {
 		this.course = course;
@@ -57,6 +75,9 @@ public class CourseSection extends Model {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.title;
+	}	
 }
 

@@ -1,13 +1,22 @@
 package models;
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+
+import play.data.validation.MaxSize;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class Course extends Model {
 	
+	@Required
 	public String title;
+	
+	@Lob
+	@MaxSize(10000)
 	public String description;
 	
 	public Course(String title, String description) {
@@ -47,5 +56,13 @@ public class Course extends Model {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return this.title;
+	}
 	
+	public List<CourseSection> fetchSectionsByPlacement() {
+		return CourseSection.
+					find("course = ? order by placement asc", this).fetch();
+	}
 }

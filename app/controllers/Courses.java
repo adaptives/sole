@@ -1,5 +1,9 @@
 package controllers;
 
-public class Courses {
+import play.mvc.With;
+
+@Check("admin")
+@With(Secure.class)
+public class Courses extends CRUD {
 
 }

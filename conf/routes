@@ -4,12 +4,18 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /courses                                Application.courses
+GET     /courses/course                         Application.sections
+GET     /courses/course/section                 Application.section
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
 # Import CRUD routes
 *      /admin              module:crud
+
+# Import secure routes
+*       /                                       module:secure
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

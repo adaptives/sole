@@ -1,5 +1,6 @@
 package controllers;
 
+import static controllers.Secure.login;
 import play.*;
 import play.data.validation.Email;
 import play.data.validation.Equals;
@@ -16,11 +17,24 @@ import models.*;
 
 public class Application extends Controller {
 
+	public static final org.apache.log4j.Logger cLogger = 
+									Logger.log4j.getLogger(Application.class);
+	
+	@Before
+	public static void setConnectedUser() {
+		if(Security.isConnected()) {
+			User user = User.findByEmail(Security.connected());
+			renderArgs.put("user", user.name);
+		}
+	}
+	
+	//------------------ HomePage
 	public static void index() {
-		List<Course> courses = Course.findAll();
-		render(courses);
+		Page page = Page.find("byName", "home").first();
+		render(page);
     }
 	
+	//------------------- SignUp and Register
 	public static void signup() {
         render();
     }
@@ -38,17 +52,219 @@ public class Application extends Controller {
         User user = new User(email, password, name);
         try {
             if (Notifier.welcome(user)) {
-                flash.success("Your account is created. Please check your emails ...");
-                login();
+                flash.success("Your account is created. Please check your emails ...");                
+            } else {
+            	flash.error("Oops ... (the email cannot be sent)");
             }
-        } catch (Exception e) {
+            Secure.login();
+        } catch (Throwable e) {
             Logger.error(e, "Mail error");
+            flash.error(MessageConstants.INTERNAL_ERROR);
         }
-        flash.error("Oops ... (the email cannot be sent)");
-        login();
+        
     }
 
-	private static void login() {
-		render();
+	//------------------------ Courses
+	public static void courses() {
+		List<Course> courses = Course.findAll();
+		render(courses);
+	}
+	
+	public static void sections(long courseId) {
+		Course course = Course.find("byId", courseId).first();
+		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
+		render(course, courseSections);
+	}
+	
+	public static void section(long courseId, long sectionId) {
+		CourseSection courseSection = CourseSection.find("byId", sectionId).first();
+		
+		//TODO: Do we need to fetch comments and questions... I am doing this
+		//because we are passing a set and the template might expect a list.
+		//and also because of lazy loading
+		Set<Comment> commentsSet = courseSection.comments; 
+		List<Comment> comments = new ArrayList<Comment>(commentsSet);
+		
+		Set<Question> questionSet = courseSection.questions;
+		List<Question> questions = new ArrayList<Question>(questionSet);
+		
+		render(courseSection, questions, comments);
+	}
+	
+	public static void courseSectionQuestion(long courseSectionId, 
+											 @Required String title,
+											 @Required String content,
+											 String tags) {
+		CourseSection courseSection = CourseSection.findById(courseSectionId);
+		User user = User.findByEmail(Security.connected());
+		Question question = new Question(title, content, user);
+		if(tags != null) {
+			String tagArray[] = tags.split(",");
+			if(tagArray != null) {
+				for(String tag : tagArray) {
+					question.tagWith(tag);
+				}
+			}			
+		}
+		courseSection.questions.add(question);
+		courseSection.save();
+		section(courseSection.course.id, courseSection.id);
+	}
+	
+	public static void comment(long courseSectionId,
+							   @Required String name, 
+			  				   @Required @Email String email,
+			  				   String website,
+			  				   @Required String message) {
+		CourseSection courseSection = CourseSection.findById(courseSectionId);
+		Comment comment = new Comment(message, name, email, website);
+		courseSection.comments.add(comment);
+		courseSection.save();
+		section(courseSection.course.id, courseSection.id);
+	}
+	
+	//-------------------------- Feedback
+	public static void feedback() {
+		List<Feedback> feedbacks = Feedback.findAll();
+		render(feedbacks);
+	}
+	
+	public static void createFeedback(@Required String name, 
+									  @Required @Email String email, 
+									  @Required String message) {
+		if(validation.hasErrors()) {
+			validation.keep();
+			params.flash();
+			flash.error("Please correct these errors");
+			feedback();
+		}
+		Feedback feedback = new Feedback(name, email, message);
+		feedback.save();
+		feedback();
+	}
+	
+	//-------------------------Study groups
+	public static void currentStudySessions() {
+		List<StudySession> studySessions = StudySession.findAll();
+		render(studySessions);
+	}
+	
+	public static void studySession(long id) {
+		StudySession studySession = StudySession.findById(id); 
+		render(studySession);
+	}
+	
+	public static void registerInStudySession(long id) {
+		if(Security.isConnected()) {			
+			String username = Security.connected();			
+			User connectedUser = User.findByEmail(username);
+			if(connectedUser != null) {
+				System.out.println("user is connected " + username);
+				StudySession studySession = StudySession.findById(id);
+				if(studySession != null) {
+					System.out.println("adding participant to studySession");
+					studySession.participants.add(connectedUser);
+					studySession.save();
+				} else {
+					
+					flash.error(MessageConstants.INTERNAL_ERROR);
+				}
+			} else {
+				System.out.println("could not get user object for username '" + username + "'");
+				flash.error(MessageConstants.INTERNAL_ERROR);
+			}
+			//TODO: Could we have just rendered the view and passed id to it?
+			studySession(id);
+		} else {
+			flash.put("url", request.method == "GET" ? request.url : "/");
+			try {
+				Secure.login();
+			} catch(Throwable t) {
+				flash.error(MessageConstants.INTERNAL_ERROR);
+				cLogger.error("Could not redirect user to the login " +
+							  "page before registering for a studySession", t);
+				studySession(id);
+			}
+		}
+	}
+	
+	public static void deregisterFromStudySession(long id) {
+		if(Security.isConnected()) {			
+			String username = Security.connected();			
+			User connectedUser = User.findByEmail(username);
+			if(connectedUser != null) {
+				StudySession studySession = StudySession.findById(id);
+				if(studySession != null) {
+					studySession.participants.remove(connectedUser);
+					studySession.save();
+				} else {
+					
+					flash.error(MessageConstants.INTERNAL_ERROR);
+				}
+			} else {
+				cLogger.error("could not get user object for username '" + username + "'");				
+				flash.error(MessageConstants.INTERNAL_ERROR);
+			}
+			//TODO: Could we have just rendered the view and passed id to it?
+			studySession(id);
+		} else {
+			cLogger.error("A user is not logged in. This should never happen for this action");
+			flash.error(MessageConstants.INTERNAL_ERROR);
+		}
+	}
+	
+	public static void sessionPart(long sessionPartId) {
+		SessionPart sessionPart = SessionPart.findById(sessionPartId);
+		render(sessionPart);
+	}
+	
+	public static void studySessionForum(long studySessionId) {
+//		StudySession studySession = StudySession.findById(studySessionId);
+//		render(studySession);
+		studySessionForumQuestion(studySessionId, -1);
+	}
+	
+	public static void studySessionForumQuestion(long studySessionId, 
+												 long questionId) {
+		StudySession studySession = StudySession.findById(studySessionId);
+		Question question = Question.findById(questionId);
+		
+		if(question != null) {
+			System.out.println("Getting answers for question " + question);
+			System.out.println(question.answers);
+		}
+		
+		render("Application/studySessionForum.html", studySession, question);
+	}
+	
+	public static void studySessionQuestion(long studySessionId,
+										    long forumId,
+											@Required String title,
+											@Required String content,
+											String tags) {
+		Forum forum = Forum.findById(forumId);
+		Question question = new Question(title, 
+										 content, 
+										 User.findByEmail(Security.connected()));
+		forum.questions.add(question);
+		forum.save();
+		studySessionForum(studySessionId);
+	}
+	
+	public static void studySessionAnswer(long studySessionId, 
+										  long studySessionForumId, 
+										  long questionId,
+										  String answerContent) {
+		Question question = Question.findById(questionId);
+		Answer answer = new Answer(answerContent, question);
+		question.answers.add(answer);
+		question.save();
+		studySessionForumQuestion(studySessionId, questionId);
+	}
+	
+	//--------------------------Static pages
+	public static void page(String name) {
+		Page page = Page.find("byName", name).first();
+		render(page);
 	}
 }

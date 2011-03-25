@@ -1,15 +1,80 @@
 # Test data
+Page(homepage):
+    name:               home
+    title:              Home Page
+    content:            This is the home page of JaPeer
+    
+Role(learner):
+    name:               learner
+    
+Role(admin):
+    name:               admin
+    
+User(admindude):
+    email:              someone@somewhere.com
+    passwordHash:       secret
+    name:               Admin Dude
+    needConfirmation:   false
+    roles:              
+                        - admin
 
+User(learnerdude):
+    email:              learner@somewhere.com
+    passwordHash:       secret
+    name:               Learner Dude
+    needConfirmation:   false
+    roles:              
+                        - learner
+                        
 Course(Java):
     title:          Java Programming
     description:    Java Programming description
+
+Course(Security):
+    title:          Web Security
+    description:    Web security description
     
-CourseSection(section1):
-    title:          Section 1
+CourseSection(javaSection1):
+    title:          Introduction to Java
     content:        This is the content for section 1 of Introduction to Java
     course:         Java
     
-CourseSection(section2):
-    title:          Section 2
+CourseSection(javaSection2):
+    title:          Java syntax
     content:        This is the content for section 2 of Introduction to Java
     course:         Java
+    
+CourseSection(wsSection1):
+    title:          Introduction to Web security
+    content:        This is the content for section 1 of Introduction to Web security
+    course:         Security
+    
+CourseSection(wsSection2):
+    title:          Web security basics
+    content:        This is the content for section 2 of web security
+    course:         Security
+
+Forum(java101Forum):
+    title: Java101 forum
+    description: This forum is meant to discuss doubts in course 'Java101'
+
+StudySession(Java101):
+    title:          Java 101    
+    startDate:      2011-03-31
+    endDate:        2011-04-30
+    forum:          java101Forum
+    facilitators:
+                    admindude
+    participants:
+                    learnerdude
+    description:    >
+                    It is either owned by or licensed to YouTube, EL Camino. May be you would want to read through their Terms of Service. You cannot reproduce, sell, or use them without their prior permission, unless it is specifically for personal, no-commercial use. I believe I stated that pretty well in my first post.
+                    
+                    Yes they do encourage you to link to their content, but that doesn't mean they have given away their license as well. Even when you put the videos up in your site, the content is still theirs, not yours, and is subject to their rules.
+
+SessionPart(week1):
+    title:          week1
+    startDate:      2011-03-31
+    endDate:        2011-04-06
+    content:        In this week we will learn the following things
+    studySession:   Java101

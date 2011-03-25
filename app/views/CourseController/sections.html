@@ -1,9 +1,0 @@
-#{extends 'main.html' /}
-<h2 class="course-sections-header">Sections</h2>
-<div class="course-sections">
-	#{list items:courseSections, as:'section'}
-		<div class="course-section">
-		<a href="@{CourseController.section(section.course.id, section.id)}">${section.title}</a>
-		</div>
-	#{/list}
-</div>

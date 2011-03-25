@@ -1,5 +1,9 @@
 /** Page layout **/
 
+#main {
+	width: 1324px;	
+}
+
 #header {
 	padding: 10px 60px;
 	background: #111;
