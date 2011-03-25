@@ -11,7 +11,7 @@
 	#{list items:courses, as:'course'}
 		<tr>
 			<td class="main">
-				<a href="@{Application.sections(course.id)}">${course.title}</a>
+				<a href="@{CourseC.sections(course.id)}">${course.title}</a>
 				<div class="course-short-description">
 				${course.description.length() > 50 ? course.description[0..50] + "..." : course.description}
 				</div>

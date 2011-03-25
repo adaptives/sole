@@ -4,9 +4,9 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /courses                                Application.courses
-GET     /courses/course                         Application.sections
-GET     /courses/course/section                 Application.section
+GET     /courses                                CourseC.courses
+GET     /courses/course                         CourseC.sections
+GET     /courses/course/section                 CourseC.section
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
