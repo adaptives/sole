@@ -167,15 +167,21 @@ public class Application extends Controller {
 	
 	public static void studySessionForumQuestion(long studySessionId, 
 												 long questionId) {
+		List<String> tabIds = new ArrayList<String>();
+		tabIds.add("questions");
+		tabIds.add("selected-question");
+		List<String> tabNames = new ArrayList<String>();
+		tabNames.add("Questions");
+		tabNames.add("Selected Question");
+		
 		StudySession studySession = StudySession.findById(studySessionId);
 		Question question = Question.findById(questionId);
 		
-		if(question != null) {
-			System.out.println("Getting answers for question " + question);
-			System.out.println(question.answers);
-		}
-		
-		render("Application/studySessionForum.html", studySession, question);
+		render("Application/studySessionForum.html", 
+			   studySession, 
+			   question, 
+			   tabIds, 
+			   tabNames);
 	}
 	
 	public static void studySessionQuestion(long studySessionId,

@@ -9,13 +9,15 @@
 </div>
 
 <div class="tabbed-panel">
-	<ul id="tabMenu">
-		<li id="questions_tab" class=""><a href="#" id="questions_tab_link">Questions</a></li>
-		<li id="question_tab" class=""><a href="#" id="question_tab_link">Selected Question</a></li>
-	</ul>
+		#{if question}
+			#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
+	    #{/if}
+	   	#{else}
+	        #{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
+	   	#{/else}
 </div>
 
-<div id="question-list" class="section-questions">
+<div id="questions" class="section-questions">
 #{list items:studySession.forum.questions, as:'forumQuestion'}
 	<div class="section-question">
 		<a href="@{Application.studySessionForumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
@@ -93,31 +95,3 @@
 		</div>
 	#{/if}
 </div>
-
-
-<script type="text/javascript" charset="utf-8">
-	$(document).ready(function(){
-		#{if question}
-			$('#question-list').hide();
-	    	$('#question_tab').addClass('selected');
-		#{/if}
-		#{else}
-			$('#selected-question').hide();
-		    $('#questions_tab').addClass('selected');
-		#{/else}	   
-	 });
-	
-	$('#questions_tab_link').click(function(event) {
-		$('#questions_tab').addClass('selected');
-		$('#selected-question').hide();
-		$('#question-list').show();
-		$('#question_tab').removeClass('selected');
-	})
-	
-	$('#question_tab_link').click(function(event) {
-		$('#question_tab').addClass('selected');
-		$('#selected-question').show();
-		$('#question-list').hide();
-		$('#questions_tab').removeClass('selected');
-	})
-</script>	
