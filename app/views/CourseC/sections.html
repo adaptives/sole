@@ -14,7 +14,7 @@
 	#{list items:courseSections, as:'section'}
 		<tr>
 			<td class="main">
-				<a href="@{CourseC.section(section.course.id, section.id)}">${section.title}</a>
+				<a href="@{CourseC.section(section.id)}">${section.title}</a>
 			</td>
 		</tr>
 	#{/list}
