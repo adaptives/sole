@@ -9,21 +9,65 @@
 <hr/>
 <div class="tabbed-panel">
 	<ul id="tabMenu">
-		<li id="questions_tab" class=""><a href="#" id="questions_tab_link">Questions</a></li>
-		<li id="selected-question_tab" class=""><a href="#" id="question_tab_link">Selected Question</a></li>
-		<li id="comments_tab" class=""><a href="#" id="comments_tab_link">Comments</a></li>
+		<li id="questions-tab" class=""><a href="#" id="questions_tab_link">Questions</a></li>
+		<li id="selected-question-tab" class=""><a href="#" id="question_tab_link">Selected Question</a></li>
+		<li id="comments-tab" class=""><a href="#" id="comments_tab_link">Comments</a></li>
 	</ul>
+	
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+	   hideAndUnselectAllTabs();
+	   #{if question}
+	   		$('#selected-question').show();
+	   		$('#selected-question-tab').addClass('selected');
+	   #{/if}
+	   #{elseif comments}
+	   		$('#comments').show();
+	   		$('#comments-tab').addClass('selected');
+	   #{/elseif}
+	   #{else}
+	   		$('#questions').show();
+	   		$('#questions-tab').addClass('selected');
+	   #{/else}
+	 });
+	
+	$('#comments_tab_link').click(function(event) {
+		hideAndUnselectAllTabs();
+		$('#comments-tab').addClass('selected');
+		$('#comments').show();		
+	});
+	$('#questions_tab_link').click(function(event) {
+		hideAndUnselectAllTabs();
+		$('#questions-tab').addClass('selected');
+		$('#questions').show();
+	});
+	$('#question_tab_link').click(function(event) {
+		hideAndUnselectAllTabs();
+		$('#selected-question-tab').addClass('selected');
+		$('#selected-question').show();
+	});
+	
+	function hideAndUnselectAllTabs() {
+		$('#questions').hide();
+		$('#questions-tab').removeClass('selected');
+		$('#selected-question').hide();
+		$('#selected-question-tab').removeClass('selected');
+		$('#comments').hide();
+		$('#comments-tab').removeClass('selected');
+	}
+
+</script>
 </div>
-<div class="section-questions">
-#{list items:questions, as:'question'}
+<div id="questions" class="section-questions">
+	#{list items:courseSection.questions, as:'question'}
 	<div class="section-question">
-		<a href="#">${question.title}</a>
+		<a href="@{CourseC.sectionQuestion(courseSection.id, question.id)}">${question.title}</a>
 		<div class="tab-menu">
 			<span class="question-asked-at">${question.askedAt.format('dd MMM yy, hh:mm')}</span>
 			<span class="question-author">${question.author.name}</span>
 		</div>
 	</div>
-#{/list}
+	#{/list}
 	<div class="section-question-form">
 		#{if user}
 			#{form @CourseC.courseSectionQuestion(courseSection.id)}
@@ -52,12 +96,16 @@
 	</div>
 </div>
 
-<div class="selected-question">
-	
+<div id="selected-question" class="selected-question">
+	#{if question}
+		<div>
+			${question.title}
+		</div>
+	#{/if}
 </div>
 
-<div class="comments">
-#{list items:comments, as:'comment'}
+<div id="comments" class="comments">
+#{list items:courseSection.comments, as:'comment'}
 	<div class="comment">
 		<div class="comment-content">
 			${comment.content}
@@ -100,22 +148,3 @@
 	#{/form}
 </div>
 </div>
-<script type="text/javascript" charset="utf-8">
-	$(document).ready(function(){
-	   $('.comments').hide();
-	   $('#questions_tab').addClass('selected');
-	 });
-	
-	$('#comments_tab_link').click(function(event) {
-		$('.section-questions').hide()
-		$('#questions_tab').removeClass('selected');
-		$('#comments_tab').addClass('selected');
-		$('.comments').show();		
-	})
-	$('#questions_tab_link').click(function(event) {
-		$('#questions_tab').addClass('selected');
-		$('.section-questions').show();
-		$('.comments').hide();
-		$('#comments_tab').removeClass('selected');
-	})
-</script>
