@@ -8,55 +8,16 @@
 </div>
 <hr/>
 <div class="tabbed-panel">
-	<ul id="tabMenu">
-		<li id="questions-tab" class=""><a href="#" id="questions_tab_link">Questions</a></li>
-		<li id="selected-question-tab" class=""><a href="#" id="question_tab_link">Selected Question</a></li>
-		<li id="comments-tab" class=""><a href="#" id="comments_tab_link">Comments</a></li>
-	</ul>
-	
-	<script type="text/javascript" charset="utf-8">
-	$(document).ready(function(){
-	   hideAndUnselectAllTabs();
 	   #{if question}
-	   		$('#selected-question').show();
-	   		$('#selected-question-tab').addClass('selected');
+			#{tabbedPane show:'question'/}
 	   #{/if}
 	   #{elseif comments}
-	   		$('#comments').show();
-	   		$('#comments-tab').addClass('selected');
+	   	    #{tabbedPane show:'comments'/}
 	   #{/elseif}
 	   #{else}
-	   		$('#questions').show();
-	   		$('#questions-tab').addClass('selected');
+	        #{tabbedPane show:'questions'/}
 	   #{/else}
-	 });
 	
-	$('#comments_tab_link').click(function(event) {
-		hideAndUnselectAllTabs();
-		$('#comments-tab').addClass('selected');
-		$('#comments').show();		
-	});
-	$('#questions_tab_link').click(function(event) {
-		hideAndUnselectAllTabs();
-		$('#questions-tab').addClass('selected');
-		$('#questions').show();
-	});
-	$('#question_tab_link').click(function(event) {
-		hideAndUnselectAllTabs();
-		$('#selected-question-tab').addClass('selected');
-		$('#selected-question').show();
-	});
-	
-	function hideAndUnselectAllTabs() {
-		$('#questions').hide();
-		$('#questions-tab').removeClass('selected');
-		$('#selected-question').hide();
-		$('#selected-question-tab').removeClass('selected');
-		$('#comments').hide();
-		$('#comments-tab').removeClass('selected');
-	}
-
-</script>
 </div>
 <div id="questions" class="section-questions">
 	#{list items:courseSection.questions, as:'question'}
