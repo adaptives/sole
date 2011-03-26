@@ -1,7 +1,9 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import models.Comment;
@@ -40,9 +42,18 @@ public class CourseC extends Controller {
 	}
 	
 	public static void sectionQuestion(long courseSectionId, long questionId) {
+		List<String> tabIds = new ArrayList<String>();
+		tabIds.add("questions");
+		tabIds.add("selected-question");
+		tabIds.add("comments");
+		List<String> tabNames = new ArrayList<String>();
+		tabNames.add("Questions");
+		tabNames.add("Selected Question");
+		tabNames.add("Comments");
+		
 		CourseSection courseSection = CourseSection.findById(courseSectionId);
 		Question question = Question.findById(questionId);
-		render("CourseC/section.html", courseSection, question);
+		render("CourseC/section.html", courseSection, question, tabIds, tabNames);
 	}
 	
 	public static void courseSectionQuestion(long courseSectionId, 

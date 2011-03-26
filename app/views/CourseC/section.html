@@ -9,13 +9,13 @@
 <hr/>
 <div class="tabbed-panel">
 	   #{if question}
-			#{tabbedPane show:'question'/}
+			#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
 	   #{/if}
 	   #{elseif comments}
-	   	    #{tabbedPane show:'comments'/}
+	   	    #{tabbedPane show:'comments', tabIds:tabIds, tabNames:tabNames /}
 	   #{/elseif}
 	   #{else}
-	        #{tabbedPane show:'questions'/}
+	        #{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
 	   #{/else}
 	
 </div>

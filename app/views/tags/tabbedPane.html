@@ -1,49 +1,45 @@
 	<ul id="tabMenu">
-		<li id="questions-tab" class=""><a href="#" id="questions-tab-link">Questions</a></li>
-		<li id="selected-question-tab" class=""><a href="#" id="question-tab-link">Selected Question</a></li>
-		<li id="comments-tab" class=""><a href="#" id="comments-tab-link">Comments</a></li>
+	%{
+	    tabCount = 0;
+		for(tabId in _tabIds) {
+		    tabName = _tabNames[tabCount++];
+	%}
+		<li id="${tabId}-tab" class=""><a href="#" id="${tabId}-tab-link">${tabName}</a></li>    
+	%{	       
+		}
+	}%
 	</ul>
+	
 	
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function(){
 	   hideAndUnselectAllTabs();
-	   #{if _show == 'question'}
-	   		$('#selected-question').show();
-	   		$('#selected-question-tab').addClass('selected');
-	   #{/if}
-	   #{elseif _show == 'comments'}
-	   		$('#comments').show();
-	   		$('#comments-tab').addClass('selected');
-	   #{/elseif}
-	   #{else}
-	   		$('#questions').show();
-	   		$('#questions-tab').addClass('selected');
-	   #{/else}
+	   $('#${_show}').show();
+	   $('#${_show}-tab').addClass('selected');
 	 });
 	
-	$('#comments-tab-link').click(function(event) {
-		hideAndUnselectAllTabs();
-		$('#comments-tab').addClass('selected');
-		$('#comments').show();		
-	});
-	$('#questions-tab-link').click(function(event) {
-		hideAndUnselectAllTabs();
-		$('#questions-tab').addClass('selected');
-		$('#questions').show();
-	});
-	$('#question-tab-link').click(function(event) {
-		hideAndUnselectAllTabs();
-		$('#selected-question-tab').addClass('selected');
-		$('#selected-question').show();
-	});
-	
+	%{
+		for(tabId1 in _tabIds) {
+	%}
+		$('#${tabId1}-tab-link').click(function(event) {
+			hideAndUnselectAllTabs();
+			$('#${tabId1}').show();
+			$('#${tabId1}-tab').addClass('selected');
+		});
+	%{	       
+		}
+	}%
+		
 	function hideAndUnselectAllTabs() {
-		$('#questions').hide();
-		$('#questions-tab').removeClass('selected');
-		$('#selected-question').hide();
-		$('#selected-question-tab').removeClass('selected');
-		$('#comments').hide();
-		$('#comments-tab').removeClass('selected');
+		
+		%{
+			for(tabId in _tabIds) {
+		%}
+			$('#${tabId}').hide();
+			$('#${tabId}-tab').removeClass('selected');
+		%{	       
+			}
+		}%
 	}
 
 </script>
