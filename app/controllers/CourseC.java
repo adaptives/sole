@@ -35,19 +35,14 @@ public class CourseC extends Controller {
 		render(course, courseSections);
 	}
 	
-	public static void section(long courseId, long sectionId) {
-		CourseSection courseSection = CourseSection.find("byId", sectionId).first();
-		
-		//TODO: Do we need to fetch comments and questions... I am doing this
-		//because we are passing a set and the template might expect a list.
-		//and also because of lazy loading
-		Set<Comment> commentsSet = courseSection.comments; 
-		List<Comment> comments = new ArrayList<Comment>(commentsSet);
-		
-		Set<Question> questionSet = courseSection.questions;
-		List<Question> questions = new ArrayList<Question>(questionSet);
-		
-		render(courseSection, questions, comments);
+	public static void section(long sectionId) {
+		sectionQuestion(sectionId, -1);
+	}
+	
+	public static void sectionQuestion(long courseSectionId, long questionId) {
+		CourseSection courseSection = CourseSection.findById(courseSectionId);
+		Question question = Question.findById(questionId);
+		render("CourseC/section.html", courseSection, question);
 	}
 	
 	public static void courseSectionQuestion(long courseSectionId, 
@@ -67,7 +62,7 @@ public class CourseC extends Controller {
 		}
 		courseSection.questions.add(question);
 		courseSection.save();
-		section(courseSection.course.id, courseSection.id);
+		section(courseSection.id);
 	}
 	
 	public static void comment(long courseSectionId,
@@ -79,6 +74,6 @@ public class CourseC extends Controller {
 		Comment comment = new Comment(message, name, email, website);
 		courseSection.comments.add(comment);
 		courseSection.save();
-		section(courseSection.course.id, courseSection.id);
+		section(courseSection.id);
 	}
 }
