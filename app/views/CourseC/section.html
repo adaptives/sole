@@ -7,18 +7,17 @@
 	${courseSection.content.nl2br()}
 </div>
 <hr/>
-<div class="tabbed-panel">
-	   #{if question}
-			#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
-	   #{/if}
-	   #{elseif comments}
-	   	    #{tabbedPane show:'comments', tabIds:tabIds, tabNames:tabNames /}
-	   #{/elseif}
-	   #{else}
-	        #{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
-	   #{/else}
+
+#{if question}
+	#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
+#{/if}
+#{elseif comments}
+	#{tabbedPane show:'comments', tabIds:tabIds, tabNames:tabNames /}
+#{/elseif}
+#{else}
+	#{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
+#{/else}
 	
-</div>
 <div id="questions" class="section-questions">
 	#{list items:courseSection.questions, as:'question'}
 	<div class="section-question">

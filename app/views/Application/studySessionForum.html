@@ -8,14 +8,14 @@
 	${studySession.forum.description}
 </div>
 
-<div class="tabbed-panel">
-		#{if question}
-			#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
-	    #{/if}
-	   	#{else}
-	        #{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
-	   	#{/else}
-</div>
+
+#{if question}
+	#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
+#{/if}
+#{else}
+   #{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
+#{/else}
+
 
 <div id="questions" class="section-questions">
 #{list items:studySession.forum.questions, as:'forumQuestion'}
