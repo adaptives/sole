@@ -6,7 +6,7 @@
 <h3 class="study-session-title">${studySession.title}</h3>
 <div class="spaced">
 	#{if !user || !studySession.isUserEnrolled(session.username)}
-		<span class="study-session-enrollment"><a href="@{Application.registerInStudySession(studySession.id)}">Register</a></span>
+		<span class="study-session-enrollment"><a href="@{StudySessionC.registerInStudySession(studySession.id)}">Register</a></span>
 	#{/if}	
 </div>
 <hr/>
@@ -17,7 +17,7 @@
 	Starts: <span class="study-session-date">${studySession.startDate}</span> - End: <span class="study-session-date">${studySession.endDate}</span>
 </div>
 <div class="spaced" style="font-weight: bold;">
-	<a href="@{Application.studySessionForum(studySession.id)}">Discussion Forum</a>
+	<a href="@{StudySessionC.studySessionForum(studySession.id)}">Discussion Forum</a>
 </div>
 <div style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">
 	Study Plan
@@ -25,13 +25,13 @@
 <div>
 	<ul>
 		#{list items:studySession.sessionParts, as:'sessionPart'}
-			<li style="margin-top: 5px; font-size: 1.1em;"><a href="@{Application.sessionPart(sessionPart.id)}">${sessionPart.title}</a> <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.startDate.format('dd MMM yy')}</span> - <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.endDate.format('dd MMM yy')}</span></li>
+			<li style="margin-top: 5px; font-size: 1.1em;"><a href="@{StudySessionC.sessionPart(sessionPart.id)}">${sessionPart.title}</a> <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.startDate.format('dd MMM yy')}</span> - <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.endDate.format('dd MMM yy')}</span></li>
 		#{/list}
 	</ul>
 </div>
 <hr/>
 <div class="spaced">
 	#{if user && studySession.isUserEnrolled(session.username)}
-		<span class="study-session-unenrollment"><a href="@{Application.deregisterFromStudySession(studySession.id)}">Deregister</a></span>
+		<span class="study-session-unenrollment"><a href="@{StudySessionC.deregisterFromStudySession(studySession.id)}">Deregister</a></span>
 	#{/if}
 </div>

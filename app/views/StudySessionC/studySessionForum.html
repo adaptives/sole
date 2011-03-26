@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 <div>Study Session - 
-	<a href="@{Application.studySession(studySession.id)}">${studySession.title}</a>
+	<a href="@{StudySessionC.studySession(studySession.id)}">${studySession.title}</a>
 </div>
 <h3 class="study-session-title">${studySession.forum.title}</h3>
 
@@ -20,7 +20,7 @@
 <div id="questions" class="section-questions">
 #{list items:studySession.forum.questions, as:'forumQuestion'}
 	<div class="section-question">
-		<a href="@{Application.studySessionForumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
+		<a href="@{StudySessionC.studySessionForumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
 		<div class="tab-menu">
 			<span class="question-asked-at">${forumQuestion.askedAt.format('dd MMM yy, hh:mm')}</span>
 			<span class="question-author">${forumQuestion.author.name}</span>
@@ -30,7 +30,7 @@
 
 <div id="question-form" class="section-question-form">
 		#{if user}
-			#{form @Application.studySessionQuestion(studySession.id, studySession.forum.id)}
+			#{form @StudySessionC.studySessionQuestion(studySession.id, studySession.forum.id)}
 				
 				<p>
 					<div><label>Title <span class="required-field">(required)</span></label></div>
@@ -79,7 +79,7 @@
 		
 		<div id="answer-form" class="section-question-form">
 		#{if user}
-			#{form @Application.studySessionAnswer(studySession.id, studySession.forum.id, question.id)}				
+			#{form @StudySessionC.studySessionAnswer(studySession.id, studySession.forum.id, question.id)}				
 				<p>
 					<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
 				</p>

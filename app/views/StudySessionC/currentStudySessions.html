@@ -6,14 +6,14 @@
 #{list items:studySessions, as:'studySession'}
 	<div class="study-session, study-session- ${studySession.privateSession ? 'private' : 'public'}" >
 		<div class="study-session-title">
-			<a href="@{Application.studySession(studySession.id)}">${studySession.title}</a>
+			<a href="@{StudySessionC.studySession(studySession.id)}">${studySession.title}</a>
 		</div>
 		<div class="study-session-description">${studySession.description}</div>
 		<div class="study-session-dates">Starting: <span>${studySession.startDate.format('dd MMM yy')}</span> - Ending: <span>${studySession.endDate.format('dd MMM yy')}</span></div>
 		#{ifnot studySession.privateSession}
 			<div class="study-session-details-panel">
 				#{if !user || !studySession.isUserEnrolled(session.username)}
-					<span class="study-session-enrollment"><a href="@{Application.registerInStudySession(studySession.id)}">Register</a></span>
+					<span class="study-session-enrollment"><a href="@{StudySessionC.registerInStudySession(studySession.id)}">Register</a></span>
 				#{/if}
 				#{else}
 					#{if studySession.locked}
