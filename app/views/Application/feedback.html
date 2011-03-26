@@ -14,7 +14,7 @@
 </div>
 
 <div class="feedback-form">
-	<form action=@{Application.createFeedback()}>
+	#{form @Application.createFeedback()}
 		<p>
 			<div><label>Name <span class="required-field">(required)</span> </label></div>
 			<input type="text" name="name" value="" id="name" /> <span class="error">#{error 'name' /}</span>
@@ -31,6 +31,6 @@
 			<input type="submit" value="Submit" id="postFeedback" />
 			<input type="reset" value="Clear" />
 		</p>
-	</form>
+	#{/form}
 </div>
 
