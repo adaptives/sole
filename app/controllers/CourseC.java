@@ -26,22 +26,22 @@ public class CourseC extends Controller {
 		}
 	}
 	
-	public static void courses() {
+	public static void list() {
 		List<Course> courses = Course.findAll();
 		render(courses);
 	}
 	
-	public static void sections(long courseId) {
+	public static void course(long courseId) {
 		Course course = Course.find("byId", courseId).first();
 		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
 		render(course, courseSections);
 	}
 	
 	public static void section(long sectionId) {
-		sectionQuestion(sectionId, -1);
+		question(sectionId, -1);
 	}
 	
-	public static void sectionQuestion(long courseSectionId, long questionId) {
+	public static void question(long sectionId, long questionId) {
 		List<String> tabIds = new ArrayList<String>();
 		tabIds.add("questions");
 		tabIds.add("selected-question");
@@ -51,16 +51,16 @@ public class CourseC extends Controller {
 		tabNames.add("Selected Question");
 		tabNames.add("Comments");
 		
-		CourseSection courseSection = CourseSection.findById(courseSectionId);
+		CourseSection courseSection = CourseSection.findById(sectionId);
 		Question question = Question.findById(questionId);
 		render("CourseC/section.html", courseSection, question, tabIds, tabNames);
 	}
 	
-	public static void courseSectionQuestion(long courseSectionId, 
-											 @Required String title,
-											 @Required String content,
-											 String tags) {
-		CourseSection courseSection = CourseSection.findById(courseSectionId);
+	public static void addQuestion(long sectionId, 
+								   @Required String title,
+								   @Required String content,
+								   String tags) {
+		CourseSection courseSection = CourseSection.findById(sectionId);
 		User user = User.findByEmail(Security.connected());
 		Question question = new Question(title, content, user);
 		if(tags != null) {

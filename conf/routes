@@ -4,9 +4,11 @@
 
 # Home page
 GET     /                                       Application.index
-GET     /courses                                CourseC.courses
-GET     /courses/course                         CourseC.sections
-GET     /courses/course/section                 CourseC.section
+GET     /courses/list                           CourseC.list
+GET     /courses/course/{courseId}              CourseC.course
+GET     /courses/course/section/{sectionId}     CourseC.section
+GET     /courses/course/section/{sectionId}/question/{questionId} CourseC.question
+POST    /courses/course/section{sectionId}/question CourseC.addQuestion
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

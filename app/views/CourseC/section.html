@@ -2,7 +2,7 @@
 %{
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
-<h3 class="course-section-title"><a href="@{CourseC.sections(courseSection.course.id)}">${courseSection.course.title}</a> : ${courseSection.title}</h3>
+<h3 class="course-section-title"><a href="@{CourseC.course(courseSection.course.id)}">${courseSection.course.title}</a> : ${courseSection.title}</h3>
 <div class="course-description">
 	${courseSection.content.nl2br()}
 </div>
@@ -21,7 +21,7 @@
 <div id="questions" class="section-questions">
 	#{list items:courseSection.questions, as:'question'}
 	<div class="section-question">
-		<a href="@{CourseC.sectionQuestion(courseSection.id, question.id)}">${question.title}</a>
+		<a href="@{CourseC.question(courseSection.id, question.id)}">${question.title}</a>
 		<div class="tab-menu">
 			<span class="question-asked-at">${question.askedAt.format('dd MMM yy, hh:mm')}</span>
 			<span class="question-author">${question.author.name}</span>
@@ -30,8 +30,8 @@
 	#{/list}
 	<div class="section-question-form">
 		#{if user}
-			#{questionForm controllerAction:'CourseC.courseSectionQuestion', 
-						   actionArgsMap:['courseSectionId':courseSection.id] /}
+			#{questionForm controllerAction:'CourseC.addQuestion', 
+						   actionArgsMap:['sectionId':courseSection.id] /}
 				
 		#{/if}
 		#{else}
