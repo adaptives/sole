@@ -130,6 +130,7 @@ public class StudySessionC extends Controller {
 											@Required String content,
 											String tags) {
 		Forum forum = Forum.findById(forumId);
+		List<Forum> allForums = Forum.findAll();
 		Question question = new Question(title, 
 										 content, 
 										 User.findByEmail(Security.connected()));

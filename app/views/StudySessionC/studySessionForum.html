@@ -30,25 +30,8 @@
 
 <div id="question-form" class="section-question-form">
 		#{if user}
-			#{form @StudySessionC.studySessionQuestion(studySession.id, studySession.forum.id)}
-				
-				<p>
-					<div><label>Title <span class="required-field">(required)</span></label></div>
-					<input type="text" name="title" value="" id="title" /> <span class="error">#{error 'email' /}</span>
-				</p>
-				<p>
-					<div><label>Question <span class="required-field">(required)</span></label></div>
-					<textarea name="content" rows="8" cols="40" id="question-content"></textarea>
-				</p>
-				<p>
-					<div><label>Tags <span class="required-field">(you can specify multiple tags, separated with commas)</span></label></div>
-					<input type="text" name="tags" value="" id="tags" /> <span class="error">#{error 'email' /}</span>
-				</p>
-				<p>
-					<input type="submit" value="Submit" id="postComment" />
-					<input type="reset" value="Clear" />
-				</p>	
-			#{/form}		
+			#{questionForm controllerAction:'StudySessionC.studySessionQuestion', 
+						   actionArgsMap:['studySessionId':studySession.id,'forumId':studySession.forum.id] /}
 		#{/if}
 		#{else}
 			Please <a href="@{Secure.login}">login</a> to post questions.

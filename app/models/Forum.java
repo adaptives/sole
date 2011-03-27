@@ -1,6 +1,8 @@
 package models;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,12 +17,13 @@ public class Forum extends Model {
 	public String description;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	public List<Question> questions;
+	public Set<Question> questions;
 	
 	public Forum(String title,
 				 String description) {
 		this.title = title;
 		this.description = description;
+		this.questions = new TreeSet<Question>();
 		create();
 	}
 }
