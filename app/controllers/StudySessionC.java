@@ -42,10 +42,8 @@ public class StudySessionC extends Controller {
 			String username = Security.connected();			
 			User connectedUser = User.findByEmail(username);
 			if(connectedUser != null) {
-				System.out.println("user is connected " + username);
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
-					System.out.println("adding participant to studySession");
 					studySession.participants.add(connectedUser);
 					studySession.save();
 				} else {
@@ -53,7 +51,6 @@ public class StudySessionC extends Controller {
 					flash.error(MessageConstants.INTERNAL_ERROR);
 				}
 			} else {
-				System.out.println("could not get user object for username '" + username + "'");
 				flash.error(MessageConstants.INTERNAL_ERROR);
 			}
 			//TODO: Could we have just rendered the view and passed id to it?

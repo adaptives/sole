@@ -73,10 +73,7 @@ public class StudySession extends Model {
 	}
 	
 	public boolean isUserEnrolled(String username) {
-		System.out.println("EN isUserEnrolled - " + username);
 		User user = User.findByEmail(username);
-		System.out.println("user '" + user + "'");
-		System.out.println("participants '" + participants + "'");
 		return participants.contains(user);
 	}
 }
