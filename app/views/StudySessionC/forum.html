@@ -19,13 +19,10 @@
 
 <div id="questions" class="section-questions">
 #{list items:studySession.forum.questions, as:'forumQuestion'}
-	<div class="section-question">
-		<a href="@{StudySessionC.forumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
-		<div class="tab-menu">
-			<span class="question-asked-at">${forumQuestion.askedAt.format('dd MMM yy, hh:mm')}</span>
-			<span class="question-author">${forumQuestion.author.name}</span>
-		</div>
-	</div>
+	#{question question:forumQuestion,
+	           as:'t',
+			   controllerAction:'StudySessionC.forumQuestion',
+			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
 #{/list}
 
 <div id="question-form" class="section-question-form">
@@ -43,38 +40,26 @@
 
 <div id="selected-question">
 	#{if question}
-		<div class="study-session-title">
-			${question.title}
-		</div>
-		<div class="question-content">
-			${question.content}
-		</div>
-		
-		<div id="answers">
-			#{list items:question.answers, as:'theAnswer'}
-				#{if theAnswer.content}
-					<div class="answer-content">
-						${theAnswer.content}
-					</div>
-				#{/if}
-			#{/list}
-		</div>
-		
+		#{question question:question,
+	           as:'tba',
+			   controllerAction:'StudySessionC.forumQuestion',
+			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
+			   
 		<div id="answer-form" class="section-question-form">
-		#{if user}
-			#{form @StudySessionC.postAnswer(studySession.id, studySession.forum.id, question.id)}				
-				<p>
-					<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
-				</p>
-				<p>
-					<input type="submit" value="Submit" id="postAnswer" />
-					<input type="reset" value="Clear" />
-				</p>	
-			#{/form}		
-		#{/if}
-		#{else}
-			Please <a href="@{Secure.login}">login</a> to post an answer.
-		#{/else}
+			#{if user}
+				#{form @StudySessionC.postAnswer(studySession.id, studySession.forum.id, question.id)}				
+					<p>
+						<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
+					</p>
+					<p>
+						<input type="submit" value="Submit" id="postAnswer" />
+						<input type="reset" value="Clear" />
+					</p>	
+				#{/form}		
+			#{/if}
+			#{else}
+				Please <a href="@{Secure.login}">login</a> to post an answer.
+			#{/else}
 		</div>
 	#{/if}
 </div>

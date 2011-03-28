@@ -1,0 +1,32 @@
+
+%{
+  questionLink = play.mvc.Router.reverse(_controllerAction, _actionArgsMap);
+}%
+
+#{if _as == 't'}
+<div class="section-question">
+    <a href="${questionLink.url}">${_question.title}</a>
+	<div class="tab-menu">
+	    <span class="question-asked-at">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
+		<span class="question-author">${_question.author.name}</span>
+	</div>
+</div>
+#{/if}
+#{elseif _as == "tba"}
+	<div class="study-session-title">
+			${_question.title}
+		</div>
+		<div class="question-content">
+			${_question.content}
+		</div>
+		
+		<div id="answers">
+			#{list items:_question.answers, as:'theAnswer'}
+				#{if theAnswer.content}
+					<div class="answer-content">
+						${theAnswer.content}
+					</div>
+				#{/if}
+			#{/list}
+		</div>
+#{/elseif}

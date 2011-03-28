@@ -20,13 +20,11 @@
 	
 <div id="questions" class="section-questions">
 	#{list items:courseSection.questions, as:'question'}
-	<div class="section-question">
-		<a href="@{CourseC.question(courseSection.id, question.id)}">${question.title}</a>
-		<div class="tab-menu">
-			<span class="question-asked-at">${question.askedAt.format('dd MMM yy, hh:mm')}</span>
-			<span class="question-author">${question.author.name}</span>
-		</div>
-	</div>
+		#{question question:question,
+	           	   as:'t',
+			       controllerAction:'CourseC.question',
+			   	   actionArgsMap:['sectionId':courseSection.id, 'questionId':question.id] /}
+
 	#{/list}
 	<div class="section-question-form">
 		#{if user}
@@ -43,7 +41,10 @@
 <div id="selected-question" class="selected-question">
 	#{if question}
 		<div>
-			${question.title}
+			#{question question:question,
+	           	   as:'tba',
+			       controllerAction:'CourseC.question',
+			   	   actionArgsMap:['sectionId':courseSection.id, 'questionId':question.id] /}
 		</div>
 	#{/if}
 </div>
