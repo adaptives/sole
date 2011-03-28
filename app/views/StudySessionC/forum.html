@@ -20,7 +20,7 @@
 <div id="questions" class="section-questions">
 #{list items:studySession.forum.questions, as:'forumQuestion'}
 	<div class="section-question">
-		<a href="@{StudySessionC.studySessionForumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
+		<a href="@{StudySessionC.forumQuestion(studySession.id, forumQuestion.id)}">${forumQuestion.title}</a>
 		<div class="tab-menu">
 			<span class="question-asked-at">${forumQuestion.askedAt.format('dd MMM yy, hh:mm')}</span>
 			<span class="question-author">${forumQuestion.author.name}</span>
@@ -30,7 +30,7 @@
 
 <div id="question-form" class="section-question-form">
 		#{if user}
-			#{questionForm controllerAction:'StudySessionC.studySessionQuestion', 
+			#{questionForm controllerAction:'StudySessionC.postQuestion', 
 						   actionArgsMap:['studySessionId':studySession.id,'forumId':studySession.forum.id] /}
 		#{/if}
 		#{else}
@@ -62,7 +62,7 @@
 		
 		<div id="answer-form" class="section-question-form">
 		#{if user}
-			#{form @StudySessionC.studySessionAnswer(studySession.id, studySession.forum.id, question.id)}				
+			#{form @StudySessionC.postAnswer(studySession.id, studySession.forum.id, question.id)}				
 				<p>
 					<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
 				</p>

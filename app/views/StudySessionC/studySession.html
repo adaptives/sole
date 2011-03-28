@@ -6,7 +6,7 @@
 <h3 class="study-session-title">${studySession.title}</h3>
 <div class="spaced">
 	#{if !user || !studySession.isUserEnrolled(session.username)}
-		<span class="study-session-enrollment"><a href="@{StudySessionC.registerInStudySession(studySession.id)}">Register</a></span>
+		<span class="study-session-enrollment"><a href="@{StudySessionC.register(studySession.id)}">Register</a></span>
 	#{/if}	
 </div>
 <hr/>
@@ -17,7 +17,7 @@
 	Starts: <span class="study-session-date">${studySession.startDate}</span> - End: <span class="study-session-date">${studySession.endDate}</span>
 </div>
 <div class="spaced" style="font-weight: bold;">
-	<a href="@{StudySessionC.studySessionForum(studySession.id)}">Discussion Forum</a>
+	<a href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>
 </div>
 <div style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">
 	Study Plan
@@ -32,6 +32,6 @@
 <hr/>
 <div class="spaced">
 	#{if user && studySession.isUserEnrolled(session.username)}
-		<span class="study-session-unenrollment"><a href="@{StudySessionC.deregisterFromStudySession(studySession.id)}">Deregister</a></span>
+		<span class="study-session-unenrollment"><a href="@{StudySessionC.deregister(studySession.id)}">Deregister</a></span>
 	#{/if}
 </div>

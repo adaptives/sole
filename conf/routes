@@ -10,6 +10,15 @@ GET     /courses/course/section/{sectionId}     CourseC.section
 GET     /courses/course/section/{sectionId}/question/{questionId} CourseC.question
 POST    /courses/course/section{sectionId}/question CourseC.addQuestion
 
+GET     /studysessions/currentlist               StudySessionC.currentlist
+GET     /studysessions/studysession/{id}         StudySessionC.studySession
+GET     /studysessions/studysession/sessionpart/{id} StudySessionC.sessionPart
+GET     /studysessions/studysession/{studySessionId}/forum        StudySessionC.forum
+GET     /studysessions/studysession/{studySessionId}/forum/question/{questionId}  StudySessionC.forumQuestion
+
+POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add StudySessionC.postQuestion
+POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} StudySessionC.postAnswer
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 

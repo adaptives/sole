@@ -13,7 +13,7 @@
 		#{ifnot studySession.privateSession}
 			<div class="study-session-details-panel">
 				#{if !user || !studySession.isUserEnrolled(session.username)}
-					<span class="study-session-enrollment"><a href="@{StudySessionC.registerInStudySession(studySession.id)}">Register</a></span>
+					<span class="study-session-enrollment"><a href="@{StudySessionC.register(studySession.id)}">Register</a></span>
 				#{/if}
 				#{else}
 					#{if studySession.locked}

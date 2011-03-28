@@ -27,7 +27,7 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
-	public static void currentStudySessions() {
+	public static void currentlist() {
 		List<StudySession> studySessions = StudySession.findAll();
 		render(studySessions);
 	}
@@ -37,7 +37,7 @@ public class StudySessionC extends Controller {
 		render(studySession);
 	}
 	
-	public static void registerInStudySession(long id) {
+	public static void register(long id) {
 		if(Security.isConnected()) {			
 			String username = Security.connected();			
 			User connectedUser = User.findByEmail(username);
@@ -68,7 +68,7 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
-	public static void deregisterFromStudySession(long id) {
+	public static void deregister(long id) {
 		if(Security.isConnected()) {			
 			String username = Security.connected();			
 			User connectedUser = User.findByEmail(username);
@@ -93,16 +93,16 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
-	public static void sessionPart(long sessionPartId) {
-		SessionPart sessionPart = SessionPart.findById(sessionPartId);
+	public static void sessionPart(long id) {
+		SessionPart sessionPart = SessionPart.findById(id);
 		render(sessionPart);
 	}
 	
-	public static void studySessionForum(long studySessionId) {
-		studySessionForumQuestion(studySessionId, -1);
+	public static void forum(long studySessionId) {
+		forumQuestion(studySessionId, -1);
 	}
 	
-	public static void studySessionForumQuestion(long studySessionId, 
+	public static void forumQuestion(long studySessionId, 
 												 long questionId) {
 		List<String> tabIds = new ArrayList<String>();
 		tabIds.add("questions");
@@ -114,18 +114,18 @@ public class StudySessionC extends Controller {
 		StudySession studySession = StudySession.findById(studySessionId);
 		Question question = Question.findById(questionId);
 		
-		render("StudySessionC/studySessionForum.html", 
+		render("StudySessionC/forum.html", 
 			   studySession, 
 			   question, 
 			   tabIds, 
 			   tabNames);
 	}
 	
-	public static void studySessionQuestion(long studySessionId,
-										    long forumId,
-											@Required String title,
-											@Required String content,
-											String tags) {
+	public static void postQuestion(long studySessionId,
+									long forumId,
+									@Required String title,
+									@Required String content,
+									String tags) {
 		Forum forum = Forum.findById(forumId);
 		List<Forum> allForums = Forum.findAll();
 		Question question = new Question(title, 
@@ -133,18 +133,18 @@ public class StudySessionC extends Controller {
 										 User.findByEmail(Security.connected()));
 		forum.questions.add(question);
 		forum.save();
-		studySessionForum(studySessionId);
+		forum(studySessionId);
 	}
 	
-	public static void studySessionAnswer(long studySessionId, 
-										  long studySessionForumId, 
-										  long questionId,
-										  String answerContent) {
+	public static void postAnswer(long studySessionId, 
+								  long forumId, 
+								  long questionId,
+								  String answerContent) {
 		Question question = Question.findById(questionId);
 		Answer answer = new Answer(answerContent, question);
 		question.answers.add(answer);
 		question.save();
-		studySessionForumQuestion(studySessionId, questionId);
+		forumQuestion(studySessionId, questionId);
 	}
 
 }
