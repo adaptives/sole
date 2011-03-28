@@ -30,8 +30,7 @@ public class Application extends Controller {
 	
 	//------------------ HomePage
 	public static void index() {
-		Page page = Page.find("byName", "home").first();
-		render(page);
+		PageC.show("home");
     }
 	
 	//------------------- SignUp and Register
@@ -84,11 +83,4 @@ public class Application extends Controller {
 		feedback();
 	}
 	
-	//-------------------------Study groups
-		
-	//--------------------------Static pages
-	public static void page(String name) {
-		Page page = Page.find("byName", name).first();
-		render(page);
-	}
 }
