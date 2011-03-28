@@ -4,23 +4,24 @@
 }%
 
 #{if _as == 't'}
-<div class="section-question">
+<div class="question-t">
     <a href="${questionLink.url}">${_question.title}</a>
-	<div class="tab-menu">
-	    <span class="question-asked-at">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
+	<div class="question-stats">
+	    <span class="question-time">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
 		<span class="question-author">${_question.author.name}</span>
 	</div>
 </div>
 #{/if}
 #{elseif _as == "tba"}
-	<div class="study-session-title">
+	<div>
+		<div class="question-tba-title">
 			${_question.title}
 		</div>
 		<div class="question-content">
 			${_question.content}
 		</div>
 		
-		<div id="answers">
+		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
 				#{if theAnswer.content}
 					<div class="answer-content">
@@ -29,4 +30,5 @@
 				#{/if}
 			#{/list}
 		</div>
+	</div>
 #{/elseif}

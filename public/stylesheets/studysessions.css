@@ -80,18 +80,3 @@
 .study-session-unenrollment a {
 	text-decoration: none;	
 }
-
-.question-content {
-	margin-top: 10px;
-	margin-left: 20px;
-	padding-bottom: 10px;
-	font-size: 1.1em;
-	border-bottom: 1px solid;	
-}
-
-.answer-content {
-	margin-top: 10px;
-	margin-left: 20px;
-	font-size: 1.1em;
-	border-bottom: 1px solid;	
-}

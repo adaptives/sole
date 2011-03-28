@@ -44,18 +44,3 @@
 	font-weight: bold;
 	font-style: italic;
 }
-
-
-.section-question {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 4px;
-	background: #EEEEEE;
-	font-size: 1.2em;
-	border-left: #3274D0 solid 2px;	
-}
-
-.section-question a {
-	font-size: 1.2em;
-	text-decoration: none;	
-}
