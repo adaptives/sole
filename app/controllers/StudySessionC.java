@@ -150,7 +150,8 @@ public class StudySessionC extends Controller {
 								  long questionId,
 								  String answerContent) {
 		Question question = Question.findById(questionId);
-		Answer answer = new Answer(answerContent, question);
+		User user = User.findByEmail(Security.connected());
+		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();
 		forumQuestion(studySessionId, questionId);

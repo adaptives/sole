@@ -26,21 +26,24 @@
 			${_question.content}
 		</div>
 		<div class="question-stats">
-	    	<span class="question-time">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
-			<span class="question-author">${_question.author.name}</span>
+			<span class="qa-author">Posted By: ${_question.author.name}</span>
+	    	<span class="qa-time">on ${_question.askedAt.format('dd MMM yy, hh:mm')}</span>			
 		</div>
 		<div class="question-tags">
+			Tags: 
 			#{list items:_question.tags, as:'tag'}
 				<span>${tag.name}&nbsp;&nbsp;</span>
 			#{/list}
 		</div>
 		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
-				#{if theAnswer.content}
-					<div class="answer-content">
-						${theAnswer.content}
-					</div>
-				#{/if}
+				<div class="answer-content">
+					${theAnswer.content}
+				</div>
+				<div class="answer-stats">
+					<span class="qa-author">Posted By: ${theAnswer.author.name}</span>
+	    			<span class="qa-time">on ${theAnswer.answeredAt.format('dd MMM yy, hh:mm')}</span>
+				</div>
 			#{/list}
 		</div>
 	</div>
