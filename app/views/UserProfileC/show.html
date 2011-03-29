@@ -1,0 +1,48 @@
+#{extends 'main.html' /}
+
+<div>
+	Name: ${theUser.name} 
+</div>
+
+#{if theUser.name == user}
+	<div class="personal-details">
+		<span>Your email is ${theUser.email}</span>
+		<div>Change your password:</div>
+		#{form @UserProfileC.change(theUser.email)}
+			<div>
+				<div>Old Password</div>
+				<input type="password" name="oldPassword" value="">
+			</div>
+			<div>
+				<div>New Password</div>
+				<input type="password" name="newPassword" value="">
+				<span class="error">#{error 'newPassword' /}</span>
+				<div>Retype New Password</div>
+				<input type="password" name="newPassword2" value="">
+				<span class="error">#{error 'newPassword2' /}</span>
+			</div>
+			<p>
+	    		<input type="submit" value="Submit" id="postComment" />
+	    		<input type="reset" value="Clear" />
+			</p>
+		#{/form}
+	
+	</div>
+#{/if}
+
+<div class="userprofile-tabs">
+#{tabbedPane show:'merit', tabIds:tabIds, tabNames:tabNames /}
+</div>
+
+<div id="merit">
+</div>
+
+<div id="questions-asked">
+</div>
+
+<div id="answers-provided">
+</div>
+
+<div id="challenges-taken">
+</div>
+

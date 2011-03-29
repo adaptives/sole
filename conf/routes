@@ -20,6 +20,9 @@ POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{qu
 
 GET     /page/{name}                           PageC.show
 
+GET     /users                                 UserProfileC.list
+GET     /users/{userId}                        UserProfileC.show
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 

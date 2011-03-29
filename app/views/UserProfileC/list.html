@@ -1,0 +1,7 @@
+#{extends 'main.html' /}
+
+<ul>
+#{list items:allUsers, as:'theUser'}
+	<li><a href="@{UserProfileC.show(theUser.id)}">${theUser.name}</a></li>
+#{/list}
+</ul>

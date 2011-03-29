@@ -43,10 +43,6 @@ public class User extends Model {
         return passwordHash.equals(Codec.hexMD5(password));
     }
 
-    public boolean isAdmin() {
-        return email.equals(Play.configuration.getProperty("forum.adminEmail", ""));
-    }
-    
     // ~~~~~~~~~~~~ 
     
 //    public List<Post> getRecentsPosts() {

@@ -26,10 +26,11 @@ public class QuestionAnswerTest extends UnitTest {
 	
 	@Test
 	public void testAddAnswers() {
-		Question question = new Question("New question", "New question for test", User.findByEmail("learner@somewhere.com"));
+		User user = User.findByEmail("learner@somewhere.com");
+		Question question = new Question("New question", "New question for test", user);
 		question.save();
 		String answerContent = "this may not work because we are giving the question to the answer";
-		Answer answer = new Answer(answerContent, question);
+		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();
 		assertEquals(1, question.answers.size());
