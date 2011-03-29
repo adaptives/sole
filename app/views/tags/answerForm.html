@@ -1,0 +1,33 @@
+*{ 
+    Displays a form containing all the fields for a Question
+    @param controllerAction
+        A String which specifies the controller and action to be invoked when 
+        the form is submitted. An example would be 'Application.askQuestion'
+    @param actionArgsMap 
+        A map containing all the arguments which are to be passed to the action 
+        when it is invoked. These args must match the arguments that the actual 
+        action method requires. The keys in the map must be the name of the 
+        argument and the value must be the value. 
+        For example if the definition of the action is thus:
+        askQuestion(long forumId, long questionId)
+        hen the actionArgsMap might be defined thus:
+        ['forumId':0, 'questionId':0]
+ }*
+
+%{
+  actionDefinition = play.mvc.Router.reverse(_controllerAction, _actionArgsMap);
+}%
+#{if (_protected && _user) || !_protected}
+<form action="${actionDefinition.url}" method="POST">				
+<p>
+	<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
+</p>
+<p>
+    <input type="submit" value="Submit" id="postComment" />
+    <input type="reset" value="Clear" />
+</p>	
+</form>
+#{/if}
+#{else}
+	Please <a href="@{Secure.login}">login</a> to post an answer.
+#{/else}

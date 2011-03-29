@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import models.Answer;
 import models.Comment;
 import models.Course;
 import models.CourseSection;
@@ -53,6 +54,7 @@ public class CourseC extends Controller {
 		
 		CourseSection courseSection = CourseSection.findById(sectionId);
 		Question question = Question.findById(questionId);
+		
 		render("CourseC/section.html", courseSection, question, tabIds, tabNames);
 	}
 	
@@ -74,6 +76,16 @@ public class CourseC extends Controller {
 		courseSection.questions.add(question);
 		courseSection.save();
 		section(courseSection.id);
+	}
+	
+	public static void postAnswer(long sectionId,
+								  long questionId,
+								  String answerContent) {
+		Question question = Question.findById(questionId);
+		Answer answer = new Answer(answerContent, question);
+		question.answers.add(answer);
+		question.save();
+		question(sectionId, questionId);
 	}
 	
 	public static void comment(long courseSectionId,

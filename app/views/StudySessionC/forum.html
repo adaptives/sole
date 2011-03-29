@@ -46,20 +46,10 @@
 			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
 			   
 		<div id="answer-form" class="section-question-form">
-			#{if user}
-				#{form @StudySessionC.postAnswer(studySession.id, studySession.forum.id, question.id)}				
-					<p>
-						<textarea name="answerContent" rows="8" cols="40" id="answer-content"></textarea>
-					</p>
-					<p>
-						<input type="submit" value="Submit" id="postAnswer" />
-						<input type="reset" value="Clear" />
-					</p>	
-				#{/form}		
-			#{/if}
-			#{else}
-				Please <a href="@{Secure.login}">login</a> to post an answer.
-			#{/else}
-		</div>
+			#{answerForm protected:true,
+				             user:user,
+							 controllerAction:'StudySessionC.postAnswer',
+							 actionArgsMap:[studySessionId:studySession.id, forumId:studySession.forum.id, questionId:question.id] /}		
+	    </div>
 	#{/if}
 </div>

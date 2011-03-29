@@ -42,10 +42,16 @@
 	#{if question}
 		<div>
 			#{question question:question,
-	           	   as:'tba',
-			       controllerAction:'CourseC.question',
-			   	   actionArgsMap:['sectionId':courseSection.id, 'questionId':question.id] /}
+	           	   	   as:'tba',
+			           controllerAction:'CourseC.question',
+			   	       actionArgsMap:['sectionId':courseSection.id, 'questionId':question.id] /}
 		</div>
+		<div id="answer-form" class="section-question-form">
+			#{answerForm protected:true,
+				         user:user,
+						 controllerAction:'CourseC.postAnswer',
+						 actionArgsMap:['sectionId':courseSection.id, questionId:question.id] /}		
+	    </div>
 	#{/if}
 </div>
 
