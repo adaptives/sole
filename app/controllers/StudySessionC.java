@@ -131,6 +131,15 @@ public class StudySessionC extends Controller {
 		Question question = new Question(title, 
 										 content, 
 										 User.findByEmail(Security.connected()));
+		if(tags != null) {
+			String tagArray[] = tags.split(",");
+			if(tagArray != null) {
+				for(String tag : tagArray) {
+					question.tagWith(tag);
+				}
+			}			
+		}
+		
 		forum.questions.add(question);
 		forum.save();
 		forum(studySessionId);

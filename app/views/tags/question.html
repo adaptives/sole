@@ -10,6 +10,11 @@
 	    <span class="question-time">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
 		<span class="question-author">${_question.author.name}</span>
 	</div>
+	<div class="question-tags">
+		#{list items:_question.tags, as:'tag'}
+			<span>${tag.name}&nbsp;&nbsp;</span>
+		#{/list}
+	</div>
 </div>
 #{/if}
 #{elseif _as == "tba"}
@@ -20,7 +25,15 @@
 		<div class="question-content">
 			${_question.content}
 		</div>
-		
+		<div class="question-stats">
+	    	<span class="question-time">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
+			<span class="question-author">${_question.author.name}</span>
+		</div>
+		<div class="question-tags">
+			#{list items:_question.tags, as:'tag'}
+				<span>${tag.name}&nbsp;&nbsp;</span>
+			#{/list}
+		</div>
 		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
 				#{if theAnswer.content}

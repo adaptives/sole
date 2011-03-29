@@ -39,7 +39,7 @@ public class Question extends Model {
 	}
 
 	public Question tagWith(String tag) {
-		tags.add(Tag.findOrCreateByName("tag"));
+		tags.add(Tag.findOrCreateByName(tag));
         return this;
 	}
 	

@@ -13,7 +13,7 @@
 }
 
 .question-stats {
-	
+	margin-top- 4px;
 }
 
 .question-stats span {
@@ -43,8 +43,14 @@
 	margin-top: 10px;
 	margin-left: 20px;
 	padding-bottom: 10px;
-	font-size: 1.1em;
-	border-bottom: 1px solid;	
+	font-size: 1.1em;		
+}
+
+.question-tags {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid;
 }
 
 .answers {
