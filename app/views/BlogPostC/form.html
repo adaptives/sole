@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+
+#{form @save()}
+	#{ifErrors}
+		<p class="error">Please correct these errors.</p>
+	#{/ifErrors}
+	
+	#{field 'title'}
+		<div>
+			<div><label>Title</label></div>
+			<input type="text" name="${field.name}" value="${blogPost?.title}" 
+												class="${field.errorClass}"/>
+		</div>
+	#{/field}
+	
+	#{field 'content'}
+		<div>
+			<div><label>Content</label></div>
+			<textarea rows="20" cols="80" name="${field.name}"  
+												class="${field.errorClass}">${blogPost?.content}</textarea>
+		</div>
+	#{/field}
+	
+	#{field 'tags'}
+		<div>
+		<div><label>Tags</label></div>
+		<input type="text" name="${field.name}" value="${blogPost?.tags?.join(', ')}" 
+												class="${field.errorClass}"/>
+		</div>
+	#{/field}
+	<div>
+		<input type="submit" name="submit" value="Submit" />
+		<input type="reset" name="reset" value="Reset" />
+	</div>
+#{/form}

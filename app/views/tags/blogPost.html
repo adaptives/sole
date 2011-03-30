@@ -1,0 +1,29 @@
+<div class="blog-title">
+	${_post.title}
+</div>
+
+<div class="blog-post-content">
+	${_post.content}
+</div>
+
+<div class="blog-post-tags">
+	${_post.tags.join(', ')}
+</div>
+
+<div class="blog-post-author">
+	By: <a href="@{UserProfileC.show(_post.author.id)}">${_post.author.name}</a>
+</div>
+
+<div class="blog-post-comment-link">
+	#{if _as == 'full'}
+		<div>${_post.comments.size()} comments</div>
+		#{list items:_post.comments, as:'theComment'}
+			<div>
+				#{comment commentObj:theComment /}
+			</div>
+		#{/list}
+	#{/if}
+	#{else}
+		<a href="@{BlogPostC.show(_post.id)}">${_post.comments.size()} comments</a>
+	#{/else}
+</div>

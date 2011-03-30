@@ -1,0 +1,15 @@
+<div class="blog-post-comment">
+	<div class="blog-post-comment-content">
+		${_commentObj.content}
+	</div>
+	<div class="blog-post-comment-at-by">
+		<span>Posted on: </span><span>${_commentObj.time.format('dd MMM yy')}</span>
+		<span>By: </span>
+		#{if _commentObj.website}
+			<a href="${_commentObj.website}">${_commentObj.author}</a>
+		#{/if}
+		#{else}
+			${_commentObj.author}
+		#{/else}
+	</div>
+</div>

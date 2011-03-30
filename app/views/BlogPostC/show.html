@@ -1,0 +1,13 @@
+#{extends 'main.html' /}
+
+#{secure.check 'admin'}
+	<div>
+		<a href="@{BlogPostC.form}">New Post</a>
+	</div>
+#{/secure.check}
+
+<div class="blog-post">
+	#{blogPost post:blogPost, as:'full' /}
+</div>
+#{commentForm controllerAction:'BlogPostC.postComment', 
+			  actionArgsMap:['postId':blogPost.id]/}

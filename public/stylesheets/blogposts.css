@@ -1,0 +1,30 @@
+.blog-posts {
+	margin: 10px;	
+}
+
+.blog-post {
+	
+}
+
+.blog-title {
+	font-size: 1.4em;
+	margin-top: 20px;
+	margin-bottom: 10px;	
+}
+
+.blog-post-content {
+	
+}
+
+.blog-post-tags {
+	
+}
+
+.blog-post-author {
+	margin-top: 5px;
+	font-size: 0.8em;
+}
+
+.blog-post-comment-link {
+	margin-top: 8px;
+}

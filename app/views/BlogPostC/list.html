@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+
+#{secure.check 'admin'}
+	<div>
+		<a href="@{BlogPostC.form}">New Post</a>
+	</div>
+#{/secure.check}
+
+<div class="blog-posts">
+#{list items:blogPosts, as:'post'}
+	<div>
+		#{blogPost post:post /}
+	</div>
+#{/list}
+</div>
