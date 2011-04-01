@@ -1,14 +1,14 @@
 #{extends 'main.html' /}
 
 <div>
-	Name: ${theUser.name} 
+	Name: ${userProfile.user.name} 
 </div>
 
-#{if theUser.name == user}
+#{if userProfile.user.name == user}
 	<div class="personal-details">
-		<span>Your email is ${theUser.email}</span>
+		<span>Your email is ${userProfile.user.email}</span>
 		<div>Change your password:</div>
-		#{form @UserProfileC.change(theUser.email)}
+		#{form @UserProfileC.change(userProfile.user.email)}
 			<div>
 				<div>Old Password</div>
 				<input type="password" name="oldPassword" value="">
@@ -21,20 +21,29 @@
 				<input type="password" name="newPassword2" value="">
 				<span class="error">#{error 'newPassword2' /}</span>
 			</div>
+			
 			<p>
 	    		<input type="submit" value="Submit" id="postComment" />
 	    		<input type="reset" value="Clear" />
 			</p>
 		#{/form}
 		
-		<div>
-				<img src="@{UserProfileC.pic(theUser.id)}" width="60", height="60"/>
-			</div>
+		
 			
-		#{form @UserProfileC.postPic(theUser.id), enctype:'multipart/form-data'}
-			
+		#{form @UserProfileC.update(userProfile.user.id), enctype:'multipart/form-data'}
 			<div>
-				<label>Upload a profile pic</label>
+				<div>About Myself:</div>
+				<textarea rows="20" cols="80" name="aboutMyself">${userProfile.aboutMyself}</textarea>
+			</div>
+			<div>
+				<div>Location</div>
+				<input type="text" name="location" value="${userProfile.location}"/>
+			</div>
+			<div>
+				<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
+			</div>	
+			<div>
+				<label>${userProfile.profilePic == null ? 'Upload' : 'Change'} profile pic</label>
 				<input type="file" name="profilePicBlob" />
 			</div>
 			<div>

@@ -44,8 +44,9 @@ public class UserProfileC extends Controller {
 		tabNames.add("Answers Provided");
 		tabNames.add("Challenges Taken");
 		
-		User theUser = User.findById(userId);
-		render(theUser, tabIds, tabNames);
+		UserProfile userProfile = getUserProfileFromUserId(userId);
+		
+		render(userProfile, tabIds, tabNames);
 	}
 	
 	public static void change(String username, 
@@ -81,11 +82,25 @@ public class UserProfileC extends Controller {
 		renderBinary(userProfile.profilePic.image.get());
 	}
 	
-	public static void postPic(long userId, Blob profilePicBlob) {
+	public static void update(long userId, 
+							  String aboutMyself, 
+							  String location, 
+							  Blob profilePicBlob) {
+		
 		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = 1").first();
-		userProfile.profilePic = new ProfilePic(profilePicBlob).save();
+		if(profilePicBlob != null) {
+			//TODO: Delete the old profile pic
+			userProfile.profilePic = new ProfilePic(profilePicBlob).save();
+		}
+		userProfile.aboutMyself = aboutMyself;
+		userProfile.location = location;
 		userProfile.save();
-		System.out.println("Saved profile pic");
+		
 		show(userId);
+	}
+	
+	private static UserProfile getUserProfileFromUserId(long userId) {
+		String sql = "select distinct upr from UserProfile upr where upr.user.id = ?";
+		return UserProfile.find(sql, userId).first();
 	}
 }

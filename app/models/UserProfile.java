@@ -14,6 +14,10 @@ import play.db.jpa.Model;
 @Entity
 public class UserProfile extends Model {
 	
+	public String aboutMyself;
+	
+	public String location;
+	
 	@OneToMany
 	public Set<Question> questionsAsked;
 	
