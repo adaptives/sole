@@ -26,7 +26,21 @@
 	    		<input type="reset" value="Clear" />
 			</p>
 		#{/form}
-	
+		
+		<div>
+				<img src="@{UserProfileC.pic(theUser.id)}" width="60", height="60"/>
+			</div>
+			
+		#{form @UserProfileC.postPic(theUser.id), enctype:'multipart/form-data'}
+			
+			<div>
+				<label>Upload a profile pic</label>
+				<input type="file" name="profilePicBlob" />
+			</div>
+			<div>
+				<input type="submit" value="Submit" id="postComment" />
+			</div>
+		#{/form}
 	</div>
 #{/if}
 

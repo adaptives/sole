@@ -25,6 +25,12 @@ User(learnerdude):
     needConfirmation:   false
     roles:              
                         - learner
+
+UserProfile(adminDudeProfile):
+    user:               admindude
+    
+UserProfile(learnerdudeProfile):
+    user:               learnerdude
                         
 Course(Java):
     title:          Java Programming

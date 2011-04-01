@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,6 +20,9 @@ public class UserProfile extends Model {
 	@OneToMany
 	public Set<Answer> answersProvided;
 	
+	@OneToOne
+	public ProfilePic profilePic;
+	
 	public int points;
 	
 	@Required
@@ -29,6 +33,5 @@ public class UserProfile extends Model {
 		this.user = user;
 		this.questionsAsked = new HashSet<Question>();
 		this.answersProvided = new HashSet<Answer>();
-		this.points = points;
 	}
 }

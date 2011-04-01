@@ -1,13 +1,21 @@
 package controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.ProfilePic;
 import models.User;
+import models.UserProfile;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
+import play.db.jpa.Blob;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.server.Server;
 
 public class UserProfileC extends Controller {
 	
@@ -24,7 +32,7 @@ public class UserProfileC extends Controller {
 		render(allUsers);
 	}
 	
-	public static void show(long userId) {
+	public static void show(long userId) {		
 		List<String> tabIds = new ArrayList<String>();
 		tabIds.add("merit");
 		tabIds.add("questions-asked");
@@ -62,9 +70,22 @@ public class UserProfileC extends Controller {
 			}
 			show(user.id);
 		} else {
-			flash.error("Sorry, the oldPassword did not match, please try again.");
+			flash.error("Sorry, the oldPassword did not match, please  again.");
 			User userByUsername = User.findByEmail(username);
 			show(userByUsername.id);
 		}
+	}
+	
+	public static void pic(long userId) {
+		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
+		renderBinary(userProfile.profilePic.image.get());
+	}
+	
+	public static void postPic(long userId, Blob profilePicBlob) {
+		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = 1").first();
+		userProfile.profilePic = new ProfilePic(profilePicBlob).save();
+		userProfile.save();
+		System.out.println("Saved profile pic");
+		show(userId);
 	}
 }
