@@ -7,6 +7,7 @@
 <div class="question-t">
     <a href="${questionLink.url}">${_question.title}</a>
 	<div class="question-stats">
+		<span class="question-likes">${_question.likes()} likes</span>
 	    <span class="question-time">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
 		<span class="question-author">${_question.author.name}</span>
 	</div>
@@ -20,6 +21,7 @@
 #{elseif _as == "tba"}
 	<div>
 		<div class="question-tba-title">
+			<a href="#" id="upvote">Like</a><span id="votes">${_question.likes()}</span> 
 			${_question.title}
 		</div>
 		<div class="question-content">
@@ -48,3 +50,21 @@
 		</div>
 	</div>
 #{/elseif}
+
+<script type="text/javascript">
+    //TODO: Figure out why document.ready is being invoked 2 times
+	var documentReady = false;
+	$(document).ready(function() {
+		if(documentReady) {
+			return;
+		}
+		$('#upvote').click(function(e) {
+			// stop normal link click
+		    e.preventDefault();
+		    $.get("/questionc/like/questionId/${_question.id}", function(voteCount) {
+		    	$('#votes').html(voteCount);
+		    });
+		});
+		documentReady = true;
+	});
+</script>

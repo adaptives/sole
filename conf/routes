@@ -27,6 +27,7 @@ GET     /blog/list                             BlogPostC.list
 GET     /blog/post/{id}                        BlogPostC.show
 POST    /blog/{postId}/comment/add             BlogPostC.postComment
 
+GET     /questionc/like/questionId/{questionId}    QuestionC.like
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 

@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,10 +11,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import controllers.Security;
+
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
 public class Question extends Model {
+	
 	public String title;
 	public String content;
 	@ManyToOne
@@ -31,6 +36,8 @@ public class Question extends Model {
 	public boolean answered;
 	public boolean flagged;
 	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Question.class);
+	
 	public Question(String title, String content, User author) {
 		this.title = title;
 		this.content = content;
@@ -44,6 +51,27 @@ public class Question extends Model {
 	public Question tagWith(String tag) {
 		tags.add(Tag.findOrCreateByName(tag));
         return this;
+	}
+	
+	public void like(User user) {
+		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
+			new QuestionLiked(this, user);
+		} else {
+			//TODO
+			cLogger.warn("question '" + this.id + "' is already liked by user '" + user.id + "'");
+		}		
+	}
+	
+	public boolean hasLiked(User user) {		
+		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public int likes() {
+		return (int)QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question.id = ?", this.id);
 	}
 	
 	public String toString() {
