@@ -23,7 +23,7 @@
 			${_question.title}
 		</div>
 		<div class="question-content">
-			${_question.content}
+			${_question.content.raw()}
 		</div>
 		<div class="question-stats">
 			<span class="qa-author">Posted By: ${_question.author.name}</span>
@@ -38,7 +38,7 @@
 		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
 				<div class="answer-content">
-					${theAnswer.content}
+					${theAnswer.content.raw()}
 				</div>
 				<div class="answer-stats">
 					<span class="qa-author">Posted By: ${theAnswer.author.name}</span>
