@@ -69,9 +69,9 @@
 	#{/list}
 	
 	<div>Questions asked in Study Session forums</div>
-	#{list studySessionQuestionsAsked}
+	#{list items:studySessionQuestions, as:'studySessionQuestionDetails'}
 		<div>
-			<a href="@{StudySessionC.forumQuestion(_.value, _.key.id)}">${_.key.title}</a>
+			<a href="@{StudySessionC.forumQuestion(studySessionQuestionDetails[1], studySessionQuestionDetails[0].id)}">${studySessionQuestionDetails[0].title}</a>
 		</div>
 	#{/list}
 </div>

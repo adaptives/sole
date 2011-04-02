@@ -64,12 +64,7 @@ public class UserProfileC extends Controller {
 		
 		//Get a list of questions asked by the user in StudySessions
 		//TODO: Closed / private study session questions should not be included here
-		List<Question> studySessionQuestions = StudySession.find("select distinct q from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
-		Map<Question, Long> studySessionQuestionsAsked = new HashMap<Question, Long>();
-		for(Question question : studySessionQuestions) {
-			StudySession studySession = StudySession.find("select distinct ss from StudySession ss join ss.forum as f join f.questions as q where q.id = ?", question.id).first();
-			studySessionQuestionsAsked.put(question, studySession.id);
-		}
+		List studySessionQuestions = StudySession.find("select distinct q, ss.id from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
 		
 		//Get a list of answers provided by the user in DIY courses
 		List diyAnswers = StudySession.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
@@ -79,7 +74,7 @@ public class UserProfileC extends Controller {
 			StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
 		
 		
-		render(userProfile, questionsAsked, studySessionQuestionsAsked, diyAnswers, studySessionAnswers, tabIds, tabNames);
+		render(userProfile, questionsAsked, studySessionQuestions, diyAnswers, studySessionAnswers, tabIds, tabNames);
 	}
 	
 	public static void change(String username, 
