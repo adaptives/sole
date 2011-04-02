@@ -11,6 +11,7 @@ import play.db.jpa.Model;
 @Entity
 public class Answer extends Model {
 	public String content;
+	@ManyToOne
 	public User author;
 	public Date answeredAt;
 	public int votes;

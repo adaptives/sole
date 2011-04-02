@@ -61,9 +61,31 @@
 </div>
 
 <div id="questions-asked">
+	<div>Questions asked in DIY courses</div>
+	#{list questionsAsked}
+		<div>			
+			<a href="@{CourseC.question(_.value, _.key.id)}">${_.key.title}</a>
+		</div>
+	#{/list}
+	
+	<div>Questions asked in Study Session forums</div>
+	#{list studySessionQuestionsAsked}
+		<div>
+			<a href="@{StudySessionC.forumQuestion(_.value, _.key.id)}">${_.key.title}</a>
+		</div>
+	#{/list}
 </div>
 
 <div id="answers-provided">
+	<div>Answers given in DIY courses</div>
+	#{list items:diyAnswers, as:'diyAnswerDetail'}
+		<a href="@{CourseC.question(diyAnswerDetail[1], diyAnswerDetail[0].id)}">${diyAnswerDetail[0].title}</a>
+	#{/list}
+	
+	<div>Answers given in Study Sessions</div>
+	#{list items:studySessionAnswers, as:'studySessionAnswerDetail'}
+		<a href="@{StudySessionC.forumQuestion(studySessionAnswerDetail[1], studySessionAnswerDetail[0].id)}">${studySessionAnswerDetail[0].title}</a>
+	#{/list}
 </div>
 
 <div id="challenges-taken">

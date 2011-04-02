@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
@@ -15,6 +16,7 @@ import play.db.jpa.Model;
 public class Question extends Model {
 	public String title;
 	public String content;
+	@ManyToOne
 	public User author;
 	public Date askedAt;
 	public int votes;
@@ -36,6 +38,7 @@ public class Question extends Model {
 		this.askedAt = new Date();
 		this.tags = new TreeSet<Tag>();
 		this.answers = new TreeSet<Answer>();
+		create();
 	}
 
 	public Question tagWith(String tag) {

@@ -5,9 +5,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import models.Answer;
+import models.CourseSection;
+import models.Forum;
 import models.ProfilePic;
+import models.Question;
+import models.StudySession;
 import models.User;
 import models.UserProfile;
 import play.data.validation.MinSize;
@@ -46,7 +53,33 @@ public class UserProfileC extends Controller {
 		
 		UserProfile userProfile = getUserProfileFromUserId(userId);
 		
-		render(userProfile, tabIds, tabNames);
+		//Get a list of questions asked by the user in DIY courses
+		//TODO: 
+		List<Question> questions = CourseSection.find("select distinct q from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
+		Map<Question, Long> questionsAsked = new HashMap<Question, Long>();
+		for(Question question : questions) {
+			CourseSection cs = CourseSection.find("select distinct cs from CourseSection cs join cs.questions as q where q.id = ?", question.id).first();
+			questionsAsked.put(question, cs.id);
+		}
+		
+		//Get a list of questions asked by the user in StudySessions
+		//TODO: Closed / private study session questions should not be included here
+		List<Question> studySessionQuestions = StudySession.find("select distinct q from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
+		Map<Question, Long> studySessionQuestionsAsked = new HashMap<Question, Long>();
+		for(Question question : studySessionQuestions) {
+			StudySession studySession = StudySession.find("select distinct ss from StudySession ss join ss.forum as f join f.questions as q where q.id = ?", question.id).first();
+			studySessionQuestionsAsked.put(question, studySession.id);
+		}
+		
+		//Get a list of answers provided by the user in DIY courses
+		List diyAnswers = StudySession.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
+		
+		//Get a list of answers provided by the user in Study Sessions
+		List studySessionAnswers = 
+			StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
+		
+		
+		render(userProfile, questionsAsked, studySessionQuestionsAsked, diyAnswers, studySessionAnswers, tabIds, tabNames);
 	}
 	
 	public static void change(String username, 
