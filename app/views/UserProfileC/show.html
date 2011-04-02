@@ -7,7 +7,7 @@
 </div>
 
 <div class="userprofile-tabs">
-#{tabbedPane show:'merit', tabIds:tabIds, tabNames:tabNames /}
+#{tabbedPane show:'settings', tabIds:tabIds, tabNames:tabNames /}
 </div>
 
 <div id="settings">
@@ -40,7 +40,7 @@
 			#{form @UserProfileC.update(userProfile.user.id), enctype:'multipart/form-data'}
 				<div>
 					<div>About Myself:</div>
-					<textarea rows="20" cols="80" name="aboutMyself">${userProfile.aboutMyself}</textarea>
+					<textarea rows="10" cols="80" name="aboutMyself">${userProfile.aboutMyself}</textarea>
 				</div>
 				<div>
 					<div>Location</div>
