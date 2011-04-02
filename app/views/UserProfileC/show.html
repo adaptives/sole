@@ -62,9 +62,9 @@
 
 <div id="questions-asked">
 	<div>Questions asked in DIY courses</div>
-	#{list questionsAsked}
+	#{list items:diyQuestions, as:'diyQuestionDetails'}
 		<div>			
-			<a href="@{CourseC.question(_.value, _.key.id)}">${_.key.title}</a>
+			<a href="@{CourseC.question(diyQuestionDetails[1], diyQuestionDetails[0].id)}">${diyQuestionDetails[0].title}</a>
 		</div>
 	#{/list}
 	

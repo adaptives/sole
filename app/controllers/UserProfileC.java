@@ -55,12 +55,7 @@ public class UserProfileC extends Controller {
 		
 		//Get a list of questions asked by the user in DIY courses
 		//TODO: 
-		List<Question> questions = CourseSection.find("select distinct q from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
-		Map<Question, Long> questionsAsked = new HashMap<Question, Long>();
-		for(Question question : questions) {
-			CourseSection cs = CourseSection.find("select distinct cs from CourseSection cs join cs.questions as q where q.id = ?", question.id).first();
-			questionsAsked.put(question, cs.id);
-		}
+		List diyQuestions = CourseSection.find("select distinct q, cs.id from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
 		
 		//Get a list of questions asked by the user in StudySessions
 		//TODO: Closed / private study session questions should not be included here
@@ -74,7 +69,7 @@ public class UserProfileC extends Controller {
 			StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
 		
 		
-		render(userProfile, questionsAsked, studySessionQuestions, diyAnswers, studySessionAnswers, tabIds, tabNames);
+		render(userProfile, diyQuestions, studySessionQuestions, diyAnswers, studySessionAnswers, tabIds, tabNames);
 	}
 	
 	public static void change(String username, 
