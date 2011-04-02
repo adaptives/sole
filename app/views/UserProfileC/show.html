@@ -1,60 +1,62 @@
 #{extends 'main.html' /}
-
+<div>
+	<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
+</div>
 <div>
 	Name: ${userProfile.user.name} 
 </div>
 
-#{if userProfile.user.name == user}
-	<div class="personal-details">
-		<span>Your email is ${userProfile.user.email}</span>
-		<div>Change your password:</div>
-		#{form @UserProfileC.change(userProfile.user.email)}
-			<div>
-				<div>Old Password</div>
-				<input type="password" name="oldPassword" value="">
-			</div>
-			<div>
-				<div>New Password</div>
-				<input type="password" name="newPassword" value="">
-				<span class="error">#{error 'newPassword' /}</span>
-				<div>Retype New Password</div>
-				<input type="password" name="newPassword2" value="">
-				<span class="error">#{error 'newPassword2' /}</span>
-			</div>
-			
-			<p>
-	    		<input type="submit" value="Submit" id="postComment" />
-	    		<input type="reset" value="Clear" />
-			</p>
-		#{/form}
-		
-		
-			
-		#{form @UserProfileC.update(userProfile.user.id), enctype:'multipart/form-data'}
-			<div>
-				<div>About Myself:</div>
-				<textarea rows="20" cols="80" name="aboutMyself">${userProfile.aboutMyself}</textarea>
-			</div>
-			<div>
-				<div>Location</div>
-				<input type="text" name="location" value="${userProfile.location}"/>
-			</div>
-			<div>
-				<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
-			</div>	
-			<div>
-				<label>${userProfile.profilePic == null ? 'Upload' : 'Change'} profile pic</label>
-				<input type="file" name="profilePicBlob" />
-			</div>
-			<div>
-				<input type="submit" value="Submit" id="postComment" />
-			</div>
-		#{/form}
-	</div>
-#{/if}
-
 <div class="userprofile-tabs">
 #{tabbedPane show:'merit', tabIds:tabIds, tabNames:tabNames /}
+</div>
+
+<div id="settings">
+	#{if userProfile.user.name == user}
+		<div class="personal-details">
+			<span>Your email is ${userProfile.user.email}</span>
+			<div>Change your password:</div>
+			#{form @UserProfileC.change(userProfile.user.email)}
+				<div>
+					<div>Old Password</div>
+					<input type="password" name="oldPassword" value="">
+				</div>
+				<div>
+					<div>New Password</div>
+					<input type="password" name="newPassword" value="">
+					<span class="error">#{error 'newPassword' /}</span>
+					<div>Retype New Password</div>
+					<input type="password" name="newPassword2" value="">
+					<span class="error">#{error 'newPassword2' /}</span>
+				</div>
+				
+				<p>
+		    		<input type="submit" value="Submit" id="postComment" />
+		    		<input type="reset" value="Clear" />
+				</p>
+			#{/form}
+			
+			
+				
+			#{form @UserProfileC.update(userProfile.user.id), enctype:'multipart/form-data'}
+				<div>
+					<div>About Myself:</div>
+					<textarea rows="20" cols="80" name="aboutMyself">${userProfile.aboutMyself}</textarea>
+				</div>
+				<div>
+					<div>Location</div>
+					<input type="text" name="location" value="${userProfile.location}"/>
+				</div>
+					
+				<div>
+					<label>${userProfile.profilePic == null ? 'Upload' : 'Change'} profile pic</label>
+					<input type="file" name="profilePicBlob" />
+				</div>
+				<div>
+					<input type="submit" value="Submit" id="postComment" />
+				</div>
+			#{/form}
+		</div>
+	#{/if}
 </div>
 
 <div id="merit">

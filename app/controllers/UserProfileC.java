@@ -39,17 +39,25 @@ public class UserProfileC extends Controller {
 		render(allUsers);
 	}
 	
-	public static void show(long userId) {		
-		List<String> tabIds = new ArrayList<String>();
+	public static void show(long userId) {
+		User connectedUser = User.findByEmail(Security.connected());
+		
+		List<String> tabIds = new ArrayList<String>();		
 		tabIds.add("merit");
 		tabIds.add("questions-asked");
 		tabIds.add("answers-provided");
 		tabIds.add("challenges-taken");
-		List<String> tabNames = new ArrayList<String>();
+		
+		List<String> tabNames = new ArrayList<String>();		
 		tabNames.add("Merit");
 		tabNames.add("Questions Asked");
 		tabNames.add("Answers Provided");
 		tabNames.add("Challenges Taken");
+		
+		if(connectedUser.id == userId) {
+			tabIds.add("settings");
+			tabNames.add("Settings");
+		}
 		
 		UserProfile userProfile = getUserProfileFromUserId(userId);
 		
