@@ -7,9 +7,10 @@
 <div class="question-t">
     <a href="${questionLink.url}">${_question.title}</a>
 	<div class="question-stats">
-		<span class="question-likes">${_question.likes()} likes</span>
-	    <span class="question-time">${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
-		<span class="question-author">${_question.author.name}</span>
+		<span class="question-likes">${_question.likes()} like${_question.likes().pluralize()}</span>
+		<span class="question-answer-count">${_question.answers.size()} answer${_question.answers.size().pluralize()}</span>		
+	    <span class="question-time">asked on ${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
+		<span class="question-author">by ${_question.author.name}</span>
 	</div>
 	<div class="question-tags">
 		#{list items:_question.tags, as:'tag'}
@@ -39,6 +40,7 @@
 		</div>
 		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
+				<div><a href="#" id="upvote-answer-${theAnswer.id}">Like</a> <span id="answer-votes-${theAnswer.id}">${theAnswer.likes()}</span> likes</div>
 				<div class="answer-content">
 					${theAnswer.content.nl2br()}
 				</div>
@@ -46,6 +48,15 @@
 					<span class="qa-author">Posted By: ${theAnswer.author.name}</span>
 	    			<span class="qa-time">on ${theAnswer.answeredAt.format('dd MMM yy, hh:mm')}</span>
 				</div>
+				<script type="text/javascript">
+					$('#upvote-answer-${theAnswer.id}').click(function(e) {
+						// stop normal link click
+					    e.preventDefault();
+					    $.get("/questionc/like/answerId/${theAnswer.id}", function(voteCount) {
+					    	$('#answer-votes-${theAnswer.id}').html(voteCount);
+					    });
+					});		
+				</script>
 			#{/list}
 		</div>
 	</div>

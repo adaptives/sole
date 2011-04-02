@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Answer;
 import models.Question;
 import models.QuestionLiked;
 import models.User;
@@ -35,6 +36,28 @@ public class QuestionC extends Controller {
 				}
 				if(question == null) {
 					msg += " question '" + questionId + "'";
+				}
+				cLogger.error(msg);
+			}
+		}
+		renderText(textToRender);
+	}
+	
+	public static void likeAnswer(long answerId) {
+		String textToRender = "";
+		if(Security.isConnected()) {
+			User user = User.findByEmail(Security.connected());
+			Answer answer = Answer.findById(answerId);
+			if(user != null && answer != null) {
+				answer.like(user);
+				textToRender = String.valueOf(answer.likes());
+			} else {
+				String msg = "Could not find ";
+				if(user == null) {
+					msg += " user '" + user.id + "' ";
+				}
+				if(answer == null) {
+					msg += " question '" + answerId + "'";
 				}
 				cLogger.error(msg);
 			}

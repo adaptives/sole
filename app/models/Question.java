@@ -57,7 +57,7 @@ public class Question extends Model {
 		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
 			new QuestionLiked(this, user);
 		} else {
-			//TODO
+			//TODO Rate check ?
 			cLogger.warn("question '" + this.id + "' is already liked by user '" + user.id + "'");
 		}		
 	}
