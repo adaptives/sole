@@ -23,6 +23,8 @@ GET     /page/{name}                           PageC.show
 GET     /users                                 UserProfileC.list
 GET     /users/{userId}                        UserProfileC.show
 
+GET     /blog/list                             BlogPostC.list
+GET     /blog/post/{id}                        BlogPostC.show
 POST    /blog/{postId}/comment/add             BlogPostC.postComment
 
 # Map static resources from the /app/public folder to the /public path

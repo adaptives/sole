@@ -1,6 +1,6 @@
 <div class="blog-post-comment">
 	<div class="blog-post-comment-content">
-		${_commentObj.content}
+		${_commentObj.content.nl2br()}
 	</div>
 	<div class="blog-post-comment-at-by">
 		<span>Posted on: </span><span>${_commentObj.time.format('dd MMM yy')}</span>

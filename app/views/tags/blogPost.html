@@ -3,7 +3,7 @@
 </div>
 
 <div class="blog-post-content">
-	${_post.content}
+	${_post.content.nl2br()}
 </div>
 
 <div class="blog-post-tags">
@@ -16,7 +16,7 @@
 
 <div class="blog-post-comment-link">
 	#{if _as == 'full'}
-		<div>${_post.comments.size()} comments</div>
+		<div>${_post.comments.size()} comment${_post.comments.pluralize()}</div>
 		#{list items:_post.comments, as:'theComment'}
 			<div>
 				#{comment commentObj:theComment /}
@@ -24,6 +24,6 @@
 		#{/list}
 	#{/if}
 	#{else}
-		<a href="@{BlogPostC.show(_post.id)}">${_post.comments.size()} comments</a>
+		<a href="@{BlogPostC.show(_post.id)}">${_post.comments.size()} comment${_post.comments.pluralize()}</a>
 	#{/else}
 </div>
