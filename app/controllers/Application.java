@@ -49,6 +49,7 @@ public class Application extends Controller {
             signup();
         }
         User user = new User(email, password, name);
+        (new UserRegistrationDate(user)).save();
         try {
             if (Notifier.welcome(user)) {
                 flash.success("Your account is created. Please check your emails ...");                
