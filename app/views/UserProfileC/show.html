@@ -3,7 +3,10 @@
 	<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
 </div>
 <div>
-	Name: ${userProfile.user.name} 
+	${userProfile.user.name} from ${userProfile.location} 
+</div>
+<div>
+	${userProfile.aboutMyself.raw()}
 </div>
 
 <div class="userprofile-tabs">
