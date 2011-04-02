@@ -40,14 +40,17 @@ public class UserProfileC extends Controller {
 	}
 	
 	public static void show(long userId) {
-		User connectedUser = User.findByEmail(Security.connected());
+		
 		
 		List<String> tabIds = new ArrayList<String>();
 		List<String> tabNames = new ArrayList<String>();
 		
-		if(connectedUser.id == userId) {
-			tabIds.add("settings");
-			tabNames.add("Settings");
+		if(Security.isConnected()) {			
+			User connectedUser = User.findByEmail(Security.connected());
+			if(connectedUser.id == userId) {
+				tabIds.add("settings");
+				tabNames.add("Settings");
+			}			
 		}
 		tabIds.add("merit");
 		tabIds.add("questions-asked");
