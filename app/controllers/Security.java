@@ -33,4 +33,23 @@ public class Security extends Secure.Security{
 		}
 		return false;
 	}
+	
+	/**
+     * This method is called after a successful authentication.
+     * You need to override this method if you with to perform specific actions (eg. Record the time the user signed in)
+     */
+    static void onAuthenticated() {
+    	//username
+    	User loggedInUser = User.findByEmail(session.get("username")) ;
+    	session.put(SocialAuthC.USER, loggedInUser.socialUser.id);
+    }
+
+     /**
+     * This method is called after a successful sign off.
+     * You need to override this method if you with to perform specific actions (eg. Record the time the user signed off)
+     */
+    static void onDisconnected() {
+    	//Secure.logout() clears the session, so we probably do not need to do anything here
+    }
+
 }

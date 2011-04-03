@@ -27,12 +27,17 @@ public class User extends Model {
     
     public String needConfirmation;
     
+    @Required
+	@OneToOne
+	public SocialUser socialUser;
+    
     // ~~~~~~~~~~~~ 
     
-    public User(String email, String password, String name) {
+    public User(String email, String password, String name, SocialUser socialUser) {
         this.email = email;
         this.passwordHash = password;//Codec.hexMD5(password);
         this.name = name;
+        this.socialUser = socialUser;
         this.needConfirmation = Codec.UUID();
         create();
     }

@@ -48,7 +48,12 @@ public class Application extends Controller {
             flash.error("Please correct these errors !");
             signup();
         }
-        User user = new User(email, password, name);
+        SocialUser socialUser = new SocialUser(email);
+        socialUser.save();
+        socialUser.screenname = "user-" + socialUser.id;
+        socialUser.save();
+        
+        User user = new User(email, password, name, socialUser);
         (new UserRegistrationDate(user)).save();
         try {
             if (Notifier.welcome(user)) {
