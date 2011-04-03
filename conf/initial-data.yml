@@ -78,6 +78,9 @@ StudySession(Java101):
                     
                     Yes they do encourage you to link to their content, but that doesn't mean they have given away their license as well. Even when you put the videos up in your site, the content is still theirs, not yours, and is subject to their rules.
 
+StudySessionMeta(Java101Meta):
+    studySession:   Java101
+
 SessionPart(week1):
     title:          week1
     startDate:      2011-03-31

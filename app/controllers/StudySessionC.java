@@ -1,13 +1,16 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Answer;
 import models.Forum;
 import models.Question;
 import models.SessionPart;
 import models.StudySession;
+import models.StudySessionMeta;
 import models.User;
 import play.Logger;
 import play.data.validation.Required;
@@ -28,7 +31,12 @@ public class StudySessionC extends Controller {
 	}
 	
 	public static void currentlist() {
-		List<StudySession> studySessions = StudySession.findAll();
+		List<StudySession> studySessionList = StudySession.findAll();
+		Map<StudySession, StudySessionMeta> studySessions = 
+								new HashMap<StudySession, StudySessionMeta>();
+		for(StudySession studySession : studySessionList) {
+			studySessions.put(studySession, StudySessionMeta.forStudySession(studySession.id));
+		}
 		render(studySessions);
 	}
 	

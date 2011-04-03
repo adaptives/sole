@@ -37,18 +37,6 @@ public class StudySession extends Model {
 	@OneToOne(cascade=CascadeType.ALL)
 	public Forum forum;
 	
-	//If this is a private session, then users will not be able to register 
-	//for it. Registrations will happen only by invitation
-	public boolean privateSession;
-	//Once enrollment is closed, further registrations can only be done if the
-	//administrator adds more people
-	public boolean enrollmentClosed;
-	//Once a session is locked, participants cannot post any threads to it
-	public boolean locked;
-	//Specifies that this course has been canceled
-	public boolean canceled;
-	public boolean closed;
-	
 	public StudySession(String title,
 						String description,
 						Date startDate,
