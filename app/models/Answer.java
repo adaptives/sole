@@ -52,14 +52,6 @@ public class Answer extends Model {
 		return (int)AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer.id = ?", this.id);
 	}
 	
-//	public boolean hasLiked(User user) {
-//		if(AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer = ? and al.user=?", this, user) == 0) {
-//			return false;
-//		} else {
-//			return true;
-//		}
-//	}
-	
 	public boolean hasLiked(SocialUser user) {
 		if(AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer = ? and al.user=?", this, user) == 0) {
 			return false;
