@@ -5,7 +5,7 @@
 
 <h3 class="study-session-title">${sessionPart.title}</h3>
 <div class="spaced">
-	#{if !user || !sessionPart.studySession.isUserEnrolled(session.username)}
+	#{if !user || !sessionPart.studySession.isUserEnrolled(session.user)}
 		<span class="study-session-enrollment"><a href="@{StudySessionC.register(sessionPart.studySession.id)}">Register</a></span>
 	#{/if}	
 </div>

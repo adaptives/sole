@@ -57,8 +57,8 @@ public class CourseC extends Controller {
 								   @Required String title,
 								   @Required String content,
 								   String tags) {
-		CourseSection courseSection = CourseSection.findById(sectionId);
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
+		CourseSection courseSection = CourseSection.findById(sectionId);		
 		Question question = new Question(title, content, user);
 		if(tags != null) {
 			String tagArray[] = tags.split(",");

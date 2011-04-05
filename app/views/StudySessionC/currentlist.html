@@ -11,7 +11,7 @@
 		<div class="study-session-description">${_.key.description}</div>
 		<div class="study-session-dates">Starting: <span>${_.key.startDate.format('dd MMM yy')}</span> - Ending: <span>${_.key.endDate.format('dd MMM yy')}</span></div>
 		<div class="study-session-details-panel">
-			#{if !user || !_.key.isUserEnrolled(session.username)}
+			#{if !user || !_.key.isUserEnrolled(session.user)}
 				<span class="study-session-enrollment"><a href="@{StudySessionC.register(_.key.id)}">Register</a></span>
 			#{/if}
 			#{else}

@@ -13,10 +13,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
 public class StudySession extends Model {
+	
+	public static final org.apache.log4j.Logger cLogger = 
+									Logger.log4j.getLogger(StudySession.class);
 	
 	public String title;
 	public String description;
@@ -28,11 +32,11 @@ public class StudySession extends Model {
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name="StudySession_Facilitators")
-	public Set<User> facilitators;
+	public Set<SocialUser> facilitators;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name="StudySession_Participants")
-	public Set<User> participants;
+	public Set<SocialUser> participants;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	public Forum forum;
@@ -44,7 +48,8 @@ public class StudySession extends Model {
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.facilitators = new TreeSet<User>();
+		this.facilitators = new TreeSet<SocialUser>();
+		this.participants = new TreeSet<SocialUser>();
 		this.forum = new Forum(title, 
 							   "Forum for discussing doubts in course '" + title + "'");
 		create();
@@ -60,8 +65,22 @@ public class StudySession extends Model {
 		return StudySession.find("endDate < ? order by startDate asc", now).fetch();
 	}
 	
-	public boolean isUserEnrolled(String username) {
-		User user = User.findByEmail(username);
-		return participants.contains(user);
+	public boolean isUserEnrolled(long userId) {
+		SocialUser user = SocialUser.findById(userId);
+		return (participants.contains(user) || facilitators.contains(user));	
+	}
+	
+	public boolean isUserEnrolled(String userId) {
+		if(userId == null) {
+			return false;
+		}
+		try {
+			long lUserId = Long.parseLong(userId);
+			return isUserEnrolled(lUserId);
+		} catch(Exception e) {
+			cLogger.error("Could not parse the userId string to get a long " +
+						  "value '" + userId + "'", e);
+			return false;
+		}	
 	}
 }

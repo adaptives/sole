@@ -5,7 +5,7 @@
 
 <h3 class="study-session-title">${studySession.title}</h3>
 <div class="spaced">
-	#{if !session.user || !studySession.isUserEnrolled(session.username)}
+	#{if !session.user || !studySession.isUserEnrolled(session.user)}
 		<span class="study-session-enrollment"><a href="@{StudySessionC.register(studySession.id)}">Register</a></span>
 	#{/if}	
 </div>
@@ -31,7 +31,7 @@
 </div>
 <hr/>
 <div class="spaced">
-	#{if session.user && studySession.isUserEnrolled(session.username)}
+	#{if session.user && studySession.isUserEnrolled(session.user)}
 		<span class="study-session-unenrollment"><a href="@{StudySessionC.deregister(studySession.id)}">Deregister</a></span>
 	#{/if}
 </div>

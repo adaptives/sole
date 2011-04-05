@@ -43,7 +43,7 @@ public class StudySessionC extends Controller {
 	public static void register(long id) {
 		if(Security.isConnected()) {			
 			String userId = Security.connected();			
-			User connectedUser = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(userId)).first();
+			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
@@ -57,7 +57,13 @@ public class StudySessionC extends Controller {
 				flash.error(MessageConstants.INTERNAL_ERROR);
 			}
 			//TODO: Could we have just rendered the view and passed id to it?
-			studySession(id);
+			//studySession(id);
+			//We are redirecting to the original URL... TODO: Make this a utility method
+			String url = flash.get("url");
+	        if(url == null) {
+	            url = "/";
+	        }
+	        redirect(url);
 		} else {
 			flash.put("url", request.method == "GET" ? request.url : "/");
 			try {
@@ -74,7 +80,7 @@ public class StudySessionC extends Controller {
 	public static void deregister(long id) {
 		if(Security.isConnected()) {			
 			String userId = Security.connected();			
-			User connectedUser = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(userId)).first();
+			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
@@ -129,36 +135,51 @@ public class StudySessionC extends Controller {
 									@Required String title,
 									@Required String content,
 									String tags) {
-		Forum forum = Forum.findById(forumId);
-		List<Forum> allForums = Forum.findAll();
+		
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
-		Question question = new Question(title, 
-										 content, 
-										 user);
-		if(tags != null) {
-			String tagArray[] = tags.split(",");
-			if(tagArray != null) {
-				for(String tag : tagArray) {
-					question.tagWith(tag);
+		StudySession studySession = StudySession.findById(studySessionId);
+		if(studySession != null && 
+		   (studySession.participants.contains(user) || studySession.facilitators.contains(user))) {
+		
+			Forum forum = Forum.findById(forumId);
+			Question question = new Question(title, 
+											 content, 
+											 user);
+			if(tags != null) {
+				String tagArray[] = tags.split(",");
+				if(tagArray != null) {
+					for(String tag : tagArray) {
+						question.tagWith(tag);
+					}
 				}
-			}			
+			}
+			
+			forum.questions.add(question);
+			forum.save();
+			forum(studySessionId);
+		} else {
+			cLogger.info("user '" + user.id + "' must be enrolled in StudySession '" + 
+						 studySessionId + "' before posting questions");
 		}
 		
-		forum.questions.add(question);
-		forum.save();
-		forum(studySessionId);
 	}
 	
+	//TODO: Annotate this method to ensure that a user is logged in
 	public static void postAnswer(long studySessionId, 
 								  long forumId, 
 								  long questionId,
 								  String answerContent) {
 		Question question = Question.findById(questionId);
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
-		Answer answer = new Answer(answerContent, user, question);
-		question.answers.add(answer);
-		question.save();
-		forumQuestion(studySessionId, questionId);
+		if(user != null) {
+			Answer answer = new Answer(answerContent, user, question);
+			question.answers.add(answer);
+			question.save();
+			forumQuestion(studySessionId, questionId);
+		} else {
+			cLogger.info("user '" + user.id + "' must be signed in before " +
+						 "posting answers");
+		}
 	}
 
 }
