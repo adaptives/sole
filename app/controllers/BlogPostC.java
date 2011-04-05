@@ -5,20 +5,15 @@ import java.util.List;
 import models.BlogPost;
 import models.Comment;
 import models.Role;
+import models.SocialUser;
 import models.User;
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(SocialAuthC.class)
 public class BlogPostC extends Controller {
-	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);
-		}
-	}
 	
 	public static void list() {
 		List<BlogPost> blogPosts = BlogPost.findAll();

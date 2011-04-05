@@ -16,19 +16,13 @@ import play.Logger;
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(SocialAuthC.class)
 public class StudySessionC extends Controller {
 	
 	public static final org.apache.log4j.Logger cLogger = 
 								Logger.log4j.getLogger(StudySessionC.class);
-	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);
-		}
-	}
 	
 	public static void currentlist() {
 		List<StudySession> studySessionList = StudySession.findAll();
@@ -47,8 +41,8 @@ public class StudySessionC extends Controller {
 	
 	public static void register(long id) {
 		if(Security.isConnected()) {			
-			String username = Security.connected();			
-			User connectedUser = User.findByEmail(username);
+			String userId = Security.connected();			
+			User connectedUser = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(userId)).first();
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
@@ -78,8 +72,8 @@ public class StudySessionC extends Controller {
 	
 	public static void deregister(long id) {
 		if(Security.isConnected()) {			
-			String username = Security.connected();			
-			User connectedUser = User.findByEmail(username);
+			String userId = Security.connected();			
+			User connectedUser = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(userId)).first();
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
@@ -90,7 +84,7 @@ public class StudySessionC extends Controller {
 					flash.error(MessageConstants.INTERNAL_ERROR);
 				}
 			} else {
-				cLogger.error("could not get user object for username '" + username + "'");				
+				cLogger.error("could not get user object for username '" + userId + "'");				
 				flash.error(MessageConstants.INTERNAL_ERROR);
 			}
 			//TODO: Could we have just rendered the view and passed id to it?
@@ -136,9 +130,10 @@ public class StudySessionC extends Controller {
 									String tags) {
 		Forum forum = Forum.findById(forumId);
 		List<Forum> allForums = Forum.findAll();
+		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
 		Question question = new Question(title, 
 										 content, 
-										 User.findByEmail(Security.connected()));
+										 user);
 		if(tags != null) {
 			String tagArray[] = tags.split(",");
 			if(tagArray != null) {
@@ -158,7 +153,7 @@ public class StudySessionC extends Controller {
 								  long questionId,
 								  String answerContent) {
 		Question question = Question.findById(questionId);
-		User user = User.findByEmail(Security.connected());
+		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();

@@ -22,17 +22,11 @@ import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 import play.server.Server;
 
+@With(SocialAuthC.class)
 public class UserProfileC extends Controller {
-	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);
-		}
-	}
 	
 	public static void list() {
 		List<User> allUsers = User.findAll();
@@ -46,7 +40,7 @@ public class UserProfileC extends Controller {
 		List<String> tabNames = new ArrayList<String>();
 		
 		if(Security.isConnected()) {			
-			User connectedUser = User.findByEmail(Security.connected());
+			User connectedUser = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
 			if(connectedUser.id == userId) {
 				tabIds.add("settings");
 				tabNames.add("Settings");
@@ -116,7 +110,11 @@ public class UserProfileC extends Controller {
 	
 	public static void pic(long userId) {
 		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
-		renderBinary(userProfile.profilePic.image.get());
+		if(userProfile.profilePic != null) {
+			renderBinary(userProfile.profilePic.image.get());
+		} else {
+			
+		}		
 	}
 	
 	public static void update(long userId, 

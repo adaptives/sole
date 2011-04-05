@@ -18,13 +18,11 @@
         </script>
     </head>
     <body>
-	
 		<div id="main">
-	
 			<div id="header">
-				#{if user}
+				#{if session.user}
 					<p>
-						Welcome <span class="connectedUser">${user}</span>
+						Welcome <span class="connectedUser">${screenname}</span>
 						(<a href="@{Secure.logout}">Logout</a>)
 					</p>
 				#{/if}
@@ -68,6 +66,7 @@
 			</div>
 		
 		</div>
-		
+	
+
     </body>
 </html>

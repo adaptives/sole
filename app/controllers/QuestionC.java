@@ -7,19 +7,12 @@ import models.User;
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 
-
+@With(SocialAuthC.class)
 public class QuestionC extends Controller {
 	
 	private static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(QuestionC.class);
-	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);			
-		}
-	}
 	
 	public static void like(long questionId) {
 		String textToRender = "";

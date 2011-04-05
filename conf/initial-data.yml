@@ -9,25 +9,35 @@ Role(learner):
     
 Role(admin):
     name:               admin
+
+SocialUser(suadmindude):
+    screenname:          admindude
+    email:               someone@somewhere.com
     
 User(admindude):
     email:              someone@somewhere.com
     passwordHash:       secret
     name:               Admin Dude
     needConfirmation:   false
+    socialUser:         suadmindude
     roles:              
                         - admin
+UserProfile(adminDudeProfile):
+    user:               admindude
+    aboutMyself:        I am the admin of this website
+
+SocialUser(sulearnerdude):
+    screenname:         learnerdude
+    email:              learnerdude@somewhere.com
 
 User(learnerdude):
     email:              learner@somewhere.com
     passwordHash:       secret
     name:               Learner Dude
     needConfirmation:   false
+    socialUser:         sulearnerdude
     roles:              
                         - learner
-
-UserProfile(adminDudeProfile):
-    user:               admindude
     
 UserProfile(learnerdudeProfile):
     user:               learnerdude

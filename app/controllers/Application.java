@@ -15,18 +15,12 @@ import notifiers.Notifier;
 
 import models.*;
 
+@With(SocialAuthC.class)
 public class Application extends Controller {
 
 	public static final org.apache.log4j.Logger cLogger = 
 									Logger.log4j.getLogger(Application.class);
 	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);
-		}
-	}
 	
 	//------------------ HomePage
 	public static void index() {

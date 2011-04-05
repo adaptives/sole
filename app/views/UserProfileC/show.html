@@ -14,7 +14,7 @@
 </div>
 
 <div id="settings">
-	#{if userProfile.user.name == user}
+	#{if userProfile.user.email == session.username}
 		<div class="personal-details">
 			<span>Your email is ${userProfile.user.email}</span>
 			<div>Change your password:</div>

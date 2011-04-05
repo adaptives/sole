@@ -11,21 +11,16 @@ import models.Comment;
 import models.Course;
 import models.CourseSection;
 import models.Question;
+import models.SocialUser;
 import models.User;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(SocialAuthC.class)
 public class CourseC extends Controller {
-	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);
-		}
-	}
 	
 	public static void list() {
 		List<Course> courses = Course.findAll();
@@ -63,7 +58,8 @@ public class CourseC extends Controller {
 								   @Required String content,
 								   String tags) {
 		CourseSection courseSection = CourseSection.findById(sectionId);
-		User user = User.findByEmail(Security.connected());
+		//TODO: Fix this bvy changing to SocialUser
+		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
 		Question question = new Question(title, content, user);
 		if(tags != null) {
 			String tagArray[] = tags.split(",");
@@ -82,7 +78,7 @@ public class CourseC extends Controller {
 								  long questionId,
 								  String answerContent) {
 		Question question = Question.findById(questionId);
-		User user = User.findByEmail(Security.connected());
+		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();

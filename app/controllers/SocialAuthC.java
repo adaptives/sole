@@ -12,6 +12,7 @@ import models.TwitterRequestToken;
 import models.TwitterUser;
 
 import play.Logger;
+import play.mvc.Before;
 import play.mvc.Controller;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -26,6 +27,16 @@ public class SocialAuthC extends Controller {
 	public static final String TWITTER_CALLBACK_URL = "/callbacks/auth/twitter";
 	public static final org.apache.log4j.Logger cLogger = 
 									Logger.log4j.getLogger(SocialAuthC.class);
+	
+	@Before
+	public static void setConnectedUser() {
+		if(Security.isConnected()) {
+//			User user = User.findByEmail(Security.connected());
+//			renderArgs.put("user", user.name);			
+			SocialUser socialUser = SocialUser.findById(Long.parseLong(Security.connected()));
+			renderArgs.put("screenname", socialUser.screenname);
+		}
+	}
 	
 	public static void login() {
 		render();

@@ -27,7 +27,7 @@
 
 	#{/list}
 	<div class="section-question-form">
-		#{if user}
+		#{if session.user}
 			#{questionForm controllerAction:'CourseC.addQuestion', 
 						   actionArgsMap:['sectionId':courseSection.id] /}
 				
@@ -48,7 +48,7 @@
 		</div>
 		<div id="answer-form" class="section-question-form">
 			#{answerForm protected:true,
-				         user:user,
+				         user:session.user,
 						 controllerAction:'CourseC.postAnswer',
 						 actionArgsMap:['sectionId':courseSection.id, questionId:question.id] /}		
 	    </div>

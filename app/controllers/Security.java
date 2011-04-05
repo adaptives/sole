@@ -1,10 +1,12 @@
 package controllers;
 
+import java.util.List;
 import java.util.Set;
 
 import play.Logger;
 
 import models.Role;
+import models.SocialUser;
 import models.User;
 
 public class Security extends Secure.Security{
@@ -24,7 +26,10 @@ public class Security extends Secure.Security{
 	}
 	
 	public static boolean check(String profile) {
-		User user = User.findByEmail(connected());
+		//User user = User.findByEmail(connected());
+		String userId = connected();
+		//TODO: We should move roles to SocialUser
+		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(connected())).first();
 		Set<Role> roles = user.roles;
 		for(Role role : roles) {
 			if(role.name.equals(profile)) {
@@ -39,8 +44,12 @@ public class Security extends Secure.Security{
      * You need to override this method if you with to perform specific actions (eg. Record the time the user signed in)
      */
     static void onAuthenticated() {
-    	//username
-    	User loggedInUser = User.findByEmail(session.get("username")) ;
+    	//'username' is set in Session by Secure.authenticate
+    	String username = session.get("username");
+//    	System.out.println("username : '" + username + "'");
+    	List<SocialUser> socialUsers = SocialUser.findAll();
+    	List<User> users = User.findAll();
+    	User loggedInUser = User.find("select u from User u where u.email = ?", username).first();
     	session.put(SocialAuthC.USER, loggedInUser.socialUser.id);
     }
 
@@ -52,4 +61,19 @@ public class Security extends Secure.Security{
     	//Secure.logout() clears the session, so we probably do not need to do anything here
     }
 
+    /**
+     * This method returns the current connected username
+     * @return
+     */
+    static String connected() {
+        return session.get(SocialAuthC.USER);
+    }
+
+    /**
+     * Indicate if a user is currently connected
+     * @return  true if the user is connected
+     */
+    static boolean isConnected() {
+        return session.contains(SocialAuthC.USER);
+    }
 }

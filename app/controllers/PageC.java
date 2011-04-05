@@ -1,19 +1,14 @@
 package controllers;
 
 import models.Page;
+import models.SocialUser;
 import models.User;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(SocialAuthC.class)
 public class PageC extends Controller {
-	
-	@Before
-	public static void setConnectedUser() {
-		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
-			renderArgs.put("user", user.name);
-		}
-	}
 	
 	public static void show(String name) {
 		Page page = Page.find("byName", name).first();
