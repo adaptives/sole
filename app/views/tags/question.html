@@ -10,7 +10,7 @@
 		<span class="question-likes">${_question.likes()} like${_question.likes().pluralize()}</span>
 		<span class="question-answer-count">${_question.answers.size()} answer${_question.answers.size().pluralize()}</span>		
 	    <span class="question-time">asked on ${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
-		<span class="question-author">by ${_question.author.name}</span>
+		<span class="question-author">by ${_question.author.screenname}</span>
 	</div>
 	<div class="question-tags">
 		#{list items:_question.tags, as:'tag'}
@@ -29,7 +29,7 @@
 			${_question.content.nl2br()}
 		</div>
 		<div class="question-stats">
-			<span class="qa-author">Posted By: ${_question.author.name}</span>
+			<span class="qa-author">Posted By: ${_question.author.screenname}</span>
 	    	<span class="qa-time">on ${_question.askedAt.format('dd MMM yy, hh:mm')}</span>			
 		</div>
 		<div class="question-tags">
@@ -45,7 +45,7 @@
 					${theAnswer.content.nl2br()}
 				</div>
 				<div class="answer-stats">
-					<span class="qa-author">Posted By: ${theAnswer.author.name}</span>
+					<span class="qa-author">Posted By: ${theAnswer.author.screenname}</span>
 	    			<span class="qa-time">on ${theAnswer.answeredAt.format('dd MMM yy, hh:mm')}</span>
 				</div>
 				<script type="text/javascript">

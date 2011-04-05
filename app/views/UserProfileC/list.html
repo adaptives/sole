@@ -3,7 +3,7 @@
 <div>
 #{list items:allUsers, as:'theUser'}
 	<div>
-	<span><img width="40" height="40" src="@{UserProfileC.pic(theUser.id)}"></span><a href="@{UserProfileC.show(theUser.id)}">${theUser.name}</a>
+	<span><img width="40" height="40" src="@{UserProfileC.pic(theUser.id)}"></span><a href="@{UserProfileC.show(theUser.id)}">${theUser.screenname}</a>
 	</div>
 #{/list}
 </div>

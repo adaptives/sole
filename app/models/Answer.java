@@ -13,7 +13,7 @@ import play.db.jpa.Model;
 public class Answer extends Model {
 	public String content;
 	@ManyToOne
-	public User author;
+	public SocialUser author;
 	public Date answeredAt;
 	public int votes;
 	public boolean flagged;
@@ -24,7 +24,7 @@ public class Answer extends Model {
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Answer.class);
 	
-	public Answer(String content, User author, Question question) {
+	public Answer(String content, SocialUser author, Question question) {
 		this.content = content;
 		this.author = author;
 		this.answeredAt = new Date();
@@ -32,7 +32,7 @@ public class Answer extends Model {
 		create();
 	}
 	
-	public void like(User user) {
+	public void like(SocialUser user) {
 		if(AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer = ? and al.user=?", this, user) == 0) {
 			new AnswerLiked(this, user);
 		} else {

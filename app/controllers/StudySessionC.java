@@ -9,6 +9,7 @@ import models.Answer;
 import models.Forum;
 import models.Question;
 import models.SessionPart;
+import models.SocialUser;
 import models.StudySession;
 import models.StudySessionMeta;
 import models.User;
@@ -130,7 +131,7 @@ public class StudySessionC extends Controller {
 									String tags) {
 		Forum forum = Forum.findById(forumId);
 		List<Forum> allForums = Forum.findAll();
-		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
+		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		Question question = new Question(title, 
 										 content, 
 										 user);
@@ -153,7 +154,7 @@ public class StudySessionC extends Controller {
 								  long questionId,
 								  String answerContent) {
 		Question question = Question.findById(questionId);
-		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
+		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();

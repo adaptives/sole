@@ -58,8 +58,7 @@ public class CourseC extends Controller {
 								   @Required String content,
 								   String tags) {
 		CourseSection courseSection = CourseSection.findById(sectionId);
-		//TODO: Fix this bvy changing to SocialUser
-		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
+		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		Question question = new Question(title, content, user);
 		if(tags != null) {
 			String tagArray[] = tags.split(",");
@@ -78,7 +77,7 @@ public class CourseC extends Controller {
 								  long questionId,
 								  String answerContent) {
 		Question question = Question.findById(questionId);
-		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
+		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();

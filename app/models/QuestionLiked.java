@@ -11,9 +11,9 @@ public class QuestionLiked extends Model {
 	@OneToOne
 	public Question question;
 	@OneToOne
-	public User user;
+	public SocialUser user;
 	
-	public QuestionLiked(Question question, User user) {
+	public QuestionLiked(Question question, SocialUser user) {
 		this.question = question;
 		this.user = user;
 		create();

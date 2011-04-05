@@ -23,7 +23,7 @@ User(admindude):
     roles:              
                         - admin
 UserProfile(adminDudeProfile):
-    user:               admindude
+    user:               suadmindude
     aboutMyself:        I am the admin of this website
 
 SocialUser(sulearnerdude):
@@ -40,7 +40,7 @@ User(learnerdude):
                         - learner
     
 UserProfile(learnerdudeProfile):
-    user:               learnerdude
+    user:               sulearnerdude
                         
 Course(Java):
     title:          Java Programming

@@ -22,7 +22,7 @@ public class Question extends Model {
 	public String title;
 	public String content;
 	@ManyToOne
-	public User author;
+	public SocialUser author;
 	public Date askedAt;
 	public int votes;
 	
@@ -38,7 +38,7 @@ public class Question extends Model {
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Question.class);
 	
-	public Question(String title, String content, User author) {
+	public Question(String title, String content, SocialUser author) {
 		this.title = title;
 		this.content = content;
 		this.author = author;
@@ -53,7 +53,7 @@ public class Question extends Model {
         return this;
 	}
 	
-	public void like(User user) {
+	public void like(SocialUser user) {
 		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
 			new QuestionLiked(this, user);
 		} else {

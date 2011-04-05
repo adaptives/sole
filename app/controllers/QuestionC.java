@@ -3,6 +3,7 @@ package controllers;
 import models.Answer;
 import models.Question;
 import models.QuestionLiked;
+import models.SocialUser;
 import models.User;
 import play.Logger;
 import play.mvc.Before;
@@ -17,7 +18,7 @@ public class QuestionC extends Controller {
 	public static void like(long questionId) {
 		String textToRender = "";
 		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
+			SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 			Question question = Question.findById(questionId);
 			if(user != null && question != null) {
 				question.like(user);
@@ -39,7 +40,7 @@ public class QuestionC extends Controller {
 	public static void likeAnswer(long answerId) {
 		String textToRender = "";
 		if(Security.isConnected()) {
-			User user = User.findByEmail(Security.connected());
+			SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 			Answer answer = Answer.findById(answerId);
 			if(user != null && answer != null) {
 				answer.like(user);

@@ -14,6 +14,7 @@ import models.CourseSection;
 import models.Forum;
 import models.ProfilePic;
 import models.Question;
+import models.SocialUser;
 import models.StudySession;
 import models.User;
 import models.UserProfile;
@@ -29,7 +30,7 @@ import play.server.Server;
 public class UserProfileC extends Controller {
 	
 	public static void list() {
-		List<User> allUsers = User.findAll();
+		List<SocialUser> allUsers = SocialUser.findAll();		
 		render(allUsers);
 	}
 	
@@ -39,8 +40,8 @@ public class UserProfileC extends Controller {
 		List<String> tabIds = new ArrayList<String>();
 		List<String> tabNames = new ArrayList<String>();
 		
-		if(Security.isConnected()) {			
-			User connectedUser = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(Security.connected())).first();
+		if(Security.isConnected()) {
+			SocialUser connectedUser = SocialUser.findById(Long.parseLong(Security.connected()));
 			if(connectedUser.id == userId) {
 				tabIds.add("settings");
 				tabNames.add("Settings");
@@ -59,7 +60,7 @@ public class UserProfileC extends Controller {
 		
 		
 		
-		UserProfile userProfile = getUserProfileFromUserId(userId);
+		UserProfile userProfile = getUserProfileFromSocialUserId(userId);
 		
 		//Get a list of questions asked by the user in DIY courses
 		//TODO: 
@@ -122,7 +123,7 @@ public class UserProfileC extends Controller {
 							  String location, 
 							  Blob profilePicBlob) {
 		
-		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = 1").first();
+		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
 		if(profilePicBlob != null) {
 			//TODO: Delete the old profile pic
 			userProfile.profilePic = new ProfilePic(profilePicBlob).save();
@@ -134,7 +135,7 @@ public class UserProfileC extends Controller {
 		show(userId);
 	}
 	
-	private static UserProfile getUserProfileFromUserId(long userId) {
+	private static UserProfile getUserProfileFromSocialUserId(long userId) {
 		String sql = "select distinct upr from UserProfile upr where upr.user.id = ?";
 		return UserProfile.find(sql, userId).first();
 	}

@@ -31,9 +31,9 @@ public class UserProfile extends Model {
 	
 	@Required
 	@OneToOne
-	public User user;
+	public SocialUser user;
 	
-	public UserProfile(User user) {
+	public UserProfile(SocialUser user) {
 		this.user = user;
 		this.questionsAsked = new HashSet<Question>();
 		this.answersProvided = new HashSet<Answer>();

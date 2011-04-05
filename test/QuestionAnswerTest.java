@@ -2,11 +2,14 @@ import static org.junit.Assert.*;
 
 import models.Answer;
 import models.Question;
+import models.SocialUser;
 import models.User;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import controllers.Security;
 
 import play.test.Fixtures;
 import play.test.UnitTest;
@@ -26,7 +29,7 @@ public class QuestionAnswerTest extends UnitTest {
 	
 	@Test
 	public void testAddAnswers() {
-		User user = User.findByEmail("learner@somewhere.com");
+		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
 		Question question = new Question("New question", "New question for test", user);
 		question.save();
 		String answerContent = "this may not work because we are giving the question to the answer";

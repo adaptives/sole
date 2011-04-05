@@ -3,10 +3,10 @@
 	<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
 </div>
 <div>
-	${userProfile.user.name} from ${userProfile.location} 
+	${userProfile.user.screenname} from ${userProfile.location} 
 </div>
 <div>
-	${userProfile.aboutMyself.nl2br()}
+	${userProfile.aboutMyself?.nl2br()}
 </div>
 
 <div class="userprofile-tabs">
@@ -14,7 +14,7 @@
 </div>
 
 <div id="settings">
-	#{if userProfile.user.email == session.username}
+	#{if userProfile.user.id == Long.parseLong(session.user)}
 		<div class="personal-details">
 			<span>Your email is ${userProfile.user.email}</span>
 			<div>Change your password:</div>
