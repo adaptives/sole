@@ -54,16 +54,31 @@ public class Question extends Model {
 	}
 	
 	public void like(SocialUser user) {
-		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
-			new QuestionLiked(this, user);
+		//Users cannot upvote their own question and they cannot upvote any 
+		//question more than once 
+		if(this.author.id != user.id) {
+			if(!hasLiked(user)) {
+				new QuestionLiked(this, user);
+			} else {
+				//TODO Rate check ?
+				cLogger.warn(user.id + "'" + " has already liked question '" + this.id);
+			}			
 		} else {
 			//TODO Rate check ?
-			cLogger.warn("question '" + this.id + "' is already liked by user '" + user.id + "'");
+			cLogger.warn(user.id + "'" + " cannot like own question '" + this.id);
 		}		
 	}
 	
-	public boolean hasLiked(User user) {		
-		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
+//	public boolean hasLiked(User user) {		
+//		if(QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+//	}
+	
+	public boolean hasLiked(SocialUser user) {
+		if(AnswerLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question = ? and ql.user=?", this, user) == 0) {
 			return false;
 		} else {
 			return true;

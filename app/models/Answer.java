@@ -33,18 +33,34 @@ public class Answer extends Model {
 	}
 	
 	public void like(SocialUser user) {
-		if(AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer = ? and al.user=?", this, user) == 0) {
-			new AnswerLiked(this, user);
+		//Users cannot upvote their own answer and they cannot upvote any answer 
+		//more than once 
+		if(user.id != this.author.id) {
+			if(!hasLiked(user)) {
+				new AnswerLiked(this, user);
+			} else {
+				//TODO Rate check ?
+				cLogger.warn(user.id + "'" + " has already liked answer '" + this.id);
+			}			
 		} else {
-			cLogger.warn("answer '" + this.id + "' is already liked by user '" + user.id + "'");
+			//TODO Rate check ?
+			cLogger.warn(user.id + "'" + " cannot like own answer '" + this.id);
 		}		
 	}
-	
+
 	public int likes() {
 		return (int)AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer.id = ?", this.id);
 	}
 	
-	public boolean hasLiked(User user) {
+//	public boolean hasLiked(User user) {
+//		if(AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer = ? and al.user=?", this, user) == 0) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+//	}
+	
+	public boolean hasLiked(SocialUser user) {
 		if(AnswerLiked.count("select count(distinct al) from AnswerLiked al where al.answer = ? and al.user=?", this, user) == 0) {
 			return false;
 		} else {
