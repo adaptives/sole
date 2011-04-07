@@ -4,10 +4,8 @@
 }%
 
 <h3 class="study-session-title">${studySession.title}</h3>
-<div class="spaced">
-	#{if !session.user || !studySession.isUserEnrolled(session.user)}
-		<span class="study-session-enrollment"><a href="@{StudySessionC.register(studySession.id)}">Register</a></span>
-	#{/if}	
+<div class="study-session-details-panel">
+	#{studySessionMetadata ss:studySession, ssm:studySessionMeta /} #{apply ss:studySession, ssm:studySessionMeta /}
 </div>
 <hr/>
 <div class="study-session-description-full">
@@ -30,8 +28,3 @@
 	</ul>
 </div>
 <hr/>
-<div class="spaced">
-	#{if session.user && studySession.isUserEnrolled(session.user)}
-		<span class="study-session-unenrollment"><a href="@{StudySessionC.deregister(studySession.id)}">Deregister</a></span>
-	#{/if}
-</div>

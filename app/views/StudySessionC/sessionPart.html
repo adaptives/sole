@@ -5,8 +5,8 @@
 
 <h3 class="study-session-title">${sessionPart.title}</h3>
 <div class="spaced">
-	#{if !user || !sessionPart.studySession.isUserEnrolled(session.user)}
-		<span class="study-session-enrollment"><a href="@{StudySessionC.register(sessionPart.studySession.id)}">Register</a></span>
+	#{if !user || !sessionPart.studySession.canEnroll(session.user)}
+		<span class="study-session-enrollment"><a href="@{StudySessionC.apply(sessionPart.studySession.id)}">Apply</a></span>
 	#{/if}	
 </div>
 <hr/>

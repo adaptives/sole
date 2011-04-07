@@ -36,18 +36,24 @@ public class StudySessionC extends Controller {
 	}
 	
 	public static void studySession(long id) {
-		StudySession studySession = StudySession.findById(id); 
-		render(studySession);
+		StudySession studySession = StudySession.findById(id);
+		StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
+		render(studySession, studySessionMeta);
 	}
 	
-	public static void register(long id) {
+	public static void apply(long id) {
+		try {
 		if(Security.isConnected()) {			
 			String userId = Security.connected();			
 			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
-				if(studySession != null) {
-					studySession.participants.add(connectedUser);
+				if(studySession != null && 
+				   !studySession.participants.contains(connectedUser) &&
+				   !studySession.facilitators.contains(connectedUser) &&
+				   !studySession.rejectedApplications.contains(connectedUser)) {
+					
+					studySession.pendingApplications.add(connectedUser);
 					studySession.save();
 				} else {
 					
@@ -75,6 +81,10 @@ public class StudySessionC extends Controller {
 				studySession(id);
 			}
 		}
+		} catch(Exception e) {
+			System.out.println("Caught exception while enrolling ");
+			e.printStackTrace();
+		}
 	}
 	
 	public static void deregister(long id) {
@@ -84,10 +94,16 @@ public class StudySessionC extends Controller {
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
-					studySession.participants.remove(connectedUser);
-					studySession.save();
+					if(studySession.pendingApplications.contains(connectedUser)) {
+						studySession.pendingApplications.remove(connectedUser);
+						studySession.save();
+					}
+					if(studySession.participants.contains(connectedUser)) {
+						studySession.participants.remove(connectedUser);
+						studySession.save();
+					}					
 				} else {
-					
+					cLogger.warn("StudySession is null '" + id + "'");
 					flash.error(MessageConstants.INTERNAL_ERROR);
 				}
 			} else {

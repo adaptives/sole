@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -26,6 +27,8 @@ public class StudySession extends Model {
 	public String description;
 	public Date startDate;
 	public Date endDate;
+	@Lob
+	public String applicationPage;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studySession")
 	Set<SessionPart> sessionParts;
@@ -38,6 +41,14 @@ public class StudySession extends Model {
 	@JoinTable(name="StudySession_Participants")
 	public Set<SocialUser> participants;
 	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name="StudySession_PendingApplications")
+	public Set<SocialUser> pendingApplications;
+	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name="StudySession_RejectedApplications")
+	public Set<SocialUser> rejectedApplications;
+
 	@OneToOne(cascade=CascadeType.ALL)
 	public Forum forum;
 	
@@ -50,6 +61,9 @@ public class StudySession extends Model {
 		this.endDate = endDate;
 		this.facilitators = new TreeSet<SocialUser>();
 		this.participants = new TreeSet<SocialUser>();
+		this.pendingApplications = new TreeSet<SocialUser>();
+		this.rejectedApplications = new TreeSet<SocialUser>();
+		
 		this.forum = new Forum(title, 
 							   "Forum for discussing doubts in course '" + title + "'");
 		create();
@@ -67,7 +81,25 @@ public class StudySession extends Model {
 	
 	public boolean isUserEnrolled(long userId) {
 		SocialUser user = SocialUser.findById(userId);
-		return (participants.contains(user) || facilitators.contains(user));	
+		return (this.participants.contains(user) || facilitators.contains(user));	
+	}
+	
+	public boolean isUserApplicationPending(long userId) {
+		SocialUser user = SocialUser.findById(userId);
+		return (this.pendingApplications.contains(user));
+	}
+	
+	public boolean canEnroll(String sUserId) {
+		return canEnroll(Long.parseLong(sUserId));
+	}
+	
+	public boolean canEnroll(long userId) {
+		SocialUser user = SocialUser.findById(userId);
+		System.out.println("Determining if user '" + userId + "' can enroll in study session");
+		return (!this.participants.contains(user) && 
+				!this.facilitators.contains(user) && 
+				!this.rejectedApplications.contains(user) && 
+				!this.pendingApplications.contains(user));
 	}
 	
 	public boolean isUserEnrolled(String userId) {

@@ -41,6 +41,22 @@ User(learnerdude):
     
 UserProfile(learnerdudeProfile):
     user:               sulearnerdude
+    
+SocialUser(sustudent):
+    screenname:         student
+    email:              student@somewhere.com
+
+User(student):
+    email:              student@somewhere.com
+    passwordHash:       secret
+    name:               Student Dude
+    needConfirmation:   false
+    socialUser:         sustudent
+    roles:              
+                        - learner
+    
+UserProfile(studentProfile):
+    user:               sustudent
                         
 Course(Java):
     title:          Java Programming
@@ -80,9 +96,9 @@ StudySession(Java101):
     endDate:        2011-04-30
     forum:          java101Forum
     facilitators:
-                    admindude
+                    suadmindude
     participants:
-                    learnerdude
+                    sulearnerdude
     description:    >
                     It is either owned by or licensed to YouTube, EL Camino. May be you would want to read through their Terms of Service. You cannot reproduce, sell, or use them without their prior permission, unless it is specifically for personal, no-commercial use. I believe I stated that pretty well in my first post.
                     

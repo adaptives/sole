@@ -29,17 +29,20 @@
 			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
 #{/list}
 
-<!-- TODO: A user should be registered to post questions, and they can register in a course only if the course is still open for enrollment -->
+<!-- TODO: A user should be registered to post questions, and they can apply for a course only if the course is still open for enrollment -->
 <div id="question-form" class="section-question-form">
 		#{if !session.user}
 			Please <a href="@{Secure.login}">login</a> to post questions.			
 		#{/if}
-		#{elseif !studySession.isUserEnrolled(session.user)}
-			Please <a href="@{StudySessionC.register(studySession.id)}">Register</a></span>  to post questions.
+		#{elseif studySession.canEnroll(session.user)}
+			Please <a href="@{StudySessionC.apply(studySession.id)}">Apply</a></span>  to post questions.
 		#{/elseif}
-		#{else}
+		#{elseif studySession.isUserEnrolled(session.user)}
 			#{questionForm controllerAction:'StudySessionC.postQuestion', 
 						   actionArgsMap:['studySessionId':studySession.id,'forumId':studySession.forum.id] /}
+		#{/elseif}
+		#{else}
+			You are welcome to view all all discussions. Please consider enrolling in a future course to participate in the discussions.
 		#{/else}
 </div>
 
