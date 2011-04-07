@@ -11,6 +11,7 @@ import models.Question;
 import models.SessionPart;
 import models.SocialUser;
 import models.StudySession;
+import models.StudySessionApplication;
 import models.StudySessionMeta;
 import models.User;
 import play.Logger;
@@ -41,8 +42,15 @@ public class StudySessionC extends Controller {
 		render(studySession, studySessionMeta);
 	}
 	
+//	public static void apply(long id) {
+//		if(Security.isConnected()) {
+//			StudySession studySession = StudySession.findById(id);
+//			
+//		}
+//	}
+	
 	public static void apply(long id) {
-		try {
+		
 		if(Security.isConnected()) {			
 			String userId = Security.connected();			
 			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
@@ -53,8 +61,9 @@ public class StudySessionC extends Controller {
 				   !studySession.facilitators.contains(connectedUser) &&
 				   !studySession.rejectedApplications.contains(connectedUser)) {
 					
-					studySession.pendingApplications.add(connectedUser);
-					studySession.save();
+					render(studySession);
+//					studySession.pendingApplications.add(connectedUser);
+//					studySession.save();
 				} else {
 					
 					flash.error(MessageConstants.INTERNAL_ERROR);
@@ -81,9 +90,52 @@ public class StudySessionC extends Controller {
 				studySession(id);
 			}
 		}
-		} catch(Exception e) {
-			System.out.println("Caught exception while enrolling ");
-			e.printStackTrace();
+	}
+	
+	public static void application(long id, String application) {
+		if(Security.isConnected()) {			
+			String userId = Security.connected();			
+			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
+			if(connectedUser != null) {
+				StudySession studySession = StudySession.findById(id);
+				if(studySession != null && 
+				   !studySession.participants.contains(connectedUser) &&
+				   !studySession.facilitators.contains(connectedUser) &&
+				   !studySession.rejectedApplications.contains(connectedUser)) {
+					
+					StudySessionApplication studySessionApplication = 
+						new StudySessionApplication(connectedUser, 
+													studySession, 
+													application);
+					studySession.pendingApplications.add(studySessionApplication);
+					studySession.save();
+//					studySession.pendingApplications.add(connectedUser);
+//					studySession.save();
+				} else {
+					
+					flash.error(MessageConstants.INTERNAL_ERROR);
+				}
+			} else {
+				flash.error(MessageConstants.INTERNAL_ERROR);
+			}
+			//TODO: Could we have just rendered the view and passed id to it?
+			//studySession(id);
+			//We are redirecting to the original URL... TODO: Make this a utility method
+			String url = flash.get("url");
+	        if(url == null) {
+	            url = "/";
+	        }
+	        redirect(url);
+		} else {
+			flash.put("url", request.method == "GET" ? request.url : "/");
+			try {
+				Secure.login();
+			} catch(Throwable t) {
+				flash.error(MessageConstants.INTERNAL_ERROR);
+				cLogger.error("Could not redirect user to the login " +
+							  "page before registering for a studySession", t);
+				studySession(id);
+			}
 		}
 	}
 	
@@ -94,8 +146,8 @@ public class StudySessionC extends Controller {
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
-					if(studySession.pendingApplications.contains(connectedUser)) {
-						studySession.pendingApplications.remove(connectedUser);
+					if(studySession.isUserApplicationPending(connectedUser.id)) {
+						studySession.removePendingApplicant(connectedUser);
 						studySession.save();
 					}
 					if(studySession.participants.contains(connectedUser)) {

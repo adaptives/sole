@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+
+#{form @StudySessionC.application(studySession.id)}
+	<div>
+		${studySession.applicationText}
+	</div>
+	<div>
+		<textarea rows="20" cols="80" name="application"></textarea>
+	</div>
+	<div>
+		<input type="submit" name="submit" value="Submit" />
+		<input type="reset" name="reset" value="Reset" />
+	</div>
+#{/form}
+	

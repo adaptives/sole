@@ -28,7 +28,7 @@ public class StudySession extends Model {
 	public Date startDate;
 	public Date endDate;
 	@Lob
-	public String applicationPage;
+	public String applicationText;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studySession")
 	Set<SessionPart> sessionParts;
@@ -43,7 +43,7 @@ public class StudySession extends Model {
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name="StudySession_PendingApplications")
-	public Set<SocialUser> pendingApplications;
+	public Set<StudySessionApplication> pendingApplications;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name="StudySession_RejectedApplications")
@@ -61,7 +61,7 @@ public class StudySession extends Model {
 		this.endDate = endDate;
 		this.facilitators = new TreeSet<SocialUser>();
 		this.participants = new TreeSet<SocialUser>();
-		this.pendingApplications = new TreeSet<SocialUser>();
+		this.pendingApplications = new TreeSet<StudySessionApplication>();
 		this.rejectedApplications = new TreeSet<SocialUser>();
 		
 		this.forum = new Forum(title, 
@@ -86,7 +86,12 @@ public class StudySession extends Model {
 	
 	public boolean isUserApplicationPending(long userId) {
 		SocialUser user = SocialUser.findById(userId);
-		return (this.pendingApplications.contains(user));
+		for(StudySessionApplication application : pendingApplications) {
+			if(application.socialUser.equals(user)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean canEnroll(String sUserId) {
@@ -99,7 +104,7 @@ public class StudySession extends Model {
 		return (!this.participants.contains(user) && 
 				!this.facilitators.contains(user) && 
 				!this.rejectedApplications.contains(user) && 
-				!this.pendingApplications.contains(user));
+				!this.isUserApplicationPending(user.id));
 	}
 	
 	public boolean isUserEnrolled(String userId) {
@@ -114,5 +119,18 @@ public class StudySession extends Model {
 						  "value '" + userId + "'", e);
 			return false;
 		}	
+	}
+
+	public void removePendingApplicant(SocialUser user) {
+		StudySessionApplication applicationToRemove = null;
+		for(StudySessionApplication application : pendingApplications) {
+			if(application.socialUser.equals(user)) {
+				applicationToRemove = application;
+				break;
+			}
+		}
+		if(applicationToRemove != null) {
+			this.pendingApplications.remove(applicationToRemove);
+		}
 	}
 }
