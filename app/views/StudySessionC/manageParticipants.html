@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+
+<a href="@{StudySessionC.studySession(studySessionId)}">Back</a>
+
+#{list items:pendingApplications, as:'pendingApplication'}
+	<div>
+		<div>
+			<img width="40" height="40" src="@{UserProfileC.pic(pendingApplication.socialUser.id)}"> <a href="@{UserProfileC.show(pendingApplication.socialUser.id)}">${pendingApplication.socialUser.screenname}</a>
+		</div>
+		<div>
+			Applied at: ${pendingApplication.timestamp}
+		</div>
+		<div>
+			${pendingApplication.application.raw()}
+		</div>
+		<div>
+			#{form @StudySessionC.acceptApplication(studySessionId, pendingApplication.id)}
+				<div>
+					<textarea name="comment"></textarea>
+				</div>
+				<div>
+					<input type="submit" name="submit" value="Accept" />
+				</div>
+			#{/ form}
+			#{form @StudySessionC.rejectApplication(studySessionId, pendingApplication.id)}
+				<div>
+					<textarea name="comment"></textarea>
+				</div>
+				<div>
+					<input type="submit" name="submit" value="Reject" />
+				</div>
+			#{/ form}
+		</div>
+	</div>
+#{/list}

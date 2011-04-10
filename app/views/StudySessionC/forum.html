@@ -37,7 +37,10 @@
 		#{elseif studySession.canEnroll(session.user)}
 			Please <a href="@{StudySessionC.apply(studySession.id)}">Apply</a></span>  to post questions.
 		#{/elseif}
-		#{elseif studySession.isUserEnrolled(session.user)}
+		#{elseif studySession.isApplicationPending(session.user)}
+			Your application is being reviewed. You will be able to ask questions once it gets approved.
+		#{/elseif}
+		#{elseif studySession.isUserEnrolled(session.user) || studySession.isFacilitator(session.user)}
 			#{questionForm controllerAction:'StudySessionC.postQuestion', 
 						   actionArgsMap:['studySessionId':studySession.id,'forumId':studySession.forum.id] /}
 		#{/elseif}

@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+
+<a href="@{StudySessionC.studySession(studySessionId)}">Back</a>
+
+#{list items:participants, as:'participant'}
+	<div>
+	<span><img width="40" height="40" src="@{UserProfileC.pic(participant.id)}"></span><a href="@{UserProfileC.show(participant.id)}">${participant.screenname}</a>
+	</div>
+#{/list}

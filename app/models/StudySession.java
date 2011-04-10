@@ -84,6 +84,14 @@ public class StudySession extends Model {
 				this.applicationStore.canEnroll(userId));
 	}
 	
+	public boolean isApplicationPending(String userId) {
+		return isApplicationPending(Long.parseLong(userId));
+	}
+	
+	public boolean isApplicationPending(long userId) {
+		return this.applicationStore.isUserApplicationPending(userId);
+	}
+	
 	public boolean isUserEnrolled(String userId) {
 		return this.isUserEnrolled(Long.parseLong(userId));
 	}
@@ -92,6 +100,10 @@ public class StudySession extends Model {
 		return 
 			this.applicationStore.
 				isUserApplicationAccepted(userId);
+	}
+	
+	public boolean isFacilitator(String userId) {
+		return isFacilitator(Long.parseLong(userId));
 	}
 	
 	public boolean isFacilitator(long userId) {
@@ -122,7 +134,15 @@ public class StudySession extends Model {
 		this.applicationStore.deregister(userId, comment);
 	}
 	
+	public List<SocialUser> getAcceptedUsers() {
+		return this.applicationStore.getAcceptedApplications();
+	}
+	
 	public List<SocialUser> getPendingApplicants() {
+		return this.applicationStore.getPendingApplicants();
+	}
+	
+	public List<StudySessionApplication> getPendingApplications() {
 		return this.applicationStore.getPendingApplications();
 	}
 }

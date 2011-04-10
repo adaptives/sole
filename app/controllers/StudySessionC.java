@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import models.Answer;
 import models.Forum;
@@ -162,6 +163,18 @@ public class StudySessionC extends Controller {
 		render(sessionPart);
 	}
 	
+	public static void manageParticipants(long studySessionId) {
+		StudySession studySession = StudySession.findById(studySessionId);
+		List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();
+		render(studySessionId, pendingApplications);
+	}
+	
+	public static void participants(long studySessionId) {
+		StudySession studySession = StudySession.findById(studySessionId);
+		List<SocialUser> participants = studySession.getAcceptedUsers();		
+		render(studySessionId, participants);
+	}
+	
 	public static void forum(long studySessionId) {
 		forumQuestion(studySessionId, -1);
 	}
@@ -237,4 +250,25 @@ public class StudySessionC extends Controller {
 		}
 	}
 
+	public static void acceptApplication(long studySessionId, 
+										 long applicationId, 
+										 String comment) {
+		
+		StudySessionApplication studySessionApplication = 
+								StudySessionApplication.findById(applicationId);
+		studySessionApplication.changeStatus(1, comment);
+		studySessionApplication.save();
+		manageParticipants(studySessionId);
+	}
+	
+	public static void rejectApplication(long studySessionId, 
+										 long applicationId, 
+										 String comment) {
+		
+		StudySessionApplication studySessionApplication = 
+			StudySessionApplication.findById(applicationId);
+		studySessionApplication.changeStatus(-1, comment);
+		studySessionApplication.save();
+		manageParticipants(studySessionId);
+	}
 }

@@ -86,10 +86,12 @@ public class StudySessionApplication extends Model implements Comparable {
 				if(newStatus == 0) { //all states except itself possible
 					retVal = false;
 				}
+				break;
 			case 1: //accepted
 				if(newStatus != -2) {
 					retVal = false;
 				}
+				break;
 			default:
 				cLogger.warn("The application is in an illegal status '" + this.currentStatus + "'");
 		}

@@ -64,7 +64,6 @@ public class ApplicationStore extends Model {
 	}
 	
 	public boolean canEnroll(long userId) {
-		System.out.println("EN ApplicationStore.canEnroll '" + userId + "'");
 		return (!isUserApplicationAccepted(userId) && 				  
 				!isUserApplicationPending(userId));
 	}
@@ -103,7 +102,20 @@ public class ApplicationStore extends Model {
 		}
 	}
 	
-	public List<SocialUser> getPendingApplications() {
+	public List<SocialUser> getAcceptedApplications() {
+		List<SocialUser> acceptedUsers = new ArrayList<SocialUser>();
+		
+		List<StudySessionApplication> acceptedApplications = 
+			StudySessionApplication.find("select a from StudySessionApplication a where a.currentStatus = 1").fetch();
+		
+		for(StudySessionApplication application : acceptedApplications) {
+			acceptedUsers.add(application.socialUser);
+		}
+		
+		return acceptedUsers;
+	}
+	
+	public List<SocialUser> getPendingApplicants() {
 		List<SocialUser> pendingUsers = new ArrayList<SocialUser>();
 		
 		List<StudySessionApplication> pendingApplications = 
@@ -114,6 +126,12 @@ public class ApplicationStore extends Model {
 		}
 		
 		return pendingUsers;
+	}
+	
+	public List<StudySessionApplication> getPendingApplications() {
+		List<StudySessionApplication> pendingApplications = 
+			StudySessionApplication.find("select a from StudySessionApplication a where a.currentStatus = 0 order by a.timestamp").fetch();
+		return pendingApplications;
 	}
 	
 	public void acceptApplication(long userId, String comment) {
