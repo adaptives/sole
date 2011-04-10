@@ -42,13 +42,11 @@ public class StudySessionC extends Controller {
 		render(studySession, studySessionMeta);
 	}
 	
-//	public static void apply(long id) {
-//		if(Security.isConnected()) {
-//			StudySession studySession = StudySession.findById(id);
-//			
-//		}
-//	}
-	
+	/**
+	 * Checks if the user is eligible to apply for the course and redirects
+	 * the user to the application page
+	 * @param id
+	 */
 	public static void apply(long id) {
 		
 		if(Security.isConnected()) {			
@@ -57,15 +55,10 @@ public class StudySessionC extends Controller {
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null && 
-				   !studySession.participants.contains(connectedUser) &&
-				   !studySession.facilitators.contains(connectedUser) &&
-				   !studySession.rejectedApplications.contains(connectedUser)) {
-					
+				   !studySession.applicationStore.isUserApplicationAccepted(connectedUser.id) &&
+				   !studySession.facilitators.contains(connectedUser)) {					
 					render(studySession);
-//					studySession.pendingApplications.add(connectedUser);
-//					studySession.save();
-				} else {
-					
+				} else {					
 					flash.error(MessageConstants.INTERNAL_ERROR);
 				}
 			} else {
@@ -99,20 +92,12 @@ public class StudySessionC extends Controller {
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null && 
-				   !studySession.participants.contains(connectedUser) &&
-				   !studySession.facilitators.contains(connectedUser) &&
-				   !studySession.rejectedApplications.contains(connectedUser)) {
-					
-					StudySessionApplication studySessionApplication = 
-						new StudySessionApplication(connectedUser, 
-													studySession, 
-													application);
-					studySession.pendingApplications.add(studySessionApplication);
+				   !studySession.applicationStore.isUserApplicationAccepted(connectedUser.id) &&
+				   !studySession.facilitators.contains(connectedUser)) {
+
+					studySession.addApplication(connectedUser, application);
 					studySession.save();
-//					studySession.pendingApplications.add(connectedUser);
-//					studySession.save();
-				} else {
-					
+				} else {					
 					flash.error(MessageConstants.INTERNAL_ERROR);
 				}
 			} else {
@@ -146,14 +131,10 @@ public class StudySessionC extends Controller {
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
-					if(studySession.isUserApplicationPending(connectedUser.id)) {
-						studySession.removePendingApplicant(connectedUser);
-						studySession.save();
-					}
-					if(studySession.participants.contains(connectedUser)) {
-						studySession.participants.remove(connectedUser);
-						studySession.save();
-					}					
+					//studySession.applicationStore.deregister(connectedUser.id);
+					//TODO: We should need only one, which one?
+					studySession.applicationStore.save();
+					studySession.save();
 				} else {
 					cLogger.warn("StudySession is null '" + id + "'");
 					flash.error(MessageConstants.INTERNAL_ERROR);
@@ -207,7 +188,7 @@ public class StudySessionC extends Controller {
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		StudySession studySession = StudySession.findById(studySessionId);
 		if(studySession != null && 
-		   (studySession.participants.contains(user) || studySession.facilitators.contains(user))) {
+		   (studySession.applicationStore.isUserApplicationAccepted(user.id) || studySession.facilitators.contains(user))) {
 		
 			Forum forum = Forum.findById(forumId);
 			Question question = new Question(title, 

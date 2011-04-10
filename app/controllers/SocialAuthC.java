@@ -32,9 +32,12 @@ public class SocialAuthC extends Controller {
 	public static void setConnectedUser() {
 		if(Security.isConnected()) {
 //			User user = User.findByEmail(Security.connected());
-//			renderArgs.put("user", user.name);			
-			SocialUser socialUser = SocialUser.findById(Long.parseLong(Security.connected()));
-			renderArgs.put("screenname", socialUser.screenname);
+//			renderArgs.put("user", user.name);
+			String userId = Security.connected();
+			if(userId != null) {
+				SocialUser socialUser = SocialUser.findById(Long.parseLong(userId));
+				renderArgs.put("screenname", socialUser.screenname);
+			}			
 		}
 	}
 	

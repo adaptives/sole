@@ -65,7 +65,7 @@ public class Security extends Secure.Security{
      * This method returns the current connected username
      * @return
      */
-    static String connected() {
+    public static String connected() {
         return session.get(SocialAuthC.USER);
     }
 
@@ -73,7 +73,7 @@ public class Security extends Secure.Security{
      * Indicate if a user is currently connected
      * @return  true if the user is connected
      */
-    static boolean isConnected() {
+    public static boolean isConnected() {
         return session.contains(SocialAuthC.USER);
     }
 }

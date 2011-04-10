@@ -1,7 +1,89 @@
 # you describe your data using the YAML notation here
 # and then load them using Fixtures.load("data.yml")
 
-# User(bob):
-#   email: bob@gmail.com
-#   password: secret
-#   fullname: Bob
+Role(learner):
+    name:               learner
+    
+Role(admin):
+    name:               admin
+
+SocialUser(suadmindude):
+    screenname:          admindude
+    email:               someone@somewhere.com
+    
+User(admindude):
+    email:              someone@somewhere.com
+    passwordHash:       secret
+    name:               Admin Dude
+    needConfirmation:   false
+    socialUser:         suadmindude
+    roles:              
+                        - admin
+UserProfile(adminDudeProfile):
+    user:               suadmindude
+    aboutMyself:        I am the admin of this website
+
+SocialUser(sulearnerdude):
+    screenname:         learnerdude
+    email:              learnerdude@somewhere.com
+
+User(learnerdude):
+    email:              learner@somewhere.com
+    passwordHash:       secret
+    name:               Learner Dude
+    needConfirmation:   false
+    socialUser:         sulearnerdude
+    roles:              
+                        - learner
+    
+UserProfile(learnerdudeProfile):
+    user:               sulearnerdude
+    
+SocialUser(sustudent):
+    screenname:         student
+    email:              student@somewhere.com
+
+User(student):
+    email:              student@somewhere.com
+    passwordHash:       secret
+    name:               Student Dude
+    needConfirmation:   false
+    socialUser:         sustudent
+    roles:              
+                        - learner
+    
+UserProfile(studentProfile):
+    user:               sustudent
+                        
+SocialUser(sustudent1):
+    screenname:         student1
+    email:              student1@somewhere.com
+
+User(student1):
+    email:              student1@somewhere.com
+    passwordHash:       secret
+    name:               Student Dude 1
+    needConfirmation:   false
+    socialUser:         sustudent1
+    roles:              
+                        - learner
+    
+UserProfile(studentProfile1):
+    user:               sustudent1
+                        
+SocialUser(sustudent2):
+    screenname:         student2
+    email:              student2@somewhere.com
+
+User(student2):
+    email:              student2@somewhere.com
+    passwordHash:       secret
+    name:               Student Dude 2
+    needConfirmation:   false
+    socialUser:         sustudent2
+    roles:              
+                        - learner
+    
+UserProfile(studentProfile2):
+    user:               sustudent2
+                        

@@ -37,20 +37,11 @@ public class StudySession extends Model {
 	@JoinTable(name="StudySession_Facilitators")
 	public Set<SocialUser> facilitators;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST)
-	@JoinTable(name="StudySession_Participants")
-	public Set<SocialUser> participants;
-	
-	@ManyToMany(cascade=CascadeType.PERSIST)
-	@JoinTable(name="StudySession_PendingApplications")
-	public Set<StudySessionApplication> pendingApplications;
-	
-	@ManyToMany(cascade=CascadeType.PERSIST)
-	@JoinTable(name="StudySession_RejectedApplications")
-	public Set<SocialUser> rejectedApplications;
-
 	@OneToOne(cascade=CascadeType.ALL)
 	public Forum forum;
+	
+	@OneToOne(mappedBy="studySession", cascade=CascadeType.ALL)
+	public ApplicationStore applicationStore;
 	
 	public StudySession(String title,
 						String description,
@@ -60,9 +51,7 @@ public class StudySession extends Model {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.facilitators = new TreeSet<SocialUser>();
-		this.participants = new TreeSet<SocialUser>();
-		this.pendingApplications = new TreeSet<StudySessionApplication>();
-		this.rejectedApplications = new TreeSet<SocialUser>();
+		this.applicationStore = new ApplicationStore(this);
 		
 		this.forum = new Forum(title, 
 							   "Forum for discussing doubts in course '" + title + "'");
@@ -79,58 +68,61 @@ public class StudySession extends Model {
 		return StudySession.find("endDate < ? order by startDate asc", now).fetch();
 	}
 	
-	public boolean isUserEnrolled(long userId) {
-		SocialUser user = SocialUser.findById(userId);
-		return (this.participants.contains(user) || facilitators.contains(user));	
-	}
-	
-	public boolean isUserApplicationPending(long userId) {
-		SocialUser user = SocialUser.findById(userId);
-		for(StudySessionApplication application : pendingApplications) {
-			if(application.socialUser.equals(user)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	public boolean canEnroll(String sUserId) {
-		return canEnroll(Long.parseLong(sUserId));
+		if(sUserId != null) {
+			return canEnroll(Long.parseLong(sUserId));
+		} else {
+			return false;
+		}		
 	}
 	
-	public boolean canEnroll(long userId) {
+	public boolean canEnroll(long userId) {		
 		SocialUser user = SocialUser.findById(userId);
-		System.out.println("Determining if user '" + userId + "' can enroll in study session");
-		return (!this.participants.contains(user) && 
-				!this.facilitators.contains(user) && 
-				!this.rejectedApplications.contains(user) && 
-				!this.isUserApplicationPending(user.id));
+		//TODO: We need to get the latest application and use it's status to
+		//find out if the user can enroll
+		return (!this.facilitators.contains(user) && 
+				this.applicationStore.canEnroll(userId));
 	}
 	
 	public boolean isUserEnrolled(String userId) {
-		if(userId == null) {
-			return false;
-		}
-		try {
-			long lUserId = Long.parseLong(userId);
-			return isUserEnrolled(lUserId);
-		} catch(Exception e) {
-			cLogger.error("Could not parse the userId string to get a long " +
-						  "value '" + userId + "'", e);
-			return false;
-		}	
+		return this.isUserEnrolled(Long.parseLong(userId));
 	}
-
-	public void removePendingApplicant(SocialUser user) {
-		StudySessionApplication applicationToRemove = null;
-		for(StudySessionApplication application : pendingApplications) {
-			if(application.socialUser.equals(user)) {
-				applicationToRemove = application;
-				break;
-			}
-		}
-		if(applicationToRemove != null) {
-			this.pendingApplications.remove(applicationToRemove);
-		}
+	
+	public boolean isUserEnrolled(long userId) {
+		return 
+			this.applicationStore.
+				isUserApplicationAccepted(userId);
+	}
+	
+	public boolean isFacilitator(long userId) {
+		SocialUser user = SocialUser.findById(userId);
+		return this.facilitators.contains(user);
+	}
+	
+	public void addApplication(SocialUser user, String application) {
+		//A user who already has a pending or accepted application cannot create a new application
+		if(canEnroll(user.id)) {
+			StudySessionApplication studySessionApplication = new StudySessionApplication(user, this, application);
+			this.applicationStore.applications.add(studySessionApplication);
+			//TODO: Should we save here or should the client call save ... because they may want this to be part of a transaction
+			save();
+		} else {
+			String msg = "User '" + user.id + 
+						 "' cannot enroll for this course because they are " +
+						 "either enrolled or their enrollment application is pending";
+			cLogger.warn(msg);
+		}		
+	}
+	
+	public void acceptApplication(long userId, String comment) {
+		this.applicationStore.acceptApplication(userId, comment);
+	}
+	
+	public void deregister(long userId, String comment) {
+		this.applicationStore.deregister(userId, comment);
+	}
+	
+	public List<SocialUser> getPendingApplicants() {
+		return this.applicationStore.getPendingApplications();
 	}
 }
