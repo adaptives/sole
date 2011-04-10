@@ -108,7 +108,7 @@ public class StudySessionC extends Controller {
 			//We are redirecting to the original URL... TODO: Make this a utility method
 			String url = flash.get("url");
 	        if(url == null) {
-	            url = "/";
+	            studySession(id);
 	        }
 	        redirect(url);
 		} else {
@@ -125,13 +125,19 @@ public class StudySessionC extends Controller {
 	}
 	
 	public static void deregister(long id) {
-		if(Security.isConnected()) {			
+		long studySessionId = id;
+		render(studySessionId);
+	}
+	
+	//TODO: This url should be called only via a POST request
+	public static void deregistration(long id, String cause) {
+		if(Security.isConnected()) {						
 			String userId = Security.connected();			
 			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
 			if(connectedUser != null) {
 				StudySession studySession = StudySession.findById(id);
 				if(studySession != null) {
-					//studySession.applicationStore.deregister(connectedUser.id);
+					studySession.deregister(connectedUser.id, cause);
 					//TODO: We should need only one, which one?
 					studySession.applicationStore.save();
 					studySession.save();
