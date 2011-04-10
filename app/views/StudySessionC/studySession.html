@@ -26,11 +26,11 @@
 	<a href="@{StudySessionC.participants(studySession.id)}">Enrolled Participants</a>
 </div>
 
-#{secure.check 'admin'}
+#{if studySession.canManageParticipants(session.user)}
 <div>
 	<a href="@{StudySessionC.manageParticipants(studySession.id)}">Manage Participants</a>
 </div>
-#{/ secure.check}
+#{/ if}
 
 <div class="spaced" style="font-weight: bold;">
 	<a href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>

@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import controllers.Security;
+
 import play.Logger;
 import play.db.jpa.Model;
 
@@ -111,6 +113,10 @@ public class StudySession extends Model {
 		return this.facilitators.contains(user);
 	}
 	
+	public boolean canManageParticipants(String userId) {
+		return (Security.check("admin") || isFacilitator(userId));
+	}
+	
 	public void addApplication(SocialUser user, String application) {
 		//A user who already has a pending or accepted application cannot create a new application
 		if(canEnroll(user.id)) {
@@ -124,6 +130,11 @@ public class StudySession extends Model {
 						 "either enrolled or their enrollment application is pending";
 			cLogger.warn(msg);
 		}		
+	}
+	
+	public void addFacilitator(long userId) {
+		SocialUser user = SocialUser.findById(userId);
+		this.facilitators.add(user);
 	}
 	
 	public void acceptApplication(long userId, String comment) {

@@ -172,7 +172,7 @@ public class StudySessionC extends Controller {
 	public static void participants(long studySessionId) {
 		StudySession studySession = StudySession.findById(studySessionId);
 		List<SocialUser> participants = studySession.getAcceptedUsers();		
-		render(studySessionId, participants);
+		render(studySession, participants);
 	}
 	
 	public static void forum(long studySessionId) {
@@ -270,5 +270,14 @@ public class StudySessionC extends Controller {
 		studySessionApplication.changeStatus(-1, comment);
 		studySessionApplication.save();
 		manageParticipants(studySessionId);
+	}
+	
+	public static void makeFacilitator(long studySessionId, long userId) {
+		System.out.println("EN makeFacilitator '" + studySessionId + "' '" + userId + "'");
+		StudySession studySession = StudySession.findById(studySessionId);
+		System.out.println("StudySession " + studySession);
+		studySession.addFacilitator(userId);
+		studySession.save();
+		participants(studySessionId);
 	}
 }
