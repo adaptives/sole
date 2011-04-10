@@ -108,6 +108,9 @@ StudySession(Java101):
 StudySessionMeta(Java101Meta):
     studySession:   Java101
 
+ApplicationStore(Java101):
+    studySession:   Java101
+
 SessionPart(week1):
     title:          week1
     startDate:      2011-03-31
