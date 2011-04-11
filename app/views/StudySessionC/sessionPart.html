@@ -12,3 +12,30 @@
 <div class="study-session-description-full">
 	${sessionPart.content}
 </div>
+<div>
+	<h2>Activities - <a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.id)}">View all responses</a></h2>
+	#{list items:sessionPart.activities, as:'activity'}
+		<div>
+			<h4>Activity ${activity_index}</h4>
+			${activity.content}
+		</div>
+		<div>
+			<form action="/" id="activity-response-${activity_index}">
+				<span>Submit your response to this activity (link to a blog post, etc)</span>
+				<input type="text" name="activityResponse" /><input type="submit" name="submit" value="Submit"/>
+			</form>
+			<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> responses recieved.
+			<script type="text/javascript">
+				$('#activity-response-${activity_index}').submit(function(e) {
+					// stop normal link click					
+					e.preventDefault();
+					var $form = $(this);
+					var ar = $form.find('input[name="activityResponse"]').val();
+					$.post("/activityresponse/${activity.id}", {activityResponse:ar}, function(response) {
+						$('#activity-response-count-${activity_index}').html(response);
+					});
+				});		
+			</script>
+		</div>
+	#{/list}
+</div>

@@ -48,6 +48,9 @@ public class StudySession extends Model {
 	@OneToOne
 	public Pic studySessionPic;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	public Set<Activity> activities;
+	
 	public StudySession(String title,
 						String description,
 						Date startDate,
@@ -60,6 +63,9 @@ public class StudySession extends Model {
 		
 		this.forum = new Forum(title, 
 							   "Forum for discussing doubts in course '" + title + "'");
+		
+		this.activities = new TreeSet<Activity>();
+		
 		create();
 	}
 	

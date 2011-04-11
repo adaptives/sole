@@ -17,6 +17,7 @@ GET     /studysessions/studysession/{studySessionId}/forum        StudySessionC.
 GET     /studysessions/studysession/{studySessionId}/forum/question/{questionId}  			StudySessionC.forumQuestion
 POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add 			StudySessionSecureC.postQuestion
 POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} 	StudySessionSecureC.postAnswer
+POST    /activityresponse/{activityId}    StudySessionSecureC.postActivityResponse
 
 GET     /page/{name}                           PageC.show
 

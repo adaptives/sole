@@ -191,5 +191,10 @@ public class StudySessionC extends Controller {
 			   tabIds, 
 			   tabNames);
 	}
+	
+	public static void sessionPartActivityResponses(long sessionPartId) {
+		SessionPart sessionPart = SessionPart.findById(sessionPartId);
+		render(sessionPart);
+	}
 		
 }

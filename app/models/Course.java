@@ -1,9 +1,13 @@
 package models;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import play.data.validation.MaxSize;
@@ -23,9 +27,14 @@ public class Course extends Model {
 	@OneToOne
 	public Pic coursePic;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	public Set<Activity> activities;
+	
 	public Course(String title, String description) {
 		this.title = title;
 		this.description = description;
+		this.activities = new TreeSet<Activity>();
+		create();
 	}
 
 	@Override

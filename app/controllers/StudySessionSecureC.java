@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import models.Activity;
+import models.ActivityResponse;
 import models.Answer;
 import models.Forum;
 import models.Question;
@@ -112,6 +114,16 @@ public class StudySessionSecureC extends Controller {
 			List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();
 			render(studySessionId, pendingApplications);
 		}		
+	}
+	
+	public static int postActivityResponse(long activityId, String activityResponse) {
+		Activity activity = Activity.findById(activityId);
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+		ActivityResponse activityResponseObj = new ActivityResponse(user, activity, activityResponse);
+		activityResponseObj.save();
+		return activity.activityResponses.size();
 	}
 
 	private static boolean canFacilitate(long studySessionId) {
