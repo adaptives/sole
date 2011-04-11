@@ -9,7 +9,7 @@
 		</span>
 		<a href="@{UserProfileC.show(participant.id)}">${participant.screenname}</a>
 		#{ifnot studySession.isFacilitator(participant.id)}
-		<span><a href="@{StudySessionC.makeFacilitator(studySession.id, participant.id)}">Make Facilitator</a></span>
+		<span><a href="@{StudySessionSecureC.makeFacilitator(studySession.id, participant.id)}">Make Facilitator</a></span>
 		#{/ ifnot}
 	</div>
 #{/list}

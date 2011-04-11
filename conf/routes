@@ -15,8 +15,8 @@ GET     /studysessions/studysession/{id}         StudySessionC.studySession
 GET     /studysessions/studysession/sessionpart/{id} StudySessionC.sessionPart
 GET     /studysessions/studysession/{studySessionId}/forum        StudySessionC.forum
 GET     /studysessions/studysession/{studySessionId}/forum/question/{questionId}  			StudySessionC.forumQuestion
-POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add 			StudySessionC.postQuestion
-POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} 	StudySessionC.postAnswer
+POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add 			StudySessionSecureC.postQuestion
+POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} 	StudySessionSecureC.postAnswer
 
 GET     /page/{name}                           PageC.show
 

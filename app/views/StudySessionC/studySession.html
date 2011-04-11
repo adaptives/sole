@@ -28,7 +28,7 @@
 
 #{if studySession.canManageParticipants(session.user)}
 <div>
-	<a href="@{StudySessionC.manageParticipants(studySession.id)}">Manage Participants</a>
+	<a href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a>
 </div>
 #{/ if}
 

@@ -163,12 +163,6 @@ public class StudySessionC extends Controller {
 		render(sessionPart);
 	}
 	
-	public static void manageParticipants(long studySessionId) {
-		StudySession studySession = StudySession.findById(studySessionId);
-		List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();
-		render(studySessionId, pendingApplications);
-	}
-	
 	public static void participants(long studySessionId) {
 		StudySession studySession = StudySession.findById(studySessionId);
 		List<SocialUser> participants = studySession.getAcceptedUsers();		
@@ -197,87 +191,5 @@ public class StudySessionC extends Controller {
 			   tabIds, 
 			   tabNames);
 	}
-	
-	public static void postQuestion(long studySessionId,
-									long forumId,
-									@Required String title,
-									@Required String content,
-									String tags) {
 		
-		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
-		StudySession studySession = StudySession.findById(studySessionId);
-		if(studySession != null && 
-		   (studySession.applicationStore.isUserApplicationAccepted(user.id) || studySession.facilitators.contains(user))) {
-		
-			Forum forum = Forum.findById(forumId);
-			Question question = new Question(title, 
-											 content, 
-											 user);
-			if(tags != null) {
-				String tagArray[] = tags.split(",");
-				if(tagArray != null) {
-					for(String tag : tagArray) {
-						question.tagWith(tag);
-					}
-				}
-			}
-			
-			forum.questions.add(question);
-			forum.save();
-			forum(studySessionId);
-		} else {
-			cLogger.info("user '" + user.id + "' must be enrolled in StudySession '" + 
-						 studySessionId + "' before posting questions");
-		}
-		
-	}
-	
-	//TODO: Annotate this method to ensure that a user is logged in
-	public static void postAnswer(long studySessionId, 
-								  long forumId, 
-								  long questionId,
-								  String answerContent) {
-		Question question = Question.findById(questionId);
-		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
-		if(user != null) {
-			Answer answer = new Answer(answerContent, user, question);
-			question.answers.add(answer);
-			question.save();
-			forumQuestion(studySessionId, questionId);
-		} else {
-			cLogger.info("user '" + user.id + "' must be signed in before " +
-						 "posting answers");
-		}
-	}
-
-	public static void acceptApplication(long studySessionId, 
-										 long applicationId, 
-										 String comment) {
-		
-		StudySessionApplication studySessionApplication = 
-								StudySessionApplication.findById(applicationId);
-		studySessionApplication.changeStatus(1, comment);
-		studySessionApplication.save();
-		manageParticipants(studySessionId);
-	}
-	
-	public static void rejectApplication(long studySessionId, 
-										 long applicationId, 
-										 String comment) {
-		
-		StudySessionApplication studySessionApplication = 
-			StudySessionApplication.findById(applicationId);
-		studySessionApplication.changeStatus(-1, comment);
-		studySessionApplication.save();
-		manageParticipants(studySessionId);
-	}
-	
-	public static void makeFacilitator(long studySessionId, long userId) {
-		System.out.println("EN makeFacilitator '" + studySessionId + "' '" + userId + "'");
-		StudySession studySession = StudySession.findById(studySessionId);
-		System.out.println("StudySession " + studySession);
-		studySession.addFacilitator(userId);
-		studySession.save();
-		participants(studySessionId);
-	}
 }

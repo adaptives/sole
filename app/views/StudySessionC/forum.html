@@ -41,7 +41,7 @@
 			Your application is being reviewed. You will be able to ask questions once it gets approved.
 		#{/elseif}
 		#{elseif studySession.isUserEnrolled(session.user) || studySession.isFacilitator(session.user)}
-			#{questionForm controllerAction:'StudySessionC.postQuestion', 
+			#{questionForm controllerAction:'StudySessionSecureC.postQuestion', 
 						   actionArgsMap:['studySessionId':studySession.id,'forumId':studySession.forum.id] /}
 		#{/elseif}
 		#{else}
@@ -62,7 +62,7 @@
 		<div id="answer-form" class="section-question-form">
 			#{answerForm protected:true,
 				             user:session.user,
-							 controllerAction:'StudySessionC.postAnswer',
+							 controllerAction:'StudySessionSecureC.postAnswer',
 							 actionArgsMap:[studySessionId:studySession.id, forumId:studySession.forum.id, questionId:question.id] /}		
 	    </div>
 	#{/if}
