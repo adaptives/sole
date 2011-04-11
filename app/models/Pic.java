@@ -6,11 +6,11 @@ import play.db.jpa.Blob;
 import play.db.jpa.Model;
 
 @Entity
-public class ProfilePic extends Model {
+public class Pic extends Model {
 
 	public Blob image;
 	
-	public ProfilePic(Blob image) {
+	public Pic(Blob image) {
 		this.image = image;
 	}
 }

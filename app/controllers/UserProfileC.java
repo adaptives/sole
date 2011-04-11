@@ -12,7 +12,7 @@ import java.util.Map;
 import models.Answer;
 import models.CourseSection;
 import models.Forum;
-import models.ProfilePic;
+import models.Pic;
 import models.Question;
 import models.SocialUser;
 import models.StudySession;
@@ -126,7 +126,7 @@ public class UserProfileC extends Controller {
 		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
 		if(profilePicBlob != null) {
 			//TODO: Delete the old profile pic
-			userProfile.profilePic = new ProfilePic(profilePicBlob).save();
+			userProfile.profilePic = new Pic(profilePicBlob).save();
 		}
 		userProfile.aboutMyself = aboutMyself;
 		userProfile.location = location;

@@ -25,7 +25,7 @@ public class UserProfile extends Model {
 	public Set<Answer> answersProvided;
 	
 	@OneToOne
-	public ProfilePic profilePic;
+	public Pic profilePic;
 	
 	public int points;
 	
