@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -18,6 +19,9 @@ public class Course extends Model {
 	@Lob
 	@MaxSize(10000)
 	public String description;
+	
+	@OneToOne
+	public Pic coursePic;
 	
 	public Course(String title, String description) {
 		this.title = title;

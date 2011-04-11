@@ -45,6 +45,9 @@ public class StudySession extends Model {
 	@OneToOne(mappedBy="studySession", cascade=CascadeType.ALL)
 	public ApplicationStore applicationStore;
 	
+	@OneToOne
+	public Pic studySessionPic;
+	
 	public StudySession(String title,
 						String description,
 						Date startDate,
