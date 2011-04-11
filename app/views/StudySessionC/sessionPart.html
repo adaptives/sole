@@ -3,12 +3,8 @@
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
 
-<h3 class="study-session-title">${sessionPart.title}</h3>
-<div class="spaced">
-	#{if !user || !sessionPart.studySession.canEnroll(session.user)}
-		<span class="study-session-enrollment"><a href="@{StudySessionC.apply(sessionPart.studySession.id)}">Apply</a></span>
-	#{/if}	
-</div>
+<h3 class="study-session-title"><a href="@{StudySessionC.studySession(studySessionId)}">Java101</a> : ${sessionPart.title}</h3>
+
 <hr/>
 <div class="study-session-dates">
 	Starts: <span class="study-session-date">${sessionPart.startDate}</span> - End: <span class="study-session-date">${sessionPart.endDate}</span>

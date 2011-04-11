@@ -12,7 +12,7 @@ POST    /courses/course/section{sectionId}/question CourseC.addQuestion
 
 GET     /studysessions/currentlist               StudySessionC.currentlist
 GET     /studysessions/studysession/{id}         StudySessionC.studySession
-GET     /studysessions/studysession/sessionpart/{id} StudySessionC.sessionPart
+GET     /studysessions/studysession/{studySessionId}/sessionpart/{id} StudySessionC.sessionPart
 GET     /studysessions/studysession/{studySessionId}/forum        StudySessionC.forum
 GET     /studysessions/studysession/{studySessionId}/forum/question/{questionId}  			StudySessionC.forumQuestion
 POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add 			StudySessionSecureC.postQuestion

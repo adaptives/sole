@@ -158,9 +158,9 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
-	public static void sessionPart(long id) {
+	public static void sessionPart(long studySessionId, long id) {
 		SessionPart sessionPart = SessionPart.findById(id);
-		render(sessionPart);
+		render(studySessionId, sessionPart);
 	}
 	
 	public static void participants(long studySessionId) {
