@@ -22,7 +22,7 @@
 			<div id="header">
 				#{if session.user}
 					<p>
-						Welcome <span class="connectedUser">${screenname}</span>
+						Welcome <span class="connectedUser"><a href="@{UserProfileC.show(session.user)}">${screenname}</a></span>
 						(<a href="@{Secure.logout}">Logout</a>)
 					</p>
 				#{/if}
