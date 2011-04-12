@@ -2,7 +2,16 @@
 Page(homepage):
     name:               home
     title:              Home Page
-    content:            This is the home page of JaPeer
+    content:            >
+                        <div style="font-size: 1.6em; color: #A9B2C1;">
+                        <div>This is an online, peer based, social learning community for everyone interested in learning Computer Science or related topics.</div>
+                        
+                        <div>We support multiple learning styles.You can select one of our <span style="color: #F08C00;">DIY courses</span>, and learn at your own own pace with the help of a supportive community, or you can choose to participate in an upcoming peer enabled <span style="color: #36CDC4;">study group</span>.</div>
+                        
+                        <div>You will be able to establish <span style="color: #CEF200;">social credentials</span> as you participate in the community by earning points and <span style="color: #5C8526">badges</span> for asking and answering questions. You can also submit your response to specific <span style="color: #800000">skill related challenges</span>. You will be awarded a badge for that skill when sufficient participants upvote your response.</div>
+                        
+                        <div>Our aim is to foster a peer based learning community where you can have fun while learning and also establish Internet credentials for your learning endevours.</div>
+                        </div> 
     
 Role(learner):
     name:               learner
