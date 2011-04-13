@@ -48,13 +48,14 @@ public class SoleTags extends FastTags {
 		}
 		if(Security.isConnected()) {
 			String userId = Security.connected();
-			if(studySession.canEnroll(userId)) {
+			long lUserId = Long.parseLong(userId);
+			if(studySession.canEnroll(lUserId)) {
 				// We do not do anything. The _apply tag will display the link to enroll
-			} else if(studySession.applicationStore.isUserApplicationPending(Long.parseLong(userId))) {
+			} else if(studySession.applicationStore.isUserApplicationPending(lUserId)) {
 				out.print("Applcation pending approval. ");
-			} else if(studySession.applicationStore.isUserApplicationAccepted(Long.parseLong(userId))) {
+			} else if(studySession.applicationStore.isUserApplicationAccepted(lUserId)) {
 				out.print("You are enrolled in this course. ");
-			} else if(studySession.isFacilitator(Long.parseLong(userId))) {
+			} else if(studySession.isFacilitator(lUserId)) {
 				out.println("You are a facilitator in this course. ");
 			}
 		}
@@ -88,7 +89,8 @@ public class SoleTags extends FastTags {
 		}		
 		if(Security.isConnected()) {
 			String userId = Security.connected();
-			if (studySession.canEnroll(userId)) {
+			long lUserId = Long.parseLong(userId);
+			if (studySession.canEnroll(lUserId)) {
 				Map<String, Object> methodArgs = new HashMap<String, Object>();
 				methodArgs.put("id", studySession.id);
 				actionDefinition = play.mvc.Router.reverse("StudySessionC.apply",
@@ -100,7 +102,7 @@ public class SoleTags extends FastTags {
 				return;
 			}
 			
-			if(studySession.applicationStore.isUserApplicationAccepted(Long.parseLong(userId)) || studySession.applicationStore.isUserApplicationPending(Long.parseLong(userId))) {
+			if(studySession.applicationStore.isUserApplicationAccepted(lUserId) || studySession.applicationStore.isUserApplicationPending(lUserId)) {
 				Map<String, Object> methodArgs = new HashMap<String, Object>();
 				methodArgs.put("id", studySession.id);
 				actionDefinition = play.mvc.Router.reverse("StudySessionC.deregister",
@@ -113,5 +115,4 @@ public class SoleTags extends FastTags {
 			}
 		}		
 	}
-
 }

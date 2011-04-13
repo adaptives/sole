@@ -79,11 +79,16 @@ public class StudySession extends Model {
 		return StudySession.find("endDate < ? order by startDate asc", now).fetch();
 	}
 	
-	public boolean canEnroll(String sUserId) {
-		if(sUserId != null) {
-			return canEnroll(Long.parseLong(sUserId));
+	public boolean canEnroll(String sUserId) throws InvalidUserIdException {
+		if(sUserId != null && !sUserId.equals("")) {
+			try {
+				long userId = Long.parseLong(sUserId);
+				return canEnroll(userId);
+			} catch(NumberFormatException nfe) {
+				throw new InvalidUserIdException(sUserId + " is not a valid number");
+			}
 		} else {
-			return false;
+			throw new InvalidUserIdException(sUserId + " is not a valid userid");
 		}		
 	}
 	
@@ -95,16 +100,34 @@ public class StudySession extends Model {
 				this.applicationStore.canEnroll(userId));
 	}
 	
-	public boolean isApplicationPending(String userId) {
-		return isApplicationPending(Long.parseLong(userId));
+	public boolean isApplicationPending(String sUserId) throws InvalidUserIdException {
+		if(sUserId != null && !sUserId.equals("")) {
+			try {
+				long userId = Long.parseLong(sUserId);
+				return isApplicationPending(userId);
+			} catch(NumberFormatException nfe) {
+				throw new InvalidUserIdException(sUserId + " is not a valid userid");
+			}
+		} else {
+			throw new InvalidUserIdException(sUserId + " is not a valid userid");
+		}		
 	}
 	
 	public boolean isApplicationPending(long userId) {
 		return this.applicationStore.isUserApplicationPending(userId);
 	}
 	
-	public boolean isUserEnrolled(String userId) {
-		return this.isUserEnrolled(Long.parseLong(userId));
+	public boolean isUserEnrolled(String sUserId) throws InvalidUserIdException {
+		if(sUserId != null && !sUserId.equals("")) {
+			try {
+				long userId = Long.parseLong(sUserId);
+				return this.isUserEnrolled(userId);
+			} catch(NumberFormatException nfe) {
+				throw new InvalidUserIdException(sUserId + " is not a valid userid");
+			}
+		} else {
+			throw new InvalidUserIdException(sUserId + " is not a valid userid");
+		}
 	}
 	
 	public boolean isUserEnrolled(long userId) {
@@ -113,8 +136,18 @@ public class StudySession extends Model {
 				isUserApplicationAccepted(userId);
 	}
 	
-	public boolean isFacilitator(String userId) {
-		return isFacilitator(Long.parseLong(userId));
+	public boolean isFacilitator(String sUserId) throws InvalidUserIdException {
+		if(sUserId != null && !sUserId.equals("")) {
+			try {
+				long userId = Long.parseLong(sUserId);
+				return isFacilitator(userId);
+			} catch(NumberFormatException nfe) {
+				throw new InvalidUserIdException(sUserId + " is not a valid userid");
+			}			
+		} else {
+			throw new InvalidUserIdException(sUserId + " is not a valid userid");
+		}
+		
 	}
 	
 	public boolean isFacilitator(long userId) {
@@ -122,7 +155,7 @@ public class StudySession extends Model {
 		return this.facilitators.contains(user);
 	}
 	
-	public boolean canManageParticipants(String userId) {
+	public boolean canManageParticipants(String userId) throws InvalidUserIdException {
 		return (Security.check("admin") || isFacilitator(userId));
 	}
 	

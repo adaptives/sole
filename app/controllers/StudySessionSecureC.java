@@ -6,6 +6,7 @@ import models.Activity;
 import models.ActivityResponse;
 import models.Answer;
 import models.Forum;
+import models.InvalidUserIdException;
 import models.Question;
 import models.SocialUser;
 import models.StudySession;
@@ -130,7 +131,13 @@ public class StudySessionSecureC extends Controller {
 		if(Security.isConnected()) {
 			String userId = Session.current().get(SocialAuthC.USER);
 			StudySession studySession = StudySession.findById(studySessionId);
-			return studySession.isFacilitator(userId) || Security.check("admin");
+			try {
+				return studySession.isFacilitator(userId) || Security.check("admin");
+			} catch(InvalidUserIdException iue) {
+				//TODO: Should this be an internal error?
+				cLogger.warn("incorrect userId obtained from database ", iue);
+				return false;
+			}
 		}		
 		return false;
 	}
@@ -140,10 +147,16 @@ public class StudySessionSecureC extends Controller {
 			String userId = Session.current().get(SocialAuthC.USER);
 			StudySession studySession = StudySession.findById(studySessionId);
 			if(studySession != null && userId != null) {
+				try {
 				return studySession.isFacilitator(userId) || 
 					   studySession.isUserEnrolled(userId);
-			}			
-		}		
+				} catch(InvalidUserIdException iue) {
+					//TODO: Should this be an internal error?
+					cLogger.warn("incorrect userId obtained from database ", iue);
+					return false;
+				}
+			}
+		}
 		return false;
 	}
 }

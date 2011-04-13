@@ -26,17 +26,19 @@ public class Security extends Secure.Security{
 	}
 	
 	public static boolean check(String profile) {
-		//User user = User.findByEmail(connected());
-		String userId = connected();
-		//TODO: We should move roles to SocialUser
-		User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(connected())).first();
-		Set<Role> roles = user.roles;
-		for(Role role : roles) {
-			if(role.name.equals(profile)) {
-				return true;
+		boolean retVal = false;
+		if(isConnected()) {
+			//TODO: We should move roles to SocialUser
+			User user = User.find("select u from User u where u.socialUser.id = ?", Long.parseLong(connected())).first();
+			Set<Role> roles = user.roles;
+			for(Role role : roles) {
+				if(role.name.equals(profile)) {
+					retVal = true;
+					break;
+				}
 			}
 		}
-		return false;
+		return retVal;
 	}
 	
 	/**
