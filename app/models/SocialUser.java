@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
 
 import play.data.validation.Email;
 import play.data.validation.Required;
@@ -15,7 +16,7 @@ public class SocialUser extends Model implements Comparable {
 	//TODO: Needs to be Unique
 	@Required
 	public String screenname;
-	
+		
 	@Email
 	public String email;
 	
