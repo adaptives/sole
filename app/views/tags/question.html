@@ -22,7 +22,7 @@
 #{elseif _as == "tba"}
 	<div>
 		<div class="question-tba-title">
-			<a href="#" id="upvote">Like</a><span id="votes">${_question.likes()}</span> 
+			<span style="margin-right: 3px;" id="votes">${_question.likes()}</span><a href="#" id="upvote"><img src="/public/images/like.png" /></a> 
 			${_question.title}
 		</div>
 		<div class="question-content">
@@ -40,7 +40,7 @@
 		</div>
 		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
-				<div><a href="#" id="upvote-answer-${theAnswer.id}">Like</a> <span id="answer-votes-${theAnswer.id}">${theAnswer.likes()}</span> likes</div>
+				<div><span style="margin-right: 3px;" id="answer-votes-${theAnswer.id}">${theAnswer.likes()}</span><a href="#" id="upvote-answer-${theAnswer.id}"><img src="/public/images/like.png" /></a></div>
 				<div class="answer-content">
 					${theAnswer.content.nl2br()}
 				</div>
