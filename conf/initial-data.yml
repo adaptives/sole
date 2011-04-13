@@ -57,7 +57,23 @@ Page(tos):
                         <li>In addition to the above you agree that we will not be liable for any damages including but not limited to, indirect or consequential damages, errors or omissions or any damages arising from use, loss of use data or profits, arising out of or in connection with the use of the Website and/or participation in any of the diycomputerscience.com courses or associated activities.</li>
                         </ol>
                         </div>
-                          
+
+Page(help):                          
+    name:               help
+    title:              Help
+    content:            >
+                        Under construction
+
+Page(pp):                          
+    name:               pp
+    title:              Privacy policy
+    content:            >
+                        Under construction
+Page(faq):                          
+    name:               faq
+    title:              Frequently Asked Questions
+    content:            >
+                        Under construction
 
 Role(learner):
     name:               learner
