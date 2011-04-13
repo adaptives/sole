@@ -14,8 +14,8 @@
 <div class="study-session-dates">
 	Starts: <span class="study-session-date">${studySession.startDate}</span> - End: <span class="study-session-date">${studySession.endDate}</span>
 </div>
-<div>
-	<p>This course is facilitated by : </p>
+<div style="margin-top: 10px; margin-bottom: 10px; border: solid 1px;">
+	<div>This course is facilitated by : </div>
 	#{list items:studySession.facilitators, as:'facilitator'}
 		<div>
 			<span><img width="40" height="40" src="@{UserProfileC.pic(facilitator.id)}"></span><a href="@{UserProfileC.show(facilitator.id)}">${facilitator.screenname}</a>
@@ -32,7 +32,7 @@
 </div>
 #{/ if}
 
-<div class="spaced" style="font-weight: bold;">
+<div style="font-weight: bold; font-size: 1.4em; margin-top: 5px; margin-bottom: 5px;">
 	<a href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>
 </div>
 <div style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">
