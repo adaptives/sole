@@ -43,7 +43,7 @@ public class RegisterC extends Controller {
             } else {
             	flash.error("Oops ... (the email cannot be sent)");
             }
-            Secure.login();
+            AdminC.index();
         } catch (Throwable e) {
             Logger.error(e, "Mail error");
             flash.error(MessageConstants.INTERNAL_ERROR);

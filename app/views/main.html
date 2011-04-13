@@ -36,7 +36,7 @@
 		
 				<ul id="menu">
 					#{secure.check 'admin'}
-					<li><a href="/admin">Admin</a></li>
+					<li><a href="@{AdminC.index}">Admin</a></li>
 					#{/secure.check}  
 					<li><a href="@{Application.index}">Home</a></li>
 					<li><a href="@{CourseC.list}">DIY Courses</a></li>

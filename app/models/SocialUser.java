@@ -1,6 +1,9 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import play.data.validation.Email;
 import play.data.validation.Required;
@@ -16,8 +19,12 @@ public class SocialUser extends Model implements Comparable {
 	@Email
 	public String email;
 	
-	public SocialUser(String screenname) {
-		this.screenname = screenname;
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+	public UserProfile userProfile;
+	
+	public SocialUser(String email) {
+		this.email = email;
+		this.userProfile = new UserProfile(this);
 		create();
 	}
 
