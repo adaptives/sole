@@ -10,7 +10,7 @@
 	Starts: <span class="study-session-date">${sessionPart.startDate}</span> - End: <span class="study-session-date">${sessionPart.endDate}</span>
 </div>
 <div class="study-session-description-full">
-	${sessionPart.content}
+	${sessionPart.content.raw()}
 </div>
 <div>
 	<h2>Activities - <a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.id)}">View all responses</a></h2>

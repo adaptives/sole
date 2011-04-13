@@ -11,6 +11,7 @@ import models.Answer;
 import models.Forum;
 import models.InvalidUserIdException;
 import models.Question;
+import models.SessionPart;
 import models.SocialUser;
 import models.StudySession;
 import models.StudySessionApplication;
@@ -46,6 +47,27 @@ public class StudySessionSecureC extends Controller {
 			redirect("/admin/studysessions/new");
 		}
 		redirect("/admin/studysessions");
+	}
+	
+	public static void createSessionPart(long studySessionId,
+										 String title,
+		      							 String content,
+		      							 String startDate,
+		      							 String endDate) {
+		System.out.println("Recieved request for creating session part '" + studySessionId + "' '" + title + "' '" + content + "' '" + startDate + "' '" + endDate + "'");
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		dateFormat.applyPattern("yyyy-MM-dd");
+		try {
+			StudySession studySession = StudySession.findById(studySessionId);
+			SessionPart sessionPart = new SessionPart(title, dateFormat.parse(startDate), dateFormat.parse(endDate), content, studySession);
+			studySession.sessionParts.add(sessionPart);
+			studySession.save();
+		} catch(ParseException pe) {
+			cLogger.error("Could not create SessionPart", pe);
+			flash.error("Please fix errors");
+			redirect("/admin/sessionparts/new");
+		}
+		redirect("/admin/sessionparts");
 	}
 	
 	public static void postQuestion(long studySessionId, long forumId,

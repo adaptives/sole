@@ -33,7 +33,7 @@ public class StudySession extends Model {
 	public String applicationText;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studySession")
-	Set<SessionPart> sessionParts;
+	public Set<SessionPart> sessionParts;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	@JoinTable(name="StudySession_Facilitators")

@@ -1,0 +1,47 @@
+#{extends 'main.html' /}
+
+Create a new study session
+
+%{
+	studySessions = models.StudySession.findAll();
+}%
+#{form @StudySessionSecureC.createSessionPart()}
+	<div>
+		StudySession:
+	</div>
+	<div>
+		#{select 'studySessionId', items:studySessions, valueProperty:'id', labelProperty:'title' /}
+	</div>
+	<div>
+		Title:
+	</div>
+	<div>
+		<input type="text" name="title" />
+	</div>
+	
+	<div>
+		Content:
+	</div>
+	<div>
+		<textarea name="content"></textarea>
+	</div>
+	
+	<div>
+		Start Date:
+	</div>
+	<div>
+		<input type="text" name="startDate" />
+	</div>
+	
+	<div>
+		End Date:
+	</div>
+	<div>
+		<input type="text" name="endDate" />
+	</div>
+	
+	<div>
+		<input type="submit" name="submit" value="Submit" />
+		<input type="reset" name="reset" value="Reset" />
+	</div>
+#{/ form}

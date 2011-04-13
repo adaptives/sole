@@ -30,12 +30,13 @@ public class SessionPart extends Model {
 	public SessionPart(String title, 
 					   Date startDate,
 					   Date endDate,
-					   String content) {
+					   String content,
+					   StudySession studySession) {
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.content = content;
+		this.studySession = studySession;
 		this.activities = new TreeSet<Activity>();
-		create();
 	}
 }
