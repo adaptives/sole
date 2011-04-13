@@ -1,5 +1,8 @@
 package controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import models.Activity;
@@ -13,6 +16,7 @@ import models.StudySession;
 import models.StudySessionApplication;
 import play.Logger;
 import play.data.validation.Required;
+import play.data.validation.URL;
 import play.mvc.Controller;
 import play.mvc.Scope.Session;
 import play.mvc.With;
@@ -22,6 +26,27 @@ public class StudySessionSecureC extends Controller {
 	
 	public static org.apache.log4j.Logger cLogger = 
 							Logger.log4j.getLogger(StudySessionSecureC.class);
+	
+	public static void create(String title,
+						      String description,
+							  String startDate,
+							  String endDate) {
+		System.out.println("Creating new study session '" + title + "' '" + description + "' '" + startDate + "' '" + endDate + "'");
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		dateFormat.applyPattern("yyyy-MM-dd");
+		try {
+			StudySession studySession = new StudySession(title, 
+													 	 description, 
+													 	 dateFormat.parse(startDate),
+													 	 dateFormat.parse(endDate));
+			studySession.save();
+		} catch(ParseException pe) {
+			cLogger.error("Could not create StudySession", pe);
+			flash.error("Please fix errors");
+			redirect("/admin/studysessions/new");
+		}
+		redirect("/admin/studysessions");
+	}
 	
 	public static void postQuestion(long studySessionId, long forumId,
 			@Required String title, @Required String content, String tags) {
@@ -117,7 +142,8 @@ public class StudySessionSecureC extends Controller {
 		}		
 	}
 	
-	public static int postActivityResponse(long activityId, String activityResponse) {
+	public static int postActivityResponse(long activityId, 
+										   String activityResponse) {
 		Activity activity = Activity.findById(activityId);
 		String sUserId = Security.connected();
 		long userId = Long.parseLong(sUserId);

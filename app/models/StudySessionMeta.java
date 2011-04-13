@@ -20,7 +20,6 @@ public class StudySessionMeta extends Model {
 	
 	public StudySessionMeta(StudySession studySession) {
 		this.studySession = studySession;
-		create();
 	}
 	
 	public static StudySessionMeta forStudySession(long studySessionId) {

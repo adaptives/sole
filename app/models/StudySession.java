@@ -51,16 +51,20 @@ public class StudySession extends Model {
 	@OneToMany(cascade=CascadeType.ALL)
 	public Set<Activity> activities;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "studySession")
+	public StudySessionMeta studySessionMeta;
+	
 	public StudySession(String title,
 						String description,
 						Date startDate,
 						Date endDate) {
 		this.title = title;
+		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.facilitators = new TreeSet<SocialUser>();
 		this.applicationStore = new ApplicationStore(this);
-		
+		this.studySessionMeta = new StudySessionMeta(this);
 		this.forum = new Forum(title, 
 							   "Forum for discussing doubts in course '" + title + "'");
 		
