@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+
+Create a new study session
+
+#{form @StudySessionSecureC.create()}
+	<div>
+		Title:
+	</div>
+	<div>
+		<input type="text" name="title" />
+	</div>
+	
+	<div>
+		Description:
+	</div>
+	<div>
+		<textarea name="description"></textarea>
+	</div>
+	
+	<div>
+		Start Date:
+	</div>
+	<div>
+		<input type="text" name="startDate" />
+	</div>
+	
+	<div>
+		End Date:
+	</div>
+	<div>
+		<input type="text" name="endDate" />
+	</div>
+	
+	<div>
+		<input type="submit" name="submit" value="Submit" />
+		<input type="reset" name="reset" value="Reset" />
+	</div>
+#{/ form}
