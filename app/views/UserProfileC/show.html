@@ -14,7 +14,7 @@
 </div>
 
 <div id="settings">
-	#{if userProfile.user.id == Long.parseLong(session.user)}
+	#{if session.user && userProfile.user.id == Long.parseLong(session.user)}
 		<div class="personal-details">
 			<span>Your email is ${userProfile.user.email}</span>
 			<div>Change your password:</div>
