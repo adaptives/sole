@@ -20,17 +20,18 @@
     <body>
 		<div id="main">
 			<div id="header">
+				<img src="/public/images/diycomputerscience_logo.png" />
 				#{if session.user}
-					<p>
+					
 						Welcome <span class="connectedUser"><a href="@{UserProfileC.show(session.user)}">${screenname}</a></span>
 						(<a href="@{Secure.logout}">Logout</a>)
-					</p>
+					
 				#{/if}
 				#{else}
-					<p>					  
+										  
 						Still not a member ? <a href="@{Application.signup}">Signup</a>.
 						Or if you already have an account, just <a href="@{SocialAuthC.login}">Login</a>.
-					</p>
+					
 				#{/else}
 		
 				<ul id="menu">
@@ -46,22 +47,32 @@
 					<li><a href="@{Application.feedback}">Feedback</a></li>
 				</ul>
 			</div>
-			
-			<div id="content">
-				#{if flash?.error}
-					<div class="error">${flash.error}</div>
-				#{/if}
-				
-				#{if flash?.success}
-					<div class="success">${flash.success}</div>
-				#{/if}
-				
-	       		#{doLayout /}
+			<div style="width: 1324px;">
+				<div id="content" style="width: 70%; float: left;">
+					#{if flash?.error}
+						<div class="error">${flash.error}</div>
+					#{/if}
+					
+					#{if flash?.success}
+						<div class="success">${flash.success}</div>
+					#{/if}
+					
+		       		#{doLayout /}
+				</div>
+				<div  style="width: 20%; float: left; margin-top: 20px; color:white;">
+					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent blog posts</div>
+					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent forum activity</div>
+					 <div style="font-size: 1.4em; margin-bottom: 10px;">Community activity</div>
+				</div>
 			</div>
-			
+			<div style="clear: both;"></div>
 			<div id="footer">
 				<p>
 					<a href="@{PageC.show('faq')}">faq</a> | <a href="@{PageC.show('tos')}">terms of use</a> | <a href="@{PageC.show('pp')}">privacy policy</a> 
+				</p>
+				<p>
+					<div style="margin-bottom: 5px;"><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></div>
+					<div style="margin-bottom: 25px;">Except where otherwise noted, all content on p2pu.org is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License.</a></div>
 				</p>
 			</div>
 		

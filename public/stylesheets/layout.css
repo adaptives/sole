@@ -5,7 +5,8 @@
 }
 
 #header {
-	padding: 10px 60px;
+	padding-right: 10px;
+	padding-bottom: 5px;
 	background: #111;
 	margin-bottom: 10px;
 	color: #99CC66;
@@ -43,7 +44,10 @@
 }
 
 #content {
-	margin: 20px 60px;
+	margin-top: 20px;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-bottom: 20px;
 	background: #fff;
 	padding: 20px;
 	min-height: 400px;
