@@ -17,7 +17,7 @@
 	#{list items:sessionPart.activities, as:'activity'}
 		<div>
 			<h4>Activity ${activity_index}</h4>
-			${activity.content}
+			${activity.content.raw()}
 		</div>
 		<div>
 			<form action="/" id="activity-response-${activity_index}">
