@@ -32,7 +32,6 @@ public class StudySessionSecureC extends Controller {
 						      String description,
 							  String startDate,
 							  String endDate) {
-		System.out.println("Creating new study session '" + title + "' '" + description + "' '" + startDate + "' '" + endDate + "'");
 		SimpleDateFormat dateFormat = new SimpleDateFormat();
 		dateFormat.applyPattern("yyyy-MM-dd");
 		try {
@@ -54,7 +53,6 @@ public class StudySessionSecureC extends Controller {
 		      							 String content,
 		      							 String startDate,
 		      							 String endDate) {
-		System.out.println("Recieved request for creating session part '" + studySessionId + "' '" + title + "' '" + content + "' '" + startDate + "' '" + endDate + "'");
 		SimpleDateFormat dateFormat = new SimpleDateFormat();
 		dateFormat.applyPattern("yyyy-MM-dd");
 		try {
