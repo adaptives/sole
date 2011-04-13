@@ -9,6 +9,7 @@ import play.db.jpa.Model;
 @Entity
 public class SocialUser extends Model implements Comparable {
 	
+	//TODO: Needs to be Unique
 	@Required
 	public String screenname;
 	
@@ -24,5 +25,9 @@ public class SocialUser extends Model implements Comparable {
 	public int compareTo(Object arg0) {
 		SocialUser other = (SocialUser)arg0;
 		return this.screenname.compareTo(other.screenname);
+	}
+	
+	public String toString() {
+		return this.screenname;
 	}
 }
