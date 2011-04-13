@@ -202,4 +202,9 @@ public class StudySession extends Model {
 	public List<StudySessionApplication> getPendingApplications() {
 		return this.applicationStore.getPendingApplications();
 	}
+	
+	@Override
+	public String toString() {
+		return this.title;
+	}
 }

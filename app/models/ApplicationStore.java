@@ -36,7 +36,7 @@ public class ApplicationStore extends Model {
 	
 	public boolean isUserApplicationPending(long userId) {
 		List<StudySessionApplication> studySessionApplications = 
-			StudySessionApplication.find("select a from StudySessionApplication a where a.socialUser.id = ?", userId).fetch();
+			StudySessionApplication.find("select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ?", this.studySession.id, userId).fetch();
 		//If we have even one pending application then we can assume that it is 
 		//the most recent application. We can have later appliations only after
 		//rejected and deregistered applications
@@ -50,7 +50,7 @@ public class ApplicationStore extends Model {
 	
 	public boolean isUserApplicationAccepted(long userId) {
 		List<StudySessionApplication> studySessionApplications = 
-			StudySessionApplication.find("select a from StudySessionApplication a where a.socialUser.id = ?", userId).fetch();
+			StudySessionApplication.find("select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ?", this.studySession.id, userId).fetch();
 		//If we have even one accepted application then we can assume that the
 		//user has been accepted. This is because we should not be having a 
 		//later application with any other state if an accepted appliation
@@ -79,9 +79,9 @@ public class ApplicationStore extends Model {
 	}
 
 	public void deregister(long userId, String comment) {
-		String query = "select a from StudySessionApplication a where a.socialUser.id = ? order by a.timestamp desc";
+		String query = "select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ? order by a.timestamp desc";
 		//The first application will be the latest one 
-		StudySessionApplication application = getFirstStudySessionApplication(query, userId);
+		StudySessionApplication application = getFirstStudySessionApplication(query, this.studySession.id, userId);
 		if(applications != null) {			
 			application.changeStatus(-2, comment);
 			application.save();						
@@ -91,8 +91,8 @@ public class ApplicationStore extends Model {
 	}
 	
 	public void reject(long userId, String comment) {
-		String query = "select a from StudySessionApplication a where a.socialUser.id = ? and a.currentStatus = 0 orderBy a.timestamp descending";
-		StudySessionApplication application = getFirstStudySessionApplication(query, userId);
+		String query = "select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ? and a.currentStatus = 0 orderBy a.timestamp descending";
+		StudySessionApplication application = getFirstStudySessionApplication(query, this.studySession.id, userId);
 		if(applications != null) {
 			application.changeStatus(-1, comment);
 			application.save();			
@@ -106,7 +106,7 @@ public class ApplicationStore extends Model {
 		List<SocialUser> acceptedUsers = new ArrayList<SocialUser>();
 		
 		List<StudySessionApplication> acceptedApplications = 
-			StudySessionApplication.find("select a from StudySessionApplication a where a.currentStatus = 1").fetch();
+			StudySessionApplication.find("select a from StudySessionApplication a where a.studySession.id = ? and a.currentStatus = 1", this.studySession.id).fetch();
 		
 		for(StudySessionApplication application : acceptedApplications) {
 			acceptedUsers.add(application.socialUser);
@@ -119,7 +119,7 @@ public class ApplicationStore extends Model {
 		List<SocialUser> pendingUsers = new ArrayList<SocialUser>();
 		
 		List<StudySessionApplication> pendingApplications = 
-			StudySessionApplication.find("select a from StudySessionApplication a where a.currentStatus = 0").fetch();
+			StudySessionApplication.find("select a from StudySessionApplication a where a.studySession.id = ? and a.currentStatus = 0", this.studySession.id).fetch();
 		
 		for(StudySessionApplication application : pendingApplications) {
 			pendingUsers.add(application.socialUser);
@@ -130,14 +130,14 @@ public class ApplicationStore extends Model {
 	
 	public List<StudySessionApplication> getPendingApplications() {
 		List<StudySessionApplication> pendingApplications = 
-			StudySessionApplication.find("select a from StudySessionApplication a where a.currentStatus = 0 order by a.timestamp").fetch();
+			StudySessionApplication.find("select a from StudySessionApplication a where a.studySession.id = ? and a.currentStatus = 0 order by a.timestamp", this.studySession.id).fetch();
 		return pendingApplications;
 	}
 	
 	public void acceptApplication(long userId, String comment) {
 		//The first application in the list will be the most recent one
 		List<StudySessionApplication> studySessionApplications = 
-			StudySessionApplication.find("select a from StudySessionApplication a where a.socialUser.id = ? order by a.timestamp desc", userId).fetch();
+			StudySessionApplication.find("select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ? order by a.timestamp desc", this.studySession.id, userId).fetch();
 		if(studySessionApplications.size() > 0) {
 			StudySessionApplication studySessionApplication = studySessionApplications.get(0);
 			if(studySessionApplication.currentStatus == 0) {
@@ -149,9 +149,9 @@ public class ApplicationStore extends Model {
 		
 	}
 	
-	private StudySessionApplication getFirstStudySessionApplication(String query, long userId) {
+	private StudySessionApplication getFirstStudySessionApplication(String query, long studySessionId, long userId) {
 		List<StudySessionApplication> applications = 
-			StudySessionApplication.find(query, userId).fetch();
+			StudySessionApplication.find(query, studySessionId, userId).fetch();
 		StudySessionApplication application = null;
 		if(applications.size() > 0) {
 			application = applications.get(0);			
