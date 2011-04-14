@@ -35,7 +35,7 @@ public class User extends Model {
     
     public User(String email, String password, String name, SocialUser socialUser) {
         this.email = email;
-        this.passwordHash = password;//Codec.hexMD5(password);
+        this.passwordHash = Codec.hexMD5(password);
         this.name = name;
         this.socialUser = socialUser;
         this.needConfirmation = Codec.UUID();

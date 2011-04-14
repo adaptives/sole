@@ -87,7 +87,7 @@ SocialUser(suadmindude):
     
 User(admindude):
     email:              someone@somewhere.com
-    passwordHash:       secret
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69
     name:               Admin Dude
     needConfirmation:   false
     socialUser:         suadmindude
@@ -103,7 +103,7 @@ SocialUser(sulearnerdude):
 
 User(learnerdude):
     email:              learner@somewhere.com
-    passwordHash:       secret
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69
     name:               Learner Dude
     needConfirmation:   false
     socialUser:         sulearnerdude
@@ -119,7 +119,7 @@ SocialUser(sustudent):
 
 User(student):
     email:              student@somewhere.com
-    passwordHash:       secret
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69
     name:               Student Dude
     needConfirmation:   false
     socialUser:         sustudent

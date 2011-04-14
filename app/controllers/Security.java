@@ -16,13 +16,12 @@ public class Security extends Secure.Security{
 	
 	public static boolean authenticate(String username, String password) {
 		User user = 
-			User.find("byEmailAndPasswordHash", username, password).first();
-		if(user != null) {
-			Logger.info("authentication successfull '" + username + "'");
+			User.find("byEmail", username).first();
+		if(user != null && user.checkPassword(password)) {
+			return true;
 		} else {
-			Logger.info("authentication failed '" + username + "'");
+			return false;
 		}
-		return user != null;
 	}
 	
 	public static boolean check(String profile) {
