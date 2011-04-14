@@ -191,3 +191,11 @@ SessionPart(week1):
     studySession:   Java101
     activities:     
                     week1Activity
+
+KeyValueData(twitterConsumerKey):
+    key:            twitter.consumer.key
+    value:          consumer_key
+    
+KeyValueData(twitterConsumerSecret):
+    key:            twitter.consumer.secret
+    value:          consumer_secret

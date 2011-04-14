@@ -14,4 +14,13 @@ public class KeyValueData extends Model {
 		this.value = value;
 		create();
 	}
+	
+	public static String findValue(String key) {
+		String retVal = null;
+		KeyValueData keyValueData = KeyValueData.find("select kvd from KeyValueData kvd where kvd.key = ?", key).first();
+		if(keyValueData != null) {
+			retVal = keyValueData.value;
+		}
+		return retVal;
+	}
 }

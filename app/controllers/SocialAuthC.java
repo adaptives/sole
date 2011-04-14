@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import models.KeyValueData;
 import models.SocialUser;
 import models.TwitterRequestToken;
 import models.TwitterUser;
@@ -25,6 +26,8 @@ public class SocialAuthC extends Controller {
 	public static final String TWITTER_REQUEST_TOKEN = "TWITTER_REQUEST_TOKEN";
 	public static final String USER = "user";
 	public static final String TWITTER_CALLBACK_URL = "/callbacks/auth/twitter";
+	public static final String TWITTER_CONSUMER_KEY = "twitter.consumer.key";
+	public static final String TWITTER_CONSUMER_SECRET = "twitter.consumer.secret";
 	public static final org.apache.log4j.Logger cLogger = 
 									Logger.log4j.getLogger(SocialAuthC.class);
 	
@@ -48,7 +51,7 @@ public class SocialAuthC extends Controller {
 	public static void authWithTwitter() {
 		try {			
 	        Twitter twitter = new TwitterFactory().getInstance();
-	        twitter.setOAuthConsumer("twitterConsumerKey", "twitterSecretKey");					
+	        setTwitterKeys(twitter);					
 	        RequestToken requestToken = twitter.getOAuthRequestToken(TWITTER_CALLBACK_URL);
 	        byte[] serRequestToken = serializeRequestToken(requestToken);
 	        TwitterRequestToken trt = new TwitterRequestToken(serRequestToken);
@@ -60,19 +63,19 @@ public class SocialAuthC extends Controller {
 			cLogger.error("Could not perform pre twitter login steps", e);
 		}
 	}
-	
+
 	public static void twitterCallback() {
 		try {
 			RequestToken requestToken = getRequestToken();
 			Twitter twitter = new TwitterFactory().getInstance();
-		    twitter.setOAuthConsumer("twitterConsumerKey", "twitterSecretKey");
+		    setTwitterKeys(twitter);
 			AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, getVerifier());
 			String screenName = accessToken.getScreenName();
 			
 			TwitterUser twitterUser = TwitterUser.find("byUsername", screenName).first();
 			
 			if(twitterUser == null) {
-				SocialUser socialUser = new SocialUser(screenName);
+				SocialUser socialUser = new SocialUser("http://twitter.com/" + screenName);
 				socialUser.save();
 				socialUser.screenname = String.valueOf(socialUser.id);
 				twitterUser = new TwitterUser(screenName, socialUser);
@@ -82,12 +85,19 @@ public class SocialAuthC extends Controller {
 			} else {
 				twitterUser.accessToken = serializeAccessToken(accessToken);
 				twitterUser.save();
-				session.put("user", twitterUser.socialUser.id);
+				session.put(SocialAuthC.USER, twitterUser.socialUser.id);
 			}
 			
 		} catch(Exception e) {
-			
+			String msg = "Caught Exception while handling authentication " +
+						 "callback from Twitter";
+			cLogger.error(msg, e);
 		}
+	}
+
+	private static void setTwitterKeys(Twitter twitter) {
+		twitter.setOAuthConsumer(KeyValueData.findValue(TWITTER_CONSUMER_KEY), 
+								 KeyValueData.findValue(TWITTER_CONSUMER_SECRET));
 	}
 	
 	private static byte[] serializeAccessToken(AccessToken accessToken) 
@@ -126,4 +136,5 @@ public class SocialAuthC extends Controller {
 		oos.close();
 		return baos.toByteArray();
 	}
+
 }
