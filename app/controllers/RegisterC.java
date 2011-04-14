@@ -12,6 +12,7 @@ import play.data.validation.Email;
 import play.data.validation.Equals;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
+import play.data.validation.Validation.ValidationResult;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -34,15 +35,14 @@ public class RegisterC extends Controller {
             signup();
         }
         
-        List<String> duplicateErrors = noDuplicates(email, name);
-        	
-        if(duplicateErrors.size() == 0) {
+        try {
         	SocialUser socialUser = new SocialUser(email);
-            socialUser.save();
-            socialUser.screenname = name;
-            socialUser.save();
+        	socialUser.screenname = name;            
+            socialUser.save();                                
             
             User user = new User(email, password, name, socialUser);
+            user.save();
+            
             (new UserRegistrationDate(user)).save();
             try {
                 if (Notifier.welcome(user)) {
@@ -55,49 +55,14 @@ public class RegisterC extends Controller {
                 Logger.error(e, "Mail error");
                 flash.error(MessageConstants.INTERNAL_ERROR);
             }
-        } else {            
+        } catch(Exception e) {            
             validation.keep();
             params.flash();
-            String errorMsg = "Please correct these errors - ";
-            for(String dupError : duplicateErrors) {
-            	errorMsg += dupError + ", ";
-            }
+            String errorMsg = "Please correct these errors - " + e.getMessage();
             flash.error(errorMsg);
             signup();
         }
         
     }
-
-	private static List<String> noDuplicates(String email, 
-											 String name) {
-		
-		//TODO: Can we use an annotation for ensuring uniqueness of the email field
-        //Ensure that the email is unique
-		List<String> retVal = new ArrayList<String>();
-		
-		if(User.findByEmail(email) != null) {
-			retVal.add("User with email already exists");
-		}
-        
-		
-		List<SocialUser> existingUsersWithEmail = 
-        	SocialUser.find("select u from SocialUser u where u.email = ?", email).fetch();
-        if(existingUsersWithEmail.size() > 0) {
-        	retVal.add("SocialUser with email already exists"); 
-        }
-        
-        List<User> usersByName= User.find("select u from User u where u.name = ?", name).fetch();
-        if(usersByName.size() > 0) {
-        	retVal.add("User with name already exists");
-        }
-        
-        List<SocialUser> existingUsersWithName = 
-        	SocialUser.find("select u from SocialUser u where u.screenname = ?", name).fetch();
-        if(existingUsersWithEmail.size() > 0) {
-        	retVal.add("SocialUser with name already exists");
-        }
-        
-        return retVal;
-	}
 
 }
