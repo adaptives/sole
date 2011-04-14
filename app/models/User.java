@@ -39,7 +39,7 @@ public class User extends Model {
         this.name = name;
         this.socialUser = socialUser;
         this.needConfirmation = Codec.UUID();
-        create();
+//        create();
     }
     
     // ~~~~~~~~~~~~ 

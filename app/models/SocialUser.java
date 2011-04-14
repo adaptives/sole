@@ -13,10 +13,11 @@ import play.db.jpa.Model;
 @Entity
 public class SocialUser extends Model implements Comparable {
 	
-	//TODO: Needs to be Unique
+	@javax.persistence.Column(unique = true)
 	@Required
 	public String screenname;
-		
+	
+	@javax.persistence.Column(unique = true)
 	@Email
 	public String email;
 	
@@ -26,7 +27,7 @@ public class SocialUser extends Model implements Comparable {
 	public SocialUser(String email) {
 		this.email = email;
 		this.userProfile = new UserProfile(this);
-		create();
+//		create();
 	}
 
 	@Override
