@@ -5,18 +5,15 @@
 	${course.description}
 </div>
 <div class="course-sections">
-<table id="forums-list">
-	<thead>
-		<tr>
-			<th class="course-sections-header">Course Sections</th>
-		</tr>
-	</thead>
-	#{list items:courseSections, as:'section'}
-		<tr>
-			<td class="main">
-				<a href="@{CourseC.section(section.id)}">${section.title}</a>
-			</td>
-		</tr>
-	#{/list}
-</table>
+
+<div class="course-sections-title">This course contains the following sections</div>
+
+#{list items:courseSections, as:'section'}
+	
+	<div class="course-section-link">
+		<a href="@{CourseC.section(section.id)}">${section.title}</a>
+	</div>
+	
+#{/list}
+
 </div>

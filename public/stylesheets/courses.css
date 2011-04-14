@@ -34,12 +34,29 @@ li div.even a {
 
 .course-description {
 	align: left;
-	font-size: 1.4em;
-	margin: 10px;
+	font-size: 1.2em;
+	margin-top: 10px;
+	margin-bottom: 20px;
 }
 
 .course-sections {
 	
+}
+
+.course-sections-title {
+	color: #364B66; 
+	font-size: 1.4em; 
+	border-bottom: solid 1px;	
+}
+
+.course-section-link {
+	color: #364B66; 
+	margin: 5px;	
+}
+
+.course-section-link a {
+	text-decoration: none; 
+	font-size:1.3em;	
 }
 
 .course-section-title {
