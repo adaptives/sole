@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import models.SocialUser;
 import models.StudySession;
 import models.User;
 import models.UserProfile;
+import play.Play;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
@@ -114,7 +116,12 @@ public class UserProfileC extends Controller {
 		if(userProfile.profilePic != null) {
 			renderBinary(userProfile.profilePic.image.get());
 		} else {
-			
+			try {
+				InputStream is = new FileInputStream(Play.getFile("public/images/default_user_image.png"));
+				renderBinary(is);
+			} catch(Exception e) {
+				System.out.println("Could not render default user image - " + e.getMessage());
+			}
 		}		
 	}
 	
