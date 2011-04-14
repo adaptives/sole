@@ -192,6 +192,8 @@ SessionPart(week1):
     activities:     
                     week1Activity
 
+#Update the database with actual keys once you log into the application
+
 KeyValueData(twitterConsumerKey):
     key:            twitter.consumer.key
     value:          consumer_key
