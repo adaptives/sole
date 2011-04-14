@@ -24,16 +24,21 @@ public class Application extends Controller {
 	
 	//------------------ HomePage
 	public static void index() {
+		flash.keep();
 		PageC.show("home");
     }
 	
 	public static void confirmRegistration(String uuid) {
         User user = User.findByRegistrationUUID(uuid);
-        notFoundIfNull(user);
-        user.needConfirmation = null;
-        user.save();
-        //log in the user
-        session.put(SocialAuthC.USER, user.id);
+        if(user != null) {
+            user.needConfirmation = null;
+            user.save();
+            //log in the user
+            session.put(SocialAuthC.USER, user.id);
+            flash.success("Your email has been confirmed. Welcome to the DIYCOMPUTERSCIENCE community.");
+        } else {
+        	flash.error("We could not confirm your email. This may happen if you have already confirmed this email earlier, or if the confirmation url is incorrect. Please try logging in with your email and password. If you are unable to login then please contact the site administrator.");
+        }
         index();
     }
 	
