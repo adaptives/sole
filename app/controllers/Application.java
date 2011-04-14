@@ -27,6 +27,16 @@ public class Application extends Controller {
 		PageC.show("home");
     }
 	
+	public static void confirmRegistration(String uuid) {
+        User user = User.findByRegistrationUUID(uuid);
+        notFoundIfNull(user);
+        user.needConfirmation = null;
+        user.save();
+        //log in the user
+        session.put(SocialAuthC.USER, user.id);
+        index();
+    }
+	
 	//-------------------------- Feedback
 	public static void feedback() {
 		List<Feedback> feedbacks = Feedback.findAll();
