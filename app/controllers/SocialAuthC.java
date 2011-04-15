@@ -66,6 +66,7 @@ public class SocialAuthC extends Controller {
 	}
 
 	public static void twitterCallback() {
+		System.out.println("Twitter callbacl occurred '" + request.params + "'");
 		try {
 			RequestToken requestToken = getRequestToken();
 			Twitter twitter = new TwitterFactory().getInstance();

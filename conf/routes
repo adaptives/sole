@@ -30,6 +30,8 @@ POST    /blog/{postId}/comment/add             BlogPostC.postComment
 
 GET     /questionc/like/questionId/{questionId}    QuestionC.like
 GET     /questionc/like/answerId/{answerId}        QuestionC.likeAnswer
+
+GET     /callbacks/auth/twitter                    SocialAuthC.twitterCallback
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
