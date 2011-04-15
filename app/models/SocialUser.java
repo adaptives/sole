@@ -25,9 +25,14 @@ public class SocialUser extends Model implements Comparable {
 	public UserProfile userProfile;
 	
 	public SocialUser(String email) {
+		this(email, "");
+	}
+	
+	public SocialUser(String email, String screenname) {
 		this.email = email;
+		this.screenname = screenname;
 		this.userProfile = new UserProfile(this);
-//		create();
+//		create();		
 	}
 
 	@Override

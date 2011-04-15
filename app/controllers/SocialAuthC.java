@@ -35,13 +35,14 @@ public class SocialAuthC extends Controller {
 	public static void setConnectedUser() {
 		System.out.println("Twitter callback url '" + getTwitterCallbackUrl() + "'");
 		if(Security.isConnected()) {
-//			User user = User.findByEmail(Security.connected());
-//			renderArgs.put("user", user.name);
 			String userId = Security.connected();
 			if(userId != null) {
 				SocialUser socialUser = SocialUser.findById(Long.parseLong(userId));
+				System.out.println("Putting screenname '" + socialUser.screenname + "'");
 				renderArgs.put("screenname", socialUser.screenname);
-			}			
+			} else {
+				System.out.println("Could not put screenname because user not found for id '" + userId + "'");
+			}
 		}
 	}
 	
@@ -72,24 +73,29 @@ public class SocialAuthC extends Controller {
 			Twitter twitter = new TwitterFactory().getInstance();
 		    setTwitterKeys(twitter);
 			AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, getVerifier());
-			String screenName = accessToken.getScreenName();
+			String twitterScreenname = accessToken.getScreenName();
+			String ourScreenname = "http://twitter.com/" + twitterScreenname;
 			
-			TwitterUser twitterUser = TwitterUser.find("byUsername", screenName).first();
+			TwitterUser twitterUser = TwitterUser.find("byUsername", ourScreenname).first();
 			
 			if(twitterUser == null) {
-				SocialUser socialUser = new SocialUser("http://twitter.com/" + screenName);
+				SocialUser socialUser = new SocialUser(null, ourScreenname);
 				socialUser.save();
-				socialUser.screenname = String.valueOf(socialUser.id);
-				twitterUser = new TwitterUser(screenName, socialUser);
+				twitterUser = new TwitterUser(ourScreenname, socialUser);
 				twitterUser.accessToken = serializeAccessToken(accessToken);
-				twitterUser.save();
-				session.put("user", socialUser.id);
+				twitterUser.save();				
 			} else {
 				twitterUser.accessToken = serializeAccessToken(accessToken);
-				twitterUser.save();
-				session.put(SocialAuthC.USER, twitterUser.socialUser.id);
+				twitterUser.save();				
 			}
-			
+			session.put(SocialAuthC.USER, twitterUser.socialUser.id);
+
+			//TODO: This is happening in multiple places, DRY
+			String url = flash.get("url");
+	        if(url == null) {
+	            url = "/";
+	        }
+	        redirect(url);
 		} catch(Exception e) {
 			String msg = "Caught Exception while handling authentication " +
 						 "callback from Twitter";
