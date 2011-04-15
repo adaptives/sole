@@ -19,6 +19,7 @@ import models.SocialUser;
 import models.StudySession;
 import models.User;
 import models.UserProfile;
+import play.Logger;
 import play.Play;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -30,6 +31,8 @@ import play.server.Server;
 
 @With(SocialAuthC.class)
 public class UserProfileC extends Controller {
+	
+	public static org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(UserProfileC.class);
 	
 	public static void list() {
 		List<SocialUser> allUsers = SocialUser.findAll();		
@@ -120,7 +123,7 @@ public class UserProfileC extends Controller {
 				InputStream is = new FileInputStream(Play.getFile("public/images/default_user_image.png"));
 				renderBinary(is);
 			} catch(Exception e) {
-				System.out.println("Could not render default user image - " + e.getMessage());
+				cLogger.error("Could not render default user image ", e);
 			}
 		}		
 	}

@@ -33,15 +33,15 @@ public class SocialAuthC extends Controller {
 	
 	@Before
 	public static void setConnectedUser() {
-		System.out.println("Twitter callback url '" + getTwitterCallbackUrl() + "'");
 		if(Security.isConnected()) {
 			String userId = Security.connected();
 			if(userId != null) {
 				SocialUser socialUser = SocialUser.findById(Long.parseLong(userId));
-				System.out.println("Putting screenname '" + socialUser.screenname + "'");
-				renderArgs.put("screenname", socialUser.screenname);
-			} else {
-				System.out.println("Could not put screenname because user not found for id '" + userId + "'");
+				if(socialUser != null) {					
+					renderArgs.put("screenname", socialUser.screenname);
+				} else {
+					cLogger.warn("Could not find SocialUser object for user id '" + userId + "'");
+				}
 			}
 		}
 	}
@@ -67,7 +67,6 @@ public class SocialAuthC extends Controller {
 	}
 
 	public static void twitterCallback() {
-		System.out.println("Twitter callbacl occurred '" + request.params + "'");
 		try {
 			RequestToken requestToken = getRequestToken();
 			Twitter twitter = new TwitterFactory().getInstance();
