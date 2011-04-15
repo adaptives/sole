@@ -29,6 +29,7 @@ public class StudySession extends Model {
 	public String description;
 	public Date startDate;
 	public Date endDate;
+	
 	@Lob
 	public String applicationText;
 	
@@ -53,6 +54,9 @@ public class StudySession extends Model {
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "studySession")
 	public StudySessionMeta studySessionMeta;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studySession")
+	public List<StudySessionAffiliateSpace> affiliateSpaces;
 	
 	public StudySession(String title,
 						String description,

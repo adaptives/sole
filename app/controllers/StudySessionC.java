@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import models.Answer;
+import models.DefaultStudySessionAffiliatez;
 import models.Forum;
 import models.Question;
 import models.SessionPart;
@@ -34,9 +35,10 @@ public class StudySessionC extends Controller {
 		for(StudySession studySession : studySessionList) {
 			studySessions.put(studySession, StudySessionMeta.forStudySession(studySession.id));
 		}
-		render(studySessions);
+		
+		render(studySessions, getDefaultStudySessionAffiliatez());
 	}
-	
+
 	public static void studySession(long id) {
 		StudySession studySession = StudySession.findById(id);
 		StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
@@ -196,5 +198,15 @@ public class StudySessionC extends Controller {
 		SessionPart sessionPart = SessionPart.findById(sessionPartId);
 		render(sessionPart);
 	}
-		
+	
+	private static Object getDefaultStudySessionAffiliatez() {
+		List<DefaultStudySessionAffiliatez> defaultStudySessionLocationAffiliates =
+			DefaultStudySessionAffiliatez.findAll();
+		DefaultStudySessionAffiliatez defaultAffilatez = null;
+		if(defaultStudySessionLocationAffiliates.size() > 0) {
+			defaultAffilatez = defaultStudySessionLocationAffiliates.get(0);
+		}
+		return defaultAffilatez;
+	}
+	
 }
