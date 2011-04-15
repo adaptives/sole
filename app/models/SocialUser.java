@@ -1,17 +1,23 @@
 package models;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.UniqueConstraint;
 
+import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class SocialUser extends Model implements Comparable {
+	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(SocialUser.class);
 	
 	@javax.persistence.Column(unique = true)
 	@Required
@@ -21,6 +27,9 @@ public class SocialUser extends Model implements Comparable {
 	@Email
 	public String email;
 	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+    public Set<Role> roles;
+    
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
 	public UserProfile userProfile;
 	
@@ -32,6 +41,12 @@ public class SocialUser extends Model implements Comparable {
 		this.email = email;
 		this.screenname = screenname;
 		this.userProfile = new UserProfile(this);
+		Role role = Role.find("select r from Role r where r.name = ?", "learner").first();
+		if(role != null) {
+			this.roles.add(role);
+		} else {
+			cLogger.warn("Could not find a role for learner");
+		}
 //		create();		
 	}
 

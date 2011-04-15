@@ -22,9 +22,6 @@ public class User extends Model {
     @Required
     public String name;
     
-    @ManyToMany(cascade=CascadeType.PERSIST)
-    public Set<Role> roles;
-    
     public String needConfirmation;
     
     @Required
@@ -135,7 +132,7 @@ public class User extends Model {
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", passwordHash=" + passwordHash
-				+ ", name=" + name + ", roles=" + roles + ", needConfirmation="
+				+ ", name=" + name + ",  needConfirmation="
 				+ needConfirmation + "]";
 	}
 	

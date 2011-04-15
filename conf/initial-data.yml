@@ -84,6 +84,8 @@ Role(admin):
 SocialUser(suadmindude):
     screenname:          admindude
     email:               someone@somewhere.com
+    roles:              
+                        - admin
     
 User(admindude):
     email:              someone@somewhere.com
@@ -91,8 +93,7 @@ User(admindude):
     name:               Admin Dude
     needConfirmation:   false
     socialUser:         suadmindude
-    roles:              
-                        - admin
+
 UserProfile(adminDudeProfile):
     user:               suadmindude
     aboutMyself:        I am the admin of this website
@@ -100,6 +101,8 @@ UserProfile(adminDudeProfile):
 SocialUser(sulearnerdude):
     screenname:         learnerdude
     email:              learner@somewhere.com
+    roles:              
+                        - learner
 
 User(learnerdude):
     email:              learner@somewhere.com
@@ -107,8 +110,6 @@ User(learnerdude):
     name:               Learner Dude
     needConfirmation:   false
     socialUser:         sulearnerdude
-    roles:              
-                        - learner
     
 UserProfile(learnerdudeProfile):
     user:               sulearnerdude
@@ -116,6 +117,8 @@ UserProfile(learnerdudeProfile):
 SocialUser(sustudent):
     screenname:         student
     email:              student@somewhere.com
+    roles:              
+                        - learner
 
 User(student):
     email:              student@somewhere.com
@@ -123,8 +126,6 @@ User(student):
     name:               Student Dude
     needConfirmation:   false
     socialUser:         sustudent
-    roles:              
-                        - learner
     
 UserProfile(studentProfile):
     user:               sustudent

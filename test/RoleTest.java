@@ -22,13 +22,4 @@ public class RoleTest extends UnitTest{
 		
 	}
 	
-	@Test
-	public void testRolePrivateField() {
-		Role role = new Role("admin");
-		role.setTest("abc");
-		role.save();
-		
-		Role retrievedRole = Role.find("byTest", "abc").first();
-		assertNotNull(retrievedRole);
-	}
 }
