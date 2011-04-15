@@ -27,14 +27,12 @@
 						(<a href="@{Secure.logout}">Logout</a>)
 					
 				#{/if}
-				#{else}
-										  
-						Still not a member ? <a href="@{RegisterC.signup}">Signup</a>.
-						Or if you already have an account, just <a href="@{Secure.login}">Login</a>.
-					
-				#{/else}
+				
 		
 				<ul id="menu">
+					#{ifnot session.user}
+						<li><a href="@{Secure.login}">Login</a></li>					
+					#{/ifnot}
 					#{secure.check 'admin'}
 					<li><a href="@{AdminC.index}">Admin</a></li>
 					#{/secure.check}  
@@ -44,7 +42,7 @@
 					<li><a href="@{UserProfileC.list}">Users</a></li>
 					<li><a href="@{BlogPostC.list}">Blog</a></li>
 					<li><a href="@{PageC.show('help')}">Help</a></li>
-					<li><a href="@{Application.feedback}">Feedback</a></li>
+					<li><a href="@{Application.feedback}">Feedback</a></li>						
 				</ul>
 			</div>
 			<div style="width: 1324px;">
