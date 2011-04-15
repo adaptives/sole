@@ -26,8 +26,8 @@ public class SocialAuthC extends Controller {
 	public static final String TWITTER_REQUEST_TOKEN = "TWITTER_REQUEST_TOKEN";
 	public static final String USER = "user";
 	public static final String TWITTER_CALLBACK_URL = "http://127.0.0.1/callbacks/auth/twitter";
-	public static final String TWITTER_CONSUMER_KEY = "twitter.consumer.key";
-	public static final String TWITTER_CONSUMER_SECRET = "twitter.consumer.secret";
+	public static final String TWITTER_CONSUMER_KEY = "tk";
+	public static final String TWITTER_CONSUMER_SECRET = "ts";
 	public static final org.apache.log4j.Logger cLogger = 
 									Logger.log4j.getLogger(SocialAuthC.class);
 	
