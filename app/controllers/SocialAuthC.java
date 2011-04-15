@@ -25,7 +25,7 @@ public class SocialAuthC extends Controller {
 	
 	public static final String TWITTER_REQUEST_TOKEN = "TWITTER_REQUEST_TOKEN";
 	public static final String USER = "user";
-	public static final String TWITTER_CALLBACK_URL = "http://127.0.0.1/callbacks/auth/twitter";
+	public static final String TWITTER_CALLBACK_PATH = "/callbacks/auth/twitter";
 	public static final String TWITTER_CONSUMER_KEY = "tk";
 	public static final String TWITTER_CONSUMER_SECRET = "ts";
 	public static final org.apache.log4j.Logger cLogger = 
@@ -33,6 +33,7 @@ public class SocialAuthC extends Controller {
 	
 	@Before
 	public static void setConnectedUser() {
+		System.out.println("Twitter callback url '" + getTwitterCallbackUrl() + "'");
 		if(Security.isConnected()) {
 //			User user = User.findByEmail(Security.connected());
 //			renderArgs.put("user", user.name);
@@ -51,8 +52,8 @@ public class SocialAuthC extends Controller {
 	public static void authWithTwitter() {
 		try {			
 	        Twitter twitter = new TwitterFactory().getInstance();
-	        setTwitterKeys(twitter);					
-	        RequestToken requestToken = twitter.getOAuthRequestToken(TWITTER_CALLBACK_URL);
+	        setTwitterKeys(twitter);
+	        RequestToken requestToken = twitter.getOAuthRequestToken(getTwitterCallbackUrl());
 	        byte[] serRequestToken = serializeRequestToken(requestToken);
 	        TwitterRequestToken trt = new TwitterRequestToken(serRequestToken);
 	        trt.save();
@@ -135,6 +136,10 @@ public class SocialAuthC extends Controller {
 		oos.writeObject(requestToken);
 		oos.close();
 		return baos.toByteArray();
+	}
+	
+	private static String getTwitterCallbackUrl() {
+		return "http://" + request.host + TWITTER_CALLBACK_PATH;
 	}
 
 }
