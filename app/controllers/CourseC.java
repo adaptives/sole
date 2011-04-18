@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,9 @@ import models.CourseSection;
 import models.Question;
 import models.SocialUser;
 import models.User;
+import models.UserProfile;
+import play.Logger;
+import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.mvc.Before;
@@ -21,6 +26,8 @@ import play.mvc.With;
 
 @With(SocialAuthC.class)
 public class CourseC extends Controller {
+	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(CourseC.class);
 	
 	public static void list() {
 		List<Course> courses = Course.findAll();
@@ -31,6 +38,20 @@ public class CourseC extends Controller {
 		Course course = Course.find("byId", courseId).first();
 		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
 		render(course, courseSections);
+	}
+	
+	public static void pic(long courseId) {
+		Course course = Course.find("byId", courseId).first();
+		if(course.coursePic != null) {
+			renderBinary(course.coursePic.image.get());
+		} else {
+			try {
+				InputStream is = new FileInputStream(Play.getFile("public/images/default_course_image.gif"));
+				renderBinary(is);
+			} catch(Exception e) {
+				cLogger.error("Could not render default user image ", e);
+			}
+		}		
 	}
 	
 	public static void section(long sectionId) {

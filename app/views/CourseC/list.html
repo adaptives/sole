@@ -2,12 +2,11 @@
 
 <div class="courses">
 
-<ul style="list-style:none; position:absolute;">
+
 #{list items:courses, as:'course'}
-	<li style="float: left;">
-		<div style="width: 160px; height: 100px; margin: 10px; padding: 5px;" class="${course_parity}">
-			<a href="@{CourseC.course(course.id)}">${course.title}</a>
+		<div style="width: 480px; height: 70px; margin: 10px; padding: 5px;" class="course-list">
+			<img style="float: left;" src="@{CourseC.pic(course.id)}" width="60", height="60"/>
+			<a style="float:left;" href="@{CourseC.course(course.id)}">${course.title}</a>
 		</div>
-	</>
 #{/list}
 </ul>

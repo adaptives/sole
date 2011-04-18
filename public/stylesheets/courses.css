@@ -1,27 +1,12 @@
-li div.odd {
-	background-color: #F08C00;
-	color: #36CDC4;
-	border: 3px solid #800000;
+.course-list {
+	border: 3px solid #444444;;
 }
 
-li div.odd a {
-	color: white;
+.course-list a {
 	font-weight: bold;
 	text-decoration: none;
-	font-size: 1.2em;	
-}
-
-li div.even {
-	background-color: #36CDC4;
-	color: white;
-	border: 3px solid #800000; 
-}
-
-li div.even a {
-	text-decoration: none;
-	color: white;
-	font-weight: bold;
-	font-size: 1.2em; 
+	font-size: 1.2em;
+	color: #444444;
 }
 
 .course-title {
