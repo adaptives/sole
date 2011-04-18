@@ -130,33 +130,6 @@ User(student):
 UserProfile(studentProfile):
     user:               sustudent
                         
-Course(Java):
-    title:          Java Programming
-    description:    Java Programming description
-
-Course(Security):
-    title:          Web Security
-    description:    Web security description
-    
-CourseSection(javaSection1):
-    title:          Introduction to Java
-    content:        This is the content for section 1 of Introduction to Java
-    course:         Java
-    
-CourseSection(javaSection2):
-    title:          Java syntax
-    content:        This is the content for section 2 of Introduction to Java
-    course:         Java
-    
-CourseSection(wsSection1):
-    title:          Introduction to Web security
-    content:        This is the content for section 1 of Introduction to Web security
-    course:         Security
-    
-CourseSection(wsSection2):
-    title:          Web security basics
-    content:        This is the content for section 2 of web security
-    course:         Security
 
 Forum(java101Forum):
     title: Java101 forum
