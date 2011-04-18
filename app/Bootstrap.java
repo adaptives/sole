@@ -8,7 +8,8 @@ public class Bootstrap extends Job {
 
 	public void doJob() {
 		if(User.count() == 0) {
-			Fixtures.load("initial-data.yml");
+			Fixtures.load("users-and-study-sessions.yml");
+			Fixtures.load("pages.yml");
 			Fixtures.load("diycourses.yml");
 		}
 	}
