@@ -16,6 +16,7 @@ public class BlogPost extends Model {
 	public SocialUser author;
 	public String title;
 	public Date postedAt;
+	public Date lastUpdatedAt;
 	public String content;
 	
 	@ManyToMany
@@ -30,6 +31,7 @@ public class BlogPost extends Model {
 		this.author = author;
 		this.title = title;
 		this.postedAt = new Date();
+		this.lastUpdatedAt = postedAt;
 		this.content = content;
 		this.tags = new TreeSet<Tag>();
 		this.comments = new TreeSet<Comment>();
