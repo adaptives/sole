@@ -41,7 +41,7 @@ public class BlogPostC extends Controller {
 		if(!(Security.isConnected() && Security.check("admin"))) {
 			renderText("Sorry you do not have authorization to view this page");
 		}
-		User author = User.findByEmail(Security.connected());
+		SocialUser author = SocialUser.findById(Long.parseLong(Security.connected()));
 		BlogPost blogPost = new BlogPost(author, title, content);
 		if(validation.hasErrors()) {
 			validation.keep();
@@ -49,12 +49,6 @@ public class BlogPostC extends Controller {
 			flash.error("Please correct these errors");
 			render("@form", blogPost);
 		}
-//		
-//		validation.valid(blogPost);
-//		if(validation.hasErrors()) {
-//			render("@form", blogPost);
-//		}
-		
 		blogPost.save();
 		list();		
 	}

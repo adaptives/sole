@@ -13,7 +13,7 @@ import play.db.jpa.Model;
 @Entity
 public class BlogPost extends Model {
 	
-	public User author;
+	public SocialUser author;
 	public String title;
 	public Date postedAt;
 	public String content;
@@ -24,7 +24,7 @@ public class BlogPost extends Model {
 	@OneToMany
 	public Set<Comment> comments;
 	
-	public BlogPost(User author, 
+	public BlogPost(SocialUser author, 
 					String title,  
 					String content) {
 		this.author = author;
