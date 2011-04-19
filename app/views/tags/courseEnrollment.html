@@ -1,0 +1,13 @@
+
+#{if session.user}
+		%{models.SocialUser sUser = models.SocialUser.findById(Long.parseLong(session.user));%}
+		#{ifnot _course.enrolledParticipants.contains(sUser)}
+			<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
+		#{/ifnot}
+		#{else}
+			<span class="study-session-enrollment">You are enrolled in this course</span>
+		#{/else}
+#{/if}
+#{else}
+	<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
+#{/else}

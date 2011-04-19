@@ -6,7 +6,9 @@ import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -30,10 +32,20 @@ public class Course extends Model {
 	@OneToMany(cascade=CascadeType.ALL)
 	public Set<Activity> activities;
 	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="COURSE_ENROLLED_PARTICIPANTS")
+	public Set<SocialUser> enrolledParticipants;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="COURSE_COMPLETED_PARTICIPANTS")
+	public Set<SocialUser> completedParticipants;
+	
 	public Course(String title, String description) {
 		this.title = title;
 		this.description = description;
 		this.activities = new TreeSet<Activity>();
+		this.enrolledParticipants = new TreeSet<SocialUser>();
+		this.completedParticipants = new TreeSet<SocialUser>();
 		create();
 	}
 

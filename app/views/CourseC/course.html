@@ -1,6 +1,9 @@
 #{extends 'main.html' /}
 
 <h2 class="course-title">${course.title}</h2>
+
+#{courseEnrollment course:course /}
+
 <div class="course-description">
 	${course.description.raw()}
 </div>

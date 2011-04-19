@@ -11,6 +11,7 @@ public class Bootstrap extends Job {
 			Fixtures.load("users-and-study-sessions.yml");
 			Fixtures.load("pages.yml");
 			Fixtures.load("diycourses.yml");
+			Fixtures.load("kvdata.yml");
 		}
 	}
 }

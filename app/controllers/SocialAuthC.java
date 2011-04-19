@@ -28,6 +28,8 @@ public class SocialAuthC extends Controller {
 	public static final String TWITTER_CALLBACK_PATH = "/callbacks/auth/twitter";
 	public static final String TWITTER_CONSUMER_KEY = "tk";
 	public static final String TWITTER_CONSUMER_SECRET = "ts";
+	public static final String TWITTER_USERNAME_PREFIX = "http://twitter.com/";
+	
 	public static final org.apache.log4j.Logger cLogger = 
 									Logger.log4j.getLogger(SocialAuthC.class);
 	
@@ -73,7 +75,7 @@ public class SocialAuthC extends Controller {
 		    setTwitterKeys(twitter);
 			AccessToken accessToken = twitter.getOAuthAccessToken(requestToken, getVerifier());
 			String twitterScreenname = accessToken.getScreenName();
-			String ourScreenname = "http://twitter.com/" + twitterScreenname;
+			String ourScreenname = TWITTER_USERNAME_PREFIX + twitterScreenname;
 			
 			TwitterUser twitterUser = TwitterUser.find("byUsername", ourScreenname).first();
 			

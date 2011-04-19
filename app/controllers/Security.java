@@ -69,6 +69,7 @@ public class Security extends Secure.Security{
      * This method returns the current connected username
      * @return
      */
+    //TODO: Should return a Long and also log an error if the String cannot be converted into a long
     public static String connected() {
         return session.get(SocialAuthC.USER);
     }
