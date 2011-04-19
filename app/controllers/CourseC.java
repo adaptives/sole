@@ -78,6 +78,12 @@ public class CourseC extends Controller {
 								   @Required String title,
 								   @Required String content,
 								   String tags) {
+		if(validation.hasErrors()) {
+			validation.keep();
+			params.flash();
+			flash.error("Please correct these errors");
+			section(sectionId);
+		}
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		CourseSection courseSection = CourseSection.findById(sectionId);		
 		Question question = new Question(title, content, user);
