@@ -149,4 +149,5 @@ public class UserProfileC extends Controller {
 		String sql = "select distinct upr from UserProfile upr where upr.user.id = ?";
 		return UserProfile.find(sql, userId).first();
 	}
+	
 }

@@ -1,10 +1,12 @@
 package controllers;
 
+import other.utils.LinkGenUtils;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Scope.Flash;
 import play.mvc.With;
 import models.Course;
+import models.SiteEvent;
 import models.SocialUser;
 
 @With(Secure.class)
@@ -25,6 +27,10 @@ public class CourseSecureC extends Controller {
 				if(!course.enrolledParticipants.contains(user)) {
 					course.enrolledParticipants.add(user);
 					course.save();
+					new SiteEvent("User " + 
+								  LinkGenUtils.getUserProfileLink(user) + 
+								  " enrolled in DIY Course " + 
+								  LinkGenUtils.getDIYCourseLink(course));
 				}				
 			}
 			else {
@@ -42,4 +48,6 @@ public class CourseSecureC extends Controller {
 	public static void markCompleted(long courseId) {
 		
 	}
+	
+	
 }

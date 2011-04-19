@@ -132,3 +132,12 @@
 	display: block;
 	width: 80%;
 }
+
+.site-event {
+	color: #99CC66;
+}
+
+.site-event a {
+	text-decoration: none;
+	color: gold; 	
+}
