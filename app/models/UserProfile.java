@@ -18,12 +18,6 @@ public class UserProfile extends Model {
 	
 	public String location;
 	
-	@OneToMany
-	public Set<Question> questionsAsked;
-	
-	@OneToMany
-	public Set<Answer> answersProvided;
-	
 	@OneToOne
 	public Pic profilePic;
 	
@@ -35,7 +29,5 @@ public class UserProfile extends Model {
 	
 	public UserProfile(SocialUser user) {
 		this.user = user;
-		this.questionsAsked = new HashSet<Question>();
-		this.answersProvided = new HashSet<Answer>();
 	}
 }
