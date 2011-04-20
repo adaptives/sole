@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import models.Answer;
+import models.Course;
 import models.CourseSection;
 import models.Forum;
 import models.Pic;
@@ -53,14 +54,14 @@ public class UserProfileC extends Controller {
 			}			
 		}
 		tabIds.add("merit");
-		tabIds.add("questions-asked");
-		tabIds.add("answers-provided");
+		tabIds.add("courses");
+		tabIds.add("study-sessions");
 		tabIds.add("challenges-taken");
 		
 				
 		tabNames.add("Merit");
-		tabNames.add("Questions Asked");
-		tabNames.add("Answers Provided");
+		tabNames.add("DIY Courses");
+		tabNames.add("Study Sessions");
 		tabNames.add("Challenges Taken");
 		
 		
@@ -68,22 +69,22 @@ public class UserProfileC extends Controller {
 		UserProfile userProfile = getUserProfileFromSocialUserId(userId);
 		
 		//Get a list of questions asked by the user in DIY courses
-		//TODO: 
+		
+		List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
+		List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
 		List diyQuestions = CourseSection.find("select distinct q, cs.id from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
-		
-		//Get a list of questions asked by the user in StudySessions
-		//TODO: Closed / private study session questions should not be included here
-		List studySessionQuestions = StudySession.find("select distinct q, ss.id from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
-		
-		//Get a list of answers provided by the user in DIY courses
 		List diyAnswers = StudySession.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
 		
-		//Get a list of answers provided by the user in Study Sessions
+		//TODO: Closed / private study session questions should not be included here
+		
+		List studySessionQuestions = 
+			StudySession.find("select distinct q, ss.id from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
 		List studySessionAnswers = 
 			StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
-		
-		
-		render(userProfile, diyQuestions, studySessionQuestions, diyAnswers, studySessionAnswers, tabIds, tabNames);
+		List<StudySession> studySessionsParticipated = 
+			StudySession.find("select ss from StudySession ss join ss.applicationStore aps join aps.applications a where a.socialUser.id = ? and a.currentStatus = 1", userId).fetch();
+ 
+		render(userProfile, coursesEnrolled, coursesCompleted, diyQuestions, diyAnswers, studySessionsParticipated, studySessionQuestions, studySessionAnswers, tabIds, tabNames);
 	}
 	
 	public static void change(String username, 

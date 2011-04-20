@@ -1,15 +1,14 @@
 #{extends 'main.html' /}
 
 <a href="@{StudySessionC.studySession(studySession.id)}">Back</a>
-
 #{list items:participants, as:'participant'}
 	<div>
 		<span>
 			<img width="40" height="40" src="@{UserProfileC.pic(participant.id)}">
 		</span>
 		<a href="@{UserProfileC.show(participant.id)}">${participant.screenname}</a>
-		#{ifnot studySession.isFacilitator(participant.id)}
+		#{if studySession.isFacilitator(session.user) && !studySession.isFacilitator(participant.id)}
 		<span><a href="@{StudySessionSecureC.makeFacilitator(studySession.id, participant.id)}">Make Facilitator</a></span>
-		#{/ ifnot}
+		#{/ if}
 	</div>
 #{/list}

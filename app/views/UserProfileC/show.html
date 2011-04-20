@@ -10,7 +10,7 @@
 </div>
 
 <div class="userprofile-tabs">
-#{tabbedPane show:'settings', tabIds:tabIds, tabNames:tabNames /}
+#{tabbedPane show:'merit', tabIds:tabIds, tabNames:tabNames /}
 </div>
 
 <div id="settings">
@@ -65,32 +65,60 @@
 <div id="merit">
 </div>
 
-<div id="questions-asked">
-	<div>Questions asked in DIY courses</div>
-	#{list items:diyQuestions, as:'diyQuestionDetails'}
-		<div>			
-			<a href="@{CourseC.question(diyQuestionDetails[1], diyQuestionDetails[0].id)}">${diyQuestionDetails[0].title}</a>
-		</div>
-	#{/list}
+<div id="courses">
+	<div style="margin-bottom: 20px;">
+	This user has enrolled in ${coursesEnrolled.size()} courses, completed ${coursesCompleted.size()} courses, asked ${diyQuestions.size()} questions, provided ${diyAnswers.size()} answers.
+	</div>
+	<div class="userprofile-tabs-content">
+		<div class="userprofile-tabs-content-title">Courses enrolled</div>
+		#{list items:coursesEnrolled, as:'courseEn'}
+			Enrolled in <a href="@{CourseC.course(courseEn.id)}">${courseEn.title}</a>, asked ${courseEn.getQuestionsAskedBySocialUser(userProfile.user.id).size()} questions, provided ${courseEn.getAnswersGivenBySocialUser(userProfile.user.id).size()} answers.
+		#{/list}
+	</div>
 	
-	<div>Questions asked in Study Session forums</div>
-	#{list items:studySessionQuestions, as:'studySessionQuestionDetails'}
-		<div>
-			<a href="@{StudySessionC.forumQuestion(studySessionQuestionDetails[1], studySessionQuestionDetails[0].id)}">${studySessionQuestionDetails[0].title}</a>
-		</div>
-	#{/list}
+	<div class="userprofile-tabs-content">
+		<div class="userprofile-tabs-content-title">Courses completed</div>
+		#{list items:coursesCompleted, as:'courseCo'}
+			<a href="@{CourseC.course(courseCo.id)}">${courseCo.title}</a>
+		#{/list}
+	</div>
+	
+	<div class="userprofile-tabs-content">
+		<div class="userprofile-tabs-content-title">Questions asked in DIY courses</div>
+		#{list items:diyQuestions, as:'diyQuestionDetails'}
+			<div>			
+				<a href="@{CourseC.question(diyQuestionDetails[1], diyQuestionDetails[0].id)}">${diyQuestionDetails[0].title}</a>
+			</div>
+		#{/list}
+	</div>
+	
+	<div class="userprofile-tabs-content">
+		<div class="userprofile-tabs-content-title">Answers given in DIY courses</div>
+		#{list items:diyAnswers, as:'diyAnswerDetail'}
+			<a href="@{CourseC.question(diyAnswerDetail[1], diyAnswerDetail[0].id)}">${diyAnswerDetail[0].title}</a>
+		#{/list}
+	</div>
 </div>
 
-<div id="answers-provided">
-	<div>Answers given in DIY courses</div>
-	#{list items:diyAnswers, as:'diyAnswerDetail'}
-		<a href="@{CourseC.question(diyAnswerDetail[1], diyAnswerDetail[0].id)}">${diyAnswerDetail[0].title}</a>
-	#{/list}
+<div id="study-sessions">
+	<div style="margin-bottom: 20px;">
+		This user has participated in ${studySessionsParticipated.size()} study sessions, asked ${studySessionQuestions.size()} questions, provided ${studySessionAnswers.size()} answers.
+	</div>
+	<div class="userprofile-tabs-content">
+		<div class="userprofile-tabs-content-title">Questions asked in Study Session forums</div>
+		#{list items:studySessionQuestions, as:'studySessionQuestionDetails'}
+			<div>
+				<a href="@{StudySessionC.forumQuestion(studySessionQuestionDetails[1], studySessionQuestionDetails[0].id)}">${studySessionQuestionDetails[0].title}</a>
+			</div>
+		#{/list}
+	</div>
 	
-	<div>Answers given in Study Sessions</div>
-	#{list items:studySessionAnswers, as:'studySessionAnswerDetail'}
-		<a href="@{StudySessionC.forumQuestion(studySessionAnswerDetail[1], studySessionAnswerDetail[0].id)}">${studySessionAnswerDetail[0].title}</a>
-	#{/list}
+	<div class="userprofile-tabs-content">
+		<div class="userprofile-tabs-content-title">Answers given in Study Sessions</div>
+		#{list items:studySessionAnswers, as:'studySessionAnswerDetail'}
+			<a href="@{StudySessionC.forumQuestion(studySessionAnswerDetail[1], studySessionAnswerDetail[0].id)}">${studySessionAnswerDetail[0].title}</a>
+		#{/list}
+	</div>
 </div>
 
 <div id="challenges-taken">

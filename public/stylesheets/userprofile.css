@@ -1,0 +1,17 @@
+.userprofile-tabs {
+	margin-top: 10px;	
+}
+
+.userprofile-tabs-content {	
+	margin-bottom: 20px; 
+	color:#444444
+}
+.userprofile-tabs-content a {
+	margin-left: 15px;
+}
+
+.userprofile-tabs-content-title {
+	font-size: 1.4em; 
+	font-weight:bold;
+	margin-bottom: 10px;
+}
