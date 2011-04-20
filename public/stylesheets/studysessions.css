@@ -3,7 +3,10 @@
 }
 
 .study-session {
-	border: solid 1px;	
+	border-style:solid;
+	border-color: #444444;
+	border-width: 2px;
+	padding: 10px;
 }
 
 .study-session-private {
@@ -22,11 +25,30 @@
 }
 
 .study-session-description {
-	
+	font-size: 1.2em; 
+	line-height:130%; 
+	color: #A9B2C1;
+}
+
+.study-session-description ul {
+	list-style-type:square; 
+	margin-left:15px;	
+}
+
+.study-session-description div {
+	margin-top: 15px;	
 }
 
 .study-session-description-full {
-	font-size: 1.2em;	
+	font-size: 1.2em; 
+	line-height:130%; 
+	#color: #A9B2C1;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding: 5px;
+	border-bottom-style:solid;
+	border-bottom-color: #444444;
+	border-bottom-width: 2px;	
 }
 	
 .study-session-dates {

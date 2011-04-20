@@ -3,7 +3,7 @@
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
 
-<h3 class="study-session-title"><a href="@{StudySessionC.studySession(studySessionId)}">Java101</a> : ${sessionPart.title}</h3>
+<h3 class="study-session-title"><a style="text-decoration:none;" href="@{StudySessionC.studySession(studySessionId)}">${sessionPart.studySession.title}</a> : ${sessionPart.title}</h3>
 
 <hr/>
 <div class="study-session-dates">
@@ -13,13 +13,17 @@
 	${sessionPart.content.raw()}
 </div>
 <div>
-	<h2>Activities - <a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.id)}">View all responses</a></h2>
+	<div style="margin-bottom: 16px;">
+		<span style="font-size: 1.6em;">Activities - </span>
+		<div class="vspacediv">This session has the following activities. Please complete them and submit links to your work. A good place to publish your activities is your blog, website, some wiki, or or any publicly accessible page on the Internet.</div>
+		<div class="vspacediv"><a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.id)}">View all responses</a></div>
+	</div>
 	#{list items:sessionPart.activities, as:'activity'}
 		<div>
-			<h4>Activity ${activity_index}</h4>
+			<h2>Activity ${activity_index}</h2>
 			${activity.content.raw()}
 		</div>
-		<div>
+		<div style="border-bottom: dotted 1px; margin-bottom: 10px; padding-bottom: 10px;">
 			<form action="/" id="activity-response-${activity_index}">
 				<span>Submit your response to this activity (link to a blog post, etc)</span>
 				<input type="text" name="activityResponse" /><input type="submit" name="submit" value="Submit"/>
