@@ -100,4 +100,22 @@ public class Course extends Model {
 		List<Answer> answers = CourseSection.find("select a from CourseSection cs join cs.questions q join q.answers a where cs.course.id = ? and a.author.id = ?", this.id, userId).fetch();
 		return answers;
 	}
+	
+	public boolean isSocialUserEnrolled(String userId) {
+		boolean retVal = false;
+		if(userId != null) {
+			try {
+				long lUserId = Long.parseLong(userId);
+				System.out.println("Trying to determine if socialuser '" + lUserId + "' is enrolled in course '" + this.id + "'");
+				List<SocialUser> socialUsers = Course.find("select ep from Course c join c.enrolledParticipants ep where c.id = ? and ep.id = ?", this.id, lUserId).fetch();
+				if(socialUsers.size() > 0) {
+					retVal = true;
+				}
+				//TODO: Use specific EXception
+			} catch(Exception e) {
+				
+			}
+		}
+		return retVal;
+	}
 }

@@ -1,7 +1,5 @@
-
 #{if session.user}
-		%{models.SocialUser sUser = models.SocialUser.findById(Long.parseLong(session.user));%}
-		#{ifnot _course.enrolledParticipants.contains(sUser)}
+		#{ifnot _course.isSocialUserEnrolled(session.user)}
 			<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
 		#{/ifnot}
 		#{else}

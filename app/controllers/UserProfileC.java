@@ -25,6 +25,7 @@ import play.Play;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
+import play.libs.Codec;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -99,19 +100,19 @@ public class UserProfileC extends Controller {
 			show(userByUsername.id);
         }
 		User user = 
-			User.find("byEmailAndPasswordHash", username, oldPassword).first();
+			User.find("byEmailAndPasswordHash", username, Codec.hexMD5(oldPassword)).first();
 		if(user != null) {
 			if(newPassword.equals(newPassword2)) {
-				user.passwordHash = newPassword;
+				user.passwordHash = Codec.hexMD5(newPassword);
 				user.save();
 			} else {
 				flash.error("Sorry, the fields 'New Password' and 'Retype New Password' did not match.");				
 			}
-			show(user.id);
+			show(user.socialUser.id);
 		} else {
 			flash.error("Sorry, the oldPassword did not match, please  again.");
 			User userByUsername = User.findByEmail(username);
-			show(userByUsername.id);
+			show(userByUsername.socialUser.id);
 		}
 	}
 	
