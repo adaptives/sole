@@ -88,3 +88,8 @@ form .error {
 	background: white;
 	font-weight: normal;
 }
+
+.vspacediv {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

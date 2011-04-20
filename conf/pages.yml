@@ -12,6 +12,11 @@ Page(homepage):
                         <div>Our aim is to foster a peer based learning community where you can have fun while learning and also establish Internet credentials for your learning endevours.</div>
                         </div>
                         
+                        <div>
+                        	<img src="/public/images/SitePhilosophy.png"/>
+                        </div>
+                        
+                        
 Page(tos):                        
     name:               tos
     title:              Terms Of Service
@@ -61,8 +66,36 @@ Page(help):
     name:               help
     title:              Help
     content:            >
-                        Under construction
+                        <div style="font-size: 1.2em; line-height:130%; color: #A9B2C1;">
+                        <div class="vspacediv">This site is inspired by the concept of Massive Open Online Courses (MOOC) and peer enabled learning. Briefly a MOOC is a massive open online course which can have anywhere from a hundred to thousands of participants. A MOOC typically does not have a teacher who is a sage on the stage, but rather facilitators who are more like peers, who facilitate the learning of other participants. A long time back I had read a definition of a teacher, on the Internet. <blockquote>It said A teacher is also a student who is further ahead on the road.</blockquote></div>
+                        <div class="vspacediv">We are all teachers and we are all students. Since one of the best ways to learn is by teaching, we foster learning communities where participants learn and help others learn at the same time. And if you should need help there are always mentors, facilitators, and friendly community members to help you.</div>
 
+                        At the moment this site supports 2 types of courses.
+                        <ol style="list-style-type:square; margin-left:15px;">
+                        <li style="font-weight: bold;">DIY Courses</li>
+                        <li style="font-weight: bold;">Study Sessions</li>
+                        </ol>
+                        
+                        <h1>DIY Courses</h1>
+                        <div>A DIY course consists of learning material in the form of videos, audio, and text. Along with the learning material, these courses will also have 'questions to ponder', and homework assignments. These coures also contain forums for collaboration.</div>
+
+                        <div class="vspacediv">Learners can learn at their own pace. Here is how you would study in a typical DIY course.</div>
+                        <ul style="list-style-type:circle; margin-left: 15px;">
+                        <li>Watch the videos or read the learning material</li>
+                        <li>Make a note of things you do not understand</li>
+                        <li>Clear your doubts on the course forums (while you are on the forums, also try and answer other people's questions if you can)</li>
+                        <li>Write one or more blog posts describing what you learned (reflections, gotchas, facts, surprises, explanations, etc). Feel free to use mindmaps, and pictures where you can. It will help you learn the material better, and will also assist in later recall.</li>
+                        <li>Do the assignments and upload them to any public open source repository. If you do not wish to upload them to an open source repository, you can also paste your code in blog posts.</li>
+                        <li>Repeat this process for all the material in the course</li>
+                        </ul>
+                        
+                        <h1>Study Session</h1>
+                        <div>A study session is more organized than a DIY course and is more appropriate for learners who prefer to work with schedules and deadlines. Each study session will run for a fixed duration of time, and will focus on a specific topic, such as 'Javascript 101', 'TDD with JUnit', 'Introduction to GIT', etc.</div> 
+                        <div class="vspacediv">Most study sessions will be facilitated by one or many facilitators. Study sessions may optionally have a maximum limit of participants.</div> 
+                        <div class="vspacediv">If you find yourself interested in a study session which is still open for enrollment, then you can enroll yourself in that session. Some study sessions might have a sign-up task, which you have to complete to get accepted in the study session. Once you get accepted you can participate in the session.</div> 
+                        <div class="vspacediv">A typical study session will be divided into weeks or days. We will call these time units for convenience. Each time unit will have some material to study, and some homework. Participants can study the material at their own leasure, ask questions on the forums to clear their doubts, and do the homework on their blogs or by pushing code to open source repositories.</div>
+                        </div>
+                        
 Page(pp):                          
     name:               pp
     title:              Privacy policy
