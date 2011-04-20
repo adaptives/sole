@@ -50,6 +50,11 @@
 	border-bottom-color: #444444;
 	border-bottom-width: 2px;	
 }
+
+.study-session-description-full ul {
+	list-style-type:square; 
+	margin-left:15px;	
+}
 	
 .study-session-dates {
     font-size: 0.8em;
