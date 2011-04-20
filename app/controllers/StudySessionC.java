@@ -199,6 +199,11 @@ public class StudySessionC extends Controller {
 		render(sessionPart);
 	}
 	
+	public static void resources(long studySessionId) {
+		StudySession studySession = StudySession.findById(studySessionId);
+		render(studySession);
+	}
+	
 	private static Object getDefaultStudySessionAffiliatez() {
 		List<DefaultStudySessionAffiliatez> defaultStudySessionLocationAffiliates =
 			DefaultStudySessionAffiliatez.findAll();

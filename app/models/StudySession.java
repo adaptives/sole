@@ -43,6 +43,9 @@ public class StudySession extends Model {
 	@OneToOne(cascade=CascadeType.ALL)
 	public Forum forum;
 	
+	@Lob
+	public String resources;
+	
 	@OneToOne(mappedBy="studySession", cascade=CascadeType.ALL)
 	public ApplicationStore applicationStore;
 	
