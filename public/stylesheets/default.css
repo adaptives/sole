@@ -93,3 +93,21 @@ form .error {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.standard-div {
+	line-height:130%;
+}
+
+.standard-div ul{
+	list-style-type:square; 
+	margin-left:20px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+.standard-div ol {
+	list-style-type:lower-alpha;
+	margin-left:20px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}

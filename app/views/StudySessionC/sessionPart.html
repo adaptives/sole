@@ -19,7 +19,7 @@
 		<div class="vspacediv"><a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.id)}">View all responses</a></div>
 	</div>
 	#{list items:sessionPart.activities, as:'activity'}
-		<div>
+		<div class="standard-div">
 			<h2>Activity ${activity_index}</h2>
 			${activity.content.raw()}
 		</div>
