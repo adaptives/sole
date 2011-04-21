@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -39,6 +40,9 @@ public class Course extends Model {
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="COURSE_COMPLETED_PARTICIPANTS")
 	public Set<SocialUser> completedParticipants;
+	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Course.class);
+	
 	
 	public Course(String title, String description) {
 		this.title = title;
@@ -106,14 +110,13 @@ public class Course extends Model {
 		if(userId != null) {
 			try {
 				long lUserId = Long.parseLong(userId);
-				System.out.println("Trying to determine if socialuser '" + lUserId + "' is enrolled in course '" + this.id + "'");
 				List<SocialUser> socialUsers = Course.find("select ep from Course c join c.enrolledParticipants ep where c.id = ? and ep.id = ?", this.id, lUserId).fetch();
 				if(socialUsers.size() > 0) {
 					retVal = true;
 				}
 				//TODO: Use specific EXception
 			} catch(Exception e) {
-				
+				cLogger.error("Could not convert string into long for SocialUser.ID");
 			}
 		}
 		return retVal;
