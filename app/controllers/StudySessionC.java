@@ -41,8 +41,13 @@ public class StudySessionC extends Controller {
 
 	public static void studySession(long id) {
 		StudySession studySession = StudySession.findById(id);
-		StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
-		render(studySession, studySessionMeta);
+		if(studySession != null) {
+			StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
+			render(studySession, studySessionMeta);
+		} else {
+			flash.error("Sorry we could not find the Study Group");
+			render("emptypage.html");
+		}
 	}
 	
 	/**
@@ -162,7 +167,12 @@ public class StudySessionC extends Controller {
 	
 	public static void sessionPart(long studySessionId, long id) {
 		SessionPart sessionPart = SessionPart.findById(id);
-		render(studySessionId, sessionPart);
+		if(sessionPart != null) {
+			render(studySessionId, sessionPart);
+		} else {
+			flash.error("Sorry we could not find the Study Group Section");
+			render("emptypage.html");
+		}
 	}
 	
 	public static void participants(long studySessionId) {
@@ -185,18 +195,29 @@ public class StudySessionC extends Controller {
 		tabNames.add("Selected Question");
 		
 		StudySession studySession = StudySession.findById(studySessionId);
-		Question question = Question.findById(questionId);
+		if(studySession != null) {
+			Question question = Question.findById(questionId);
+			
+			render("StudySessionC/forum.html", 
+				   studySession, 
+				   question, 
+				   tabIds, 
+				   tabNames);
+		} else {
+			flash.error("Sorry we could not find the specified Forum");
+			render("emptypage.html");
+		}
 		
-		render("StudySessionC/forum.html", 
-			   studySession, 
-			   question, 
-			   tabIds, 
-			   tabNames);
 	}
 	
 	public static void sessionPartActivityResponses(long sessionPartId) {
 		SessionPart sessionPart = SessionPart.findById(sessionPartId);
-		render(sessionPart);
+		if(sessionPart != null) {
+			render(sessionPart);
+		} else {
+			flash.error("Sorry we could not find the Study Group Section");
+			render("emptypage.html");
+		}
 	}
 	
 	public static void resources(long studySessionId) {

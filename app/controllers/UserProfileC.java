@@ -69,23 +69,28 @@ public class UserProfileC extends Controller {
 		
 		UserProfile userProfile = getUserProfileFromSocialUserId(userId);
 		
-		//Get a list of questions asked by the user in DIY courses
-		
-		List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
-		List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
-		List diyQuestions = CourseSection.find("select distinct q, cs.id from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
-		List diyAnswers = StudySession.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
-		
-		//TODO: Closed / private study session questions should not be included here
-		
-		List studySessionQuestions = 
-			StudySession.find("select distinct q, ss.id from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
-		List studySessionAnswers = 
-			StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
-		List<StudySession> studySessionsParticipated = 
-			StudySession.find("select ss from StudySession ss join ss.applicationStore aps join aps.applications a where a.socialUser.id = ? and a.currentStatus = 1", userId).fetch();
- 
-		render(userProfile, coursesEnrolled, coursesCompleted, diyQuestions, diyAnswers, studySessionsParticipated, studySessionQuestions, studySessionAnswers, tabIds, tabNames);
+		if(userProfile != null) {
+			//Get a list of questions asked by the user in DIY courses
+			
+			List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
+			List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
+			List diyQuestions = CourseSection.find("select distinct q, cs.id from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
+			List diyAnswers = StudySession.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
+			
+			//TODO: Closed / private study session questions should not be included here
+			
+			List studySessionQuestions = 
+				StudySession.find("select distinct q, ss.id from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
+			List studySessionAnswers = 
+				StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
+			List<StudySession> studySessionsParticipated = 
+				StudySession.find("select ss from StudySession ss join ss.applicationStore aps join aps.applications a where a.socialUser.id = ? and a.currentStatus = 1", userId).fetch();
+	 
+			render(userProfile, coursesEnrolled, coursesCompleted, diyQuestions, diyAnswers, studySessionsParticipated, studySessionQuestions, studySessionAnswers, tabIds, tabNames);
+		} else {
+			flash.error("We could not find the requested user");
+			render("emptypage.html");
+		}
 	}
 	
 	public static void change(String username, 

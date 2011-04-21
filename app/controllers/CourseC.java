@@ -36,8 +36,13 @@ public class CourseC extends Controller {
 	
 	public static void course(long courseId) {
 		Course course = Course.find("byId", courseId).first();
-		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
-		render(course, courseSections);
+		if(course != null) {
+			List<CourseSection> courseSections = course.fetchSectionsByPlacement();
+			render(course, courseSections);
+		} else {
+			flash.error("Sorry we could not find the course");
+			render("emptypage.html");
+		}
 	}
 	
 	public static void pic(long courseId) {
@@ -69,9 +74,14 @@ public class CourseC extends Controller {
 		tabNames.add("Comments");
 		
 		CourseSection courseSection = CourseSection.findById(sectionId);
-		Question question = Question.findById(questionId);
-		
-		render("CourseC/section.html", courseSection, question, tabIds, tabNames);
+		if(courseSection != null) {
+			Question question = Question.findById(questionId);
+			render("CourseC/section.html", courseSection, question, tabIds, tabNames);
+		} else {
+			//TODO: We should actually render the course with this error message
+			flash.error("Sorry we could not find the section");
+			render("emptypage.html");
+		}
 	}
 	
 	public static void addQuestion(long sectionId, 
