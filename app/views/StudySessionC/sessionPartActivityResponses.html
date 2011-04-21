@@ -4,7 +4,7 @@
 #{list items:sessionPart.activities, as:'activity'}
 	<h2>Activity ${activity_index}</h2>
 	<div>
-		${activity.content}
+		${activity.content.raw()}
 	</div>
 	<h2>Responses</h2>
 	#{list items:activity.activityResponses, as:'activityResponse'}
