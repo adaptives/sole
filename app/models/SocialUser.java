@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -41,13 +42,14 @@ public class SocialUser extends Model implements Comparable {
 		this.email = email;
 		this.screenname = screenname;
 		this.userProfile = new UserProfile(this);
+		this.roles = new TreeSet<Role>();
 		Role role = Role.find("select r from Role r where r.name = ?", "learner").first();
 		if(role != null) {
 			this.roles.add(role);
 		} else {
 			cLogger.warn("Could not find a role for learner");
 		}
-//		create();		
+		//create();		
 	}
 
 	@Override

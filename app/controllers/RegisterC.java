@@ -36,7 +36,7 @@ public class RegisterC extends Controller {
         }
         
         try {
-        	SocialUser socialUser = new SocialUser(email);
+        	SocialUser socialUser = new SocialUser(email, name);
         	socialUser.screenname = name;            
             socialUser.save();                                
             
