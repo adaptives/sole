@@ -6,6 +6,7 @@ import java.util.Map;
 
 import controllers.Security;
 
+import models.KeyValueData;
 import models.SocialUser;
 import models.StudySession;
 import models.StudySessionMeta;
@@ -114,5 +115,17 @@ public class SoleTags extends FastTags {
 				return;
 			}
 		}		
+	}
+	
+	public static void _keyValueData(Map<?, ?> args, 
+			  						 Closure body,
+			  						 PrintWriter out, 
+			  						 ExecutableTemplate template, 
+			  						 int fromLine) {
+		String key = (String)args.get("k");
+		String val = KeyValueData.findValue(key);
+		if(val != null) {
+			out.println(val);
+		}
 	}
 }
