@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,7 @@ import models.StudySessionApplication;
 import models.StudySessionMeta;
 import models.User;
 import play.Logger;
+import play.Play;
 import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -223,6 +226,20 @@ public class StudySessionC extends Controller {
 	public static void resources(long studySessionId) {
 		StudySession studySession = StudySession.findById(studySessionId);
 		render(studySession);
+	}
+	
+	public static void pic(long studySessionId) {
+		StudySession studySession = StudySession.findById(studySessionId);
+		if(studySession.studySessionPic != null) {
+			renderBinary(studySession.studySessionPic.image.get());
+		} else {
+			try {
+				InputStream is = new FileInputStream(Play.getFile("public/images/default_study_session.gif"));
+				renderBinary(is);
+			} catch(Exception e) {
+				cLogger.error("Could not render default user image ", e);
+			}
+		}
 	}
 	
 	private static Object getDefaultStudySessionAffiliatez() {

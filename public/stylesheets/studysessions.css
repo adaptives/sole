@@ -7,6 +7,15 @@
 	border-color: #444444;
 	border-width: 2px;
 	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #111;
+}
+
+.study-session a {
+	text-decoration: none;
+	color: #111;
+	font-weight: bold;	
 }
 
 .study-session-private {

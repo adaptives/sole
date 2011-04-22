@@ -4,14 +4,22 @@
 }%
 <div class="study-sessions">
 #{list studySessions}
-	<div class="study-session" >
-		<div class="study-session-title">
-			<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
+	<div style="float: left; width:780px;" class="study-session" >
+		<div style="float: left;">
+			<a href="@{StudySessionC.studySession(_.key.id)}">
+				<img width="60", height="60" src="@{StudySessionC.pic(_.key.id)}" />
+			</a>
 		</div>
-		<div class="study-session-dates">Starting: <span>${_.key.startDate.format('dd MMM yy')}</span> - Ending: <span>${_.key.endDate.format('dd MMM yy')}</span></div>
-		<div class="study-session-details-panel">
-			#{studySessionMetadata ss:_.key, ssm:_.value /} #{apply ss:_.key, ssm:_.value /}
+		<div style="float: left; margin-left:10px;">
+			<div class="study-session-title">			
+				<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
+			</div>
+			<div class="study-session-dates">Starting: <span>${_.key.startDate.format('dd MMM yy')}</span> - Ending: <span>${_.key.endDate.format('dd MMM yy')}</span></div>
+			<div class="study-session-details-panel">
+				#{studySessionMetadata ss:_.key, ssm:_.value /} #{apply ss:_.key, ssm:_.value /}
+			</div>
 		</div>					
 	</div>
+	<div style="clear: both;"></div>
 #{/list}
 </div>
