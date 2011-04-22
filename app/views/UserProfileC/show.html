@@ -3,7 +3,10 @@
 	<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
 </div>
 <div>
-	${userProfile.user.screenname} from ${userProfile.location} 
+	${userProfile.user.screenname} 
+	#{if userProfile.location}
+		from ${userProfile.location}
+	#{/if} 
 </div>
 <div>
 	${userProfile.aboutMyself?.nl2br()}
