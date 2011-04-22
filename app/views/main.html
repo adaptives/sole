@@ -21,11 +21,9 @@
 		<div id="main">
 			<div id="header">
 				<img src="/public/images/diycomputerscience_logo.jpg" />
-				#{if session.user}
-					
-						Welcome <span class="connectedUser"><a href="@{UserProfileC.show(session.user)}">${screenname}</a></span>
-						(<a href="@{Secure.logout}">Logout</a>)
-					
+				
+				#{if session.user}						
+					Welcome <span class="connectedUser"><a href="@{UserProfileC.show(session.user)}">${screenname}</a></span>					
 				#{/if}
 				
 		
@@ -33,6 +31,9 @@
 					#{ifnot session.user}
 						<li><a href="@{Secure.login}">Login</a></li>					
 					#{/ifnot}
+					#{else}
+						<li><a href="@{Secure.logout}">Logout</a></li>
+					#{/else}
 					#{secure.check 'admin'}
 					<li><a href="@{AdminC.index}">Admin</a></li>
 					#{/secure.check}  
@@ -70,7 +71,7 @@
 				</p>
 				<p>
 					<div style="margin-bottom: 5px;"><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></div>
-					<div style="margin-bottom: 25px;">Except where otherwise noted, all content on p2pu.org is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License.</a></div>
+					<div style="margin-bottom: 25px;">Except where otherwise noted, all content on diycomputerscience.com is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License.</a></div>
 				</p>
 			</div>
 		
