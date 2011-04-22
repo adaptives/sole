@@ -26,4 +26,9 @@ public class Forum extends Model {
 		this.questions = new TreeSet<Question>();
 		create();
 	}
+	
+	@Override
+	public String toString() {
+		return this.title;
+	}
 }

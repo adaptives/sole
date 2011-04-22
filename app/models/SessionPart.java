@@ -6,9 +6,11 @@ import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -16,8 +18,12 @@ import play.db.jpa.Model;
 public class SessionPart extends Model {
 	
 	public String title;	
+	
 	public Date startDate;
 	public Date endDate;
+	
+	@Lob
+	@MaxSize(20000)
 	public String content;
 	
 	@Required

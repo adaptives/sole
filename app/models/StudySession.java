@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import controllers.Security;
 
 import play.Logger;
+import play.data.validation.MaxSize;
 import play.db.jpa.Model;
 
 @Entity
@@ -26,7 +27,11 @@ public class StudySession extends Model {
 									Logger.log4j.getLogger(StudySession.class);
 	
 	public String title;
+	
+	@Lob
+	@MaxSize(20000)
 	public String description;
+	
 	public Date startDate;
 	public Date endDate;
 	
@@ -44,6 +49,7 @@ public class StudySession extends Model {
 	public Forum forum;
 	
 	@Lob
+	@MaxSize(20000)
 	public String resources;
 	
 	@OneToOne(mappedBy="studySession", cascade=CascadeType.ALL)

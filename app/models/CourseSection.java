@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -21,6 +22,7 @@ public class CourseSection extends Model {
 	public int placement;
 	
 	@Lob
+	@MaxSize(20000)
 	public String content;
 
 	@Required
