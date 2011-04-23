@@ -7,7 +7,7 @@
 			<img width="40" height="40" src="@{UserProfileC.pic(participant.id)}">
 		</span>
 		<a href="@{UserProfileC.show(participant.id)}">${participant.screenname}</a>
-		#{if studySession.isFacilitator(session.user) && !studySession.isFacilitator(participant.id)}
+		#{if session.user && studySession.isFacilitator(session.user) && !studySession.isFacilitator(participant.id)}
 		<span><a href="@{StudySessionSecureC.makeFacilitator(studySession.id, participant.id)}">Make Facilitator</a></span>
 		#{/ if}
 	</div>
