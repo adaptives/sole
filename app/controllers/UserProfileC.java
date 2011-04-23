@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import other.utils.TwitterUtils;
 
 import models.Answer;
 import models.Course;
@@ -127,7 +130,13 @@ public class UserProfileC extends Controller {
 			renderBinary(userProfile.profilePic.image.get());
 		} else {
 			try {
-				InputStream is = new FileInputStream(Play.getFile("public/images/default_user_image.png"));
+				InputStream is = null;
+				if(userProfile.user.screenname != null && userProfile.user.screenname.startsWith("http://twitter.com/")) {
+					is = TwitterUtils.getStreamToTwitterPic(userProfile.user.screenname);
+				}
+				if(is == null) {
+					is = new FileInputStream(Play.getFile("public/images/default_user_image.png"));
+				}
 				renderBinary(is);
 			} catch(Exception e) {
 				cLogger.error("Could not render default user image ", e);
