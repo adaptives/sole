@@ -21,6 +21,7 @@ POST    /activityresponse/{activityId}    StudySessionSecureC.postActivityRespon
 
 GET     /page/{name}                           PageC.show
 
+GET     /users/{page}/{size}                   UserProfileC.List
 GET     /users                                 UserProfileC.list
 GET     /users/{userId}                        UserProfileC.show
 

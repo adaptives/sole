@@ -1,0 +1,10 @@
+%{
+	for(int i = 1; i <= _pages; i++) {
+	actionDefinition = play.mvc.Router.reverse(_controllerAction, ['page':i, 'size':_size]);
+		if(i == _page) {
+			out.println("<span style=\"margin-right:5px;\">${i}</span>");
+		} else {
+			out.print("<a style=\"margin-right:5px;\" href=\"${actionDefinition.url}\">${i}</a>");
+		}
+	}
+%}

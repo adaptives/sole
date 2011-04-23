@@ -39,8 +39,41 @@ public class UserProfileC extends Controller {
 	
 	public static org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(UserProfileC.class);
 	
+	public static class PageRange {
+		public long from;
+		public long to;
+	}
+	
+	// NOTE: The order of the two overloaded list() methods is very important
+	// The order matches the order in which the url's are mentioned in the 
+	// routes file
+	
+	public static void list(long page, long size) {
+		if(page < 1) {
+			flash.error("Incorrect value for page '" + page + "' . The value must be equal or greater than 1");
+			render("emptypage.html");
+		}
+		if(size < 1) {
+			flash.error("Incorrect value for size '" + size + "' . The value must be equal or greater than 1");
+			render("emptypage.html");
+		}
+		List<SocialUser> allUsers = 
+			SocialUser.
+				find("select su from SocialUser su order by su.screenname").
+					fetch((int)page, (int)size);
+		long count = SocialUser.count();
+		
+		int pages = (int)(count/size);
+		if(count % size > 0) {
+			pages++;
+		}
+		
+		render("UserProfileC/list.html", allUsers, page, size, pages);
+	}
+	
 	public static void list() {
-		List<SocialUser> allUsers = SocialUser.findAll();		
+		List<SocialUser> allUsers = 
+			SocialUser.find("select su from SocialUser su order by su.screenname").fetch();		
 		render(allUsers);
 	}
 	

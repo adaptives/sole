@@ -3,7 +3,12 @@
 <div>
 #{list items:allUsers, as:'theUser'}
 	<div>
-	<span style="margin-right: 10px;"><img width="48" height="48" src="@{UserProfileC.pic(theUser.id)}"></span><a href="@{UserProfileC.show(theUser.id)}">${theUser.screenname}</a>
+		<span style="margin-right: 10px;">
+			<img width="48" height="48" src="@{UserProfileC.pic(theUser.id)}">
+		</span>
+		<a href="@{UserProfileC.show(theUser.id)}">${theUser.screenname}</a>
 	</div>
 #{/list}
+
+#{paginate controllerAction:'UserProfileC.list', size:size, page:page, pages:pages /}
 </div>
