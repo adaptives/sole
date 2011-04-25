@@ -22,7 +22,7 @@ import play.mvc.Controller;
 import play.mvc.Scope.Session;
 import play.mvc.With;
 
-@With(Secure.class)
+@With({Secure.class, SocialAuthC.class})
 public class StudySessionSecureC extends Controller {
 	
 	public static org.apache.log4j.Logger cLogger = 

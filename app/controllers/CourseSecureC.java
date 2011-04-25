@@ -9,6 +9,7 @@ import models.Course;
 import models.SiteEvent;
 import models.SocialUser;
 
+//TODO: Add SocialAuthC.class to @With
 @With(Secure.class)
 public class CourseSecureC extends Controller {
 	
