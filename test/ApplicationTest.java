@@ -9,9 +9,9 @@ public class ApplicationTest extends FunctionalTest {
     @Test
     public void testThatIndexPageWorks() {
         Response response = GET("/");
-        assertIsOk(response);
-        assertContentType("text/html", response);
-        assertCharset("utf-8", response);
+        assertStatus(302, response);
+//        assertContentType("text/html", response);
+//        assertCharset("utf-8", response);
     }
     
 }

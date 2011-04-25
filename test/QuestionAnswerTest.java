@@ -19,7 +19,11 @@ public class QuestionAnswerTest extends UnitTest {
 	@Before
 	public void setUp() {
 		Fixtures.deleteAll();
-		Fixtures.load("initial-data.yml");
+		Fixtures.load("users-and-study-sessions.yml");
+		Fixtures.load("pages.yml");
+		Fixtures.load("diycourses.yml");
+		Fixtures.load("kvdata.yml");
+		Fixtures.load("site-events.yml");
 	}
 	
 	@After

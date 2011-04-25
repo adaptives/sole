@@ -1,0 +1,10 @@
+2011-04-25
+1. Updated the schema of UserRegistratioDate to link to SocialUser instead of
+   User. This will need the database schema to be updated. If we run the app
+   with 
+   'jpa.ddl=update'
+   a second foreign key is created in the USERREGISTRATIONDATE table. This should
+   be fine, but since we have very little data in the table, might as well drop
+   the table, and then restart the app. This will ensure that the
+   USERREGISTRATIONDATE table will have only one FK. We can import the data
+   into the table again after restarting.

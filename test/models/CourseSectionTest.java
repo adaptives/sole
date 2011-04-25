@@ -1,3 +1,4 @@
+package models;
 import org.junit.*;
 import java.util.*;
 
