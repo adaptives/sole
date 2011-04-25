@@ -10,16 +10,16 @@ import play.db.jpa.Model;
 @Entity
 public class UserRegistrationDate extends Model{
 	@OneToOne
-	public User user;
+	public SocialUser socialUser;
 	public Date registrationDate;
 	
-	public UserRegistrationDate(User user) {
-		this.user = user;
+	public UserRegistrationDate(SocialUser user) {
+		this.socialUser = user;
 		this.registrationDate = new Date();
 	}
 	
-	public UserRegistrationDate(User user, Date registrationDate) {
-		this.user = user;
+	public UserRegistrationDate(SocialUser user, Date registrationDate) {
+		this.socialUser = user;
 		this.registrationDate = registrationDate;
 	}
 }

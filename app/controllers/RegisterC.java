@@ -43,7 +43,7 @@ public class RegisterC extends Controller {
             User user = new User(email, password, name, socialUser);
             user.save();
             
-            (new UserRegistrationDate(user)).save();
+            (new UserRegistrationDate(socialUser)).save();
             try {
                 if (Notifier.welcome(user)) {
                     flash.success("Your account is created. Please check your emails ...");                
