@@ -22,7 +22,16 @@
 #{elseif _as == "tba"}
 	<div>
 		<div class="question-tba-title">
-			<span style="margin-right: 3px;" id="votes">${_question.likes()}</span><a href="#" id="upvote"><img src="/public/images/like.png" /></a> 
+			<span style="margin-right: 3px;" id="votes">${_question.likes()}</span><a href="#" id="upvote"><img src="/public/images/like.png" /></a>
+			<script type="text/javascript">
+				$('#upvote').click(function(e) {
+					// stop normal link click
+				    e.preventDefault();
+				    $.get("/questionc/like/questionId/${_question.id}", function(voteCount) {
+				    	$('#votes').html(voteCount);
+				    });
+				});
+			</script> 
 			${_question.title}
 		</div>
 		<div class="question-content">
@@ -62,20 +71,3 @@
 	</div>
 #{/elseif}
 
-<script type="text/javascript">
-    //TODO: Figure out why document.ready is being invoked 2 times
-	var documentReady = false;
-	$(document).ready(function() {
-		if(documentReady) {
-			return;
-		}
-		$('#upvote').click(function(e) {
-			// stop normal link click
-		    e.preventDefault();
-		    $.get("/questionc/like/questionId/${_question.id}", function(voteCount) {
-		    	$('#votes').html(voteCount);
-		    });
-		});
-		documentReady = true;
-	});
-</script>
