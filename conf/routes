@@ -26,6 +26,7 @@ GET     /users                                 UserProfileC.list
 GET     /users/{userId}                        UserProfileC.show
 
 GET     /blog/list                             BlogPostC.list
+GET     /blog                                  BlogPostC.index
 GET     /blog/post/{id}                        BlogPostC.show
 POST    /blog/{postId}/comment/add             BlogPostC.postComment
 
@@ -33,6 +34,9 @@ GET     /questionc/like/questionId/{questionId}    QuestionC.like
 GET     /questionc/like/answerId/{answerId}        QuestionC.likeAnswer
 
 GET     /callbacks/auth/twitter                    SocialAuthC.twitterCallback
+
+GET     /blog/obfuscate/feed                       FeedC.blog
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 

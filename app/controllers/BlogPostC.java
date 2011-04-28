@@ -15,6 +15,10 @@ import play.mvc.With;
 @With(SocialAuthC.class)
 public class BlogPostC extends Controller {
 	
+	public static void index() {
+		list();
+	}
+	
 	public static void list() {
 		List<BlogPost> blogPosts = BlogPost.findAll();
 		render(blogPosts);
@@ -66,4 +70,5 @@ public class BlogPostC extends Controller {
 		blogPost.save();
 		show(blogPost.id);
 	}
+	
 }

@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -41,5 +42,11 @@ public class BlogPost extends Model {
 	public BlogPost tagWith(String tag) {
 		tags.add(Tag.findOrCreateByName(tag));
         return this;
+	}
+	
+	public static List<BlogPost> findLatest(int count) {
+		List<BlogPost> blogPosts = 
+			BlogPost.find("select b from BlogPost b order by b.lastUpdatedAt desc").fetch(1, count);
+		return blogPosts;
 	}
 }
