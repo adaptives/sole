@@ -27,4 +27,9 @@ public class KeyValueData extends Model {
 		}
 		return retVal;
 	}
+	
+	@Override
+	public String toString() {
+		return key;
+	}
 }

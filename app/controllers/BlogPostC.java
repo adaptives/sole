@@ -4,6 +4,7 @@ import java.util.List;
 
 import models.BlogPost;
 import models.Comment;
+import models.KeyValueData;
 import models.Role;
 import models.SocialUser;
 import models.User;
@@ -20,7 +21,8 @@ public class BlogPostC extends Controller {
 	}
 	
 	public static void list() {
-		List<BlogPost> blogPosts = BlogPost.findAll();
+
+		List<BlogPost> blogPosts = BlogPost.find("select b from BlogPost b order by b.postedAt desc").fetch(1, 10);
 		render(blogPosts);
 	}
 	

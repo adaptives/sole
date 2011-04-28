@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import controllers.FeedC;
 import controllers.Security;
 
 import models.KeyValueData;
@@ -126,6 +127,39 @@ public class SoleTags extends FastTags {
 		String val = KeyValueData.findValue(key);
 		if(val != null) {
 			out.println(val);
+		}
+	}
+	
+	public static void _socialButtons(Map<?, ?> args, 
+				 					  Closure body,
+				 					  PrintWriter out, 
+				 					  ExecutableTemplate template, 
+				 					  int fromLine) {
+		String blogFeedUrl = KeyValueData.findValue(FeedC.BLOG_FEED_URL);
+		String twitterUrl = KeyValueData.findValue(FeedC.TWITTER_URL);
+		String fbUrl = KeyValueData.findValue(FeedC.FACEBOOK_URL);
+		
+		if(blogFeedUrl != null && blogFeedUrl != "") {
+			out.print("<span style=\"margin-right:5px;\">");
+			out.print("<a href=\"" + blogFeedUrl + "\">");
+			out.print("<img src=\"/public/images/blog_feed_logo.jpg\" />");
+			out.print("</a>");
+			out.print("</span>");
+		}
+		if(twitterUrl != null && twitterUrl != "") {
+			out.print("<span style=\"margin-right:5px;\">");
+			out.print("<a href=\"" + blogFeedUrl + "\">");
+			out.print("<img src=\"/public/images/twitter_logo.jpg\" />");
+			out.print("</a>");
+			out.print("</span>");
+		}
+		if(fbUrl != null && fbUrl != "") {
+			//TODO: Proper style and CSS
+			out.print("<span style=\"margin-right:5px;\">");
+			out.print("<a href=\"" + blogFeedUrl + "\">");
+			out.print("<img src=\"/public/images/facebook_logo.jpg\" />");
+			out.print("</a>");
+			out.print("</span>");
 		}
 	}
 }

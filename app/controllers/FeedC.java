@@ -21,11 +21,17 @@ public class FeedC extends Controller {
 	
 	public static final org.apache.log4j.Logger cLogger = 
 											Logger.log4j.getLogger(FeedC.class);
+	
 	public static final String BLOG_TITLE = "blog_title";
 	public static final String BLOG_URL = "blog_url";
 	public static final String BLOG_DESCRIPTION = "blog_description";
 	public static final String BLOG_COPYRIGHT = "blog_copyright";
-	
+	public static final String BLOG_FEED_URL = "feed_url";
+	public static final String TWITTER_URL = "twitter_url";
+	public static final String FACEBOOK_URL = "facebook_url";
+
+	//TODO: We need to incorporate chicklets to add the feed to Yahoo, Google Reader, etc
+	//TODO: Find out how to enable feed detection which wil redirect to the Feedburner feed
 	public static void blog() {				
 		RSSFeedGenerator feedGen = RSSFeedGeneratorFactory.getDefault();
 		
