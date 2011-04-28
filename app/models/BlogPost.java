@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
@@ -14,7 +15,9 @@ import play.db.jpa.Model;
 @Entity
 public class BlogPost extends Model {
 	
+	@ManyToOne
 	public SocialUser author;
+	
 	public String title;
 	public Date postedAt;
 	public Date lastUpdatedAt;
@@ -36,7 +39,7 @@ public class BlogPost extends Model {
 		this.content = content;
 		this.tags = new TreeSet<Tag>();
 		this.comments = new TreeSet<Comment>();
-		create();
+		//create();
 	}
 	
 	public BlogPost tagWith(String tag) {
