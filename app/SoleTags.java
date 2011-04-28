@@ -148,7 +148,7 @@ public class SoleTags extends FastTags {
 		}
 		if(twitterUrl != null && twitterUrl != "") {
 			out.print("<span style=\"margin-right:5px;\">");
-			out.print("<a href=\"" + blogFeedUrl + "\">");
+			out.print("<a href=\"" + twitterUrl + "\">");
 			out.print("<img src=\"/public/images/twitter_logo.jpg\" />");
 			out.print("</a>");
 			out.print("</span>");
@@ -156,7 +156,7 @@ public class SoleTags extends FastTags {
 		if(fbUrl != null && fbUrl != "") {
 			//TODO: Proper style and CSS
 			out.print("<span style=\"margin-right:5px;\">");
-			out.print("<a href=\"" + blogFeedUrl + "\">");
+			out.print("<a href=\"" + fbUrl + "\">");
 			out.print("<img src=\"/public/images/facebook_logo.jpg\" />");
 			out.print("</a>");
 			out.print("</span>");
