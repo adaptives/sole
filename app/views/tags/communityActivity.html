@@ -1,5 +1,5 @@
 %{
-	java.util.List<models.SiteEvent> siteEvents = models.SiteEvent.all().fetch(10);
+	java.util.List<models.SiteEvent> siteEvents = models.SiteEvent.tail(10);
 }%
 #{list items:siteEvents, as:'siteEvent'}
 	<div class="site-event">
