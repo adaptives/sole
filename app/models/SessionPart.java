@@ -45,4 +45,9 @@ public class SessionPart extends Model {
 		this.studySession = studySession;
 		this.activities = new TreeSet<Activity>();
 	}
+	
+	@Override
+	public String toString() {
+		return this.studySession.title + " - " + this.title;
+	}
 }

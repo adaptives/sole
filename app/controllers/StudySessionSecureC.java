@@ -28,24 +28,51 @@ public class StudySessionSecureC extends Controller {
 	public static org.apache.log4j.Logger cLogger = 
 							Logger.log4j.getLogger(StudySessionSecureC.class);
 	
+	public static void studySessionForm() {
+		if(Security.check("admin")) {
+			render();
+		} else {
+			renderText("You are not authorized to perform this action !");
+		}
+	}
+	
 	public static void create(String title,
 						      String description,
 							  String startDate,
-							  String endDate) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat();
-		dateFormat.applyPattern("yyyy-MM-dd");
-		try {
-			StudySession studySession = new StudySession(title, 
-													 	 description, 
-													 	 dateFormat.parse(startDate),
-													 	 dateFormat.parse(endDate));
-			studySession.save();
-		} catch(ParseException pe) {
-			cLogger.error("Could not create StudySession", pe);
-			flash.error("Please fix errors");
-			redirect("/admin/studysessions/new");
+							  String endDate,
+							  String applicationText,
+							  String sessionPartCount) {
+		if(Security.check("admin")) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat();
+			dateFormat.applyPattern("yyyy-MM-dd");
+			try {
+				StudySession studySession = new StudySession(title, 
+														 	 description, 
+														 	 dateFormat.parse(startDate),
+														 	 dateFormat.parse(endDate));
+				studySession.applicationText = applicationText;
+				studySession.save();
+				
+				
+				int iSessionPartCount = Integer.parseInt(sessionPartCount);
+				for(int i = 0; i < iSessionPartCount; i++) {
+					SessionPart sessionPart = 
+						new SessionPart(title + " - session part " + i, 
+										dateFormat.parse(startDate),
+							 	 		dateFormat.parse(endDate),
+										"please add content", 
+										studySession);
+					sessionPart.save();
+				}
+			} catch(ParseException pe) {
+				cLogger.error("Could not create StudySession", pe);
+				flash.error("Please fix errors");
+				redirect("/StudySessionSecureC/studySessionForm.html");
+			}
+			redirect("/admin/studysessions");
+		} else {
+			renderText("You are not authorized to perform this action !");
 		}
-		redirect("/admin/studysessions");
 	}
 	
 	public static void createSessionPart(long studySessionId,
