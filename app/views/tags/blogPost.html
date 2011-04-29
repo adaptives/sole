@@ -9,7 +9,7 @@
 	${_post.title}
 </div>
 <div class="blog-post-content">
-	${_post.content.nl2br()}
+	${_post.content.raw()}
 </div>
 
 <div class="blog-post-tags">
@@ -27,7 +27,7 @@
 		${_post.comments.size()} comment${_post.comments.pluralize()}
 	</div>
 	#{list items:_post.comments, as:'theComment'}
-		<div>
+		<div class="blog-post-comment">
 			#{comment commentObj:theComment /}
 		</div>
 	#{/list}

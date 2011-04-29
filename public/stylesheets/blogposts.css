@@ -16,6 +16,26 @@
 	
 }
 
+.blog-post-content ul {
+	list-style-type:square; 
+	margin-left:15px;
+}
+
+.blog-post-content ol {
+	list-style-type:lower-alpha;
+	margin-left:15px;
+}
+
+.blog-post-comment ul {
+	list-style-type:square; 
+	margin-left:15px;
+}
+
+.blog-post-comment ol {
+	list-style-type:lower-alpha;
+	margin-left:15px;
+}
+
 .blog-post-tags {
 	
 }
