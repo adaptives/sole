@@ -50,6 +50,16 @@
 	font-size: 1.1em;		
 }
 
+.question-content ul {
+	list-style-type:square; 
+	margin-left:15px;	
+}
+
+.question-content ol {
+	list-style-type: lower-roman;
+	margin-left:15px;	
+}
+
 .question-tags {
 	margin-top: 4px;
 	margin-bottom: 4px;
@@ -74,6 +84,16 @@
 	margin-top: 10px;
 	margin-left: 20px;
 	font-size: 1.1em;		
+}
+
+.answer-content ul {
+	list-style-type:square; 
+	margin-left:15px;	
+}
+
+.answer-content ol {
+	list-style-type: lower-roman; 
+	margin-left:15px;	
 }
 
 .answer-stats {
