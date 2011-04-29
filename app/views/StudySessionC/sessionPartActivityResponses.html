@@ -3,9 +3,6 @@
 <h1> Responses received for various activities in ${sessionPart.studySession.title} : <a href="@{StudySessionC.sessionPart(sessionPart.studySession.id, sessionPart.id)}">${sessionPart.title}</a></h1>
 #{list items:sessionPart.activities, as:'activity'}
 	<h2>Activity ${activity_index}</h2>
-	<div>
-		${activity.content.raw()}
-	</div>
 	<h2>Responses</h2>
 	#{list items:activity.activityResponses, as:'activityResponse'}
 		<div>
