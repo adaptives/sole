@@ -90,7 +90,8 @@ public class SocialAuthC extends Controller {
 				twitterUser.save();				
 			}
 			session.put(SocialAuthC.USER, twitterUser.socialUser.id);
-
+			//Secure.check needs 'username' to be set in session. //TODO: We need to have a different interceptor which will verify if a user is authenticated... not @Secure
+			session.put("username", ourScreenname);
 			//TODO: This is happening in multiple places, DRY
 			String url = flash.get("url");
 	        if(url == null) {
