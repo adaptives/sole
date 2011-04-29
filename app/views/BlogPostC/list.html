@@ -9,7 +9,7 @@
 <div class="blog-posts">
 #{list items:blogPosts, as:'post'}
 	<div>
-		#{blogPost post:post /}
+		#{blogPost as:'tp', post:post /}
 	</div>
 #{/list}
 </div>

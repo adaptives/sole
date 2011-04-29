@@ -48,7 +48,7 @@ public class BlogPostTest extends UnitTest {
 				 "Blog post 2",
 				 "This is a test blog post 2");
 		
-		List<BlogPost> blogPosts = BlogPost.findLatest(50);
+		List<BlogPost> blogPosts = BlogPost.tail(50);
 		assertEquals(2, blogPosts.size());
 		assertEquals("Blog post 2", blogPosts.get(0).title);
 	}

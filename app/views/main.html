@@ -60,7 +60,15 @@
 				</div>
 				<div  style="width: 20%; float: left; margin-top: 20px; color:white;">
 					 <div style="margin-bottom: 10px;">#{socialButtons /}</div>
+					 
 					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent blog posts</div>
+					 <div class="community-activity">
+					 %{java.util.List<models.BlogPost> blogPosts = models.BlogPost.tail(5); %}
+					 #{list items:blogPosts, as:'blogPost'}
+					 	<div class="site-event">#{blogPost as:'t', post:blogPost /}</div>
+					 #{/list}
+					 </div>
+					 
 					 <div style="font-size: 1.4em; margin-bottom: 10px;">Community activity</div>
 					 <div class="community-activity">#{communityActivity /}</div>
 				</div>

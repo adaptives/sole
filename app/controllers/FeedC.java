@@ -47,7 +47,7 @@ public class FeedC extends Controller {
 	}
 
 	private static Channel getChannel() {
-		List<BlogPost> blogPosts = BlogPost.findLatest(50);
+		List<BlogPost> blogPosts = BlogPost.tail(50);
 		//TODO: The information below should come from the database
 
 		Channel channel = new Channel(KeyValueData.findValue(BLOG_TITLE, "no title"), 

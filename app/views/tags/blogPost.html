@@ -1,7 +1,13 @@
+#{if _as == 't'}
+<div>
+	<a href="@{BlogPostC.show(_post.id)}">${_post.title}</a>
+</div>
+#{/if}
+
+#{elseif _as == 'tp' || _as == 'tpc'}
 <div class="blog-title">
 	${_post.title}
 </div>
-
 <div class="blog-post-content">
 	${_post.content.nl2br()}
 </div>
@@ -13,17 +19,25 @@
 <div class="blog-post-author">
 	By: <a href="@{UserProfileC.show(_post.author.id)}">${_post.author.screenname}</a>
 </div>
+#{/elseif}
 
-<div class="blog-post-comment-link">
-	#{if _as == 'full'}
-		<div>${_post.comments.size()} comment${_post.comments.pluralize()}</div>
-		#{list items:_post.comments, as:'theComment'}
-			<div>
-				#{comment commentObj:theComment /}
-			</div>
-		#{/list}
-	#{/if}
-	#{else}
-		<a href="@{BlogPostC.show(_post.id)}">${_post.comments.size()} comment${_post.comments.pluralize()}</a>
-	#{/else}
-</div>
+#{if _as == 'tpc'}
+	<div class="blog-post-comment-link">
+	<div style="font-weight:bold; font-size: 1.2em; margin-bottom: 15px;">
+		${_post.comments.size()} comment${_post.comments.pluralize()}
+	</div>
+	#{list items:_post.comments, as:'theComment'}
+		<div>
+			#{comment commentObj:theComment /}
+		</div>
+	#{/list}
+	</div>
+#{/if}
+#{elseif _as == 'tp'}
+	<div class="blog-post-comment-link">
+		<div style="font-weight:bold; font-size: 1.2em; margin-bottom: 15px;">
+			<a href="@{BlogPostC.show(_post.id)}">${_post.comments.size()} comment${_post.comments.pluralize()}</a>
+		</div>
+	</div>
+#{/elseif}
+

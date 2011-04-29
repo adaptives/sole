@@ -47,7 +47,7 @@ public class BlogPost extends Model {
         return this;
 	}
 	
-	public static List<BlogPost> findLatest(int count) {
+	public static List<BlogPost> tail(int count) {
 		List<BlogPost> blogPosts = 
 			BlogPost.find("select b from BlogPost b order by b.lastUpdatedAt desc").fetch(1, count);
 		return blogPosts;
