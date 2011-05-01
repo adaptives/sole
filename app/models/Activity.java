@@ -15,6 +15,8 @@ import play.db.jpa.Model;
 @Entity
 public class Activity extends Model {
 	
+	public String title;
+	
 	@Required
 	@Lob
 	@MaxSize(20000)
