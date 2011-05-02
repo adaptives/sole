@@ -33,14 +33,6 @@ public class Activity extends Model {
 	
 	@Override
 	public String toString() {
-		String retVal = String.valueOf(this.id) + " ";
-		if(this.content != null) {
-			if(this.content.length() <= 100) {
-				retVal += this.content;
-			} else {
-				retVal += this.content.substring(0, 50);
-			}			
-		}
-		return retVal;
+		return String.valueOf(this.id) + " " + this.title;
 	}
 }
