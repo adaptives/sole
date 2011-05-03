@@ -213,7 +213,7 @@ public class StudySessionC extends Controller {
 		
 	}
 	
-	public static void sessionPartActivityResponses(long sessionPartId) {
+	public static void sessionPartActivityResponses(long studySessionId, long sessionPartId) {
 		SessionPart sessionPart = SessionPart.findById(sessionPartId);
 		if(sessionPart != null) {
 			render(sessionPart);

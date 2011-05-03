@@ -16,7 +16,7 @@
 	<div style="margin-bottom: 16px;">
 		<span style="font-size: 1.6em;">Activities - </span>
 		<div class="vspacediv">This session has the following activities. Please complete them and submit links to your work. A good place to publish your activities is your blog, website, some wiki, or or any publicly accessible page on the Internet.</div>
-		<div class="vspacediv"><a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.id)}">View all responses</a></div>
+		<div class="vspacediv"><a href="@{StudySessionC.sessionPartActivityResponses(sessionPart.studySession.id, sessionPart.id)}">View all responses</a></div>
 	</div>
 	#{list items:sessionPart.activities, as:'activity'}
 		<div class="standard-div">
