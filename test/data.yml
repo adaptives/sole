@@ -1,6 +1,3 @@
-# you describe your data using the YAML notation here
-# and then load them using Fixtures.load("data.yml")
-
 Role(learner):
     name:               learner
     
@@ -8,82 +5,123 @@ Role(admin):
     name:               admin
 
 SocialUser(suadmindude):
-    screenname:          admindude
-    email:               someone@somewhere.com
-    
-User(admindude):
-    email:              someone@somewhere.com
-    passwordHash:       secret
-    name:               Admin Dude
-    needConfirmation:   false
-    socialUser:         suadmindude
+    screenname:          testuser
+    email:               testuser@somewhere.com
     roles:              
                         - admin
+    
+User(admindude):
+    email:              testuser@somewhere.com
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69 #secret
+    name:               Test User
+    needConfirmation:   false
+    socialUser:         suadmindude
+
 UserProfile(adminDudeProfile):
     user:               suadmindude
-    aboutMyself:        I am the admin of this website
+    aboutMyself:        Test user
+
+SocialUser(anothertestuser):
+    screenname:          anothertestuser
+    email:               anothertestuser@somewhere.com
+    roles:              
+                        - admin
+    
+User(anothertestuseruser):
+    email:              anothertestuser@somewhere.com
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69 #secret
+    name:               anothertestuser
+    needConfirmation:   false
+    socialUser:         anothertestuser
+
+UserProfile(anothertestuserProfile):
+    user:               anothertestuser
+    aboutMyself:        Developer with an interest in teaching.
 
 SocialUser(sulearnerdude):
-    screenname:         learnerdude
-    email:              learnerdude@somewhere.com
+    screenname:         learner
+    email:              learner@somewhere.com
+    roles:              
+                        - learner
 
 User(learnerdude):
     email:              learner@somewhere.com
-    passwordHash:       secret
-    name:               Learner Dude
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69 #secret
+    name:               Learner
     needConfirmation:   false
     socialUser:         sulearnerdude
-    roles:              
-                        - learner
     
 UserProfile(learnerdudeProfile):
     user:               sulearnerdude
     
-SocialUser(sustudent):
-    screenname:         student
-    email:              student@somewhere.com
-
-User(student):
-    email:              student@somewhere.com
-    passwordHash:       secret
-    name:               Student Dude
-    needConfirmation:   false
-    socialUser:         sustudent
-    roles:              
-                        - learner
-    
-UserProfile(studentProfile):
-    user:               sustudent
                         
-SocialUser(sustudent1):
-    screenname:         student1
-    email:              student1@somewhere.com
+Forum(junit40Apr2011Forum):
+    title: JUnit 4.0 forum
+    description: This forum is meant to discuss doubts in course on Test driven development with JUnit 4.0
 
-User(student1):
-    email:              student1@somewhere.com
-    passwordHash:       secret
-    name:               Student Dude 1
-    needConfirmation:   false
-    socialUser:         sustudent1
-    roles:              
-                        - learner
-    
-UserProfile(studentProfile1):
-    user:               sustudent1
-                        
-SocialUser(sustudent2):
-    screenname:         student2
-    email:              student2@somewhere.com
+StudySession(junit40Apr2011):
+    title:          Test Driven Development with JUnit 4.0    
+    startDate:      2011-04-27
+    endDate:        2011-05-17
+    forum:          junit40Apr2011Forum
+    facilitators:
+                    suadmindude
+    applicationText: Please tell us a bit about yourself and your experience in the form below.
+    description:    >
+                    description of the course
+                                                       
 
-User(student2):
-    email:              student2@somewhere.com
-    passwordHash:       secret
-    name:               Student Dude 2
-    needConfirmation:   false
-    socialUser:         sustudent2
-    roles:              
-                        - learner
+StudySessionMeta(junit40Apr2011):
+    studySession:   junit40Apr2011
+
+ApplicationStore(junit40Apr2011):
+    studySession:   junit40Apr2011
+
+Activity(junit40Apr2011_activity1):
+    content:        Write a blog post explaining what you learned in this week
     
-UserProfile(studentProfile2):
-    user:               sustudent2
+Activity(junit40Apr2011_activity2):
+    content:        Write a blog post explaining what you learned in this week
+    
+Activity(junit40Apr2011_activity3):
+    content:        Write a blog post explaining what you learned in this week
+    
+Activity(junit40Apr2011_activity4):
+    content:        Write a blog post explaining what you learned in this week
+    
+Activity(junit40Apr2011_activity5):
+    content:        Write a blog post explaining what you learned in this week
+    
+Activity(junit40Apr2011_activity6):
+    content:        Write a blog post explaining what you learned in this week
+    
+SessionPart(junit40Apr2011_week1):
+    title:          week1
+    startDate:      2011-04-27
+    endDate:        2011-05-03
+    content:        In this week we will learn the following things
+    studySession:   junit40Apr2011
+    activities:     
+                    - junit40Apr2011_activity1
+                    - junit40Apr2011_activity2
+
+SessionPart(junit40Apr2011_week2):
+    title:          week2
+    startDate:      2011-05-04
+    endDate:        2011-05-10
+    content:        In this week we will learn the following things
+    studySession:   junit40Apr2011
+    activities:     
+                    - junit40Apr2011_activity3
+                    - junit40Apr2011_activity4
+
+SessionPart(junit40Apr2011_week3):
+    title:          week3
+    startDate:      2011-05-11
+    endDate:        2011-05-17
+    content:        In this week we will learn the following things
+    studySession:   junit40Apr2011
+    activities:     
+                    - junit40Apr2011_activity5
+                    - junit40Apr2011_activity6
                         
