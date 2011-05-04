@@ -24,22 +24,38 @@
 			${activity.content.raw()}
 		</div>
 		<div style="border-bottom: dotted 1px; margin-bottom: 10px; padding-bottom: 10px;">
-			<form action="/" id="activity-response-${activity_index}">
-				<span>Submit your response to this activity (link to a blog post, etc)</span>
-				<input type="text" name="activityResponse" /><input type="submit" name="submit" value="Submit"/>
-			</form>
-			<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> responses recieved.
-			<script type="text/javascript">
-				$('#activity-response-${activity_index}').submit(function(e) {
-					// stop normal link click					
-					e.preventDefault();
-					var $form = $(this);
-					var ar = $form.find('input[name="activityResponse"]').val();
-					$.post("/activityresponse/${activity.id}", {activityResponse:ar}, function(response) {
-						$('#activity-response-count-${activity_index}').html(response);
-					});
-				});		
-			</script>
+			#{if !session.user}
+				<div style="margin-top: 10px; margin-bottom: 10px;">
+					<strong>If you are enrolled in this course, then please login to submit your response to this activity</strong>
+				</div>
+			#{/if}
+			#{elseif session.user && !sessionPart.studySession.isUserEnrolled(session.user)}
+				<div style="margin-top: 10px; margin-bottom: 10px;">
+					<strong>You cannot submit your response to this activity since you are not participating in this course, but you are welcome to audit this course, and do the activities on your own ...</strong>
+				</div>
+			#{/elseif}
+			#{if session.user && sessionPart.studySession.isUserEnrolled(session.user)}
+				<form action="/" id="activity-response-${activity_index}">
+					<span>Submit your response to this activity (link to a blog post, etc)</span>
+					<input type="text" name="activityResponse" /><input type="submit" name="submit" value="Submit"/>
+				</form>
+				<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> responses recieved.
+				<script type="text/javascript">
+					$('#activity-response-${activity_index}').submit(function(e) {
+						// stop normal link click 
+						e.preventDefault();
+						var $form = $(this);
+						var ar = $form.find('input[name="activityResponse"]').val();
+						$.post("/activityresponse/${activity.id}", {activityResponse:ar}, function(response) {
+							$('#activity-response-count-${activity_index}').html(response);
+						});
+					});		
+				</script>
+			#{/if}
 		</div>
 	#{/list}
+	<hr/>
+	<div>
+		#{printStudySessionEvents events:studySessionEvents /}
+	</div>
 </div>

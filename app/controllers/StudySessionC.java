@@ -16,6 +16,7 @@ import models.SessionPart;
 import models.SocialUser;
 import models.StudySession;
 import models.StudySessionApplication;
+import models.StudySessionEvent;
 import models.StudySessionMeta;
 import models.User;
 import play.Logger;
@@ -46,7 +47,8 @@ public class StudySessionC extends Controller {
 		StudySession studySession = StudySession.findById(id);
 		if(studySession != null) {
 			StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
-			render(studySession, studySessionMeta);
+			List<StudySessionEvent> studySessionEvents = StudySessionEvent.tail(studySession.id, 1, 100);
+			render(studySession, studySessionMeta, studySessionEvents);
 		} else {
 			flash.error("Sorry we could not find the Study Group");
 			render("emptypage.html");
@@ -171,7 +173,10 @@ public class StudySessionC extends Controller {
 	public static void sessionPart(long studySessionId, long id) {
 		SessionPart sessionPart = SessionPart.findById(id);
 		if(sessionPart != null) {
-			render(studySessionId, sessionPart);
+			List<StudySessionEvent> studySessionEvents = StudySessionEvent.tail(sessionPart.studySession.id, 1, 100); 
+			render(studySessionId, 
+				   sessionPart, 
+				   studySessionEvents);
 		} else {
 			flash.error("Sorry we could not find the Study Group Section");
 			render("emptypage.html");

@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import other.utils.LinkGenUtils;
+
 import models.Activity;
 import models.ActivityResponse;
 import models.Answer;
@@ -15,6 +17,7 @@ import models.SessionPart;
 import models.SocialUser;
 import models.StudySession;
 import models.StudySessionApplication;
+import models.StudySessionEvent;
 import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.URL;
@@ -27,6 +30,11 @@ public class StudySessionSecureC extends Controller {
 	
 	public static org.apache.log4j.Logger cLogger = 
 							Logger.log4j.getLogger(StudySessionSecureC.class);
+	
+	private enum QuestionActivityType {
+		QUESTION,
+		ANSWER;
+	}
 	
 	public static void studySessionForm() {
 		if(Security.check("admin")) {
@@ -115,6 +123,7 @@ public class StudySessionSecureC extends Controller {
 
 			forum.questions.add(question);
 			forum.save();
+			createEventForQuestionActivity(user, studySessionId, question, QuestionActivityType.QUESTION);
 			StudySessionC.forum(studySessionId);
 		} else {
 			cLogger.info("user '" + Session.current().get(SocialAuthC.USER)
@@ -123,8 +132,7 @@ public class StudySessionSecureC extends Controller {
 		}
 
 	}
-	
-	
+
 	public static void postAnswer(long studySessionId, 
 								  long forumId, 
 								  long questionId,
@@ -135,6 +143,7 @@ public class StudySessionSecureC extends Controller {
 			Answer answer = new Answer(answerContent, user, question);
 			question.answers.add(answer);
 			question.save();
+			createEventForQuestionActivity(user, studySessionId, question, QuestionActivityType.ANSWER);
 			StudySessionC.forumQuestion(studySessionId, questionId);
 		} else {
 			cLogger.info("user '" + user.id + "' must be signed in before " +
@@ -192,11 +201,18 @@ public class StudySessionSecureC extends Controller {
 	public static int postActivityResponse(long activityId, 
 										   String activityResponse) {
 		Activity activity = Activity.findById(activityId);
-		String sUserId = Security.connected();
-		long userId = Long.parseLong(sUserId);
-		SocialUser user = SocialUser.findById(userId);
-		ActivityResponse activityResponseObj = new ActivityResponse(user, activity, activityResponse);
-		activityResponseObj.save();
+		if(activityResponse != null && !activityResponse.equals("")) {
+			String sUserId = Security.connected();
+			long userId = Long.parseLong(sUserId);
+			SocialUser user = SocialUser.findById(userId);
+			if(user != null) {
+				ActivityResponse activityResponseObj = 
+					new ActivityResponse(user, activity, activityResponse);
+				activityResponseObj.save();
+				createEventForActivityResponse(user, activity, activityResponse);
+			}			
+		}
+		
 		return activity.activityResponses.size();
 	}
 
@@ -231,5 +247,86 @@ public class StudySessionSecureC extends Controller {
 			}
 		}
 		return false;
+	}
+	
+	private static void createEventForQuestionActivity(SocialUser user,
+												  	   long studySessionId, 
+												  	   Question question,
+												  	   QuestionActivityType questionActivityType) {
+		
+		if(user == null) {
+			throw new NullPointerException("user cannot be null");
+		}
+		
+		if(studySessionId < 1) {
+			throw new IllegalArgumentException("Incorrect studySessionId");
+		}
+		
+		if(question == null) {
+			throw new NullPointerException("question cannot be null");
+		}
+		
+		if(questionActivityType == null) {
+			throw new NullPointerException("questionActivityType cannot be null");
+		}
+		
+		String questionLink = LinkGenUtils.getStudyGroupQuestionLink(
+				studySessionId, question);
+
+		String userLink = LinkGenUtils.getUserProfileLink(user);
+
+		String text = "";
+		String title = "";
+		if(questionActivityType == QuestionActivityType.QUESTION) {
+			text += userLink + " posted a new question : " + questionLink;
+			title += "New forum question";
+		} else if(questionActivityType == QuestionActivityType.ANSWER) {
+			text += userLink + " posted a new answer for question : " + questionLink;
+			title += "New forum answer";
+		} 
+		
+		StudySession studySession = StudySession.findById(studySessionId);
+
+		if (studySession != null) {
+			new StudySessionEvent(studySession, title, text);
+		} else {
+			String msg = "Could not create StudySessionEvent for new question : user '"
+					+ user
+					+ "' question '"
+					+ question
+					+ "' studySessionId '"
+					+ studySessionId + "'";
+			cLogger.error(msg);
+		}
+
+	}
+	
+	private static void createEventForActivityResponse(SocialUser user,
+													   Activity activity, 
+													   String activityResponse) {
+		
+		if(user == null) {
+			throw new NullPointerException("user cannot be null");
+		}
+		
+		if(activity == null) {
+			throw new NullPointerException("activity cannot be null");
+		}
+		
+		if(activityResponse == null) {
+			throw new NullPointerException("activityResponse cannot be null");
+		}
+		
+		String userLink = LinkGenUtils.getUserProfileLink(user);
+		//StudySession studySession = activity.findStudySession();
+		SessionPart sessionPart = activity.findSessionPart();
+		if(sessionPart != null) {
+			String text = userLink + " has posted a " + LinkGenUtils.getViewAllResponsesLink(sessionPart.studySession.id, sessionPart.id) + " to the activity '" + activity.title + "'";
+			String title = "New activity response";
+			new StudySessionEvent(sessionPart.studySession, title, text);
+		} else {
+			cLogger.error("Could not find StudySession for activity '" + activity.id + "'");
+		}
+		
 	}
 }

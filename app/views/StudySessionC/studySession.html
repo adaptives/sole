@@ -41,7 +41,7 @@
 <div>
 	<ul>
 		#{list items:studySession.sessionParts, as:'sessionPart'}
-			<li style="margin-top: 5px; font-size: 1.1em;"><a href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a> <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.startDate.format('dd MMM yy')}</span> - <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.endDate.format('dd MMM yy')}</span></li>
+			<li style="margin-top: 10px; font-size: 1.1em;"><span class="study-session-date" style="font-size: 0.6em;">${sessionPart.startDate.format('dd MMM yy')}</span> - <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.endDate.format('dd MMM yy')}</span> <a style="margin-left: 20px;" href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a> </li>
 		#{/list}
 	</ul>
 </div>
@@ -49,3 +49,6 @@
 	<a href="@{StudySessionC.resources(studySession.id)}">Resources</a>
 </div>
 <hr/>
+<div>
+	#{printStudySessionEvents events:studySessionEvents /}
+</div>

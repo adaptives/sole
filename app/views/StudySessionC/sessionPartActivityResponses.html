@@ -5,7 +5,7 @@
 	<h2>Activity ${activity_index} : ${activity.title}</h2>
 	<h2>Responses</h2>
 	#{list items:activity.activityResponses, as:'activityResponse'}
-		<div>
+		<div style="margin-top: 5px;">
 			<a href="${activityResponse.responseLink}">${activityResponse.responseLink}</a> By <a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a>
 		</div>
 	#{/list}
