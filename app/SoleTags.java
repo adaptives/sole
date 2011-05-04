@@ -12,6 +12,7 @@ import models.SocialUser;
 import models.StudySession;
 import models.StudySessionMeta;
 
+import play.mvc.Router;
 import play.mvc.Router.ActionDefinition;
 import play.mvc.Scope.Session;
 import play.templates.FastTags;
@@ -115,7 +116,12 @@ public class SoleTags extends FastTags {
 						"study-session-enrollment", actionDefinition.url, "Deregister"));
 				return;
 			}
-		}		
+		} else {
+			Map actionArgs = new HashMap();
+			ActionDefinition actionDef = 
+								Router.reverse("Secure.login", actionArgs);
+			out.print(" Please <a href=\"" + actionDef.url + "\">login</a> to enroll in this course.");
+		}
 	}
 	
 	public static void _keyValueData(Map<?, ?> args, 
