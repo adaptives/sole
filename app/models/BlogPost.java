@@ -52,4 +52,9 @@ public class BlogPost extends Model {
 			BlogPost.find("select b from BlogPost b order by b.lastUpdatedAt desc").fetch(1, count);
 		return blogPosts;
 	}
+	
+	@Override
+	public String toString() {
+		return this.title;
+	}
 }
