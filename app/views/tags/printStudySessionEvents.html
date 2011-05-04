@@ -1,0 +1,8 @@
+<div style="font-weight: bold; margin-bottom: 10px;">
+	Study Group Updates:
+</div>
+#{list items:_events, as:'event'}
+	<div style="margin-top: 10px;">
+		${event.timestamp.format('dd MMMM yyyy hh:mm')} : ${event.text.raw()}
+	</div>
+#{/list}
