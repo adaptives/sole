@@ -5,12 +5,20 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import other.utils.LinkGenUtils;
 
 import models.BlogPost;
 import models.KeyValueData;
+import models.StudySession;
+import models.StudySessionEvent;
 import play.Logger;
 import play.mvc.Controller;
+import play.mvc.Router;
+import play.mvc.Router.ActionDefinition;
 import viecili.jrss.generator.RSSFeedGenerator;
 import viecili.jrss.generator.RSSFeedGeneratorFactory;
 import viecili.jrss.generator.elem.Channel;
@@ -44,6 +52,67 @@ public class FeedC extends Controller {
 			//TODO: How do we specify to the blog reader that an error has occurred 
 			cLogger.error("Error while genarating the blog feed", ioe);
 		}
+	}
+	
+	public static void studySession(long studySessionId) {
+		RSSFeedGenerator feedGen = RSSFeedGeneratorFactory.getDefault();
+		
+		try {			
+			RSS rss = new RSS();
+			Channel channel = getStudySessionChannel(studySessionId);
+			if(channel != null) {
+				rss.addChannel(channel);
+				String feed = feedGen.generateAsString(rss);
+				renderXml(feed);
+			} else {
+				cLogger.warn("Could not build Channel for StudySession '" + studySessionId + "'");
+			}
+		} catch(IOException ioe) {
+			//TODO: How do we specify to the blog reader that an error has occurred 
+			cLogger.error("Error while genarating the blog feed", ioe);
+		}
+	}
+
+	private static Channel getStudySessionChannel(long studySessionId) {
+		Channel channel = null;
+		StudySession studySession = StudySession.findById(studySessionId);
+		if(studySession != null) {
+			
+			List<StudySessionEvent> studySessionEvents = StudySessionEvent.tail(studySession.id, 1, 100);
+			
+			String studySessionLink = LinkGenUtils.getStudySessionLink(studySessionId);
+			cLogger.error("StudySessionLink '" + studySessionLink + "'");
+			
+			channel = new Channel("Status updates for study group - " + studySession.title, 
+					 			   request.domain + ":" + request.port + studySessionLink, //TODO: Replace with linkutils actual link 
+					 			   "Status updates for study group - " + studySession.title);
+			
+			//TODO: Do we want to support separate copyright notices?
+			channel.setCopyright(KeyValueData.findValue(BLOG_COPYRIGHT, ""));
+			
+			try {
+				//TODO: This should be a daily date
+				channel.setPubDate(getToday());
+			} catch(ParseException pe) {
+				cLogger.error("Could not get today as Date", pe);
+			}
+			
+			//TODO: This should be a proper date which reflects the last build date
+			if(studySessionEvents != null && studySessionEvents.size() > 0) {
+				StudySessionEvent latest = studySessionEvents.get(0);
+				channel.setLastBuildDate(latest.timestamp);
+			}
+			
+			channel.setTtl(60); //TODO: Can this be longer?
+			//channel.setImage(null);
+			//channel.setRating(rating);
+		
+			for(StudySessionEvent studySessionEvent : studySessionEvents) {
+				channel.addItem(getStudySessionEventItem(studySessionEvent));
+			}
+			
+		}
+		return channel;
 	}
 
 	private static Channel getChannel() {
@@ -87,6 +156,14 @@ public class FeedC extends Controller {
 		//TODO: Set comments
 		//item.setComments("");
 		
+		return item;
+	}
+	
+	private static Item getStudySessionEventItem(StudySessionEvent studySessionEvent) {
+		
+		Item item = new Item(studySessionEvent.title, studySessionEvent.text);
+		//item.setAuthor("get actual author ?");
+		item.setPubDate(studySessionEvent.timestamp);
 		return item;
 	}
 	
