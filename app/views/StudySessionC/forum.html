@@ -40,7 +40,7 @@
 				Your application is being reviewed. You will be able to ask questions once it gets approved.
 			#{/elseif}
 			#{elseif studySession.canEnroll(session.user)}
-				Please <a href="@{StudySessionC.apply(studySession.id)}">Apply</a></span>  to post questions.
+				Please <a href="@{StudySessionSecureC.apply(studySession.id)}">Apply</a></span>  to post questions.
 			#{/elseif}						
 			#{else}
 				You are welcome to view all all discussions. Please consider enrolling in a future course to participate in the discussions.

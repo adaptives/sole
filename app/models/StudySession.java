@@ -113,8 +113,15 @@ public class StudySession extends Model {
 		SocialUser user = SocialUser.findById(userId);
 		//TODO: We need to get the latest application and use it's status to
 		//find out if the user can enroll
-		return (!this.facilitators.contains(user) && 
-				this.applicationStore.canEnroll(userId));
+		if(!this.studySessionMeta.enrollmentClosed && 
+		   !this.studySessionMeta.canceled && 
+		   !studySessionMeta.locked) {
+			
+			return (!this.facilitators.contains(user) && 
+					this.applicationStore.canEnroll(userId));
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean isApplicationPending(String sUserId) throws InvalidUserIdException {

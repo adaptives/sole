@@ -96,7 +96,7 @@ public class SoleTags extends FastTags {
 			if (studySession.canEnroll(lUserId)) {
 				Map<String, Object> methodArgs = new HashMap<String, Object>();
 				methodArgs.put("id", studySession.id);
-				actionDefinition = play.mvc.Router.reverse("StudySessionC.apply",
+				actionDefinition = play.mvc.Router.reverse("StudySessionSecureC.apply",
 						methodArgs);
 				String htmlLinkTemnplate = "<span class=\"%s\" ><a href=\"%s\">%s</a></span>";
 
@@ -108,7 +108,7 @@ public class SoleTags extends FastTags {
 			if(studySession.applicationStore.isUserApplicationAccepted(lUserId) || studySession.applicationStore.isUserApplicationPending(lUserId)) {
 				Map<String, Object> methodArgs = new HashMap<String, Object>();
 				methodArgs.put("id", studySession.id);
-				actionDefinition = play.mvc.Router.reverse("StudySessionC.deregister",
+				actionDefinition = play.mvc.Router.reverse("StudySessionSecureC.deregister",
 						methodArgs);
 				String htmlLinkTemnplate = "<span class=\"%s\" ><a href=\"%s\">%s</a></span>";
 
