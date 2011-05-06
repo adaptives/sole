@@ -196,90 +196,66 @@ public class StudySessionSecureC extends Controller {
 	 * @param id
 	 */
 	public static void apply(long id) {
-		
-		if(Security.isConnected()) {			
-			String userId = Security.connected();			
-			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
-			if(connectedUser != null) {
-				StudySession studySession = StudySession.findById(id);
-				if(studySession != null) {
-					if(studySession.facilitators.contains(connectedUser)) {
-						flash.error("You cannot enroll for this course because you are already a facilitator");
-					} else if(studySession.canEnroll(connectedUser.id)) {
-						render(studySession);
-					} else {
-						flash.error("Sorry you cannot enroll for this course right now");
-					}
-				} else {					
-					cLogger.error("Could not find studySession '" + id + "'");
-					flash.error(MessageConstants.INTERNAL_ERROR);
+					
+		String userId = Security.connected();			
+		SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
+		if(connectedUser != null) {
+			StudySession studySession = StudySession.findById(id);
+			if(studySession != null) {
+				if(studySession.facilitators.contains(connectedUser)) {
+					flash.error("You cannot enroll for this course because you are already a facilitator");
+				} else if(studySession.canEnroll(connectedUser.id)) {
+					render(studySession);
+				} else {
+					flash.error("Sorry you cannot enroll for this course right now");
 				}
-			} else {
-				//TOOD: Generate a random number to associate with this error
-				cLogger.error("Could not find socialUser with id '" + userId + "'");
+			} else {					
+				cLogger.error("Could not find studySession '" + id + "'");
 				flash.error(MessageConstants.INTERNAL_ERROR);
 			}
-			//TODO: Could we have just rendered the view and passed id to it?
-			//studySession(id);
-			//We are redirecting to the original URL... TODO: Make this a utility method
-			String url = flash.get("url");
-	        if(url == null) {
-	            url = "/";
-	        }
-	        redirect(url);
 		} else {
-			flash.put("url", request.method == "GET" ? request.url : "/");
-			try {
-				Secure.login();
-			} catch(Throwable t) {
-				flash.error(MessageConstants.INTERNAL_ERROR);
-				cLogger.error("Could not redirect user to the login " +
-							  "page before registering for a studySession", t);
-				StudySessionC.studySession(id);
-			}
+			//TOOD: Generate a random number to associate with this error
+			cLogger.error("Could not find socialUser with id '" + userId + "'");
+			flash.error(MessageConstants.INTERNAL_ERROR);
 		}
+		//TODO: Could we have just rendered the view and passed id to it?
+		//studySession(id);
+		//We are redirecting to the original URL... TODO: Make this a utility method
+		String url = flash.get("url");
+        if(url == null) {
+            url = "/";
+        }
+        redirect(url);
 	}
 	
-	public static void application(long id, String application) {
-		if(Security.isConnected()) {			
-			String userId = Security.connected();			
-			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
-			if(connectedUser != null) {
-				StudySession studySession = StudySession.findById(id);
-				if(studySession != null) {
-					if(studySession.facilitators.contains(connectedUser)) {
-						flash.error("You cannot enroll for this course because you are already a facilitator");
-					} else if(studySession.canEnroll(connectedUser.id)) {
-						studySession.addApplication(connectedUser, application);
-						studySession.save();
-					} else {
-						flash.error("Sorry you cannot enroll for this course right now");
-					}
-				} else {					
-					flash.error(MessageConstants.INTERNAL_ERROR);
+	public static void application(long id, String application) {			
+		String userId = Security.connected();			
+		SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
+		if(connectedUser != null) {
+			StudySession studySession = StudySession.findById(id);
+			if(studySession != null) {
+				if(studySession.facilitators.contains(connectedUser)) {
+					flash.error("You cannot enroll for this course because you are already a facilitator");
+				} else if(studySession.canEnroll(connectedUser.id)) {
+					studySession.addApplication(connectedUser, application);
+					studySession.save();
+				} else {
+					flash.error("Sorry you cannot enroll for this course right now");
 				}
-			} else {
+			} else {					
 				flash.error(MessageConstants.INTERNAL_ERROR);
 			}
-			//TODO: Could we have just rendered the view and passed id to it?
-			//studySession(id);
-			//We are redirecting to the original URL... TODO: Make this a utility method
-			String url = flash.get("url");
-	        if(url == null) {
-	        	StudySessionC.studySession(id);
-	        }
-	        redirect(url);
 		} else {
-			flash.put("url", request.method == "GET" ? request.url : "/");
-			try {
-				Secure.login();
-			} catch(Throwable t) {
-				flash.error(MessageConstants.INTERNAL_ERROR);
-				cLogger.error("Could not redirect user to the login " +
-							  "page before registering for a studySession", t);
-				StudySessionC.studySession(id);
-			}
+			flash.error(MessageConstants.INTERNAL_ERROR);
 		}
+		//TODO: Could we have just rendered the view and passed id to it?
+		//studySession(id);
+		//We are redirecting to the original URL... TODO: Make this a utility method
+		String url = flash.get("url");
+        if(url == null) {
+        	StudySessionC.studySession(id);
+        }
+        redirect(url);
 	}
 	
 	public static void deregister(long id) {
@@ -288,31 +264,26 @@ public class StudySessionSecureC extends Controller {
 	}
 	
 	//TODO: This url should be called only via a POST request
-	public static void deregistration(long id, String cause) {
-		if(Security.isConnected()) {						
-			String userId = Security.connected();			
-			SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
-			if(connectedUser != null) {
-				StudySession studySession = StudySession.findById(id);
-				if(studySession != null) {
-					studySession.deregister(connectedUser.id, cause);
-					//TODO: We should need only one, which one?
-					studySession.applicationStore.save();
-					studySession.save();
-				} else {
-					cLogger.warn("StudySession is null '" + id + "'");
-					flash.error(MessageConstants.INTERNAL_ERROR);
-				}
+	public static void deregistration(long id, String cause) {						
+		String userId = Security.connected();			
+		SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
+		if(connectedUser != null) {
+			StudySession studySession = StudySession.findById(id);
+			if(studySession != null) {
+				studySession.deregister(connectedUser.id, cause);
+				//TODO: We should need only one, which one?
+				studySession.applicationStore.save();
+				studySession.save();
 			} else {
-				cLogger.error("could not get user object for username '" + userId + "'");				
+				cLogger.warn("StudySession is null '" + id + "'");
 				flash.error(MessageConstants.INTERNAL_ERROR);
 			}
-			//TODO: Could we have just rendered the view and passed id to it?
-			StudySessionC.studySession(id);
 		} else {
-			cLogger.error("A user is not logged in. This should never happen for this action");
+			cLogger.error("could not get user object for username '" + userId + "'");				
 			flash.error(MessageConstants.INTERNAL_ERROR);
 		}
+		//TODO: Could we have just rendered the view and passed id to it?
+		StudySessionC.studySession(id);
 	}
 	
 	public static void manageParticipants(long studySessionId) {
