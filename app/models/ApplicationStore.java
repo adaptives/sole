@@ -78,10 +78,8 @@ public class ApplicationStore extends Model {
 		return participants;
 	}
 
-	public void deregister(long userId, String comment) {
-		String query = "select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ? order by a.timestamp desc";
-		//The first application will be the latest one 
-		StudySessionApplication application = getFirstStudySessionApplication(query, this.studySession.id, userId);
+	public void deregister(long userId, String comment) { 
+		StudySessionApplication application = getMostRecentApplicationForUser(userId);
 		if(applications != null) {			
 			application.changeStatus(-2, comment);
 			application.save();						
@@ -91,13 +89,17 @@ public class ApplicationStore extends Model {
 	}
 	
 	public void reject(long userId, String comment) {
-		String query = "select a from StudySessionApplication a where a.studySession.id = ? and a.socialUser.id = ? and a.currentStatus = 0 orderBy a.timestamp descending";
-		StudySessionApplication application = getFirstStudySessionApplication(query, this.studySession.id, userId);
-		if(applications != null) {
-			application.changeStatus(-1, comment);
-			application.save();			
+		StudySessionApplication application = getMostRecentApplicationForUser(userId);
+		if(application != null) {
+			if(application.currentStatus == 0) {
+				application.changeStatus(-1, comment);
+				application.save();
+			} else {
+				cLogger.error("The state of the current application for user '" + userId + "' for StudySession '" + this.studySession.id + "' is '" + application.currentStatus + "' Hence could not reject it.");
+			}
+						
 		} else {
-			String msg = "Could not find application to deregister user '" + userId + "'";
+			String msg = "Could not reject user becasue we could not find the application '" + userId + "'";
 			cLogger.warn(msg);
 		}
 	}
@@ -149,9 +151,14 @@ public class ApplicationStore extends Model {
 		
 	}
 	
-	private StudySessionApplication getFirstStudySessionApplication(String query, long studySessionId, long userId) {
+	private StudySessionApplication getMostRecentApplicationForUser(long userId) {
+		String query = 
+			"select a from StudySessionApplication a " +
+				"where a.studySession.id = ? and " +
+					  "a.socialUser.id = ? order by a.timestamp desc";
+		
 		List<StudySessionApplication> applications = 
-			StudySessionApplication.find(query, studySessionId, userId).fetch();
+			StudySessionApplication.find(query, this.studySession.id, userId).fetch();
 		StudySessionApplication application = null;
 		if(applications.size() > 0) {
 			application = applications.get(0);			
@@ -160,4 +167,5 @@ public class ApplicationStore extends Model {
 		}
 		return application;
 	}
+
 }
