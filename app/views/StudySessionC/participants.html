@@ -1,5 +1,5 @@
-#{extends 'main.html' /}
-
+#{extends 'StudySessionC/studySessionMain.html' /}
+#{set noUpdates:true /}
 <a href="@{StudySessionC.studySession(studySession.id)}">Back</a>
 #{list items:participants, as:'participant'}
 	<div>

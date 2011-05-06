@@ -47,8 +47,7 @@ public class StudySessionC extends Controller {
 		StudySession studySession = StudySession.findById(id);
 		if(studySession != null) {
 			StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
-			List<StudySessionEvent> studySessionEvents = StudySessionEvent.tail(studySession.id, 1, 100);
-			render(studySession, studySessionMeta, studySessionEvents);
+			render(studySession, studySessionMeta);
 		} else {
 			flash.error("Sorry we could not find the Study Group");
 			render("emptypage.html");
@@ -57,11 +56,9 @@ public class StudySessionC extends Controller {
 	
 	public static void sessionPart(long studySessionId, long id) {
 		SessionPart sessionPart = SessionPart.findById(id);
-		if(sessionPart != null) {
-			List<StudySessionEvent> studySessionEvents = StudySessionEvent.tail(sessionPart.studySession.id, 1, 100); 
+		if(sessionPart != null) { 
 			render(studySessionId, 
-				   sessionPart, 
-				   studySessionEvents);
+				   sessionPart);
 		} else {
 			flash.error("Sorry we could not find the Study Group Section");
 			render("emptypage.html");

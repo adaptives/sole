@@ -1,7 +1,9 @@
-#{extends 'main.html' /}
+#{extends 'StudySessionC/studySessionMain.html' /}
 %{
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
+
+#{set studySession:sessionPart.studySession /}
 
 <h3 class="study-session-title"><a style="text-decoration:none;" href="@{StudySessionC.studySession(studySessionId)}">${sessionPart.studySession.title}</a> : ${sessionPart.title}</h3>
 
@@ -54,8 +56,4 @@
 			#{/if}
 		</div>
 	#{/list}
-	<hr/>
-	<div>
-		#{printStudySessionEvents studySessionId:sessionPart.studySession.id, events:studySessionEvents /}
-	</div>
 </div>

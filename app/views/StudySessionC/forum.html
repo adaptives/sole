@@ -1,7 +1,9 @@
-#{extends 'main.html' /}
+#{extends 'StudySessionC/studySessionMain.html' /}
 %{
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
+
+#{set noUpdates:true /}
 
 <div>Study Session - 
 	<a href="@{StudySessionC.studySession(studySession.id)}">${studySession.title}</a>

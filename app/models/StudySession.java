@@ -243,8 +243,16 @@ public class StudySession extends Model {
 		}
 		return application;
 	}
+	
+	public List<StudySessionEvent> getUpdates() {
+		List<StudySessionEvent> studySessionEvents = 
+									StudySessionEvent.tail(this.id, 1, 100);
+		return studySessionEvents;
+	}
+	
 	@Override
 	public String toString() {
 		return this.title;
 	}
+
 }

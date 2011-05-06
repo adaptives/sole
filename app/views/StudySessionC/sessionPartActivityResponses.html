@@ -1,4 +1,6 @@
-#{extends 'main.html' /}
+#{extends 'StudySessionC/studySessionMain.html' /}
+#{set noUpdates:true /}
+#{set studySession:sessionPart.studySession /}
 
 <h1> Responses received for various activities in ${sessionPart.studySession.title} : <a href="@{StudySessionC.sessionPart(sessionPart.studySession.id, sessionPart.id)}">${sessionPart.title}</a></h1>
 #{list items:sessionPart.activities, as:'activity'}

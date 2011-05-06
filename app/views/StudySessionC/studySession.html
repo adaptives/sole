@@ -1,4 +1,4 @@
-#{extends 'main.html' /}
+#{extends 'StudySessionC/studySessionMain.html' /}
 %{
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
@@ -22,19 +22,7 @@
 		</div>
 	#{/list}
 </div>
-<div>
-	<a href="@{StudySessionC.participants(studySession.id)}">Enrolled Participants</a>
-</div>
 
-#{if session.user && studySession.canManageParticipants(session.user)}
-<div>
-	<a href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a>
-</div>
-#{/ if}
-
-<div style="font-weight: bold; font-size: 1.4em; margin-top: 5px; margin-bottom: 5px;">
-	<a href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>
-</div>
 <div style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">
 	Study Plan
 </div>
@@ -45,10 +33,5 @@
 		#{/list}
 	</ul>
 </div>
-<div style="margin-top:10px; padding-top:10px; border-top:1px dotted;">
-	<a href="@{StudySessionC.resources(studySession.id)}">Resources</a>
-</div>
-<hr/>
-<div>
-	#{printStudySessionEvents studySessionId:studySession.id, events:studySessionEvents /}
-</div>
+
+

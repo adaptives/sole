@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+
+#{if studySession}
+<div style="margin-bottom:15px;">
+<a href="@{StudySessionC.studySession(studySession.id)}">Study Group</a> | 
+<a href="@{StudySessionC.participants(studySession.id)}">Participants</a> | 
+<a href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a> | 
+<a href="@{StudySessionC.resources(studySession.id)}">Resources</a> |
+#{if session.user && studySession.canManageParticipants(session.user)}
+	<a href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a>
+#{/ if}
+
+</div>
+#{/if}
+
+#{doLayout /}
+
+<hr/>
+#{ifnot noUpdates}
+<div>
+	#{printStudySessionEvents studySession:studySession /}
+</div>
+#{/ifnot}
