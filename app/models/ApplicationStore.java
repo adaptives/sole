@@ -151,7 +151,7 @@ public class ApplicationStore extends Model {
 		
 	}
 	
-	private StudySessionApplication getMostRecentApplicationForUser(long userId) {
+	StudySessionApplication getMostRecentApplicationForUser(long userId) {
 		String query = 
 			"select a from StudySessionApplication a " +
 				"where a.studySession.id = ? and " +

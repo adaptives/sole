@@ -222,7 +222,27 @@ public class StudySession extends Model {
 	public List<StudySessionApplication> getPendingApplications() {
 		return this.applicationStore.getPendingApplications();
 	}
+
+	public StudySessionApplication getMostRecentApplicationForUser(String userId) {
+		StudySessionApplication application = null;
+		try {
+			long lUserId = Long.parseLong(userId);
+			application = this.applicationStore.getMostRecentApplicationForUser(lUserId);
+		} catch(Exception e) {
+			cLogger.error("Could not get application for user '" + userId + "'", e);
+		}
+		return application;
+	}
 	
+	public StudySessionApplication getMostRecentApplicationForUser(long userId) {
+		StudySessionApplication application = null;
+		try {
+			application = this.applicationStore.getMostRecentApplicationForUser(userId);
+		} catch(Exception e) {
+			cLogger.error("Could not get application for user '" + userId + "'", e);
+		}
+		return application;
+	}
 	@Override
 	public String toString() {
 		return this.title;
