@@ -154,11 +154,6 @@ public class CourseC extends Controller {
 	
 	public static void forum(long courseId) {
 		Course course = Course.findById(courseId);
-		//TODO: Remove after deploying
-		if(course.forum == null) {
-			course.forum = new Forum(course.title, "Forum for discussing " + course.title);
-			course.save();
-		}
 		if(course != null) {
 			render(course);
 		} else {
