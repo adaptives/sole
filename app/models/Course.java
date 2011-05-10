@@ -33,6 +33,9 @@ public class Course extends Model {
 	@OneToMany(cascade=CascadeType.ALL)
 	public Set<Activity> activities;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	public Forum forum;
+	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="COURSE_ENROLLED_PARTICIPANTS")
 	public Set<SocialUser> enrolledParticipants;
@@ -48,6 +51,8 @@ public class Course extends Model {
 		this.title = title;
 		this.description = description;
 		this.activities = new TreeSet<Activity>();
+		this.forum = new Forum(this.title, 
+							   "Forum for discussing all things relared to " + this.title);
 		this.enrolledParticipants = new TreeSet<SocialUser>();
 		this.completedParticipants = new TreeSet<SocialUser>();
 		create();

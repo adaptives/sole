@@ -1,0 +1,17 @@
+#{extends 'CourseC/courseMain.html' /}
+
+<div id="question">
+	#{if question}
+		#{question question:question,
+	           as:'tba',
+			   controllerAction:'CourseC.forumQuestion',
+			   actionArgsMap:['courseId':course.id, 'questionId':question.id] /}
+			   
+		<div id="answer-form" class="section-question-form">
+			#{answerForm protected:true,
+				             user:session.user,
+							 controllerAction:'CourseSecureC.postAnswer',
+							 actionArgsMap:[courseId:course.id, forumId:course.forum.id, questionId:question.id] /}		
+	    </div>
+	#{/if}
+</div>

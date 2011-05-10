@@ -1,0 +1,22 @@
+#{extends 'CourseC/courseMain.html' /}
+
+<div>
+	#{list items:course.forum.questions, as:'forumQuestion'}
+		<div>
+			#{question question:forumQuestion,
+	           		   as:'t',
+			           controllerAction:'CourseC.forumQuestion',
+			           actionArgsMap:['courseId':course.id, 'questionId':forumQuestion.id] /}
+		</div>
+	#{/list}	
+</div>
+<div id="question-form" class="section-question-form">
+		#{if session.user}
+			#{questionForm controllerAction:'CourseSecureC.postQuestion', 
+						   actionArgsMap:['courseId':course.id,'forumId':course.forum.id] /}
+		#{/ if}
+		#{else}
+			Please <a href="@{Secure.login}">login</a> to post questions.			
+		#{/else}
+		
+</div>

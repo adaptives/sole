@@ -1,4 +1,4 @@
-#{extends 'main.html' /}
+#{extends 'CourseC/courseMain.html' /}
 
 <h2 class="course-title">${course.title}</h2>
 
@@ -14,7 +14,7 @@
 #{list items:courseSections, as:'section'}
 	
 	<div class="course-section-link">
-		<a href="@{CourseC.section(section.id)}">${section.title}</a>
+		<a href="@{CourseC.section(course.id, section.id)}">${section.title}</a>
 	</div>
 	
 #{/list}

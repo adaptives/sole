@@ -47,6 +47,13 @@ public class Question extends Model {
 		this.answers = new TreeSet<Answer>();
 		create();
 	}
+	
+	@Override
+	public Question delete() {
+		this.tags.removeAll(this.tags);
+		this.save();
+		return super.delete();
+	}
 
 	public Question tagWith(String tag) {
 		tags.add(Tag.findOrCreateByName(tag));

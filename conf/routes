@@ -6,9 +6,11 @@
 GET     /                                       Application.index
 GET     /courses/list                           CourseC.list
 GET     /courses/course/{courseId}              CourseC.course
-GET     /courses/course/section/{sectionId}     CourseC.section
+GET     /courses/course/{courseId}/section/{sectionId}     CourseC.section
 GET     /courses/course/section/{sectionId}/question/{questionId} CourseC.question
 POST    /courses/course/section{sectionId}/question CourseC.addQuestion
+GET     /courses/course/{courseId}/forum        CourseC.forum
+GET     /courses/course/{courseId}/question/{questionId}  CourseC.forumQuestion
 
 GET     /studysessions/currentlist               StudySessionC.currentlist
 GET     /studysessions/studysession/{id}         StudySessionC.studySession

@@ -1,4 +1,6 @@
-#{extends 'main.html' /}
+#{extends 'CourseC/courseMain.html' /}
+#{set course:courseSection.course /}
+
 %{
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
@@ -8,51 +10,10 @@
 </div>
 <hr/>
 
-#{if question}
-	#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
-#{/if}
-#{elseif comments}
-	#{tabbedPane show:'comments', tabIds:tabIds, tabNames:tabNames /}
-#{/elseif}
-#{else}
-	#{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
-#{/else}
-	
 <div id="questions" class="section-questions">
-	#{list items:courseSection.questions, as:'question'}
-		#{question question:question,
-	           	   as:'t',
-			       controllerAction:'CourseC.question',
-			   	   actionArgsMap:['sectionId':courseSection.id, 'questionId':question.id] /}
-
-	#{/list}
-	<div class="section-question-form">
-		#{if session.user}
-			#{questionForm controllerAction:'CourseC.addQuestion', 
-						   actionArgsMap:['sectionId':courseSection.id] /}
-				
-		#{/if}
-		#{else}
-			Please <a href="@{Secure.login}">login</a> to post questions.
-		#{/else}
-	</div>
 </div>
 
 <div id="selected-question" class="selected-question">
-	#{if question}
-		<div>
-			#{question question:question,
-	           	   	   as:'tba',
-			           controllerAction:'CourseC.question',
-			   	       actionArgsMap:['sectionId':courseSection.id, 'questionId':question.id] /}
-		</div>
-		<div id="answer-form" class="section-question-form">
-			#{answerForm protected:true,
-				         user:session.user,
-						 controllerAction:'CourseC.postAnswer',
-						 actionArgsMap:['sectionId':courseSection.id, questionId:question.id] /}		
-	    </div>
-	#{/if}
 </div>
 
 <div id="comments" class="comments">
@@ -73,9 +34,9 @@
 		</div>
 	</div>
 #{/list}
-<div class="comment-form-header">Leave a comment or ask a question</div>
+<div class="comment-form-header">Leave a comment. You can also ask questions on the course <a href="@{CourseC.forum(courseSection.course.id)}">forum</a>.</div>
 <div class="comment-form">
-	#{form @CourseC.comment(courseSection.id)}
+	#{form @CourseC.comment(courseSection.course.id, courseSection.id)}
 		<p>
 			<div><label>Name <span class="required-field">(required)</span> </label></div>
 			<input type="text" name="name" value="" id="name" /> <span class="error">#{error 'name' /}</span>

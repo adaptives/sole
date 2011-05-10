@@ -12,6 +12,7 @@ import models.Answer;
 import models.Comment;
 import models.Course;
 import models.CourseSection;
+import models.Forum;
 import models.Question;
 import models.SocialUser;
 import models.User;
@@ -23,6 +24,7 @@ import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
+import play.mvc.Scope.Session;
 
 @With(SocialAuthC.class)
 public class CourseC extends Controller {
@@ -59,8 +61,24 @@ public class CourseC extends Controller {
 		}		
 	}
 	
-	public static void section(long sectionId) {
-		question(sectionId, -1);
+	public static void section(long courseId, long sectionId) {
+		List<String> tabIds = new ArrayList<String>();
+		tabIds.add("questions");
+		tabIds.add("selected-question");
+		tabIds.add("comments");
+		List<String> tabNames = new ArrayList<String>();
+		tabNames.add("Questions");
+		tabNames.add("Selected Question");
+		tabNames.add("Comments");
+		
+		CourseSection courseSection = CourseSection.findById(sectionId);
+		if(courseSection != null) {
+			render("CourseC/section.html", courseSection, tabIds, tabNames);
+		} else {
+			//TODO: We should actually render the course with this error message
+			flash.error("Sorry we could not find the section");
+			render("emptypage.html");
+		}
 	}
 	
 	public static void question(long sectionId, long questionId) {
@@ -84,31 +102,31 @@ public class CourseC extends Controller {
 		}
 	}
 	
-	public static void addQuestion(long sectionId, 
-								   @Required String title,
-								   @Required String content,
-								   String tags) {
-		if(validation.hasErrors()) {
-			validation.keep();
-			params.flash();
-			flash.error("Please correct these errors");
-			section(sectionId);
-		}
-		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
-		CourseSection courseSection = CourseSection.findById(sectionId);		
-		Question question = new Question(title, content, user);
-		if(tags != null) {
-			String tagArray[] = tags.split(",");
-			if(tagArray != null) {
-				for(String tag : tagArray) {
-					question.tagWith(tag);
-				}
-			}			
-		}
-		courseSection.questions.add(question);
-		courseSection.save();
-		section(courseSection.id);
-	}
+//	public static void addQuestion(long sectionId, 
+//								   @Required String title,
+//								   @Required String content,
+//								   String tags) {
+//		if(validation.hasErrors()) {
+//			validation.keep();
+//			params.flash();
+//			flash.error("Please correct these errors");
+//			section(sectionId);
+//		}
+//		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
+//		CourseSection courseSection = CourseSection.findById(sectionId);		
+//		Question question = new Question(title, content, user);
+//		if(tags != null) {
+//			String tagArray[] = tags.split(",");
+//			if(tagArray != null) {
+//				for(String tag : tagArray) {
+//					question.tagWith(tag);
+//				}
+//			}			
+//		}
+//		courseSection.questions.add(question);
+//		courseSection.save();
+//		section(courseSection.id);
+//	}
 	
 	public static void postAnswer(long sectionId,
 								  long questionId,
@@ -121,7 +139,8 @@ public class CourseC extends Controller {
 		question(sectionId, questionId);
 	}
 	
-	public static void comment(long courseSectionId,
+	public static void comment(long courseId,
+							   long courseSectionId,
 							   @Required String name, 
 			  				   @Required @Email String email,
 			  				   String website,
@@ -130,6 +149,27 @@ public class CourseC extends Controller {
 		Comment comment = new Comment(message, name, email, website);
 		courseSection.comments.add(comment);
 		courseSection.save();
-		section(courseSection.id);
+		section(courseId, courseSection.id);
+	}
+	
+	public static void forum(long courseId) {
+		Course course = Course.findById(courseId);
+		//TODO: Remove after deploying
+		if(course.forum == null) {
+			course.forum = new Forum(course.title, "Forum for discussing " + course.title);
+			course.save();
+		}
+		if(course != null) {
+			render(course);
+		} else {
+			flash.error("Page Not Found");
+			render("emptypage.html");
+		}
+	}
+	
+	public static void forumQuestion(long courseId, long questionId) {
+		Course course = Course.findById(courseId);
+		Question question = Question.findById(questionId);
+		render(course, question);
 	}
 }

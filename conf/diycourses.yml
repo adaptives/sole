@@ -1,5 +1,10 @@
+Forum(STATDMForum):
+    title: Statistical Aspects of Data Mining (Data Mining at Google)
+    description: Forum for discussing quesitons relatedf to Statistical Aspects of Data Mining (Data Mining at Google)
+    
 Course(STATDM):
     title:          Statistical Aspects of Data Mining (Data Mining at Google)
+    forum:          STATDMForum
     description:    >
                     <p>This course is a talk series being given at Google by David Mease based on a Master's level stats course he taught at Stanford in 2007. The main topics are exploring and visualizing data, association analysis, classification, and clustering.<br />-short-
                     <a href="http://www.stats202.com/homework.html">Homework for students</a><br /><br/>
@@ -100,9 +105,14 @@ CourseSection(STATDM13):
     placement:  13
     course:     STATDM
 
-    
+
+Forum(SICPForum):
+    title: Structure And Interpretation Of Computer Programs
+    description: This forum is meant to discuss doubts in course on Structure And Interpretation Of Computer Programs
+
 Course(SICP):
     title:        Structure And Interpretation Of Computer Programs
+    forum:        SICPForum
     description:  >
                   <p>This course introduces students to the principles of computation. Upon completion of this course, students should be able to explain and apply the basic methods from programming languages to analyze computational systems, and to generate computational solutions to abstract problems.<br /><br/><br />Substantial weekly programming assignments are an integral part of the course. These twenty video lectures by Hal Abelson and Gerald Jay Sussman are a complete presentation of the course, given in July 1986 for Hewlett-Packard employees, and professionally produced by Hewlett-Packard Television. These videos are also available here under a Creative Commons license compatible with commercial use.<br /><br/>The full text of the course text book is available <a href="http://mitpress.mit.edu/sicp/">here</a>.</p>
 
@@ -256,9 +266,13 @@ CourseSection(SICP20):
     placement:    20
     course:    SICP
 
+Forum(RDBMSForum):
+    title: Relational Database Management Systems
+    description: This forum is meant to discuss doubts in course on Relational Database Management Systems
 
 Course(RDBMS):
     title:          Relational Database Management Systems
+    forum:          RDBMSForum
     description:    >
                     <p>A more formal approach to Relational Database Management Systems, compared the way they were covered during Web Applications. Database systems are discussed from the physical layer of B-trees and file servers to the abstract layer of relational design. Also includes alternative and generic approaches to database design and database management system including relational, object-relational, and object-oriented systems, SQL standards, algebraic query languages, integrity constraints, triggers, functional dependencies, and normal forms.
                     Other topics include tuning database transactions, security from the application perspective, and data warehousing.<br /><br/>
@@ -410,8 +424,13 @@ CourseSection(RDBMS11):
     course:    RDBMS
 
 
+Forum(PROGABSTRForum):
+    title: Programming Abstractions (using C++)
+    description: This forum is meant to discuss doubts in course on Programming Abstractions (using C++)
+    
 Course(PROGABSTR):
     title:          Programming Abstractions (using C++)
+    forum:          PROGABSTRForum
     description:    >
                     <p>This course (CS 106B) is the successor to CS 106A and covers more advanced programming topics such as recursion, algorithmic analysis, and data abstraction. It is taught using the C++ programming language, which is similar to both C and Java. In the past when both CS 106A and CS106B were taught in C/C++, the coupling between the two classes was very tight and it was unheard for students to take CS106B without having completed our CS 106A (we recommended CS 106X instead). Nowadays, some students do go straight into CS106B, this is typically appropriate for a student who done well in an intro programming course (e.g., scored 4 or 5 on the CS AP exam or earned a good grade in a college course) and has sufficient familiarity with good programming style and software engineering issues (at the level of CS 106A) to use this understanding as a foundation on which to tackle advanced topics.<br /><br/>
                     <a href="http://see.stanford.edu/see/courseInfo.aspx?coll=11f4f422-5670-4b4c-889c-008262e09e4e">Original Source</a></a> (also contains syllabus, handouts, assignments, and exams)<br /><br/>
@@ -768,8 +787,13 @@ CourseSection(PROGABSTR27):
     placement:    27
     course:    PROGABSTR
 
+Forum(DM-ADIUNIForum):
+    title: Discrete Mathematics (Arsdigita University)
+    description: This forum is meant to discuss doubts in course on Discrete Mathematics (Arsdigita University)
+    
 Course(DM-ADIUNI):
     title:    Discrete Mathematics (Arsdigita University)
+    forum:    DM-ADIUNIForum
     description:    >
                     <p>Discrete Mathematics (Arsdigita University) This course covers the mathematical topics most directly related to computer science. Topics include: logic, relations, functions, basic set theory, countability and counting arguments, proof techniques, mathematical induction, graph theory, combinatorics, discrete probability, recursion, recurrence relations, and number theory.
                     <br/>
