@@ -4,11 +4,10 @@
 
 <h1> Responses received for various activities in ${sessionPart.studySession.title} : <a href="@{StudySessionC.sessionPart(sessionPart.studySession.id, sessionPart.id)}">${sessionPart.title}</a></h1>
 #{list items:sessionPart.activities, as:'activity'}
-	<h2>Activity ${activity_index} : ${activity.title}</h2>
-	<h2>Responses</h2>
+	<h2 style="margin-top:15px; margin-bottom:15px">Activity ${activity_index} : ${activity.title}</h2>
 	#{list items:activity.activityResponses, as:'activityResponse'}
-		<div style="margin-top: 5px;">
-			<a href="${activityResponse.responseLink}">${activityResponse.responseLink}</a> By <a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a>
+		<div style="margin: 5px;">
+			<a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a> submitted <a href="${activityResponse.responseLink}">${activityResponse.responseLink}</a>
 		</div>
 	#{/list}
 #{/list}
