@@ -78,21 +78,26 @@ ApplicationStore(junit40Apr2011):
     studySession:   junit40Apr2011
 
 Activity(junit40Apr2011_activity1):
+    title:          Blog post
     content:        Write a blog post explaining what you learned in this week
     
 Activity(junit40Apr2011_activity2):
+    title:          Blog post
     content:        Write a blog post explaining what you learned in this week
     
 Activity(junit40Apr2011_activity3):
+    title:          Blog post
     content:        Write a blog post explaining what you learned in this week
     
 Activity(junit40Apr2011_activity4):
+    title:          Blog post
     content:        Write a blog post explaining what you learned in this week
     
 Activity(junit40Apr2011_activity5):
     content:        Write a blog post explaining what you learned in this week
     
 Activity(junit40Apr2011_activity6):
+    title:          Blog post
     content:        Write a blog post explaining what you learned in this week
     
 SessionPart(junit40Apr2011_week1):
