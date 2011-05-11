@@ -27,7 +27,7 @@
 	Study Plan
 </div>
 <div>
-	<ul>
+	<ul style="list-style: none;">
 		#{list items:studySession.sessionParts, as:'sessionPart'}
 			<li style="margin-top: 10px; font-size: 1.1em;"><span class="study-session-date" style="font-size: 0.6em;">${sessionPart.startDate.format('dd MMM yy')}</span> - <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.endDate.format('dd MMM yy')}</span> <a style="margin-left: 20px;" href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a> </li>
 		#{/list}
