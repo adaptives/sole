@@ -54,6 +54,22 @@ User(learnerdude):
 UserProfile(learnerdudeProfile):
     user:               sulearnerdude
     
+SocialUser(sulearnerdude1):
+    screenname:         learner1
+    email:              learner1@somewhere.com
+    roles:              
+                        - learner
+
+User(learnerdude1):
+    email:              learner1@somewhere.com
+    passwordHash:       5ebe2294ecd0e0f08eab7690d2a6ee69 #secret
+    name:               Learner1
+    needConfirmation:   false
+    socialUser:         sulearnerdude1
+    
+UserProfile(learnerdudeProfile1):
+    user:               sulearnerdude1
+
                         
 Forum(junit40Apr2011Forum):
     title: JUnit 4.0 forum

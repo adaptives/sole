@@ -250,6 +250,10 @@ public class StudySession extends Model {
 		return studySessionEvents;
 	}
 	
+	public static List<StudySession> getYetToStartSessions(Date since) {
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return this.title;
