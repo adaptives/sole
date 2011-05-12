@@ -3,6 +3,7 @@ package controllers;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +34,42 @@ public class StudySessionC extends Controller {
 								Logger.log4j.getLogger(StudySessionC.class);
 	
 	public static void currentlist() {
-		List<StudySession> studySessionList = StudySession.findAll();
-		Map<StudySession, StudySessionMeta> studySessions = 
+		Date now = new Date();
+		
+		//Get list of study sessions which are yet to start
+		List<StudySession> yetToStartList = StudySession.getYetToStart(now);
+		Map<StudySession, StudySessionMeta> yetToStart = 
 								new HashMap<StudySession, StudySessionMeta>();
-		for(StudySession studySession : studySessionList) {
-			studySessions.put(studySession, StudySessionMeta.forStudySession(studySession.id));
+		for(StudySession studySession : yetToStartList) {
+			yetToStart.put(studySession, 
+										StudySessionMeta.
+											forStudySession(studySession.id));
 		}
 		
-		render(studySessions, getDefaultStudySessionAffiliatez());
+		//Get list of study sessions which have started
+		List<StudySession> ongoingList = StudySession.getOngoing(now);
+		Map<StudySession, StudySessionMeta> ongoing = 
+								new HashMap<StudySession, StudySessionMeta>();
+		for(StudySession studySession : ongoingList) {
+			ongoing.put(studySession, 
+						StudySessionMeta.
+						forStudySession(studySession.id));
+		}
+		
+		//Get list of study sessions which are over (but not yet closed)
+		List<StudySession> overList = StudySession.getOver(now);
+		Map<StudySession, StudySessionMeta> over = 
+								new HashMap<StudySession, StudySessionMeta>();
+		for(StudySession studySession : overList) {
+			over.put(studySession, 
+					 StudySessionMeta.
+					 forStudySession(studySession.id));
+		}
+		
+		render(yetToStart, 
+			   ongoing, 
+			   over, 
+			   getDefaultStudySessionAffiliatez());
 	}
 
 	public static void studySession(long id) {

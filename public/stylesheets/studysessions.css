@@ -116,3 +116,12 @@
 .study-session-unenrollment a {
 	text-decoration: none;	
 }
+
+.over-study-session-title {
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.over-study-session-title span {
+	font-size: 11px;
+}

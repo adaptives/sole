@@ -283,6 +283,14 @@ public class StudySession extends Model {
 		return studySessions;
 	}
 	
+	/**
+	 * A StudySession is said to be archived, when it is over and marked closed
+	 * @return
+	 */
+	public static List<StudySession> getArchived() {
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return this.title;
