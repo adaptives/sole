@@ -158,6 +158,10 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
+	public static void archives() {
+		render();
+	}
+	
 	private static Object getDefaultStudySessionAffiliatez() {
 		List<DefaultStudySessionAffiliatez> defaultStudySessionLocationAffiliates =
 			DefaultStudySessionAffiliatez.findAll();
