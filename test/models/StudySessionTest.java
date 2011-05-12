@@ -192,8 +192,8 @@ public class StudySessionTest extends UnitTest {
 		StudySession studySession2 = 
 			new StudySession("Javascript201", 
 							 "Javascript 201 description", 
-							 course1StartDate, 
-							 course1EndDate);
+							 course2StartDate, 
+							 course2EndDate);
 		studySession2.applicationText = "Please create a blog post";
 		studySession2.save();
 		
@@ -203,8 +203,8 @@ public class StudySessionTest extends UnitTest {
 		StudySession studySession3 = 
 			new StudySession("Javascript301", 
 							 "Javascript 301 description", 
-							 course1StartDate, 
-							 course1EndDate);
+							 course3StartDate, 
+							 course3EndDate);
 		studySession3.applicationText = "Please create a blog post";
 		studySession3.save();
 		
@@ -214,13 +214,165 @@ public class StudySessionTest extends UnitTest {
 		StudySession studySession4 = 
 			new StudySession("Javascript401", 
 							 "Javascript 401 description", 
-							 course1StartDate, 
-							 course1EndDate);
+							 course4StartDate, 
+							 course4EndDate);
 		studySession4.applicationText = "Please create a blog post";
 		studySession4.save();
 		
-		List<StudySession> yetToStart = StudySession.getYetToStartSessions(dateFormat.parse("2011-01-01"));
-		assertEquals(4, yetToStart.size());
+		List<StudySession> yetToStart1 = StudySession.getYetToStart(dateFormat.parse("2011-01-01"));
+		assertEquals(5, yetToStart1.size());
 		
+		List<StudySession> yetToStart2 = StudySession.getYetToStart(dateFormat.parse("2011-03-10"));
+		assertEquals(3, yetToStart2.size());
+		
+		List<StudySession> yetToStart3 = StudySession.getYetToStart(dateFormat.parse("2011-03-28"));
+		assertEquals(2, yetToStart3.size());
+		
+		List<StudySession> yetToStart4 = StudySession.getYetToStart(dateFormat.parse("2011-05-28"));
+		assertEquals(0, yetToStart4.size());
+	}
+	
+	@Test
+	public void testRetrieveAlreadyStartedStudySessions() throws Exception {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		dateFormat.applyPattern("yyyy-MM-dd");
+		
+		//create StudySession1
+		Date course1StartDate = dateFormat.parse("2011-03-04");
+		Date course1EndDate = dateFormat.parse("2011-03-14");
+		StudySession studySession1 = 
+			new StudySession("Javascript101", 
+							 "Javascript 101 description", 
+							 course1StartDate, 
+							 course1EndDate);
+		studySession1.applicationText = "Please create a blog post";
+		studySession1.save();
+		
+		//create StudySession2
+		Date course2StartDate = dateFormat.parse("2011-03-08");
+		Date course2EndDate = dateFormat.parse("2011-03-24");
+		StudySession studySession2 = 
+			new StudySession("Javascript201", 
+							 "Javascript 201 description", 
+							 course2StartDate, 
+							 course2EndDate);
+		studySession2.applicationText = "Please create a blog post";
+		studySession2.save();
+		
+		//create StudySession3
+		Date course3StartDate = dateFormat.parse("2011-03-28");
+		Date course3EndDate = dateFormat.parse("2011-04-24");
+		StudySession studySession3 = 
+			new StudySession("Javascript301", 
+							 "Javascript 301 description", 
+							 course3StartDate, 
+							 course3EndDate);
+		studySession3.applicationText = "Please create a blog post";
+		studySession3.save();
+		
+		//create StudySession4
+		Date course4StartDate = dateFormat.parse("2011-04-28");
+		Date course4EndDate = dateFormat.parse("2011-05-24");
+		StudySession studySession4 = 
+			new StudySession("Javascript401", 
+							 "Javascript 401 description", 
+							 course4StartDate, 
+							 course4EndDate);
+		studySession4.applicationText = "Please create a blog post";
+		studySession4.save();
+		
+		List<StudySession> ongoing1 = StudySession.getOngoing(dateFormat.parse("2011-01-01"));
+		assertEquals(0, ongoing1.size());
+		
+		List<StudySession> ongoing2 = StudySession.getOngoing(dateFormat.parse("2011-03-04"));
+		assertEquals(1, ongoing2.size());
+		
+		List<StudySession> ongoing3 = StudySession.getOngoing(dateFormat.parse("2011-03-09"));
+		assertEquals(2, ongoing3.size());
+		
+		List<StudySession> ongoing4 = StudySession.getOngoing(dateFormat.parse("2011-03-14"));
+		assertEquals(2, ongoing4.size());
+		
+		List<StudySession> ongoing5 = StudySession.getOngoing(dateFormat.parse("2011-03-15"));
+		assertEquals(1, ongoing5.size());
+		
+		List<StudySession> ongoing6 = StudySession.getOngoing(dateFormat.parse("2011-05-24"));
+		assertEquals(1, ongoing6.size());
+		
+		List<StudySession> ongoing7 = StudySession.getOngoing(dateFormat.parse("2011-05-26"));
+		assertEquals(0, ongoing7.size());
+	}
+	
+	@Test
+	public void testRetrieveOverStudySessions() throws Exception {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		dateFormat.applyPattern("yyyy-MM-dd");
+		
+		//create StudySession1
+		Date course1StartDate = dateFormat.parse("2011-03-04");
+		Date course1EndDate = dateFormat.parse("2011-03-14");
+		StudySession studySession1 = 
+			new StudySession("Javascript101", 
+							 "Javascript 101 description", 
+							 course1StartDate, 
+							 course1EndDate);
+		studySession1.applicationText = "Please create a blog post";
+		studySession1.save();
+		
+		//create StudySession2
+		Date course2StartDate = dateFormat.parse("2011-03-08");
+		Date course2EndDate = dateFormat.parse("2011-03-24");
+		StudySession studySession2 = 
+			new StudySession("Javascript201", 
+							 "Javascript 201 description", 
+							 course2StartDate, 
+							 course2EndDate);
+		studySession2.applicationText = "Please create a blog post";
+		studySession2.save();
+		
+		//create StudySession3
+		Date course3StartDate = dateFormat.parse("2011-03-28");
+		Date course3EndDate = dateFormat.parse("2011-04-24");
+		StudySession studySession3 = 
+			new StudySession("Javascript301", 
+							 "Javascript 301 description", 
+							 course3StartDate, 
+							 course3EndDate);
+		studySession3.applicationText = "Please create a blog post";
+		studySession3.save();
+		
+		//create StudySession4
+		Date course4StartDate = dateFormat.parse("2011-04-28");
+		Date course4EndDate = dateFormat.parse("2011-05-24");
+		StudySession studySession4 = 
+			new StudySession("Javascript401", 
+							 "Javascript 401 description", 
+							 course4StartDate, 
+							 course4EndDate);
+		studySession4.applicationText = "Please create a blog post";
+		studySession4.save();
+		
+		List<StudySession> over1 = StudySession.getOver(dateFormat.parse("2011-01-01"));
+		assertEquals(0, over1.size());
+		
+//		List<StudySession> ongoing2 = StudySession.getOngoing(dateFormat.parse("2011-03-04"));
+//		assertEquals(1, ongoing2.size());
+//		
+//		List<StudySession> ongoing3 = StudySession.getOngoing(dateFormat.parse("2011-03-09"));
+//		assertEquals(2, ongoing3.size());
+//		
+//		List<StudySession> ongoing4 = StudySession.getOngoing(dateFormat.parse("2011-03-14"));
+//		assertEquals(2, ongoing4.size());
+//		
+//		List<StudySession> ongoing5 = StudySession.getOngoing(dateFormat.parse("2011-03-15"));
+//		assertEquals(1, ongoing5.size());
+//		
+//		List<StudySession> ongoing6 = StudySession.getOngoing(dateFormat.parse("2011-05-24"));
+//		assertEquals(1, ongoing6.size());
+//		
+//		List<StudySession> ongoing7 = StudySession.getOngoing(dateFormat.parse("2011-05-26"));
+//		assertEquals(0, ongoing7.size());
 	}
 }

@@ -250,8 +250,37 @@ public class StudySession extends Model {
 		return studySessionEvents;
 	}
 	
-	public static List<StudySession> getYetToStartSessions(Date since) {
-		return null;
+	public boolean isEnrollmentClosed() {
+		return this.studySessionMeta.enrollmentClosed;
+	}
+	
+	public boolean isLocked() {
+		return this.studySessionMeta.locked;
+	}
+	
+	public boolean isCancelled() {
+		return this.studySessionMeta.canceled;
+	}
+	
+	public static List<StudySession> getYetToStart(Date since) {
+		String query = "select ss from StudySession ss where ss.startDate > ?";
+		List<StudySession> studySessions =
+			StudySession.find(query, since).fetch();
+		return studySessions;
+	}
+	
+	public static List<StudySession> getOngoing(Date since) {
+		String query = "select ss from StudySession ss where ss.startDate <= ? and ss.endDate >= ?";
+		List<StudySession> studySessions =
+			StudySession.find(query, since, since).fetch();
+		return studySessions;
+	}
+	
+	public static List<StudySession> getOver(Date since) {
+		String query = "select ss from StudySession ss where ss.endDate < ?";
+		List<StudySession> studySessions =
+			StudySession.find(query, since).fetch();
+		return studySessions;
 	}
 	
 	@Override
