@@ -36,3 +36,8 @@
     <input type="reset" value="Clear" />
 </p>	
 </form>>		
+<SCRIPT>
+	var init_obj = {element_id:'question-content', window: window};
+	$.extend(true, init_obj, config_tinymce_adv);
+	tinyMCE.execCommand('mceAddFrameControl',false, init_obj);
+</SCRIPT>
