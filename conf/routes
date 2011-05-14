@@ -41,7 +41,7 @@ GET     /callbacks/auth/twitter                    SocialAuthC.twitterCallback
 
 GET     /blog/obfuscate/feed                       FeedC.blog
 GET     /studySessions/studySession/{studySessionId}/feed  FeedC.studySession
-
+GET     /studySessions/feed                        FeedC.studySessions
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

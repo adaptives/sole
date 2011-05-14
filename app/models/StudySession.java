@@ -96,6 +96,13 @@ public class StudySession extends Model {
 		return StudySession.find("endDate < ? order by startDate asc", now).fetch();
 	}
 	
+	public static List<StudySession> tail(int count) {
+		String query = "select ss from StudySession ss order by ss.startDate desc";
+		List<StudySession> studySessions = 
+			StudySession.find(query).fetch(1, count);
+		return studySessions;
+	}
+	
 	public boolean canEnroll(String sUserId) throws InvalidUserIdException {
 		if(sUserId != null && !sUserId.equals("")) {
 			try {

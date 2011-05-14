@@ -72,6 +72,50 @@ public class FeedC extends Controller {
 			cLogger.error("Error while genarating the blog feed", ioe);
 		}
 	}
+	
+	public static void studySessions() {
+		RSSFeedGenerator feedGen = RSSFeedGeneratorFactory.getDefault();
+		try {
+			RSS rss = new RSS();
+			Channel channel = getStudySessionsChannel();
+			if(channel != null) {
+				rss.addChannel(channel);
+				String feed = feedGen.generateAsString(rss);
+				renderXml(feed);
+			}
+		} catch(IOException ioe) {
+			
+		}
+	}
+
+	private static Channel getStudySessionsChannel() {
+		Channel channel = null;
+		 
+		List<StudySession> studySessions = StudySession.tail(10);
+		if (studySessions != null) {
+			channel = new Channel("Recently published Study Sessions",
+								  request.domain + ":" + request.port + "/studysessions/currentlist",
+								  "Recently published Study Sessions");
+
+			// TODO: Do we want to support separate copyright notices?
+			channel.setCopyright(KeyValueData.findValue(BLOG_COPYRIGHT, ""));
+
+			try {
+				// TODO: This should be a daily date
+				Date today = getToday();
+				channel.setPubDate(today);
+				channel.setLastBuildDate(today);
+				channel.setTtl(60);
+				for(StudySession studySession : studySessions) {
+					channel.addItem(getStudySessionItem(studySession, today));
+				}
+			} catch (ParseException pe) {
+				cLogger.error("Could not get today as Date", pe);
+			}
+			
+		}
+		return channel;
+	}
 
 	private static Channel getStudySessionChannel(long studySessionId) {
 		Channel channel = null;
@@ -81,7 +125,6 @@ public class FeedC extends Controller {
 			List<StudySessionEvent> studySessionEvents = StudySessionEvent.tail(studySession.id, 1, 100);
 			
 			String studySessionLink = LinkGenUtils.getStudySessionLink(studySessionId);
-			cLogger.error("StudySessionLink '" + studySessionLink + "'");
 			
 			channel = new Channel("Status updates for study group - " + studySession.title, 
 					 			   request.domain + ":" + request.port + studySessionLink, //TODO: Replace with linkutils actual link 
@@ -164,6 +207,24 @@ public class FeedC extends Controller {
 		Item item = new Item(studySessionEvent.title, studySessionEvent.text);
 		//item.setAuthor("get actual author ?");
 		item.setPubDate(studySessionEvent.timestamp);
+		return item;
+	}
+	
+	private static Item getStudySessionItem(StudySession studySession, Date pubDate) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MMM dd");
+		String link = LinkGenUtils.getStudySessionLink(studySession.id);
+		String bodyTemplate = "<div>A new Study Group has been pubished. It <strong><i>starts on %s</i></strong> and <strong><i>ends %s.</i></strong></div>" +
+							  "<div><strong>Title:</strong> <a href=\"%s\">%s</a></div>" + 
+							  "<div>%s</div>";
+		Item item = new Item(studySession.title,
+							 String.format(bodyTemplate,
+									       dateFormat.format(studySession.startDate), 
+								 	   	   dateFormat.format(studySession.endDate),
+									 	   link, 
+									 	   studySession.title, 									 	   
+									 	   studySession.description));
+		
+		item.setPubDate(pubDate);
 		return item;
 	}
 	
