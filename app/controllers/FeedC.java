@@ -35,6 +35,7 @@ public class FeedC extends Controller {
 	public static final String BLOG_DESCRIPTION = "blog_description";
 	public static final String BLOG_COPYRIGHT = "blog_copyright";
 	public static final String BLOG_FEED_URL = "feed_url";
+	public static final String RECENTLY_PUB_SS = "recently_pub_ss";
 	public static final String TWITTER_URL = "twitter_url";
 	public static final String FACEBOOK_URL = "facebook_url";
 

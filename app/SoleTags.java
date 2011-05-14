@@ -168,4 +168,20 @@ public class SoleTags extends FastTags {
 			out.print("</span>");
 		}
 	}
+	
+	public static void _recentlyPubSS(Map<?, ?> args, Closure body,
+									  PrintWriter out, 
+									  ExecutableTemplate template, 
+									  int fromLine) {
+		String feedUrl = KeyValueData.findValue(FeedC.RECENTLY_PUB_SS);
+
+		if (feedUrl != null && feedUrl != "") {
+			out.print("<span style=\"margin-right:5px;\">");
+			out.print("<a href=\"" + feedUrl + "\">");
+			out.print("<img src=\"/public/images/blog_feed_logo.jpg\" /> " + "Please subscribe to this feed to be notified when new study groups are published");
+			out.print("</a>");
+			out.print("</span>");
+		}
+	}
+	
 }
