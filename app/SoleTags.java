@@ -2,12 +2,14 @@ import groovy.lang.Closure;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import controllers.FeedC;
 import controllers.Security;
 
 import models.KeyValueData;
+import models.SidebarWidget;
 import models.SocialUser;
 import models.StudySession;
 import models.StudySessionMeta;
@@ -181,6 +183,23 @@ public class SoleTags extends FastTags {
 			out.print("<img src=\"/public/images/blog_feed_logo.jpg\" /> " + "Please subscribe to this feed to be notified when new study groups are published");
 			out.print("</a>");
 			out.print("</span>");
+		}
+	}
+	
+	public static void _sidebarWidgets(Map<?, ?> args, 
+									   Closure body,
+			  						   PrintWriter out, 
+			  						   ExecutableTemplate template, 
+			  						   int fromLine) {
+		List<SidebarWidget> sidebarWidgets = SidebarWidget.findAll(); 
+			//SidebarWidget.find("select sw from SidebarWidget sw order by sw.position").fetch();
+		for(SidebarWidget sidebarWidget : sidebarWidgets) {
+			out.println("<div class=\"sidebar-widget\">");
+			out.println("<div class=\"sidebar-widget-title\">");
+			out.println(sidebarWidget.displayTitle);
+			out.println("</div>");
+			out.println(sidebarWidget.content);
+			out.println("</div>");
 		}
 	}
 	
