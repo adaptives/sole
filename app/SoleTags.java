@@ -212,10 +212,10 @@ public class SoleTags extends FastTags {
 			   								   int fromLine) {
 		Map<Integer, String> flowElementStarts = new HashMap<Integer, String>();
 		flowElementStarts.put(1, "<div class=\"study-session-affiliate-v\">");
-		flowElementStarts.put(1, "<span class=\"study-session-affiliate-h\">");
+		flowElementStarts.put(2, "<span class=\"study-session-affiliate-h\">");
 		Map<Integer, String> flowElementEnds = new HashMap<Integer, String>();
 		flowElementEnds.put(1, "</div>");
-		flowElementEnds.put(1, "</span>");
+		flowElementEnds.put(2, "</span>");
 		 
 		int location = (Integer)args.get("location"); 
 		int flow = (Integer)args.get("flow");
