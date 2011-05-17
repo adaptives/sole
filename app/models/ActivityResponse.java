@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,9 @@ public class ActivityResponse extends Model {
 	
 	@URL
 	public String responseLink;
+	public String title;
+	
+	public Date timestamp;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
 	public Set<Tag> tags;
@@ -26,10 +30,15 @@ public class ActivityResponse extends Model {
 	public Activity activity;
 	
 	public ActivityResponse(SocialUser user,
-							Activity activity, 
-							String responseLink) {
+							Activity activity,
+							String responseLink,
+							String title) {
 		this.user = user;
 		this.activity = activity;
 		this.responseLink = responseLink;
+		if(title != null && !title.trim().equals("")) {
+			this.title = title;
+		}
+		this.timestamp = new Date();
 	}
 }

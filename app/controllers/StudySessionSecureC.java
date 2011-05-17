@@ -295,7 +295,8 @@ public class StudySessionSecureC extends Controller {
 	}
 	
 	public static int postActivityResponse(long activityId, 
-										   String activityResponse) {
+										   String activityResponse,
+										   String title) {
 		Activity activity = Activity.findById(activityId);
 		if(activityResponse != null && !activityResponse.equals("")) {
 			String sUserId = Security.connected();
@@ -303,7 +304,7 @@ public class StudySessionSecureC extends Controller {
 			SocialUser user = SocialUser.findById(userId);
 			if(user != null) {
 				ActivityResponse activityResponseObj = 
-					new ActivityResponse(user, activity, activityResponse);
+					new ActivityResponse(user, activity, activityResponse, title);
 				activityResponseObj.save();
 				createEventForActivityResponse(user, activity, activityResponse);
 			}			

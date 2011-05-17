@@ -61,8 +61,8 @@ Forum(junit40Apr2011Forum):
 
 StudySession(junit40Apr2011):
     title:          Test Driven Development with JUnit 4.0    
-    startDate:      2011-04-27
-    endDate:        2011-05-17
+    startDate:      2011-05-07
+    endDate:        2011-06-17
     forum:          junit40Apr2011Forum
     facilitators:
                     suadmindude

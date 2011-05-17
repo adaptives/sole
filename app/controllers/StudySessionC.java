@@ -3,12 +3,15 @@ package controllers;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import models.Activity;
+import models.ActivityResponse;
 import models.Answer;
 import models.DefaultStudySessionAffiliatez;
 import models.Forum;
@@ -32,6 +35,25 @@ public class StudySessionC extends Controller {
 	
 	public static final org.apache.log4j.Logger cLogger = 
 								Logger.log4j.getLogger(StudySessionC.class);
+	
+	public static class ActivityResponseComparator implements Comparator {
+
+		@Override
+		public int compare(Object o1, Object o2) {
+			ActivityResponse a1 = (ActivityResponse)o1;
+			ActivityResponse a2 = (ActivityResponse)o2;
+			if(a1.timestamp != null && a2.timestamp != null) {
+				return (int)(a1.timestamp.getTime() - a2.timestamp.getTime());
+			} else if(a1.timestamp == null && a2.timestamp != null) {
+				return -1;
+			} else if(a1.timestamp != null && a2.timestamp == null) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+		
+	}
 	
 	public static void currentlist() {
 		Date now = new Date();
