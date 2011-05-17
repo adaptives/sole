@@ -2,6 +2,8 @@
 #{set noUpdates:true /}
 #{set studySession:sessionPart.studySession /}
 
+#{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
+
 <h1> Responses received for various activities in ${sessionPart.studySession.title} : <a href="@{StudySessionC.sessionPart(sessionPart.studySession.id, sessionPart.id)}">${sessionPart.title}</a></h1>
 #{list items:sessionPart.activities, as:'activity'}
 	<h2 style="margin-top:15px; margin-bottom:15px">Activity ${activity_index} : ${activity.title}</h2>

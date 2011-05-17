@@ -8,6 +8,9 @@
 <h3 class="study-session-title"><a style="text-decoration:none;" href="@{StudySessionC.studySession(studySessionId)}">${sessionPart.studySession.title}</a> : ${sessionPart.title}</h3>
 
 <hr/>
+
+#{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
+
 <div class="study-session-dates">
 	Starts: <span class="study-session-date">${sessionPart.startDate}</span> - End: <span class="study-session-date">${sessionPart.endDate}</span>
 </div>

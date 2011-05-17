@@ -8,10 +8,12 @@ import java.util.Map;
 import controllers.FeedC;
 import controllers.Security;
 
+import models.AffiliateCode;
 import models.KeyValueData;
 import models.SidebarWidget;
 import models.SocialUser;
 import models.StudySession;
+import models.StudySessionAffiliateSpace;
 import models.StudySessionMeta;
 
 import play.mvc.Router;
@@ -199,6 +201,37 @@ public class SoleTags extends FastTags {
 			out.println(sidebarWidget.displayTitle);
 			out.println("</div>");
 			out.println(sidebarWidget.content);
+			out.println("</div>");
+		}
+	}
+	
+	public static void _studySessionAffiliatez(Map<?, ?> args, 
+			   								   Closure body,
+			   								   PrintWriter out, 
+			   								   ExecutableTemplate template, 
+			   								   int fromLine) {
+		Map<Integer, String> flowElementStarts = new HashMap<Integer, String>();
+		flowElementStarts.put(1, "<div class=\"study-session-affiliate-v\">");
+		flowElementStarts.put(1, "<span class=\"study-session-affiliate-h\">");
+		Map<Integer, String> flowElementEnds = new HashMap<Integer, String>();
+		flowElementEnds.put(1, "</div>");
+		flowElementEnds.put(1, "</span>");
+		 
+		int location = (Integer)args.get("location"); 
+		int flow = (Integer)args.get("flow");
+		
+		StudySession studySession = (StudySession)args.get("studySession");
+		StudySessionAffiliateSpace ssas = 
+			StudySessionAffiliateSpace.
+				findByStudySessionAndLocation(studySession.id, location);
+		
+		if(ssas != null) {
+			out.print("<div class=\"study-session-affiliates\">");
+			for(AffiliateCode code : ssas.affiliateCodes) {
+				out.print(flowElementStarts.get(flow));
+				out.println(code.code);
+				out.print(flowElementEnds.get(flow));
+			}
 			out.println("</div>");
 		}
 	}

@@ -1,5 +1,8 @@
 #{extends 'StudySessionC/studySessionMain.html' /}
 
+#{studySessionAffiliatez studySession:studySession, location:1, flow:1 /} 
+
+
 <div>
 	#{if studySession.resources}
 		${studySession.resources.raw()}

@@ -1,6 +1,8 @@
 #{extends 'StudySessionC/studySessionMain.html' /}
 #{set noUpdates:true /}
 
+#{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
+
 #{list items:participants, as:'participant'}
 	<div>
 		<span>

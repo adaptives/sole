@@ -25,4 +25,12 @@ public class StudySessionAffiliateSpace extends Model {
 		this.location = location;
 		create();
 	}
+	
+	public static StudySessionAffiliateSpace findByStudySessionAndLocation(long studySessionId, 
+																		   int location) {
+		String query = "select ssas from StudySessionAffiliateSpace ssas where ssas.studySession.id = ? and ssas.location = ?";
+		StudySessionAffiliateSpace ssas = 
+			StudySessionAffiliateSpace.find(query, studySessionId, location).first();
+		return ssas;
+	}
 }
