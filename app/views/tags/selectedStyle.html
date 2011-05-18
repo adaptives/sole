@@ -1,0 +1,20 @@
+%{
+menuMapping = ['courses':['CourseC', 'CoursesSecureC'],
+			   'home':['PageC'],
+			   'study_groups':['StudySessionC', 'StudySessionSecureC'],
+			   'users':['UserProfileC'],
+			   'blog':['BlogPostC']]
+		   
+validControllerList = menuMapping.get(_menu);
+controller = request.controller;
+}%
+
+
+
+
+#{if validControllerList?.contains(controller)}
+current_page_item
+#{/ if}
+#{else}
+
+#{/else}

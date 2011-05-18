@@ -25,7 +25,9 @@ public class Application extends Controller {
 	//------------------ HomePage
 	public static void index() {
 		flash.keep();
-		PageC.show("home");
+		//PageC.show("home");
+		Page page = Page.find("byName", "home").first();
+		render(page);
     }
 	
 	public static void confirmRegistration(String uuid) {

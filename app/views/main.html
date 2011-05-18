@@ -32,36 +32,42 @@
         
     </head>
     <body>
-		<div id="main">
-			<div id="header">
-				<img src="/public/images/diycomputerscience_logo.jpg" />
-				
-				#{if session.user}						
-					Welcome <span class="connectedUser"><a href="@{UserProfileC.show(session.user)}">${screenname}</a></span>					
-				#{/if}
-				
 		
-				<ul id="menu">
-					#{ifnot session.user}
-						<li><a href="@{Secure.login}">Login</a></li>					
-					#{/ifnot}
-					#{else}
-						<li><a href="@{Secure.logout}">Logout</a></li>
-					#{/else}
-					#{secure.check 'admin'}
-					<li><a href="@{AdminC.index}">Admin</a></li>
-					#{/secure.check}  
-					<li><a href="@{Application.index}">Home</a></li>
-					<li><a href="@{CourseC.list}">DIY Courses</a></li>
-					<li><a href="@{StudySessionC.currentlist}">Study Groups</a></li>
-					<li><a href="@{UserProfileC.list(1,25)}">Users</a></li>
-					<li><a href="@{BlogPostC.list}">Blog</a></li>
-					<li><a href="@{PageC.show('help')}">Help</a></li>
-					<li><a href="@{Application.feedback}">Feedback</a></li>						
+			<div id="header">
+			<h1>
+				<a href="#">DIY Computer Science</a>
+			</h1>
+
+			<div id="navigation">
+				<ul id="nav" class="menu">
+					<li id="menu-item-95"
+						class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-95 #{selectedStyle menu:'home' /}">
+						<a href="@{Application.index}">Home</a>
+					</li>
+					<li id="menu-item-90"
+						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-90 #{selectedStyle menu:'courses' /}">
+						<a href="@{CourseC.list}">DIY Courses</a>
+					</li>
+					<li id="#"
+						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-94 #{selectedStyle menu:'study_groups' /}">
+						<a href="@{StudySessionC.currentlist}">Study Groups</a>
+					</li>
+					<li id="menu-item-180"
+						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'users' /}">
+						<a href="@{UserProfileC.list(1,25)}">Users</a>
+					</li>
+					<li id="menu-item-180"
+						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'blog' /}">
+						<a href="@{BlogPostC.list}">Blog</a>
+					</li>
 				</ul>
+			</div> <!-- navigation end -->
 			</div> <!-- header end -->
-			<div style="width: 1324px;">
-				<div id="content" style="width: 70%; float: left;">
+			
+			<div id="container">
+			<div id="content">
+			<div class="padder">
+				<div>
 					#{if flash?.error}
 						<div class="error">&{flash.error}</div>
 					#{/if}
@@ -69,10 +75,11 @@
 					#{if flash?.success}
 						<div class="success">&{flash.success}</div>
 					#{/if}
-					
-		       		#{doLayout /}
-				</div>
-				<div  style="width: 20%; float: left; margin-top: 20px; color:white;">
+				</div>	
+		       	#{doLayout /}
+			</div> <!-- end padder -->
+			</div> <!-- end content -->
+			<div  id="sidebar"> <!-- Sidebar -->
 					 <div style="margin-bottom: 10px;">#{socialButtons /}</div>
 					 <div style="margin-bottom: 10px;">
 					 	#{sidebarWidgets /}
@@ -83,12 +90,10 @@
 					 #{list items:blogPosts, as:'blogPost'}
 					 	<div class="site-event">#{blogPost as:'t', post:blogPost /}</div>
 					 #{/list}
-					 </div>
-					 
-					 <div style="font-size: 1.4em; margin-bottom: 10px;">Community activity</div>
-					 <div class="community-activity">#{communityActivity /}</div>
-				</div>
-			</div>
+					 </div>								 
+			</div> <!-- End sidebar -->
+			
+			</div> <!-- end container -->
 			<div style="clear: both;"></div>
 			<div id="footer">
 				<p>
@@ -98,9 +103,55 @@
 					<div style="margin-bottom: 5px;"><img src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></div>
 					<div style="margin-bottom: 25px;">Except where otherwise noted, all content on diycomputerscience.com is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License.</a></div>
 				</p>
-			</div>
+			</div> <!-- footer end -->
 		
+		
+	
+	<!--Start Admin Bar -->
+	<div id="wpadminbar" class="no-grav">
+		<div class="quicklinks">
+			<ul>
+				#{ifnot session.user}
+					<li class="">
+					<a href="@{Secure.login}">Login</a>
+					</li>					
+				#{/ifnot}
+				#{else}
+					<li class="">
+						<a href="@{Secure.logout}">Logout</a>
+					</li>
+				#{/else}
+				#{secure.check 'admin'}
+					<li class="">
+						<a href="@{AdminC.index}">Admin</a>
+					</li>
+				#{/secure.check}
+
+				<li class="">
+					<a href="@{PageC.show('help')}">Help</a>
+				</li>
+
+				<li class="">
+					<a href="@{Application.feedback}">Feedback</a>
+				</li>
+				
+				<li class="">
+					#{if session.user}  
+						<a class="connected-user" href="@{UserProfileC.show(session.user)}">Welcome ${screenname}</a> 
+					#{/if}
+				</li>
+
+			</ul>
+ 		</div>
+
+		<div id="adminbarsearch-wrap">
+			<form id="adminbarsearch" method="get" action="http://testbp.org">
+				<input id="adminbar-search" class="adminbar-input" type="text" maxlength="150" value="" name="s">
+				<input class="adminbar-button" type="submit" value="Search">
+			</form>
 		</div>
+	</div>
+	<!--End Admin Bar -->
 	
     #{keyValueData k:'google.analytics' /}
     </body>
