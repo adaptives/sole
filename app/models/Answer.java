@@ -63,4 +63,5 @@ public class Answer extends Model {
 	public String toString() {
 		return id + " " + content;
 	}
+
 }
