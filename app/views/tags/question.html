@@ -55,7 +55,7 @@
 				</div>
 				<div class="answer-stats">
 					<span class="qa-author">Posted By: <a href="@{UserProfileC.show(theAnswer.author.id)}">${theAnswer.author.screenname}</a></span>
-	    			<span class="qa-time">on ${theAnswer.answeredAt.format('dd MMM yy, hh:mm')}</span>
+	    			<span class="qa-time">on ${theAnswer.answeredAt.format('dd MMM yy, hh:mm aaa')}</span>
 				</div>
 				<script type="text/javascript">
 					$('#upvote-answer-${theAnswer.id}').click(function(e) {
