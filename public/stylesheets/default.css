@@ -26,6 +26,7 @@ h4,
 h5,
 h6 {
 	margin: 5px 0 15px 0;
+	line-height: 125%
 }
 h1 {
 	font-size: 28px;
@@ -33,7 +34,7 @@ h1 {
 }
 h2 {
 	font-size: 24px;
-	margin-bottom: 20px;
+	margin-bottom: 20px;	
 }
 h3 {
 	font-size: 20px;
