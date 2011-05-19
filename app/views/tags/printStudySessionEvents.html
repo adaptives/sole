@@ -5,7 +5,7 @@
 	
 	#{list items:_studySession.getUpdates(), as:'event'}
 		<div style="margin-top: 10px;">
-			${event.timestamp.format('dd MMMM yyyy hh:mm')} : ${event.text.raw()}
+			${event.timestamp.since(true)} : ${event.text.raw()}
 		</div>
 	#{/list}
 #{/ if}

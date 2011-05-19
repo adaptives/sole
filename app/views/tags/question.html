@@ -9,7 +9,7 @@
 	<div class="question-stats">
 		<span class="question-likes">${_question.likes()} like${_question.likes().pluralize()}</span>
 		<span class="question-answer-count">${_question.answers.size()} answer${_question.answers.size().pluralize()}</span>		
-	    <span class="question-time">asked on ${_question.askedAt.format('dd MMM yy, hh:mm')}</span>
+	    <span class="question-time">asked on ${_question.askedAt.since(true)}</span>
 		<span class="question-author">by <a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a></span>
 	</div>
 	<div class="question-tags">
@@ -39,7 +39,7 @@
 		</div>
 		<div class="question-stats">
 			<span class="qa-author">Posted By: <a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a></span>
-	    	<span class="qa-time">on ${_question.askedAt.format('dd MMM yy, hh:mm')}</span>			
+	    	<span class="qa-time">on ${_question.askedAt.since(true)}</span>			
 		</div>
 		<div class="question-tags">
 			Tags: 
@@ -55,7 +55,7 @@
 				</div>
 				<div class="answer-stats">
 					<span class="qa-author">Posted By: <a href="@{UserProfileC.show(theAnswer.author.id)}">${theAnswer.author.screenname}</a></span>
-	    			<span class="qa-time">on ${theAnswer.answeredAt.format('dd MMM yy, hh:mm aaa')}</span>
+	    			<span class="qa-time">on ${theAnswer.answeredAt.since(true)}</span>
 				</div>
 				<script type="text/javascript">
 					$('#upvote-answer-${theAnswer.id}').click(function(e) {

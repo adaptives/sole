@@ -9,7 +9,7 @@
 	<h2 style="margin-top:15px; margin-bottom:15px">Activity ${activity_index} : ${activity.title}</h2>
 	#{list items:activity.activityResponses, as:'activityResponse'}
 		<div style="margin: 5px;">
-			<a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a> submitted <a href="${activityResponse.responseLink}">${activityResponse.title ? activityResponse.title : activityResponse.responseLink}</a>
+			${activityResponse.timestamp?.since(true)} <a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a> submitted <a href="${activityResponse.responseLink}">${activityResponse.title ? activityResponse.title : activityResponse.responseLink}</a>
 		</div>
 	#{/list}
 #{/list}
