@@ -21,6 +21,8 @@ public class ActivityResponse extends Model {
 	public String responseLink;
 	public String title;
 	
+	//TODO: Many rows do not have a timestamp... put something manually and 
+	//remove the ? from the html file.
 	public Date timestamp;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
