@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -23,6 +24,7 @@ public class Activity extends Model {
 	public String content;
 	
 	@OneToMany(mappedBy="activity", cascade=CascadeType.ALL)
+	@OrderBy("timestamp")
 	public Set<ActivityResponse> activityResponses;
 	
 	public Activity(String content) {

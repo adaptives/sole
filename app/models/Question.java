@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import controllers.Security;
 
@@ -30,6 +31,7 @@ public class Question extends Model {
     public Set<Tag> tags;
 	
 	@OneToMany(mappedBy="question", cascade=CascadeType.ALL)
+	@OrderBy("answeredAt") 
 	public Set<Answer> answers;
 	
 	public boolean closed;
