@@ -4,27 +4,31 @@
 }%
 
 <h3 class="study-session-title">${studySession.title}</h3>
+
 <div class="study-session-details-panel">
 	#{studySessionMetadata ss:studySession, ssm:studySessionMeta /} #{apply ss:studySession, ssm:studySessionMeta /}
 </div>
-<hr/>
+
+<div class="study-session-dates">
+	This study group runs from <span class="study-session-date-start">${studySession.startDate.format('dd MMM yy')}</span> to <span class="study-session-date-end">${studySession.endDate.format('dd MMM yy')}</span>
+</div>
+
+<div style="font-size: 1.2em; font-weight: bold; margin-top:10px; background:#F8F8F8; margin-left: 5px;">Facilitators </div>
+<div class="comentwrap" style="margin-top: 0px;">	
+	#{list items:studySession.facilitators, as:'facilitator'}
+		<span>
+			<div><img width="40" height="40" src="@{UserProfileC.pic(facilitator.id)}"></div>
+			<div><a href="@{UserProfileC.show(facilitator.id)}">${facilitator.screenname}</a></div>
+		</span>
+	#{/list}
+</div>
 
 #{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
 
 <div class="study-session-description-full">
 	${studySession.description.raw()}
 </div>
-<div class="study-session-dates">
-	Starts: <span class="study-session-date">${studySession.startDate}</span> - End: <span class="study-session-date">${studySession.endDate}</span>
-</div>
-<div style="margin-top: 10px; margin-bottom: 10px; padding-top:5px; padding-bottom:5px; border: solid 1px;">
-	<div>This course is facilitated by : </div>
-	#{list items:studySession.facilitators, as:'facilitator'}
-		<div>
-			<span><img width="40" height="40" src="@{UserProfileC.pic(facilitator.id)}"></span><a href="@{UserProfileC.show(facilitator.id)}">${facilitator.screenname}</a>
-		</div>
-	#{/list}
-</div>
+
 
 <div style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">
 	Study Plan
@@ -32,9 +36,13 @@
 <div>
 	<ul style="list-style: none;">
 		#{list items:studySession.sessionParts, as:'sessionPart'}
-			<li style="margin-top: 10px; font-size: 1.1em;"><span class="study-session-date" style="font-size: 0.6em;">${sessionPart.startDate.format('dd MMM yy')}</span> - <span class="study-session-date" style="font-size: 0.6em;">${sessionPart.endDate.format('dd MMM yy')}</span> <a style="margin-left: 20px;" href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a> </li>
+			<li style="margin-top: 10px; font-size: 1.1em;">
+				<div style="font-weight: bold;"><a href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a></div>
+				<div style="font-size: 0.8em;"><img src="/public/images/green-button.png" /> ${sessionPart.startDate.format('dd MMM yy')}       <img style="margin-left: 20px;" src="/public/images/red-button.png" /> ${sessionPart.endDate.format('dd MMM yy')}</div> 
+			</li>
 		#{/list}
 	</ul>
 </div>
+
 
 
