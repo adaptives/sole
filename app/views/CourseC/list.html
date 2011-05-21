@@ -3,10 +3,32 @@
 <div class="courses">
 
 #{list items:courses, as:'course'}
-		<div style="width: 480px; height: 50px; margin: 10px; padding: 5px;" class="course-list">
-			<img style="float: left;" src="@{CourseC.pic(course.id)}" width="60", height="40"/>
-			<a style="float:left;" href="@{CourseC.course(course.id)}">${course.title}</a>
-		</div>
+	<div class="post-box">
+	
+	</div>
+
+	<div class="comentwrap">
+	 <div class="grid">
+	 	<a href="@{CourseC.course(course.id)}">
+	 		<img src="@{CourseC.pic(course.id)}" border="0" width="40" height="40" />
+	 	</a>
+	 </div>
+	 <div class="comentwrappost-title"> 
+	 	<a href="@{CourseC.course(course.id)}">${course.title}</a>
+	 </div>
+	 
+	 <div class="comentwrappost-datetime"> </div>
+	 <div class="comentwrappost-course"> 
+	  </div>
+	 
+	 <div class="pepcomentwrap">
+	 <div class="pep"><img src="/public/images/people.png" border="0" width="20" height="17" /></div>
+	 <div class="peptext">people</div>
+	 </div>
+	
+	</div>
+	
+		
 #{/list}
 </ul>
 </div>
