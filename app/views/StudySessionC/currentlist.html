@@ -8,55 +8,67 @@
 	#{recentlyPubSS /}
 </div>
 
-<h1> Starting Soon </h1>
+<div align="center" style="background-color:#E4F2FA; line-height:30px;"><h3>Starting Soon </h3></div>
 <div class="study-sessions">
 #{list yetToStart}
-	<div style="float: left; width:780px;" class="study-session" >
-		<div style="float: left;">
-			<a href="@{StudySessionC.studySession(_.key.id)}">
-				<img width="60", height="60" src="@{StudySessionC.pic(_.key.id)}" />
-			</a>
-		</div>
-		<div style="float: left; margin-left:10px;">
-			<div class="study-session-title">			
-				<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
-			</div>
-			<div class="study-session-dates">Starting: <span>${_.key.startDate.format('dd MMM yy')}</span> - Ending: <span>${_.key.endDate.format('dd MMM yy')}</span></div>
-			<div class="study-session-details-panel">
-				#{studySessionMetadata ss:_.key, ssm:_.value /} 
-				#{apply ss:_.key, ssm:_.value /}
-			</div>
-		</div>					
+	<div class="post-box">
+	
 	</div>
-	<div style="clear: both;"></div>
+
+	<div class="comentwrap">
+	 <div class="grid">
+	 	<a href="@{StudySessionC.studySession(_.key.id)}">
+	 		<img src="@{StudySessionC.pic(_.key.id)}" border="0" width="60" height="60" />
+	 	</a>
+	 </div>
+	 <div class="comentwrappost-title"> 
+	 	<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
+	 </div>
+	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yy')} - Ending: ${_.key.endDate.format('dd MMM yy')} </div>
+	 <div class="comentwrappost-course"> 
+	 	#{studySessionMetadata ss:_.key, ssm:_.value /} 
+		#{apply ss:_.key, ssm:_.value /} 
+	 </div>
+	 <div class="pepcomentwrap">
+	 <div class="pep"><a href="#"><img src="/public/people.png" border="0" width="20" height="17" /></a></div>
+	 <div class="peptext">people</div>
+	 </div>
+	
+	</div> 
 #{/list}
 </div>
 
-<h1> Currently Ongoing</h1>
+<div align="center" style="background-color:#F8FCE4; line-height:30px;"><h3>Currently Ongoing</h3></div>
 <div class="study-sessions">
 #{list ongoing}
-	<div style="float: left; width:780px;" class="study-session" >
-		<div style="float: left;">
-			<a href="@{StudySessionC.studySession(_.key.id)}">
-				<img width="60", height="60" src="@{StudySessionC.pic(_.key.id)}" />
-			</a>
-		</div>
-		<div style="float: left; margin-left:10px;">
-			<div class="study-session-title">			
-				<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
-			</div>
-			<div class="study-session-dates">Starting: <span>${_.key.startDate.format('dd MMM yy')}</span> - Ending: <span>${_.key.endDate.format('dd MMM yy')}</span></div>
-			<div class="study-session-details-panel">
-				#{studySessionMetadata ss:_.key, ssm:_.value /} 
-				#{apply ss:_.key, ssm:_.value /}
-			</div>
-		</div>					
+	<div class="post-box">
+	
 	</div>
-	<div style="clear: both;"></div>
+
+	<div class="comentwrap">
+	 <div class="grid">
+	 	<a href="@{StudySessionC.studySession(_.key.id)}">
+	 		<img src="@{StudySessionC.pic(_.key.id)}" border="0" width="60" height="60" />
+	 	</a>
+	 </div>
+	 <div class="comentwrappost-title"> 
+	 	<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
+	 </div>
+	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yy')} - Ending: ${_.key.endDate.format('dd MMM yy')} </div>
+	 <div class="comentwrappost-course"> 
+	 	#{studySessionMetadata ss:_.key, ssm:_.value /} 
+		#{apply ss:_.key, ssm:_.value /} 
+	 </div>
+	 <div class="pepcomentwrap">
+	 <div class="pep"><img src="/public/images/people.png" border="0" width="20" height="17" /></div>
+	 <div class="peptext">people</div>
+	 </div>
+	
+	</div>
 #{/list}
 </div>
 
-<h1> Recently Finished </h1>
+<div align="center" style="background-color:#F8FCE4; line-height:30px;"><h3>Recently Finished</h3></div>
 <div class="study-sessions">
 #{list over}			
 	<div class="over-study-session-title">			

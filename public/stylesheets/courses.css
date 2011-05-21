@@ -82,3 +82,176 @@
 .course-enrollment a {
 	text-decoration: none;	
 }
+
+/* Recent addition for the current list */
+.subscribe {
+/*    position:relative;*/
+	float:left;
+	padding-bottom:10px;
+}
+
+.subscribehead {
+    padding:20px;
+	text-align:justify
+}
+
+
+.subscribe img{
+    display: inline;
+    float: left;
+	text-decoration:none;
+	border:none;
+	padding:0 2px;
+
+}
+
+.subscribe a{
+    color: #31426e;
+    display: inline;
+    float: left;
+    font-size: 13px;
+    text-transform: uppercase;
+	text-decoration:none;
+}
+.subscribe a:hover{
+    color: #9D9789;
+    display: inline;
+    float: left;
+    font-size: 13px;
+    text-transform: uppercase;
+	text-decoration:underline;
+}
+.grid{
+    display: inline;
+    float: left;
+/*    margin-left: 10px;*/
+    margin-right: 10px;
+/*	padding-top:20px;*/
+	position:relative;
+
+}
+
+.grid img{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    padding: 20px;
+	padding-bottom:12px;
+	}
+	
+.grid hr{
+    background-color: #D3CFBD;
+    border: 0 none;
+    color: #D3CFBD;
+    height: 6px;
+    margin: 5px 0 0px;
+	width:100%;
+}
+.comentwrap{
+ /* background: url(images/layout/profile_bg_bot.png)repeat-xscroll left bottom #F7F7F7;*/
+    background:#F8F8F8;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+/*   float: right;*/
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 22px;
+    padding:20px 20px;
+    position: relative;
+/*	width:480px;*/
+}
+.comentwrappost-title{
+    color: #5ac1d0;
+    font-size: 16px;
+    font-weight: bold;
+/*    line-height: 1px;*/
+	}
+	
+.comentwrappost-datetime{
+    color: #1FB3DD;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 1px;
+	padding-top:20px;
+	font-family:Tahoma;
+	}
+	
+.comentwrappost-course{
+    color:#444444;
+    font-size: 12px;
+    font-weight: bold;
+	padding-top:20px;
+	font-family:Tahoma;
+	}
+.comentwrappost-course img{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 2px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    padding: 30px;
+	}
+	
+.soon{
+background:url(../images/streep.png) repeat-x scroll left top transparent;
+}	
+.post-box{
+    margin: 0;
+    overflow: hidden;
+}
+.pep{
+float:left;
+padding:8px;
+}
+
+.peptext{
+padding-top:8px;
+font-size:12px;
+font-weight:bold;
+color:#819137;
+}
+.pepcomentwrap{
+    background:#FFFFFF;
+    border: 1px solid #F7F7F7;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    float: right;
+    font-size: 16px;
+    line-height: 14px;
+    margin-top: 5px;
+    padding:5px 5px;
+    position: relative;
+	bottom:60px;
+/*	width:480px;*/
+}
+.feed{
+float:right;
+padding-right:80px;
+padding-top:8px;
+font-size:14px;
+font-weight:bold;
+color:#666666;
+text-decoration:none;
+}
+.noties {
+line-height:1px;
+margin:0;
+padding-bottom:5px;
+}
+
+.noties a{
+font-size:14px;
+font-weight:bold;
+color:#666666;
+text-decoration:none;
+}
+.noties a:hover{
+font-size:14px;
+font-weight:bold;
+color:#999999;
+text-decoration:underline;
+}
+
+	
+	/* > End inner 
+-------------------------------------------------------------- */
+
