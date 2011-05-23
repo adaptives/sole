@@ -2,10 +2,12 @@
 	<div style="font-weight: bold; margin-bottom: 10px;">
 		<a href="@{FeedC.studySession(_studySession.id)}"><img height="20" width="20" src="/public/images/blog_feed_logo.jpg"/></a>  Study Group Updates
 	</div>
-	
+
+	<ul style="list-style:none; line-height:130%">	
 	#{list items:_studySession.getUpdates(), as:'event'}
-		<div style="margin-top: 10px;">
-			${event.timestamp.since(true)} : ${event.text.raw()}
-		</div>
+		<li style="border-top: 1px solid #CCC; padding: 4px;">
+			<span class="study-session-activity">${event.text.raw()} ... ${event.timestamp.since(true)}</span> 
+		</li>
 	#{/list}
+	</ul>
 #{/ if}

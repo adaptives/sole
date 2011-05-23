@@ -88,12 +88,13 @@
 .study-session-enrollment {
 	color: #fff;
     text-decoration: none;
-    background: #82A346;
+    background: #3F733C;
     padding: 2px 10px;
 }
 
 .study-session-enrollment a {
-	text-decoration: none;	
+	text-decoration: none;
+	color: white;	
 }
 
 .study-session-locked {
@@ -128,4 +129,14 @@
 
 .over-study-session-title span {
 	font-size: 11px;
+}
+
+.study-session-activity {
+	
+}
+
+.study-session-activity img {
+	width: 20px;
+	height: 20px;
+	margin-right: 8px;	
 }

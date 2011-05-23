@@ -16,11 +16,12 @@
 <div style="font-size: 1.2em; font-weight: bold; margin-top:10px; background:#F8F8F8; margin-left: 5px;">Facilitators </div>
 <div class="comentwrap" style="margin-top: 0px;">	
 	#{list items:studySession.facilitators, as:'facilitator'}
-		<span>
+		<div style="float:left; margin-left: 20px;">
 			<div><img width="40" height="40" src="@{UserProfileC.pic(facilitator.id)}"></div>
 			<div><a href="@{UserProfileC.show(facilitator.id)}">${facilitator.screenname}</a></div>
-		</span>
+		</div>
 	#{/list}
+	<div style="clear:both;"></div>
 </div>
 
 #{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
@@ -30,15 +31,15 @@
 </div>
 
 
-<div style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">
-	Study Plan
+<div style="font-size: 1.2em; font-weight: bold; margin-top: 10px; width:100%; background: #6b94ff;">
+	<span style="margin-left: 8px; color: white;">Study Plan</span>
 </div>
 <div>
 	<ul style="list-style: none;">
 		#{list items:studySession.sessionParts, as:'sessionPart'}
-			<li style="margin-top: 10px; font-size: 1.1em;">
-				<div style="font-weight: bold;"><a href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a></div>
-				<div style="font-size: 0.8em;"><img src="/public/images/green-button.png" /> ${sessionPart.startDate.format('dd MMM yy')}       <img style="margin-left: 20px;" src="/public/images/red-button.png" /> ${sessionPart.endDate.format('dd MMM yy')}</div> 
+			<li style="margin-top: 10px; background:#F8F8F8;">
+				<div style="font-weight: bold; font-size: 1.2em; "><img src="/public/images/study-part.png" /><a style="margin-left: 4px;" href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a></div>
+				<div style="font-size: 0.8em;"><img src="/public/images/session-part-start.png" /> ${sessionPart.startDate.format('dd MMM yy')}       <img style="margin-left: 20px;" src="/public/images/session-part-end.png" /> ${sessionPart.endDate.format('dd MMM yy')}</div> 
 			</li>
 		#{/list}
 	</ul>

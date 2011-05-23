@@ -17,7 +17,12 @@ public class LinkGenUtils {
 		actionArgs.put("userId", user.id);
 		ActionDefinition actionDef = 
 							Router.reverse("UserProfileC.show", actionArgs);
-		return "<a href=\"" + actionDef.url + "\">" +  user.screenname + "</a>";
+		
+		ActionDefinition imageDef = Router.reverse("UserProfileC.pic", actionArgs);
+		String img = String.format("<img src=\"%s\" />", imageDef.url);
+		String screenname = user.screenname;
+		String userLink = "<a href=\"" + actionDef.url + "\"> %s </a>";
+		return String.format(userLink, img) + String.format(userLink, screenname);
 	}
 	
 	public static String getDIYCourseLink(Course course) {

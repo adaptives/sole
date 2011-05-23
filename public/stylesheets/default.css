@@ -73,7 +73,7 @@ h6 {
     height: 88px;
     margin-top: 25px;
 /*    padding-top: 35px;*/
-    position:Fixed;
+    position:fixed;
 	width:100%;
 	z-index: 1000;
 	direction:ltr;
