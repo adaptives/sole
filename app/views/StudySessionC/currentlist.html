@@ -72,7 +72,7 @@
 <div class="study-sessions">
 #{list over}			
 	<div class="over-study-session-title">			
-		<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a> <span>completed on ${_.key.startDate.format('dd MMM yy')}</span>
+		<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a> <span>completed on ${_.key.endDate.format('dd MMM yy')}</span>
 	</div>					
 #{/list}
 </div>
