@@ -71,7 +71,7 @@
 	font-size: 0.9em;
 	color: green;
     text-decoration: none;
-    padding: 2px 10px;
+    padding: 2px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
@@ -80,7 +80,7 @@
 	font-size: 0.9em;
 	color: red;
     text-decoration: none;
-    padding: 2px 10px;
+    padding: 2px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }

@@ -3,11 +3,11 @@
 #{if studySession}
 <div style="margin-bottom:15px;">
 <a style="border: 2px solid #364B66; background: #364B66; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.studySession(studySession.id)}">Study Group</a> 
-<a style="border: 2px solid #6b94ff; background: #6b94ff; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.participants(studySession.id)}">Participants</a>
-<a style="border: 2px solid #6b94ff; background: #6b94ff; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>
-<a style="border: 2px solid #6b94ff; background: #6b94ff; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.resources(studySession.id)}">Resources</a>
+<a style="border: 2px solid #666; background: #666; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.participants(studySession.id)}">Participants</a>
+<a style="border: 2px solid #666; background: #666; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>
+<a style="border: 2px solid #666; background: #666; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionC.resources(studySession.id)}">Resources</a>
 #{if session.user && studySession.canManageParticipants(session.user)}
-	<a href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a>
+	<a style="border: 2px solid #6b94ff; background: #6b94ff; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a>
 #{/ if}
 
 </div>
