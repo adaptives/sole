@@ -17,7 +17,7 @@
 <div class="comentwrap" style="margin-top: 0px;">	
 	#{list items:studySession.facilitators, as:'facilitator'}
 		<div style="float:left; margin-left: 20px;">
-			<div><img width="40" height="40" src="@{UserProfileC.pic(facilitator.id)}"></div>
+			<div><a href="@{UserProfileC.show(facilitator.id)}"><img width="40" height="40" src="@{UserProfileC.pic(facilitator.id)}"></a></div>
 			<div><a href="@{UserProfileC.show(facilitator.id)}">${facilitator.screenname}</a></div>
 		</div>
 	#{/list}
