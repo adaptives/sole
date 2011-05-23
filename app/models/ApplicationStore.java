@@ -117,6 +117,12 @@ public class ApplicationStore extends Model {
 		return acceptedUsers;
 	}
 	
+	public long getAcceptedApplicationsCount() {
+		String query = "select count(distinct a) from StudySessionApplication a where a.studySession.id = ? and a.currentStatus = 1";  
+		long count = StudySessionApplication.count(query, this.studySession.id);
+		return count;
+	}
+	
 	public List<SocialUser> getPendingApplicants() {
 		List<SocialUser> pendingUsers = new ArrayList<SocialUser>();
 		
@@ -146,6 +152,7 @@ public class ApplicationStore extends Model {
 				StudySessionApplicationStatusChange ssasc = new StudySessionApplicationStatusChange(studySessionApplication, 0, 1, comment);
 				studySessionApplication.statusChanges.add(ssasc);
 				studySessionApplication.currentStatus = 1;
+				studySessionApplication.save();
 			}
 		}
 		

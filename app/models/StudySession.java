@@ -222,6 +222,10 @@ public class StudySession extends Model {
 		return this.applicationStore.getAcceptedApplications();
 	}
 	
+	public long getAcceptedUsersCount() {
+		return this.applicationStore.getAcceptedApplicationsCount();
+	}
+	
 	public List<SocialUser> getPendingApplicants() {
 		return this.applicationStore.getPendingApplicants();
 	}

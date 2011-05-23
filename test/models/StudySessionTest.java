@@ -8,6 +8,7 @@ import models.StudySession;
 import models.StudySessionApplication;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -442,5 +443,32 @@ public class StudySessionTest extends UnitTest {
 		assertEquals(5, studySessionsFiveButAskedForMore.size());
 		assertEquals(dateFormat.parse("2011-04-28"), studySessionsFiveButAskedForMore.get(0).startDate);
 		assertEquals(dateFormat.parseObject("2011-03-04"), studySessionsFiveButAskedForMore.get(4).startDate);
+	}
+	
+	@Test
+	public void testGetAcceptedUsersCount() throws Exception {
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		dateFormat.applyPattern("yyyy-MM-dd");
+		
+		//create StudySession1
+		Date course1StartDate = dateFormat.parse("2011-06-04");
+		Date course1EndDate = dateFormat.parse("2011-06-14");
+		StudySession studySession1 = 
+			new StudySession("Javascript101", 
+							 "Javascript 101 description", 
+							 course1StartDate, 
+							 course1EndDate);
+		studySession1.applicationText = "Please create a blog post";
+		studySession1.save();
+		
+		List<SocialUser> applicants = SocialUser.findAll();
+		assertNotNull(applicants);
+		Assert.assertFalse(applicants.size() == 0);
+		SocialUser applicant = applicants.get(0);
+		studySession1.addApplication(applicant, "applying");
+		studySession1.acceptApplication(applicant.id, "Accepted");
+		
+		assertEquals(1, studySession1.getAcceptedUsers().size());
+		assertEquals(1, studySession1.getAcceptedUsersCount());
 	}
 }
