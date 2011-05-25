@@ -126,4 +126,8 @@ public class Course extends Model {
 		}
 		return retVal;
 	}
+	
+	public long getEnrolledUsersCount() {
+		return this.enrolledParticipants.size();
+	}
 }
