@@ -4,11 +4,11 @@
 }%
 
 
-<div style="font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid;">
+<div style="font-weight: bold; font-size: 1.4em; margin-bottom: 10px; border-bottom: 1px solid;">
 	#{recentlyPubSS /}
 </div>
 
-<div align="center" style="background-color:#E4F2FA; line-height:30px;"><h3>Starting Soon </h3></div>
+<div style="background-color:#6FB748; color: white; line-height:30px;"><h4 style="padding: 4px;">Study groups which will start soon </h4></div>
 <div class="study-sessions">
 #{list yetToStart}
 	<div class="post-box">
@@ -38,7 +38,7 @@
 #{/list}
 </div>
 
-<div align="center" style="background-color:#F8FCE4; line-height:30px;"><h3>Currently Ongoing</h3></div>
+<div style="background-color: #B2F792; color: green; line-height:30px; margin-top: 40px;"><h4 style="padding: 4px;">Study groups that have already started</h4></div>
 <div class="study-sessions">
 #{list ongoing}
 	<div class="post-box">
@@ -54,7 +54,7 @@
 	 <div class="comentwrappost-title"> 
 	 	<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
 	 </div>
-	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yy')} - Ending: ${_.key.endDate.format('dd MMM yy')} </div>
+	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yyyy')} - Ending: ${_.key.endDate.format('dd MMM yyyy')} </div>
 	 <div class="comentwrappost-course"> 
 	 	#{studySessionMetadata ss:_.key, ssm:_.value /} 
 		#{apply ss:_.key, ssm:_.value /} 
@@ -70,7 +70,7 @@
 #{/list}
 </div>
 
-<div align="center" style="background-color:#F8FCE4; line-height:30px;"><h3>Recently Finished</h3></div>
+<div style="background-color:#E6AFAC; color: red; margin-top: 40px;"><h4 style="padding: 4px;">Study groups that have recently finished</h4></div>
 <div class="study-sessions">
 #{list over}			
 	<div class="over-study-session-title">			
@@ -78,6 +78,6 @@
 	</div>					
 #{/list}
 </div>
-<div>
-	<a href="@{StudySessionC.archives()}">Archives</a>
+<div style="margin-top: 40px;">
+	<span style="font-weight: bold; font-size: 1.4em;"><a href="@{StudySessionC.archives()}">Archived study groups</a></span>
 </div>
