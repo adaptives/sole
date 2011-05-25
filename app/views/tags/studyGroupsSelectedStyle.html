@@ -1,0 +1,33 @@
+%{
+
+actionMapping = ['participants':['StudySessionC.participants'],
+			     'forums':['StudySessionC.forum', 'StudySessionC.forumQuestion', 'StudySessionSecureC.postQuestion', 'StudySessionSecureC.postAnswer'],
+			     'resources':['StudySessionC.resources'],
+			     'manage':['StudySessionSecureC.manageParticipants', 'StudySessionSecureC.manageParticipants', 'StudySessionSecureC.makeFacilitator', 'StudySessionSecureC.acceptApplication', 'StudySessionC.rejectApplication']]
+		   
+
+validActions = actionMapping.get(_menu);
+
+validControllers = ['StudySessionC', 'StudySessionSecureC']
+
+controller = request.controller;
+
+action = request.action;
+
+}%
+
+
+#{if _menu == 'home'}
+	#{if !actionMapping.participants.contains(action) && 
+	  	 !actionMapping.forums.contains(action) &&
+	  	 !actionMapping.resources.contains(action) &&
+	  	 !actionMapping.manage.contains(action)}
+		  
+	  	study-session-menu-item-selected
+	#{/if}
+#{/if}
+#{else}
+	#{if validActions.contains(action)}
+		study-session-menu-item-selected
+	#{/if}
+#{/else}

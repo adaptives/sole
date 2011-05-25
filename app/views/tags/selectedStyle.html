@@ -1,12 +1,14 @@
 %{
-menuMapping = ['courses':['CourseC', 'CoursesSecureC'],
-			   'home':['PageC'],
-			   'study_groups':['StudySessionC', 'StudySessionSecureC'],
-			   'users':['UserProfileC'],
-			   'blog':['BlogPostC']]
+controllerMapping = ['courses':['CourseC', 'CoursesSecureC'],
+			         'home':['PageC'],
+			         'study_groups':['StudySessionC', 'StudySessionSecureC'],
+			         'users':['UserProfileC'],
+			         'blog':['BlogPostC']]
 		   
-validControllerList = menuMapping.get(_menu);
+validControllerList = controllerMapping.get(_menu);
 controller = request.controller;
+
+
 }%
 
 
