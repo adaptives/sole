@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 
 import controllers.Security;
 
@@ -39,6 +40,7 @@ public class StudySession extends Model {
 	public String applicationText;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studySession")
+	@OrderBy("id")
 	public Set<SessionPart> sessionParts;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)

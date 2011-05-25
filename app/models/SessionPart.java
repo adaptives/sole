@@ -33,6 +33,8 @@ public class SessionPart extends Model {
 	@OneToMany(cascade=CascadeType.ALL)
 	public Set<Activity> activities;
 	
+	
+	
 	public SessionPart(String title, 
 					   Date startDate,
 					   Date endDate,
