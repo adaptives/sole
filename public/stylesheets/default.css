@@ -347,3 +347,57 @@ p {
 	margin-top: 10px;
 	margin-bottom: 10px;	
 }
+
+	/* > Start  Community Activity 
+-------------------------------------------------------------- */
+
+.communitywrap{
+    font-size: 16px;
+    line-height: 24px;
+    padding:10px 10px;
+	border-bottom:1px solid #CCCCCC;
+    position: relative;
+	padding-bottom:20px;
+}
+.communitywrappost-title{
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+	padding:5px;
+	background:#FDF2EC;
+	line-height:120%;
+/*    line-height: 1px;*/
+	}
+.gridimg{
+    display: inline;
+    float: left;
+    margin-right: 7px;
+	position:relative;
+
+}
+.communitywrappost-datetime{
+    color: #000000;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 1px;
+	padding-top:20px;
+	font-family:Tahoma;
+	margin-left: 10px;
+}
+
+.communitywrappost-datetime img {
+	height: 32px;
+	width: 32px;
+	margin-left: 10px;
+	margin-right: 10px;	
+}
+.communitywrappost-datetime a{
+    color: ##4183C4;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 1px;
+	padding-top:20px;
+	font-family:Tahoma;
+	}
+		/* > End  Community Activity 
+-------------------------------------------------------------- */

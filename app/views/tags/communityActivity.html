@@ -2,7 +2,10 @@
 	java.util.List<models.SiteEvent> siteEvents = models.SiteEvent.tail(10);
 }%
 #{list items:siteEvents, as:'siteEvent'}
-	<div class="site-event">
-		${siteEvent.text.raw()}
+	<div class="communitywrap">
+		<div class="communitywrappost-datetime">
+			${siteEvent.text.raw()}	
+    	</div>
+		
 	</div>
 #{/list}
