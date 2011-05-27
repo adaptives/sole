@@ -3,34 +3,211 @@
   questionLink = play.mvc.Router.reverse(_controllerAction, _actionArgsMap);
 }%
 
+
 #{if _as == 't'}
-<div class="question-t">
-    <a href="${questionLink.url}">${_question.title}</a>
-	<div class="question-stats">
-		<span class="question-likes">${_question.likes()} like${_question.likes().pluralize()}</span>
-		<span class="question-answer-count">${_question.answers.size()} answer${_question.answers.size().pluralize()}</span>		
-	    <span class="question-time">asked on ${_question.askedAt.since(true)}</span>
-		<span class="question-author">by <a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a></span>
-	</div>
-	<div class="question-tags">
-		#{list items:_question.tags, as:'tag'}
-			<span>${tag.name}&nbsp;&nbsp;</span>
-		#{/list}
-	</div>
+<div class="short-summary">
+	<div class="counts">
+        <div class="votes">
+            <div class="item-count">${_question.likes()}</div>
+            <div>like${_question.likes().pluralize()}</div>
+        </div>
+        <div class="status  answered">
+            <div class="item-count">${_question.answers.size()}</div>
+            <div>answer${_question.answers.size().pluralize()}</div>
+        </div>
+    </div>
+	
+	<div class="question-summary-wrapper">
+        <h2><a href="${questionLink.url}" title="${questionLink.url}">${_question.title}</a></h2>
+        <div class="userinfo">
+            <span class="relativetime" title="${_question.askedAt.format('yyyy-MM-dd-hh-mm-ss-')}">asked on ${_question.askedAt.since(true)}</span>
+            <a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a><span class="score" title="2410 karma"></span>
+
+        </div>
+
+        <div class="tags">
+        	#{list items:_question.tags, as:'tag'}
+        		<a class="#" title="see questions tagged 'osqa'" rel="tag">${tag.name} </a>
+			#{/list}            
+        </div>
+    </div>
 </div>
 #{/if}
 #{elseif _as == "tba"}
 	<div>
+		<div class="headNormal">
+			<!-- Change this # ref to the url of the question -->
+    		<h2><a href="#">${_question.title}</a></h2>
+		</div>
+		<table style="width:100%;" id="question-table" >
+			<tr>
+		    	<td style="width:30px;vertical-align:top">
+		        	<div class="vote-buttons">
+						<a id="upvote-question-${_question.id}"  title="I like this question"
+		    									 class="post"
+		     									 href="/vote/8840/up/" rel="nofollow">
+		     				<img src="/public/images/vote-arrow-up.png"
+						   alt="voteup image" height="24" width="24"
+						   border="0">
+		     			</a>
+		
+						<div id="question-${_question.id}-score" class="post-score" title="current number of votes">
+		    				${_question.likes()}
+						</div>
+		
+		            </div>
+		            <script type="text/javascript">
+						$('#upvote-question-${_question.id}').click(
+							function(e) {
+								// stop normal link click
+								e.preventDefault();
+								$.get("/questionc/like/questionId/${_question.id}",
+									  function(voteCount) {
+									  $('#question-${_question.id}-score').html(voteCount);
+								});
+						});
+					</script>
+		         </td>
+		         
+				 <td>
+		         	<div id="item-right">
+		
+		            	<div class="question-body">
+		                	${_question.content.raw()}
+		                </div>
+		                <div id="question-tags" class="tags-container tags">
+		                    #{list items:_question.tags, as:'tag'}
+		                	<a href="#" class="post-tag tag-link-comment"
+		                    						 title="see questions tagged 'comment'" rel="tag">${tag.name}</a>
+		                    #{/list}
+		                </div>
+		                
+		                <div id="question-controls" class="post-controls">                            
+		                </div>
+		                
+		                <div class="post-update-info-container">                                    	
+							<div class='post-update-info post-update-info-user'>
+			    				<p style="line-height:12px;">
+			        				asked <strong>${_question.askedAt.since(true)}</strong>
+			    				</p>
+			    				<img class="gravatar" width="32" height="32" src="@{UserProfileC.pic(_question.author.id)}" alt="${_question.author.screenname}'s image" />
+			    				<p>
+			    					<a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a><br/>			    					
+			    				</p>
+							</div>
+		
+		
+		                </div>
+		        	</div>
+		                        
+				</td>
+			</tr>
+		</table>
+	
+	<!--Start Ans 1 -->
+
+	<div class="tabBar">
+		<a name="sort-top"></a>
+		<div class="headQuestions">${_question.answers.size()} Answer${_question.answers.size().pluralize()}:</div>
+	</div>
+	#{list items:_question.answers, as:'theAnswer'}
+	<a name="${theAnswer.id}"></a>
+	<div id="answer-container-${theAnswer.id}" class="answer ">
+		<table style="width: 100%;">
+			<tbody>
+				<tr>
+					<td style="width: 50px; vertical-align: top;">
+						<div class="vote-buttons">
+
+						<a id="upvote-answer-${theAnswer.id}" class="post" href="#"> <img src="/public/images/vote-arrow-up.png"
+						   alt="voteup image" height="24" width="24"
+						   border="0">
+						</a>
+						<div id="answer-votes-${theAnswer.id}" class="post-score"
+							 title="current number of votes">${theAnswer.likes()}</div>
+						</div>
+						<script type="text/javascript">
+							$('#upvote-answer-${theAnswer.id}').click(function(e) {
+								// stop normal link click
+					    		e.preventDefault();
+					    		$.get("/questionc/like/answerId/${theAnswer.id}", function(voteCount) {
+					    			$('#answer-votes-${theAnswer.id}').html(voteCount);
+					    		});
+							});
+						</script>
+					</td>
+					<td>
+						<div class="item-right">
+							<div class="answer-body">
+								<p>
+									${theAnswer.content.nl2br()}
+								</p>
+							</div>
+							<div class="answer-controls post-controls">
+								<!-- todo for later 
+								<span class="action-link"><a rel="nofollow"
+									title="answer permanent link" class="ajax-command withprompt "
+									href="http://meta.osqa.net/answer_link/8821/">link</a>
+								</span>
+								-->
+
+							</div>
+							<div class="post-update-info-container">
+
+								<div class="post-update-info post-update-info-user">
+									<p style="line-height: 12px;">
+										answered <strong>${theAnswer.answeredAt.since(true)}</strong>
+									</p>
+									<img class="gravatar" src="@{UserProfileC.pic(theAnswer.author.id)}"
+										alt="${theAnswer.author.screenname}'s image" height="32" width="32">
+									<p>
+										<a href="@{UserProfileC.show(theAnswer.author.id)}">
+											${theAnswer.author.screenname}
+										</a>
+										<br> 
+										<!-- todo for later 
+										<span class="score" title="91 karma">91</span><span
+											title="2 badges"><span class="silver">●</span><span
+											class="badgecount">2</span>
+										</span><span title="4 badges"><span class="bronze">●</span><span
+											class="badgecount">4</span>
+										</span>
+										-->
+									</p>
+								</div>
+
+							</div>
+
+							<!-- todo later
+							<div id="comment-tools-8821" class="comment-tools"></div>
+							<div id="comment-8821-form-container" class="comment-form-container"></div>
+							-->
+
+						</div></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	#{/list}
+
+	<!--End Ans 1 -->
+
+</div>
+#{/elseif}
+#{elseif _as == "tbaold"}
+	<div>
 		<div class="question-tba-title">
 			<span style="margin-right: 3px;" id="votes">${_question.likes()}</span><a href="#" id="upvote"><img src="/public/images/like.png" /></a>
 			<script type="text/javascript">
-				$('#upvote').click(function(e) {
-					// stop normal link click
-				    e.preventDefault();
-				    $.get("/questionc/like/questionId/${_question.id}", function(voteCount) {
-				    	$('#votes').html(voteCount);
-				    });
-				});
+				$('#upvote').click(
+						function(e) {
+							// stop normal link click
+							e.preventDefault();
+							$.get("/questionc/like/questionId/${_question.id}",
+									function(voteCount) {
+										$('#votes').html(voteCount);
+									});
+						});
 			</script> 
 			${_question.title}
 		</div>
@@ -49,7 +226,10 @@
 		</div>
 		<div class="answers">
 			#{list items:_question.answers, as:'theAnswer'}
-				<div><span style="margin-right: 3px;" id="answer-votes-${theAnswer.id}">${theAnswer.likes()}</span><a href="#" id="upvote-answer-${theAnswer.id}"><img src="/public/images/like.png" /></a></div>
+				<div>
+					<span style="margin-right: 3px;" id="answer-votes-${theAnswer.id}">${theAnswer.likes()}</span>
+					<a href="#" id="upvote-answer-${theAnswer.id}"><img src="/public/images/like.png" /></a>
+				</div>
 				<div class="answer-content">
 					${theAnswer.content.nl2br()}
 				</div>

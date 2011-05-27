@@ -16,22 +16,23 @@
 	${studySession.forum.description}
 </div>
 
+<!--Start forum section -->
+<div id="CALeft">
+<div id="listA">
 
-#{if question}
-	#{tabbedPane show:'selected-question', tabIds:tabIds, tabNames:tabNames /}
-#{/if}
-#{else}
-   #{tabbedPane show:'questions', tabIds:tabIds, tabNames:tabNames /}
-#{/else}
-
-
-<div id="questions" class="section-questions">
 #{list items:studySession.forum.questions, as:'forumQuestion'}
 	#{question question:forumQuestion,
 	           as:'t',
 			   controllerAction:'StudySessionC.forumQuestion',
 			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
 #{/list}
+
+<!-- End forum section -->
+</div>
+</div>
+
+<div id="questions" class="section-questions">
+
 
 <!-- TODO: A user should be registered to post questions, and they can apply for a course only if the course is still open for enrollment -->
 <div id="question-form" class="section-question-form">
@@ -56,21 +57,4 @@
 		
 </div>
 
-</div>
-
-
-<div id="selected-question">
-	#{if question}
-		#{question question:question,
-	           as:'tba',
-			   controllerAction:'StudySessionC.forumQuestion',
-			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
-			   
-		<div id="answer-form" class="section-question-form">
-			#{answerForm protected:true,
-				             user:session.user,
-							 controllerAction:'StudySessionSecureC.postAnswer',
-							 actionArgsMap:[studySessionId:studySession.id, forumId:studySession.forum.id, questionId:question.id] /}		
-	    </div>
-	#{/if}
 </div>

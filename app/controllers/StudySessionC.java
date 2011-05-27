@@ -106,27 +106,18 @@ public class StudySessionC extends Controller {
 	}
 	
 	public static void forum(long studySessionId) {
-		forumQuestion(studySessionId, -1);
+		StudySession studySession = StudySession.findById(studySessionId);
+		render(studySession);
 	}
 	
 	public static void forumQuestion(long studySessionId, 
-												 long questionId) {
-		List<String> tabIds = new ArrayList<String>();
-		tabIds.add("questions");
-		tabIds.add("selected-question");
-		List<String> tabNames = new ArrayList<String>();
-		tabNames.add("Questions");
-		tabNames.add("Selected Question");
-		
+									 long questionId) {
 		StudySession studySession = StudySession.findById(studySessionId);
 		if(studySession != null) {
 			Question question = Question.findById(questionId);
 			
-			render("StudySessionC/forum.html", 
-				   studySession, 
-				   question, 
-				   tabIds, 
-				   tabNames);
+			render(studySession, 
+				   question);
 		} else {
 			flash.error("Sorry we could not find the specified Forum");
 			render("emptypage.html");

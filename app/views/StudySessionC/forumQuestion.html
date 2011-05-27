@@ -1,0 +1,35 @@
+#{extends 'StudySessionC/studySessionMain.html' /}
+%{
+	flash.put("url", request.method == "GET" ? request.url : "/");
+}%
+
+#{set noUpdates:true /}
+
+#{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
+
+<div>Study Session - 
+	<a href="@{StudySessionC.studySession(studySession.id)}">${studySession.title}</a>
+</div>
+<h3 class="study-session-title">${studySession.forum.title}</h3>
+
+<div class="course-description">
+	${studySession.forum.description}
+</div>
+
+<div id="CALeft">
+<div id="listA">
+	#{if question}
+		#{question question:question,
+        	       as:'tba',
+                   controllerAction:'StudySessionC.forumQuestion',
+                   actionArgsMap:['studySessionId':studySession.id, 'questionId':question.id] /}
+                   
+        <div id="answer-form" class="section-question-form">
+                       #{answerForm protected:true,
+                                    user:session.user,
+                                    controllerAction:'StudySessionSecureC.postAnswer',
+                                    actionArgsMap:[studySessionId:studySession.id, forumId:studySession.forum.id, questionId:question.id] /}       
+        </div>
+	#{/if}
+</div>
+</div>
