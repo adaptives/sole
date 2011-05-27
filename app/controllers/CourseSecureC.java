@@ -32,8 +32,7 @@ public class CourseSecureC extends Controller {
 				if(!course.enrolledParticipants.contains(user)) {
 					course.enrolledParticipants.add(user);
 					course.save();
-					new SiteEvent("User " + 
-								  LinkGenUtils.getUserProfileLink(user) + 
+					new SiteEvent(LinkGenUtils.getUserProfileLink(user) + 
 								  " enrolled in DIY Course " + 
 								  LinkGenUtils.getDIYCourseLink(course));
 				}				
