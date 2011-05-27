@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -31,6 +32,7 @@ public class SessionPart extends Model {
 	public StudySession studySession;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@OrderBy("id")
 	public Set<Activity> activities;
 	
 	
