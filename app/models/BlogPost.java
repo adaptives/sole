@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import other.utils.StringUtils;
+
 import play.db.jpa.Model;
 
 @Entity
@@ -19,6 +21,7 @@ public class BlogPost extends Model {
 	public SocialUser author;
 	
 	public String title;
+	public String sanitizedTitle;
 	public Date postedAt;
 	public Date lastUpdatedAt;
 	public String content;
@@ -34,6 +37,7 @@ public class BlogPost extends Model {
 					String content) {
 		this.author = author;
 		this.title = title;
+		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(title); 
 		this.postedAt = new Date();
 		this.lastUpdatedAt = postedAt;
 		this.content = content;
