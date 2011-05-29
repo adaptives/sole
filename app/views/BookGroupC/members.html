@@ -1,0 +1,8 @@
+#{extends 'BookGroupC/bookGroupMain.html' /}
+
+<h4>Members</h4>
+<div>
+	#{list items:bookGroup.members, as:'member'}
+		${member.screenname}
+	#{/list}
+</div>

@@ -1,0 +1,26 @@
+%{
+
+actionMapping = ['members':['BookGroupC.members'],
+			     'forums':['BookGroupC.forum', 'BookGroupC.forumQuestion', 'BookGroupSecureC.postQuestion', 'BookGroupSecureC.postAnswer']]
+
+validActions = actionMapping.get(_menu);
+
+validControllers = ['BookGroupC', 'BookGroupSecureC']
+
+controller = request.controller;
+
+action = request.action;
+}%
+
+
+#{if _menu == 'home'}
+	#{if !actionMapping.members.contains(action) && 
+	  	 !actionMapping.forums.contains(action)}		  
+	  	book-group-menu-item-selected
+	#{/if}
+#{/if}
+#{else}
+	#{if validActions.contains(action)}
+		book-group-menu-item-selected
+	#{/if}
+#{/else}

@@ -1,0 +1,15 @@
+#{extends 'BookGroupC/bookGroupMain.html' /}
+
+<h4>Book</h4>
+<div>
+	${bookGroup.book.title}
+</div>
+
+<div>
+	#{if bookGroup.isMember()}
+		<a href="#">I have finished reading this book</a>		
+	#{/if}
+	#{else}
+		<a href="#">I have started reading this book</a>
+	#{/else}
+</div>

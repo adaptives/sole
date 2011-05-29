@@ -24,7 +24,7 @@ public class UserProfileTest extends UnitTest {
 	
 	@Test
 	public void testUpdatingExistingUserProfile() {
-		SocialUser socialUser = SocialUser.find("byScreenname", "student").first();
+		SocialUser socialUser = SocialUser.find("byScreenname", "learner").first();
 		
 		UserProfile retrievedUserProfile1 = UserProfile.find("select up from UserProfile up where up.user.id = ?", socialUser.id).first();
 		long retrievedUserProfile1Id = retrievedUserProfile1.id;

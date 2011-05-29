@@ -12,6 +12,11 @@ POST    /courses/course/section{sectionId}/question CourseC.addQuestion
 GET     /courses/course/{courseId}/forum        CourseC.forum
 GET     /courses/course/{courseId}/question/{questionId}  CourseC.forumQuestion
 
+GET     /bookgroups/list/{page}/{size}           BookGroupC.list
+GET     /bookgroups/show/{id}                    BookGroupC.show
+GET     /bookgroups/forum/{id}                   BookGroupC.forum
+GET     /bookgroups/bookgroup/{bookGroupId}/question/{questionId}  BookGroupC.forumQuestion
+
 GET     /studysessions/currentlist               StudySessionC.currentlist
 GET     /studysessions/studysession/{id}         StudySessionC.studySession
 GET     /studysessions/studysession/{studySessionId}/sessionpart/{id} StudySessionC.sessionPart

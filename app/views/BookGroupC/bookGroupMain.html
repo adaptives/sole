@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+
+#{if bookGroup}
+<div style="margin-bottom:15px;">
+<a class="book-group-menu-item #{bookGroupsSelectedStyle menu:'home' /}" href="@{BookGroupC.show(bookGroup.id)}">Book Group Home</a> 
+<a class="book-group-menu-item #{bookGroupsSelectedStyle menu:'forums' /}" href="@{BookGroupC.forum(bookGroup.id)}">Discussion Forum</a>
+<a class="book-group-menu-item #{bookGroupsSelectedStyle menu:'members'/}" href="@{BookGroupC.members(bookGroup.id)}">Members</a>
+</div>
+#{/if}
+
+#{doLayout /}

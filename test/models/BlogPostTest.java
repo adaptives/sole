@@ -28,6 +28,7 @@ public class BlogPostTest extends UnitTest {
 		BlogPost blogPost = new BlogPost(user,
 										 "Test blog post",
 										 "This is a test blog post");
+		blogPost.save();
 		BlogPost retrievedBlogPost = BlogPost.find("select b from BlogPost b").first();
 		assertNotNull(retrievedBlogPost);
 		assertEquals("Test blog post", retrievedBlogPost.title);
@@ -41,12 +42,14 @@ public class BlogPostTest extends UnitTest {
 		BlogPost blogPost = new BlogPost(user,
 				 "Blog post 1",
 				 "This is a test blog post 1");
+		blogPost.save();
 		
 		Thread.sleep(100);
 		
 		BlogPost blogPost2 = new BlogPost(user,
 				 "Blog post 2",
 				 "This is a test blog post 2");
+		blogPost2.save();
 		
 		List<BlogPost> blogPosts = BlogPost.tail(50);
 		assertEquals(2, blogPosts.size());

@@ -1,0 +1,11 @@
+#{extends 'main.html' /}
+
+#{list items:bookGroups, as:'bookGroup'}
+	<div>
+		<a href="@{BookGroupC.show(bookGroup.id)}">${bookGroup.book.title}</a>
+	</div>
+#{/list}
+
+<div>
+	#{paginate controllerAction:'BookGroupC.list', size:size, page:page, pages:pages /}
+</div>
