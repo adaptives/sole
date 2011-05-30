@@ -18,7 +18,7 @@ public class Forum extends Model {
 	public String description;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@OrderBy("askedAt")
+	@OrderBy("askedAt DESC")
 	public Set<Question> questions;
 	
 	public Forum(String title,

@@ -23,7 +23,7 @@ Author(auth4):
     url:         jackthecaptain.com
 
 
-Book(ThinkingInJava):
+Book(learnJava):
     title:       Learn Java In 3 Hours
     isbn:        ISBN10
     authors:        
@@ -45,5 +45,6 @@ Forum(forum1):
     description: Forum to discuss Learn Java in 3 Hours
 
 BookGroup(bg1):
-    book:        ThinkingInJava
+    book:        learnJava
+    sanitizedTitle: learn-java-in-3-hours
     forum:       forum1

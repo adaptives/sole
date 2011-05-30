@@ -2,7 +2,7 @@
 
 #{list items:bookGroups, as:'bookGroup'}
 	<div>
-		<a href="@{BookGroupC.show(bookGroup.id)}">${bookGroup.book.title}</a>
+		<a href="@{BookGroupC.show(bookGroup.sanitizedTitle)}">${bookGroup.book.title}</a>
 	</div>
 #{/list}
 

@@ -1,5 +1,8 @@
-#{extends 'BookGroupC/bookGroupMain.html' /}
+#{extends 'main.html' /}
 
+<div>
+	<a style="color: green;" href="${originalDestination}">Back</a>
+</div>
 <div id="question">
 	#{if question}
 		#{question question:question,

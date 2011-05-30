@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Answer;
+import models.BookGroup;
 import models.Forum;
 import models.Question;
 import models.SocialUser;
@@ -16,7 +17,7 @@ public class BookGroupSecureC extends Controller {
 									@Required String title, 
 									@Required String content, 
 									String tags) {
-
+		flash.keep("url");
 		SocialUser user = SocialUser.findById(Long.parseLong(Security
 				.connected()));
 
@@ -33,7 +34,12 @@ public class BookGroupSecureC extends Controller {
 
 		forum.questions.add(question);
 		forum.save();
-		BookGroupC.forum(bookGroupId);
+//		BookGroup bookGroup = BookGroup.findById(bookGroupId);
+		try {
+			Secure.redirectToOriginalURL();
+		} catch(Throwable t) {
+			render("errors/500.html", t);
+		}
 	}
 
 	public static void postAnswer(long bookGroupId, 
@@ -47,7 +53,8 @@ public class BookGroupSecureC extends Controller {
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();
-		BookGroupC.forumQuestion(bookGroupId, questionId);
+		BookGroup bookGroup = BookGroup.findById(bookGroupId);
+		BookGroupC.forumQuestion(bookGroup.sanitizedTitle, questionId);
 	}
 
 }

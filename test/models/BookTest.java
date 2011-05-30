@@ -30,21 +30,29 @@ public class BookTest extends UnitTest {
 	public void testCreateAndRetrieve() {
 		String title = "A nice techie book";
 		String isbn = "123-A45";
-		String isbn2 = "123-B45";
+		String isbn13 = "123-B45";
 
-		Book book = new Book(title, isbn, isbn2);
+		Book book = new Book(title);
+		book.isbn = isbn;
+		book.isbn13 = isbn13;
+		book.save();
 		
 		Book retrievedBook = Book.find("select b from Book b where b.isbn = ?", isbn).first();
 		assertEquals(title, retrievedBook.title);
 		assertEquals(isbn, retrievedBook.isbn);
-		assertEquals(isbn2, retrievedBook.isbn2);
+		assertEquals(isbn13, retrievedBook.isbn13);
 	}
 	
 	//TODO: This test needs to pass
 	@Ignore
 	@Test(expected = Exception.class)
 	public void testSavingBookWithoutTitle() {
-		Book book = new Book(null, "ISBN", "ISBN2");
+		String isbn = "ISBN";
+		String isbn13 = "ISBN2";
+		
+		Book book = new Book(null);
+		book.isbn = isbn;
+		book.isbn13 = isbn13;
 		book.save();
 	}
 	
@@ -57,9 +65,13 @@ public class BookTest extends UnitTest {
 		
 		String title = "A nice techie book";
 		String isbn = "123-A45";
-		String isbn2 = "123-B45";
+		String isbn13 = "123-B45";
 
-		Book book = new Book(title, isbn, isbn2);
+		Book book = new Book(title);
+		book.isbn = isbn;
+		book.isbn13 = isbn13;
+		book.save();
+		
 		book.setAuthors(authors);
 		
 		Book retrievedBook = Book.find("select b from Book b where b.isbn = ?", isbn).first();
@@ -78,11 +90,14 @@ public class BookTest extends UnitTest {
 		
 		String title = "A nice techie book";
 		String isbn = "123-A45";
-		String isbn2 = "123-B45";
+		String isbn13 = "123-B45";
 
-		Book book = new Book(title, isbn, isbn2);
+		Book book = new Book(title);
+		book.isbn = isbn;
+		book.isbn13 = isbn13;
+		book.save();
 		
-		book.addAuthor(auth1);		
+		book.addAuthor(auth1);
 		Book retrievedBook = Book.find("select b from Book b where b.isbn = ?", isbn).first();
 		Set<Author> retrievedAuthors = retrievedBook.authors;
 		assertEquals(1, retrievedBook.authors.size());
