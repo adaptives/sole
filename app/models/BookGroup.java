@@ -22,13 +22,13 @@ import play.db.jpa.Model;
 public class BookGroup extends Model {
 	
 	@Required
-	@OneToOne
+	@OneToOne(optional = false)
 	public Book book;
 	
 	public String sanitizedTitle;
 	
 	@Required
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(optional = false, cascade=CascadeType.ALL)
 	public Forum forum;
 	
 	@ManyToMany
