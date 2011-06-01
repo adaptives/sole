@@ -98,26 +98,26 @@ public class SoleTags extends FastTags {
 			String userId = Security.connected();
 			long lUserId = Long.parseLong(userId);
 			if (studySession.canEnroll(lUserId)) {
-				Map<String, Object> methodArgs = new HashMap<String, Object>();
-				methodArgs.put("id", studySession.id);
-				actionDefinition = play.mvc.Router.reverse("StudySessionSecureC.apply",
-						methodArgs);
-				String htmlLinkTemnplate = "<span class=\"%s\" ><a href=\"%s\">%s</a></span>";
-
-				out.print(String.format(htmlLinkTemnplate,
-						"study-session-enrollment", actionDefinition.url, "Apply"));
+				actionDefinition = play.mvc.Router.reverse("StudySessionSecureC.apply");
+				String htmlFormBegin = "<form method=\"GET\" action=\"" + actionDefinition.url + "\">";
+				String hiddenParam = String.format("<input type=\"hidden\" name=\"id\" value=\"%s\" />", studySession.id);
+				String htmlButton = "<div style=\"padding-top:5px;\"><div style=\"padding-top:5px;\"><input class=\"promotional submit button\" value=\"Apply\" type=\"submit\"> </div></div>";
+				String htmlFormEnd = "</form>";
+				out.println(htmlFormBegin + hiddenParam + htmlButton + htmlFormEnd);
+				
 				return;
 			}
 			
 			if(studySession.applicationStore.isUserApplicationAccepted(lUserId) || studySession.applicationStore.isUserApplicationPending(lUserId)) {
-				Map<String, Object> methodArgs = new HashMap<String, Object>();
-				methodArgs.put("id", studySession.id);
-				actionDefinition = play.mvc.Router.reverse("StudySessionSecureC.deregister",
-						methodArgs);
-				String htmlLinkTemnplate = "<span class=\"%s\" ><a href=\"%s\">%s</a></span>";
+				actionDefinition = play.mvc.Router.reverse("StudySessionSecureC.deregister");
 
-				out.print(String.format(htmlLinkTemnplate,
-						"study-session-enrollment", actionDefinition.url, "Deregister"));
+				String htmlFormBegin = String.format("<form method=\"GET\" action=\"%s\">", actionDefinition.url);
+				String hiddenParam = String.format("<input type=\"hidden\" name=\"id\" value=\"%s\" />", studySession.id);
+				String htmlButton = "<div style=\"padding-top:5px;\"><input class=\"promotionalred submitred buttonred\" value=\"Deregister\" type=\"submit\"> </div></div>";
+				String htmlFormEnd = "</form>";
+
+				out.println(htmlFormBegin + hiddenParam + htmlButton + htmlFormEnd);
+				
 				return;
 			}
 		} else {

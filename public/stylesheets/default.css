@@ -401,3 +401,211 @@ p {
 	}
 		/* > End  Community Activity 
 -------------------------------------------------------------- */
+/* > Start button Green
+-------------------------------------------------------------- */
+.front-signup .submit {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.front-page .button {
+    border: medium none;
+    box-shadow: none;
+}
+a.promotional, input.promotional {
+	background:#729519 url(/public/images/bg_btn_green.png) repeat-x 0 0;
+	display:block;
+/*	padding:4px 8px;*/
+	border:1px solid #729519;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	text-decoration:none;
+	text-align:center;
+	color:#333;
+/*	text-shadow:0 1px 0 #fe6;*/
+/*	font:bold 16px Helvetica Neue, Arial, Sans-serif;*/
+/*	font:bold 12px Arial, Helvetica, sans-serif;*/
+	font-family: Verdana;
+	font-weight:bold;
+	font-size:12px;
+	cursor:pointer;
+	-moz-box-shadow:0 1px 0 #fff;
+	-webkit-box-shadow:0 1px 0 #fff;
+	box-shadow:0 1px 0 #fff;
+}
+a.promotional:hover, a.promotional:focus, input.promotional:hover, input.promotional:focus {
+	background-position:0 -7px;
+	color:#111;
+}
+a.promotional:active, input.promotional:active {
+	background-image:none;
+}
+.btn {
+	line-height:17px;
+	font-size:12px;
+	display:inline-block;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	cursor:pointer;
+	background:#ddd url(/public/images/bg_btn_green.png) repeat-x scroll 0 0;
+	border-color:#bbb #bbb #999;
+	border-style:solid;
+	border-width:1px;
+	padding:5px 9px;
+	color:#333!important;
+}
+.btn:hover, .btn:focus {
+	background-position:0 -6px;
+	border-color:#999 #999 #666;
+	text-decoration:none;
+}
+.btn-default {
+	background:#81b1c9;
+	background:-moz-linear-gradient(100% 100% 90deg, #346a85, #81b1c9);
+	background:-webkit-gradient(linear, 0% 0, 0% 100%, from(#81b1c9), to(#346a85));
+	border:1px solid;
+	border-color:#719dbd #457394 #1f3443;
+	color:#fff!important;
+}
+.btn-default:hover, .btn-default:focus {
+	background:#336680;
+	background:-moz-linear-gradient(100% 100% 90deg, #b9ce44, #729519);
+	background:-webkit-gradient(linear, 0% 0, 0% 100%, from(#729519), to(#b9ce44));
+}
+.btn-disabled, .button.disabled, .btn-disabled:hover, .button.disabled:hover, .btn-disabled:focus, .button.disabled:focus, form.submitting .submit.button {
+	background:#ddd url(/public/images/bg_btn_green.png) repeat-x 0 0;
+	border-color:#ccc;
+	cursor:default;
+	color:#aaa!important;
+	text-shadow:none;
+}
+.button {
+    background: url(../images/bg_btn_green.png) repeat-x scroll 0 0 #65A766;
+    border-color: #BEE4BF #BEE4BF #65A766;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 #F8F8F8;
+    color: #333333 !important;
+    cursor: pointer;
+    display: inline-block;
+/*    font: bold 12px/15px Arial, Helvetica, sans-serif;*/
+    font-family: Verdana;
+	font-weight:bold;
+	font-size:12px;
+
+    margin: 0;
+    overflow: hidden;
+    padding: 2px 5px 3px;
+	width:60px;
+	height:25px;
+	}
+	
+		/* > End button Green
+-------------------------------------------------------------- */
+		/* > Start button Red
+-------------------------------------------------------------- */
+.front-signup .submitred {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.front-page .buttonred {
+    border: medium none;
+    box-shadow: none;
+}
+a.promotionalred, input.promotionalred {
+	background:#fbb457 url(../images/bg_btn_red.png) repeat-x 0 0;
+	display:block;
+/*	padding:4px 8px;*/
+	border:1px solid #729519;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	text-decoration:none;
+	text-align:center;
+	color:#333;
+/*	text-shadow:0 1px 0 #fe7;*/
+/*	font:bold 16px Helvetica Neue, Arial, Sans-serif;*/
+	font-family: Verdana;
+	font-weight:bold;
+	font-size:12px;
+	cursor:pointer;
+	-moz-box-shadow:0 1px 0 #fff;
+	-webkit-box-shadow:0 1px 0 #fff;
+	box-shadow:0 1px 0 #fff;
+}
+a.promotionalred:hover, a.promotionalred:focus, input.promotionalred:hover, input.promotionalred:focus {
+	background-position:0 -7px;
+	color:#111;
+}
+a.promotionalred:active, input.promotionalred:active {
+	background-image:none;
+}
+.btn {
+	line-height:17px;
+	font-size:12px;
+	display:inline-block;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	cursor:pointer;
+	background:#ddd url(../images/bg_btn_red.png) repeat-x scroll 0 0;
+	border-color:#bbb #bbb #999;
+	border-style:solid;
+	border-width:1px;
+	padding:5px 9px;
+	color:#333!important;
+}
+.btnred:hover, .btnred:focus {
+	background-position:0 -6px;
+	border-color:#999 #999 #666;
+	text-decoration:none;
+}
+.btnred-default {
+	background:#81b1c9;
+	background:-moz-linear-gradient(100% 100% 90deg, #fbb457,#e6600e);
+	background:-webkit-gradient(linear, 0% 0, 0% 100%, from(#fbb457), to(#e6600e));
+	border:1px solid;
+	border-color:#719dbd #fbb457 #e6600e;
+	color:#fff!important;
+}
+.btnred-default:hover, .btnred-default:focus {
+	background:#336680;
+	background:-moz-linear-gradient(100% 100% 90deg, #fbb457, #e6600e);
+	background:-webkit-gradient(linear, 0% 0, 0% 100%, from(#fbb457), to(#e6600e));
+}
+.btn-disabled, .buttonred.disabled, .btnred-disabled:hover, .buttonred.disabled:hover, .btnred-disabled:focus, .button.disabled:focus, form.submitting .submit.button {
+	background:#ddd url(../images/bg_btn_green.png) repeat-x 0 0;
+	border-color:#ccc;
+	cursor:default;
+	color:#aaa!important;
+	text-shadow:none;
+}
+.buttonred {
+    background: url(../images/bg_btn_red.png) repeat-x scroll 0 0 #e13c51;
+    border-color: #e6600e #e6600e #fbb457;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 #F8F8F8;
+    color: #333333 !important;
+    cursor: pointer;
+    display: inline-block;
+    /*font: bold 12px/15px Arial, Helvetica, sans-serif;*/
+	font-family: Verdana;
+	font-weight:bold;
+	font-size:12px;
+    margin: 0;
+    overflow: hidden;
+    padding: 2px 5px 3px;
+	width:80px;
+	height:25px;
+	}
+	
+		/* > End button Red
+-------------------------------------------------------------- */
