@@ -1,6 +1,6 @@
 #{if _as == 't'}
 <div>
-	<a href="@{BlogPostC.show(_post.id)}">${_post.title}</a>
+	<a href="@{BlogPostC.show(_post.postedAt.format('yyyy'), _post.postedAt.format('MM'), _post.postedAt.format('dd'), _post.sanitizedTitle)}">${_post.title}</a>
 </div>
 #{/if}
 
@@ -36,7 +36,7 @@
 #{elseif _as == 'tp'}
 	<div class="blog-post-comment-link">
 		<div style="font-weight:bold; font-size: 1.2em; margin-bottom: 15px;">
-			<a href="@{BlogPostC.show(_post.id)}">${_post.comments.size()} comment${_post.comments.pluralize()}</a>
+			<a href="@{BlogPostC.show(_post.postedAt.format('yyyy'), _post.postedAt.format('MM'), _post.postedAt.format('dd'), _post.sanitizedTitle)}">${_post.comments.size()} comment${_post.comments.pluralize()}</a>
 		</div>
 	</div>
 #{/elseif}

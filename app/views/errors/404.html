@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+#{extends 'main.html' /}
 
-<html>
-    <head>
-        <title>Not found</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    
-    </head>
-    <body>
-        #{if play.mode.name() == 'DEV'}
-            #{404 result /}
-        #{/if}
-        #{else}
-            <h1>Not found</h1>
-            <p>
-                ${result.message}
-            </p>
-        #{/else}
-    </body>
-</html>
+#{if play.mode.name() == 'DEV'}
+	#{404 result /}
+#{/if}
+#{else} 	    	
+	%{ String changedUrl = models.ChangedUrl.findNewUrl(request.url);	%}
+	
+	#{if changedUrl != null}	    	
+		<h1>The page you have requested '${request.url}' has moved.</h1>
+		<h2>Please click <a href="${changedUrl}">here</a> to go to the new page.</h2>	    	
+	#{/if}
+	#{else}
+		<h1>Not found</h1>
+        <p>
+        	${result.message}
+        </p>
+	#{/else}
+#{/else}

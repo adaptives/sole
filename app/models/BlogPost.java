@@ -1,5 +1,6 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +45,24 @@ public class BlogPost extends Model {
 		this.tags = new TreeSet<Tag>();
 		this.comments = new TreeSet<Comment>();
 		//create();
+	}
+	
+	public static BlogPost findBySanitizedTitleAndDate(String year, 
+													   String month, 
+													   String day, 
+													   String sanitizedTitle) {
+		BlogPost retVal = null;
+		String query = "select bp from BlogPost bp where bp.sanitizedTitle = ?";
+		List<BlogPost> blogPosts = BlogPost.find(query, sanitizedTitle).fetch();
+		for(BlogPost blogPost : blogPosts) {
+			Date postedAt = blogPost.postedAt;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+			if((year+month+day).equals(dateFormat.format(postedAt))) {
+				retVal = blogPost;
+				break;
+			}
+		}
+		return retVal;
 	}
 	
 	public BlogPost tagWith(String tag) {

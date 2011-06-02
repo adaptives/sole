@@ -1,15 +1,12 @@
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import models.BlogPost;
 import models.Comment;
-import models.KeyValueData;
-import models.Role;
 import models.SocialUser;
-import models.User;
 import play.data.validation.Required;
-import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -21,13 +18,17 @@ public class BlogPostC extends Controller {
 	}
 	
 	public static void list() {
-
-		List<BlogPost> blogPosts = BlogPost.find("select b from BlogPost b order by b.postedAt desc").fetch(1, 10);
+		String query = "select b from BlogPost b order by b.postedAt desc";
+		List<BlogPost> blogPosts = BlogPost.find(query).fetch(1, 10);
 		render(blogPosts);
 	}
 	
-	public static  void show(long id) {
-		BlogPost blogPost = BlogPost.findById(id);
+	public static  void show(String year, 
+							 String month, 
+							 String day, 
+							 String sanitizedTitle) {
+		
+		BlogPost blogPost = BlogPost.findBySanitizedTitleAndDate(year, month, day, sanitizedTitle);
 		render(blogPost);
 	}
 	
@@ -70,7 +71,15 @@ public class BlogPostC extends Controller {
 		comment.save();
 		blogPost.comments.add(comment);
 		blogPost.save();
-		show(blogPost.id);
+		
+		SimpleDateFormat yearDateFormat = new SimpleDateFormat("yyyy");
+		SimpleDateFormat monthDateFormat = new SimpleDateFormat("MM");
+		SimpleDateFormat dayDateFormat = new SimpleDateFormat("dd");
+		
+		show(yearDateFormat.format(blogPost.postedAt),
+			 monthDateFormat.format(blogPost.postedAt),
+			 dayDateFormat.format(blogPost.postedAt),
+			 blogPost.sanitizedTitle);
 	}
 	
 }

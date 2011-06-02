@@ -36,7 +36,7 @@ GET     /users/{userId}                        UserProfileC.show
 
 GET     /blog/list                             BlogPostC.list
 GET     /blog                                  BlogPostC.index
-GET     /blog/post/{id}                        BlogPostC.show
+GET     /blog/post/{year}/{month}/{day}/{sanitizedTitle}                        BlogPostC.show
 POST    /blog/{postId}/comment/add             BlogPostC.postComment
 
 GET     /questionc/like/questionId/{questionId}    QuestionC.like

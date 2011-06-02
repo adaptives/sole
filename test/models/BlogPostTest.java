@@ -1,5 +1,7 @@
 package models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -55,4 +57,22 @@ public class BlogPostTest extends UnitTest {
 		assertEquals(2, blogPosts.size());
 		assertEquals("Blog post 2", blogPosts.get(0).title);
 	}
+	
+	@Test
+	public void testFindBySanitizedTitleAndDate() throws Exception {
+		SocialUser user = SocialUser.findById((long)1);
+		BlogPost blogPost1 = new BlogPost(user, "blog post 1", "content");
+		blogPost1.save();
+		
+		Date postedAt = blogPost1.postedAt;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedPostedAt = dateFormat.format(postedAt);
+		String tokens[] = formattedPostedAt.split("-");
+		BlogPost retrievedBlogPost = BlogPost.findBySanitizedTitleAndDate(tokens[0], 
+											 							  tokens[1], 
+											 							  tokens[2], 
+											 							  blogPost1.sanitizedTitle);
+		assertEquals(blogPost1.id, retrievedBlogPost.id);
+	}
+	
 }
