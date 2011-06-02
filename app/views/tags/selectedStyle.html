@@ -1,22 +1,29 @@
 %{
 controllerMapping = ['courses':['CourseC', 'CoursesSecureC'],
 			         'home':['PageC'],
+			         'book_groups':['BookGroupC', 'BookGroupSecureC'],
 			         'study_groups':['StudySessionC', 'StudySessionSecureC'],
 			         'users':['UserProfileC'],
 			         'blog':['BlogPostC']]
-		   
+
+allValidControllersList = [];
+controllerMapping.each {key, value ->
+	value.each {
+		allValidControllersList << it;
+	}
+}
+
 validControllerList = controllerMapping.get(_menu);
 controller = request.controller;
-
-
 }%
 
 
 
-
-#{if validControllerList?.contains(controller)}
+#{if _menu == 'home' && !allValidControllersList?.contains(controller)}
 current_page_item
-#{/ if}
+#{/if}
 #{else}
-
+	#{if validControllerList?.contains(controller)}
+current_page_item
+	#{/ if}
 #{/else}
