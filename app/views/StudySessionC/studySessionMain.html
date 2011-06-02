@@ -1,15 +1,19 @@
 #{extends 'main.html' /}
 
 #{if studySession}
-<div style="margin-bottom:15px;">
-<a class="study-session-menu-item #{studyGroupsSelectedStyle menu:'home' /}" href="@{StudySessionC.studySession(studySession.id)}">Study Group Home</a> 
-<a class="study-session-menu-item #{studyGroupsSelectedStyle menu:'participants'/}" href="@{StudySessionC.participants(studySession.id)}">Participants</a>
-<a class="study-session-menu-item #{studyGroupsSelectedStyle menu:'forums' /}" href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a>
-<a class="study-session-menu-item #{studyGroupsSelectedStyle menu:'resources'/}" href="@{StudySessionC.resources(studySession.id)}">Resources</a>
-#{if session.user && studySession.canManageParticipants(session.user)}
-	<a style="border: 2px solid #6b94ff; background: #6b94ff; padding: 2px; color: white; margin-left: 5px; margin-right: 5px;" href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a>
-#{/ if}
-
+<div class="mainsubnav">
+	<div class="subnav mainnavs">
+	<ul>
+		<li><a class="#{studyGroupsSelectedStyle menu:'home' /}" href="@{StudySessionC.studySession(studySession.id)}">Study Group Home</a></li>
+		<li><a class="#{studyGroupsSelectedStyle menu:'participants'/}" href="@{StudySessionC.participants(studySession.id)}">Participants</a></li>
+		<li><a class="#{studyGroupsSelectedStyle menu:'forums' /}" href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a></li>
+		<li><a class="#{studyGroupsSelectedStyle menu:'resources'/}" href="@{StudySessionC.resources(studySession.id)}">Resources</a></li>
+		#{if session.user && studySession.canManageParticipants(session.user)}
+			<li><a #{studyGroupsSelectedStyle menu:'manage'/}" href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a></li>
+		#{/ if}
+		<li><a id="nav-menu5" href="#">Submenu 5</a></li>
+	</ul>
+	</div>
 </div>
 #{/if}
 

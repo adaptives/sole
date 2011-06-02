@@ -12,7 +12,7 @@
 #{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
 
 <div class="study-session-dates">
-	Starts: <span class="study-session-date">${sessionPart.startDate.format('dd MMM yyyy hh:mm')}</span> - End: <span class="study-session-date">${sessionPart.endDate.format('dd MMM yyyy hh:mm')}</span>
+	<span class="study-session-date-start">Starting:  ${sessionPart.startDate.format('dd MMM yyyy hh:mm')}</span> - <span class="study-session-date-end">Ending:  ${sessionPart.endDate.format('dd MMM yyyy hh:mm')}</span>
 </div>
 <div class="study-session-description-full">
 	${sessionPart.content.raw()}

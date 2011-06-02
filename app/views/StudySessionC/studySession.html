@@ -6,7 +6,7 @@
 <h3 class="study-session-title">${studySession.title}</h3>
 
 <div class="study-session-dates">
-	<img src="/public/images/session-part-start.png" /> <span class="study-session-date-start">${studySession.startDate.format('dd MMM yyyy')}</span> <img src="/public/images/session-part-end.png" /> <span class="study-session-date-end">${studySession.endDate.format('dd MMM yyyy')}</span> <span style="margin-left: 30px;">#{studySessionMetadata ss:studySession, ssm:studySessionMeta /}</span> <span>#{apply ss:studySession, ssm:studySessionMeta /}</span>
+	<span class="study-session-date-start">Starting  ${studySession.startDate.format('dd MMM yyyy')}</span> - <span class="study-session-date-end">Ending ${studySession.endDate.format('dd MMM yyyy')}</span> <span style="margin-left: 30px;">#{studySessionMetadata ss:studySession, ssm:studySessionMeta /}</span> <span>#{apply ss:studySession, ssm:studySessionMeta /}</span>
 </div>
 
 <div style="font-size: 1.2em; font-weight: bold; margin-top:10px; background:#F8F8F8; margin-left: 5px;">Facilitators </div>
@@ -27,15 +27,15 @@
 </div>
 
 
-<div style="font-size: 1.2em; font-weight: bold; margin-top: 10px; width:100%; background: #6b94ff;">
-	<span style="margin-left: 8px; color: white;">Study Plan</span>
+<div style="font-size: 1.2em; font-weight: bold; height: 20px; margin-top: 10px; width:100%; background: #EEE;">
+	<span style="margin-left: 8px; color: #0a7a7d;">Study Plan</span>
 </div>
 <div>
 	<ul style="list-style: none;">
 		#{list items:studySession.sessionParts, as:'sessionPart'}
 			<li style="margin-top: 10px; background:#F8F8F8;">
 				<div style="font-weight: bold; font-size: 1.2em; "><img src="/public/images/study-part.png" /><a style="margin-left: 4px;" href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a></div>
-				<div style="font-size: 0.8em;"><img src="/public/images/session-part-start.png" /> ${sessionPart.startDate.format('dd MMM yyyy')}       <img style="margin-left: 20px;" src="/public/images/session-part-end.png" /> ${sessionPart.endDate.format('dd MMM yyyy')}</div> 
+				<div style="font-size: 0.8em;"><span class="study-session-date-start">Starting ${sessionPart.startDate.format('dd MMM yyyy')}</span>   -   <span class="study-session-date-end">Ending ${sessionPart.endDate.format('dd MMM yyyy')}</span></div> 
 			</li>
 		#{/list}
 	</ul>

@@ -21,9 +21,8 @@ action = request.action;
 	#{if !actionMapping.participants.contains(action) && 
 	  	 !actionMapping.forums.contains(action) &&
 	  	 !actionMapping.resources.contains(action) &&
-	  	 !actionMapping.manage.contains(action)}
-		  
-	  	study-session-menu-item-selected
+	  	 !actionMapping.manage.contains(action)}		  
+study-session-menu-item-selected
 	#{/if}
 #{/if}
 #{else}
