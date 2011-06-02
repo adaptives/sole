@@ -29,6 +29,7 @@ public class BlogPostC extends Controller {
 							 String sanitizedTitle) {
 		
 		BlogPost blogPost = BlogPost.findBySanitizedTitleAndDate(year, month, day, sanitizedTitle);
+		notFoundIfNull(blogPost);
 		render(blogPost);
 	}
 	
