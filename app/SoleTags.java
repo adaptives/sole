@@ -113,7 +113,7 @@ public class SoleTags extends FastTags {
 
 				String htmlFormBegin = String.format("<form method=\"GET\" action=\"%s\">", actionDefinition.url);
 				String hiddenParam = String.format("<input type=\"hidden\" name=\"id\" value=\"%s\" />", studySession.id);
-				String htmlButton = "<div style=\"padding-top:5px;\"><input class=\"promotionalred submitred buttonred\" value=\"Deregister\" type=\"submit\"> </div></div>";
+				String htmlButton = "<div style=\"padding-top:5px;\"><div style=\"padding-top:5px;\"><input class=\"promotionalred submitred buttonred\" value=\"Deregister\" type=\"submit\"> </div></div>";
 				String htmlFormEnd = "</form>";
 
 				out.println(htmlFormBegin + hiddenParam + htmlButton + htmlFormEnd);
@@ -151,14 +151,14 @@ public class SoleTags extends FastTags {
 		
 		if(blogFeedUrl != null && blogFeedUrl != "") {
 			out.print("<span style=\"margin-right:5px;\">");
-			out.print("<a href=\"" + blogFeedUrl + "\">");
+			out.print("<a href=\"" + blogFeedUrl + "\" target=\"_blank\">");
 			out.print("<img src=\"/public/images/blog_feed_logo.jpg\" />");
 			out.print("</a>");
 			out.print("</span>");
 		}
 		if(twitterUrl != null && twitterUrl != "") {
 			out.print("<span style=\"margin-right:5px;\">");
-			out.print("<a href=\"" + twitterUrl + "\">");
+			out.print("<a href=\"" + twitterUrl + "\" target=\"_blank\">");
 			out.print("<img src=\"/public/images/twitter_logo.jpg\" />");
 			out.print("</a>");
 			out.print("</span>");
