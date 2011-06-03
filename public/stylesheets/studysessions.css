@@ -143,11 +143,3 @@
 	margin-left: 5px; 
 	margin-right: 5px;	
 }
-
-.study-session-menu-item-selected { 
-	background: #4183C4;
-}
-
-a.study-session-menu-item-selected { 
-	color: #fff;
-}

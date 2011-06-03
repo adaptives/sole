@@ -19,10 +19,10 @@ action = request.action;
 }%
 
 #{if _menu == 'home' && !allValidActionsList?.contains(action)}
-study-session-menu-item-selected
+submenu-item-selected
 #{/if}
 #{else}
 	#{if validActions?.contains(action)}
-study-session-menu-item-selected
+submenu-item-selected
 	#{/if}
 #{/else}

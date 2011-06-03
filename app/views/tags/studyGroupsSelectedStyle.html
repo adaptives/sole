@@ -22,11 +22,11 @@ action = request.action;
 	  	 !actionMapping.forums.contains(action) &&
 	  	 !actionMapping.resources.contains(action) &&
 	  	 !actionMapping.manage.contains(action)}		  
-study-session-menu-item-selected
+submenu-item-selected
 	#{/if}
 #{/if}
 #{else}
 	#{if validActions.contains(action)}
-		study-session-menu-item-selected
+submenu-item-selected
 	#{/if}
 #{/else}
