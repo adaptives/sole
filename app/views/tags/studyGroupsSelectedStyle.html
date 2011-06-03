@@ -1,32 +1,29 @@
 %{
-
 actionMapping = ['participants':['StudySessionC.participants'],
 			     'forums':['StudySessionC.forum', 'StudySessionC.forumQuestion', 'StudySessionSecureC.postQuestion', 'StudySessionSecureC.postAnswer'],
 			     'resources':['StudySessionC.resources'],
 			     'manage':['StudySessionSecureC.manageParticipants', 'StudySessionSecureC.manageParticipants', 'StudySessionSecureC.makeFacilitator', 'StudySessionSecureC.acceptApplication', 'StudySessionC.rejectApplication']]
 		   
 
+validControllers = ['StudySessionC', 'StudySessionSecureC']
 validActions = actionMapping.get(_menu);
 
-validControllers = ['StudySessionC', 'StudySessionSecureC']
+allValidActionsList = [];
+actionMapping.each {key, value ->
+	value.each {
+		allValidActionsList << it;
+	}
+}
 
 controller = request.controller;
-
 action = request.action;
-
 }%
 
-
-#{if _menu == 'home'}
-	#{if !actionMapping.participants.contains(action) && 
-	  	 !actionMapping.forums.contains(action) &&
-	  	 !actionMapping.resources.contains(action) &&
-	  	 !actionMapping.manage.contains(action)}		  
+#{if _menu == 'home' && !allValidActionsList?.contains(action)}
 submenu-item-selected
-	#{/if}
 #{/if}
 #{else}
-	#{if validActions.contains(action)}
+	#{if validActions?.contains(action)}
 submenu-item-selected
 	#{/if}
 #{/else}
