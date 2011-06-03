@@ -1,0 +1,28 @@
+%{
+
+actionMapping = ['forum':['CourseC.forum', 'CourseC.forumQuestion', 'CourseSecureC.postQuestion', 'CourseSecureC.postAnswer']]
+		   
+
+validActions = actionMapping.get(_menu);
+
+validControllers = ['CourseC', 'CourseSecureC']
+
+allValidActionsList = [];
+actionMapping.each {key, value ->
+	value.each {
+		allValidActionsList << it;
+	}
+}
+
+controller = request.controller;
+action = request.action;
+}%
+
+#{if _menu == 'home' && !allValidActionsList?.contains(action)}
+study-session-menu-item-selected
+#{/if}
+#{else}
+	#{if validActions?.contains(action)}
+study-session-menu-item-selected
+	#{/if}
+#{/else}

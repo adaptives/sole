@@ -1,7 +1,12 @@
 #{extends 'main.html' /}
 
-<div style="margin-bottom: 15px;">
-<a href="@{CourseC.course(course.id)}">Course Home</a> | <a href="@{CourseC.forum(course.id)}">Forum</a>
+<div class="mainsubnav">
+	<div class="subnav mainnavs">
+	<ul>
+		<li><a class="#{diyCourseSelectedStyle menu:'home' /}" href="@{CourseC.course(course.id)}">Course Home</a></li>
+		<li><a class="#{diyCourseSelectedStyle menu:'forum' /}" href="@{CourseC.forum(course.id)}">Discussion Forum</a></li>
+	</ul>
+	</div>
 </div>
 
 #{doLayout /}
