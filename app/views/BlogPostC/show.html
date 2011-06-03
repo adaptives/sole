@@ -9,6 +9,6 @@
 <div class="blog-post">
 	#{blogPost post:blogPost, as:'tpc' /}
 </div>
-<g:plusone href="@{BlogPostC.show(blogPost.postedAt.format('yyyy'), blogPost.postedAt.format('MM'), blogPost.postedAt.format('dd'), blogPost.sanitizedTitle)}" size=”tall”></g:plusone>
+
 #{commentForm controllerAction:'BlogPostC.postComment', 
 			  actionArgsMap:['postId':blogPost.id]/}
