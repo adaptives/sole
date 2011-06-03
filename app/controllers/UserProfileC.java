@@ -122,7 +122,16 @@ public class UserProfileC extends Controller {
 			List<StudySession> studySessionsParticipated = 
 				StudySession.find("select ss from StudySession ss join ss.applicationStore aps join aps.applications a where a.socialUser.id = ? and a.currentStatus = 1", userId).fetch();
 	 
-			render(userProfile, coursesEnrolled, coursesCompleted, diyQuestions, diyAnswers, studySessionsParticipated, studySessionQuestions, studySessionAnswers, tabIds, tabNames);
+			render(userProfile, 
+				   coursesEnrolled, 
+				   coursesCompleted, 
+				   diyQuestions, 
+				   diyAnswers, 
+				   studySessionsParticipated, 
+				   studySessionQuestions, 
+				   studySessionAnswers, 
+				   tabIds, 
+				   tabNames);
 		} else {
 			flash.error("We could not find the requested user");
 			render("emptypage.html");
