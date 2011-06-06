@@ -95,8 +95,10 @@ public class StudySession extends Model {
 		create();
 	}
 	
-	public static StudySession findBySanitizedTitle() {
-		return null;
+	public static StudySession findBySanitizedTitle(String sanitizedTitle) {
+		String query = "select ss from StudySession ss where ss.sanitizedTitle = ?";
+		StudySession studySession = StudySession.find(query, sanitizedTitle).first();
+		return studySession;
 	}
 	
 	public static List<StudySession> fetchCurrent() {
