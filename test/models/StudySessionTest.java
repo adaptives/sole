@@ -496,4 +496,33 @@ public class StudySessionTest extends UnitTest {
 					StudySession.findBySanitizedTitle(expectedSanitizedTitle);
 		assertEquals(expectedSanitizedTitle, retrievedStudySession.sanitizedTitle);
 	}
+	
+	@Test(expected=Exception.class)
+	public void testSanitizedTitleForUniqueness() throws Exception {
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		dateFormat.applyPattern("yyyy-MM-dd");
+		
+		//create StudySession1
+		
+		Date course1StartDate = dateFormat.parse("2011-03-04");
+		Date course1EndDate = dateFormat.parse("2011-03-14");
+
+		StudySession studySession1 = 
+			new StudySession("Javascript 101", 
+							 "Javascript 101 description", 
+							 course1StartDate, 
+							 course1EndDate);
+		studySession1.applicationText = "Please create a blog post";
+		studySession1.save();
+		
+		//create StudySession2 with the same title as studysession1
+		StudySession studySession2 = 
+			new StudySession("Javascript 101", 
+							 "Javascript 101 description", 
+							 course1StartDate, 
+							 course1EndDate);
+		studySession2.applicationText = "Please create a blog post";
+		studySession2.save();
+
+	}
 }

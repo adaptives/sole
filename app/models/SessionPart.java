@@ -5,11 +5,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+
+import other.utils.StringUtils;
 
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -19,6 +22,9 @@ import play.db.jpa.Model;
 public class SessionPart extends Model {
 	
 	public String title;	
+	
+	@Column(unique = true)
+	public String sanitizedTitle;
 	
 	public Date startDate;
 	public Date endDate;
@@ -43,11 +49,18 @@ public class SessionPart extends Model {
 					   String content,
 					   StudySession studySession) {
 		this.title = title;
+		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(title);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.content = content;
 		this.studySession = studySession;
 		this.activities = new TreeSet<Activity>();
+	}
+		
+	public static SessionPart findBySanitizedTitle(String sanitizedTitle) {
+		String query = "select sp from SessionPart sp where sp.sanitizedTitle = ?";
+		SessionPart sessionPart = SessionPart.find(query, sanitizedTitle).first();
+		return sessionPart;
 	}
 	
 	@Override
