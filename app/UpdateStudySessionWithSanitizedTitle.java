@@ -3,6 +3,7 @@ import java.util.List;
 
 import other.utils.StringUtils;
 
+import models.SessionPart;
 import models.SocialUser;
 import models.StudySession;
 import play.Play;
@@ -19,6 +20,14 @@ public class UpdateStudySessionWithSanitizedTitle extends Job {
 			if(studySession.sanitizedTitle == null) {
 				studySession.sanitizedTitle = 
 					StringUtils.replaceSpaceWithDashes(studySession.title);
+				
+				for(SessionPart sessionPart : studySession.sessionParts) {
+					if(sessionPart.sanitizedTitle == null) {
+						sessionPart.sanitizedTitle = 
+							StringUtils.replaceSpaceWithDashes(sessionPart.sanitizedTitle);						
+					}
+				}
+				
 				studySession.save();
 			}
 		}
