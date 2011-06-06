@@ -40,29 +40,45 @@ public class SoleTags extends FastTags {
 			return;
 		}
 		out.print("<span class=\"course-status\">");
-		if(studySessionMeta.canceled) {
-			out.print("This course has been cancelled");
-		}
-		else if(studySessionMeta.locked) {
-			out.println("This course is closed for further participation");
-			
-		}
-		else if(studySessionMeta.enrollmentClosed) {
-			out.print("This course is full but you can follow along without formally participating");
-		}
-		else {
-			out.print("This Course is open for enrollment. ");
-		}
+		
 		if(Security.isConnected()) {
 			String userId = Security.connected();
 			long lUserId = Long.parseLong(userId);
 			if(studySession.canEnroll(lUserId)) {
-				// We do not do anything. The _apply tag will display the link to enroll
+				if(studySessionMeta.canceled) {
+					out.print("This course has been cancelled");
+				}
+				else if(studySessionMeta.locked) {
+					out.println("This course is closed for further participation");
+					
+				}
+				else if(studySessionMeta.enrollmentClosed) {
+					out.print("This course is full but you can follow along without formally participating");
+				}
+				else {
+					out.print("This Course is open for enrollment. ");
+				}
 			} else if(studySession.applicationStore.isUserApplicationPending(lUserId)) {
-				out.print("Applcation pending approval. ");
+				if(studySessionMeta.canceled) {
+					out.print("This course has been cancelled");
+				}
+				out.print("<span style=\"color: #E06A1B; weight: bold;\">Your applcation is pending approval. You will see a Twitter mention in your timeline from @diycs once you are approved. You can also come back here to check. Since we do not ask for your email id, we cannot generate emails when someone is approved.</span>");
 			} else if(studySession.applicationStore.isUserApplicationAccepted(lUserId)) {
-				out.print("You are enrolled in this course. ");
+				out.print("<span style=\"color: green; weight: bold; font-size: 1.3em;\">You are enrolled in this course.</span> ");
 			} else if(studySession.isFacilitator(lUserId)) {
+				if(studySessionMeta.canceled) {
+					out.print("This course has been cancelled");
+				}
+				else if(studySessionMeta.locked) {
+					out.println("This course is closed for further participation");
+					
+				}
+				else if(studySessionMeta.enrollmentClosed) {
+					out.print("This course is full but you can follow along without formally participating");
+				}
+				else {
+					out.print("This Course is open for enrollment. ");
+				}
 				out.println("You are a facilitator in this course. ");
 			}
 		}
