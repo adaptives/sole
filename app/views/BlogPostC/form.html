@@ -16,7 +16,7 @@
 	#{field 'content'}
 		<div>
 			<div><label>Content</label></div>
-			<textarea rows="20" cols="80" name="${field.name}"  
+			<textarea rows="20" cols="80" name="${field.name}"  id="blog-post-content" 
 												class="${field.errorClass}">${blogPost?.content}</textarea>
 		</div>
 	#{/field}
@@ -33,3 +33,8 @@
 		<input type="reset" name="reset" value="Reset" />
 	</div>
 #{/form}
+<SCRIPT>
+	var init_obj = {element_id:'blog-post-content', window: window};
+	$.extend(true, init_obj, config_tinymce_adv);
+	tinyMCE.execCommand('mceAddFrameControl',false, init_obj);
+</SCRIPT>
