@@ -609,3 +609,49 @@ a.promotionalred:active, input.promotionalred:active {
 	
 		/* > End button Red
 -------------------------------------------------------------- */
+
+/* Pager
+-------------------------------------------------------------- */
+.fr {
+    float: left;
+}
+.pager {
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.page-sizer {
+	margin-top:20px;
+	margin-bottom:20px;
+}
+.page-numbers {
+	font-family:Trebuchet MS, Liberation Sans, DejaVu Sans, sans-serif;
+	border:1px solid #ccc;
+	color:#808185;
+	display:block;
+	float:left;
+	font-size:130%;
+	margin-right:3px;
+	padding:4px 4px 3px;
+	text-decoration:none;
+}
+.page-numbers.desc {
+	border:none;
+}
+.page-numbers:hover {
+	text-decoration:none;
+}
+.page-numbers.next, .page-numbers.prev {
+	border:1px solid #fff;
+}
+.page-numbers.current {
+	background-color:#808185;
+	border:1px solid #808185;
+	color:#fff;
+	font-weight:bold;
+}
+.page-numbers.dots {
+	border:1px solid #fff;
+}
+
+/* > End Pager
+-------------------------------------------------------------- */

@@ -1,14 +1,39 @@
 #{extends 'main.html' /}
 
 <div>
+<table>
+
+%{item_index = 0;}%
+
 #{list items:allUsers, as:'theUser'}
-	<div>
-		<span style="margin-right: 10px;">
-			<img width="48" height="48" src="@{UserProfileC.pic(theUser.id)}">
-		</span>
-		<a href="@{UserProfileC.show(theUser.id)}">${theUser.screenname}</a>
-	</div>
+	#{if item_index == 0}
+	<tr>	
+	#{/if}
+	
+	%{item_index++;}%
+	
+	<td style="padding-right: 40px; padding-left: 40px; padding-top: 20px; padding-bottom: 20px;">
+		<div>
+			<span style="margin-right: 10px;">
+				<img width="48" height="48" src="@{UserProfileC.pic(theUser.id)}">
+			</span>
+		</div>
+		<div>
+			<a href="@{UserProfileC.show(theUser.id)}">${theUser.screenname}</a>
+		</div>
+	</td>
+	#{if item_index == 3}
+	</tr>
+	%{item_index = 0;}%
+	#{/if}
 #{/list}
 
+%{
+    if(item_index != 0) {
+        out.print("</tr>");
+        item_index = 0;
+    } 
+}%
+</table>
 #{paginate controllerAction:'UserProfileC.list', size:size, page:page, pages:pages /}
 </div>

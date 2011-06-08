@@ -1,11 +1,13 @@
+<div class="pager fr">
 %{
 
 	1.upto(_pages) {
 		actionDefinition = play.mvc.Router.reverse(_controllerAction, ['page':it, 'size':_size]);
 		if(it == _page) {
-			out.println("<span style=\"margin-right:5px;\">${it}</span>");
+			out.println("<span class=\"page-numbers current\">${it}</span>");
 		} else {
-			out.print("<a style=\"margin-right:5px;\" href=\"${actionDefinition.url}\">${it}</a>");
+			out.print("<a href=\"${actionDefinition.url}\" title=\"go to page ${it}\"><span class=\"page-numbers\">${it}</span></a>");
 		}
 	}
 %}
+</div>
