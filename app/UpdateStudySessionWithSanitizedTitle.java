@@ -24,7 +24,7 @@ public class UpdateStudySessionWithSanitizedTitle extends Job {
 				for(SessionPart sessionPart : studySession.sessionParts) {
 					if(sessionPart.sanitizedTitle == null) {
 						sessionPart.sanitizedTitle = 
-							StringUtils.replaceSpaceWithDashes(sessionPart.sanitizedTitle);						
+							StringUtils.replaceSpaceWithDashes(sessionPart.title);						
 					}
 				}
 				
