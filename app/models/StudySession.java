@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
+
+import other.utils.StringUtils;
 
 import controllers.Security;
 
@@ -28,6 +31,9 @@ public class StudySession extends Model {
 									Logger.log4j.getLogger(StudySession.class);
 	
 	public String title;
+	
+	@Column(unique = true)
+	public String sanitizedTitle;
 	
 	@Lob
 	@MaxSize(20000)
@@ -74,6 +80,7 @@ public class StudySession extends Model {
 						Date startDate,
 						Date endDate) {
 		this.title = title;
+		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(title);
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -86,6 +93,12 @@ public class StudySession extends Model {
 		this.activities = new TreeSet<Activity>();
 		
 		create();
+	}
+	
+	public static StudySession findBySanitizedTitle(String sanitizedTitle) {
+		String query = "select ss from StudySession ss where ss.sanitizedTitle = ?";
+		StudySession studySession = StudySession.find(query, sanitizedTitle).first();
+		return studySession;
 	}
 	
 	public static List<StudySession> fetchCurrent() {
