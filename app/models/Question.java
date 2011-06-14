@@ -21,6 +21,7 @@ import play.db.jpa.Model;
 public class Question extends Model {
 	
 	public String title;
+	public String sanitizedTitle;
 	public String content;
 	@ManyToOne
 	public SocialUser author;

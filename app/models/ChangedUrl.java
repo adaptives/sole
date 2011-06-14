@@ -27,4 +27,8 @@ public class ChangedUrl extends Model {
 		}
 		return retVal;
 	}
+	
+	public String toString() {
+		return this.oldUrl;
+	}
 }
