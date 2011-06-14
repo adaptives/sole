@@ -143,3 +143,49 @@
 	margin-left: 5px; 
 	margin-right: 5px;	
 }
+
+/* Start New Activities */	
+	
+.activewrap{
+	position:relative;
+    line-height: 24px;
+    margin-top: 22px;
+
+}
+.activewrap{
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 22px;
+    padding:10px 10px;
+    position: relative;
+	background:#ecf9f9;
+}
+.activewrap p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	text-align:justify;
+}
+.activewrap li{
+    font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	text-align:justify;
+}
+.bdr{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	text-align:justify;
+	
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 1px;
+	border-style: ridge ridge ridge ridge;
+	border-color: #AAA;
+	border-collapse: separate;
+	background-color:#FFFFFF;
+	padding-left:3px;
+	
+}
+/*End New Activities */	
+
