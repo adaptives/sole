@@ -8,7 +8,13 @@
 	
 	#{if changedUrl != null}	    	
 		<h1>The page you have requested '${request.url}' has moved.</h1>
-		<h2>Please click <a href="${changedUrl}">here</a> to go to the new page.</h2>	    	
+		<h2>You will automatically be redirected to the new page in 4 seconds. If you are not redirected, please click <a href="${changedUrl}">here</a> to go to the new page.</h2>
+		<script language="javascript">
+		    function redirectToNewUrl() {
+		    	location.replace("${changedUrl}");	
+		    }
+		    setTimeout('redirectToNewUrl()', 4000);		    		    
+		</script>
 	#{/if}
 	#{else}
 		<h1>Not found</h1>
