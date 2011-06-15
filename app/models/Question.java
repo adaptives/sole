@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import other.utils.StringUtils;
+
 import controllers.Security;
 
 import play.Logger;
@@ -43,6 +45,7 @@ public class Question extends Model {
 	
 	public Question(String title, String content, SocialUser author) {
 		this.title = title;
+		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(this.title);
 		this.content = content;
 		this.author = author;
 		this.askedAt = new Date();
