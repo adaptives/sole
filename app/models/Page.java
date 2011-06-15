@@ -21,4 +21,9 @@ public class Page extends Model {
 		this.title = title;
 		this.content = content;
 	}
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }
