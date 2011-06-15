@@ -53,14 +53,18 @@
 	<div class="blog-post-comment-link">
 	
 		%{blogCommentsService = "blog_comments_service";}%
+		%{
+			url = "http://" + request.host;
+			url = url + request.url;
+		}%
 		<!-- Using Disqus Comments -->
 		<div id="disqus_thread"></div>
 		<script type="text/javascript">
 		    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 		    var disqus_shortname = '${models.KeyValueData.findValue(blogCommentsService)}';
     		var disqus_identifier = '${_post.id}';
-    		//var disqus_url = '@{BlogPostC.show(_post.postedAt.format('yyyy'), _post.postedAt.format('MM'), _post.postedAt.format('dd'), _post.sanitizedTitle)}';
-    		var disqus_developer = 0;
+    		var disqus_url = ${url}
+    		var disqus_developer = 1;
 		
 		    // The following are highly recommended additional parameters. Remove the slashes in front to use.
 		    // var disqus_identifier = 'unique_dynamic_id_1234';
