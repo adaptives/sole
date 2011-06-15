@@ -15,21 +15,21 @@ import play.test.Fixtures;
 public class UpdateStudySessionWithSanitizedTitle extends Job {
 	
 	public void doJob() {
-		List<StudySession> studySessions = StudySession.findAll();
-		for(StudySession studySession : studySessions) {
-			if(studySession.sanitizedTitle == null) {
-				studySession.sanitizedTitle = 
-					StringUtils.replaceSpaceWithDashes(studySession.title);
-				
-				for(SessionPart sessionPart : studySession.sessionParts) {
-					if(sessionPart.sanitizedTitle == null) {
-						sessionPart.sanitizedTitle = 
-							StringUtils.replaceSpaceWithDashes(sessionPart.title);						
-					}
-				}
-				
-				studySession.save();
-			}
-		}
+//		List<StudySession> studySessions = StudySession.findAll();
+//		for(StudySession studySession : studySessions) {
+//			if(studySession.sanitizedTitle == null) {
+//				studySession.sanitizedTitle = 
+//					StringUtils.replaceSpaceWithDashes(studySession.title);
+//				
+//				for(SessionPart sessionPart : studySession.sessionParts) {
+//					if(sessionPart.sanitizedTitle == null) {
+//						sessionPart.sanitizedTitle = 
+//							StringUtils.replaceSpaceWithDashes(sessionPart.title);						
+//					}
+//				}
+//				
+//				studySession.save();
+//			}
+//		}
 	}
 }

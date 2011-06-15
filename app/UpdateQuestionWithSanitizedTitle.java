@@ -16,11 +16,11 @@ import play.test.Fixtures;
 public class UpdateQuestionWithSanitizedTitle extends Job {
 	
 	public void doJob() {
-		List<Question> questions = Question.findAll();
-		for(Question question : questions) {
-			question.sanitizedTitle = 
-				StringUtils.replaceSpaceWithDashes(question.title);
-			question.save();
-		}
+//		List<Question> questions = Question.findAll();
+//		for(Question question : questions) {
+//			question.sanitizedTitle = 
+//				StringUtils.replaceSpaceWithDashes(question.title);
+//			question.save();
+//		}
 	}
 }
