@@ -84,17 +84,12 @@ public class StudySessionC extends Controller {
 		render(studySession, studySessionMeta);
 	}
 	
-	public static void sessionPart(long studySessionId, long id) {
-		StudySession studySession = StudySession.findById(studySessionId);
-		SessionPart sessionPart = SessionPart.findById(id);
-		if(sessionPart != null) { 
-			render(studySessionId,
-				   studySession,
-				   sessionPart);
-		} else {
-			flash.error("Sorry we could not find the Study Group Section");
-			render("emptypage.html");
-		}
+	public static void sessionPart(String sanitizedTitle, String sessionPartSanitizedTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(studySession);
+		SessionPart sessionPart = SessionPart.findBySanitizedTitle(sessionPartSanitizedTitle);
+		notFoundIfNull(sessionPart);
+		render(studySession, sessionPart);
 	}
 	
 	public static void participants(String sanitizedTitle) {
@@ -117,15 +112,11 @@ public class StudySessionC extends Controller {
 		notFoundIfNull(question);
 		render(studySession, question);
 	}
-	
-	public static void sessionPartActivityResponses(long studySessionId, long sessionPartId) {
-		SessionPart sessionPart = SessionPart.findById(sessionPartId);
-		if(sessionPart != null) {
-			render(sessionPart);
-		} else {
-			flash.error("Sorry we could not find the Study Group Section");
-			render("emptypage.html");
-		}
+
+	public static void sessionPartActivityResponses(String sanitizedTitle, String sessionPartSanitizedTitle) {
+		SessionPart sessionPart = SessionPart.findBySanitizedTitle(sessionPartSanitizedTitle);
+		notFoundIfNull(sessionPart);
+		render(sessionPart);
 	}
 	
 	public static void resources(String sanitizedTitle) {

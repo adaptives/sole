@@ -34,7 +34,7 @@
 	<ul style="list-style: none;">
 		#{list items:studySession.sessionParts, as:'sessionPart'}
 			<li style="margin-top: 10px; background:#F8F8F8;">
-				<div style="font-weight: bold; font-size: 1.2em; "><img src="/public/images/study-part.png" /><a style="margin-left: 4px;" href="@{StudySessionC.sessionPart(studySession.id, sessionPart.id)}">${sessionPart.title}</a></div>
+				<div style="font-weight: bold; font-size: 1.2em; "><img src="/public/images/study-part.png" /><a style="margin-left: 4px;" href="@{StudySessionC.sessionPart(studySession.sanitizedTitle, sessionPart.sanitizedTitle)}">${sessionPart.title}</a></div>
 				<div style="font-size: 0.8em;"><span class="study-session-date-start">Starting ${sessionPart.startDate.format('dd MMM yyyy')}</span>   -   <span class="study-session-date-end">Ending ${sessionPart.endDate.format('dd MMM yyyy')}</span></div> 
 			</li>
 		#{/list}

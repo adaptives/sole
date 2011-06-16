@@ -4,7 +4,7 @@
 
 #{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
 
-<h4> Responses received for various activities in ${sessionPart.studySession.title} : <a href="@{StudySessionC.sessionPart(sessionPart.studySession.id, sessionPart.id)}">${sessionPart.title}</a></h4>
+<h4> Responses received for various activities in ${sessionPart.studySession.title} : <a href="@{StudySessionC.sessionPart(sessionPart.studySession.sanitizedTitle, sessionPart.sanitizedTitle)}">${sessionPart.title}</a></h4>
 #{list items:sessionPart.activities, as:'activity'}
 	<h4 style="margin-top:15px; margin-bottom:15px">Activity ${activity_index} : ${activity.title}</h4>
 	#{list items:activity.activityResponses, as:'activityResponse'}
