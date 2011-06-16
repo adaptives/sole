@@ -22,7 +22,7 @@
 		#{question question:question,
         	       as:'tba',
                    controllerAction:'StudySessionC.forumQuestion',
-                   actionArgsMap:['studySessionId':studySession.id, 'questionId':question.id] /}
+                   actionArgsMap:['sanitizedTitle':studySession.sanitizedTitle, 'questionId':question.id, 'sanitizedQuestionTitle':question.sanitizedTitle] /}
                    
         <div id="answer-form" class="section-question-form">
                        #{answerForm protected:true,

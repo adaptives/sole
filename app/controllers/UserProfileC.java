@@ -116,9 +116,9 @@ public class UserProfileC extends Controller {
 			//TODO: Closed / private study session questions should not be included here
 			
 			List studySessionQuestions = 
-				StudySession.find("select distinct q, ss.id from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
+				StudySession.find("select distinct q, ss.sanitizedTitle from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
 			List studySessionAnswers = 
-				StudySession.find("select q, ss.id from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
+				StudySession.find("select q, ss.sanitizedTitle from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
 			List<StudySession> studySessionsParticipated = 
 				StudySession.find("select ss from StudySession ss join ss.applicationStore aps join aps.applications a where a.socialUser.id = ? and a.currentStatus = 1", userId).fetch();
 	 

@@ -113,7 +113,7 @@
 		<div class="userprofile-tabs-content-title">Questions asked in Study Session forums</div>
 		#{list items:studySessionQuestions, as:'studySessionQuestionDetails'}
 			<div>
-				<span>+${studySessionQuestionDetails[0].likes()}</span><a href="@{StudySessionC.forumQuestion(studySessionQuestionDetails[1], studySessionQuestionDetails[0].id)}">${studySessionQuestionDetails[0].title}</a>
+				<span>+${studySessionQuestionDetails[0].likes()}</span><a href="@{StudySessionC.forumQuestion(studySessionQuestionDetails[1], studySessionQuestionDetails[0].id, studySessionQuestionDetails[0].sanitizedTitle)}">${studySessionQuestionDetails[0].title}</a>
 			</div>
 		#{/list}
 	</div>
@@ -123,7 +123,7 @@
 		<ul style="list-style:none;">
 		#{list items:studySessionAnswers, as:'studySessionAnswerDetail'}
 			<li>
-			<span>+${studySessionAnswerDetail[0].likes()}</span><a href="@{StudySessionC.forumQuestion(studySessionAnswerDetail[1], studySessionAnswerDetail[0].id)}">${studySessionAnswerDetail[0].title}</a>
+			<span>+${studySessionAnswerDetail[0].likes()}</span><a href="@{StudySessionC.forumQuestion(studySessionAnswerDetail[1], studySessionAnswerDetail[0].id, studySessionQuestionDetails[0].sanitizedTitle)}">${studySessionAnswerDetail[0].title}</a>
 			</li>
 		#{/list}
 		</ul>

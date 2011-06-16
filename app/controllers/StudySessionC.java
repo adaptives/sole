@@ -103,24 +103,19 @@ public class StudySessionC extends Controller {
 		render(studySession, participants);
 	}
 	
-	public static void forum(long studySessionId) {
-		StudySession studySession = StudySession.findById(studySessionId);
+	public static void forum(String sanitizedTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
 		render(studySession);
 	}
 	
-	public static void forumQuestion(long studySessionId, 
-									 long questionId) {
-		StudySession studySession = StudySession.findById(studySessionId);
-		if(studySession != null) {
-			Question question = Question.findById(questionId);
-			
-			render(studySession, 
-				   question);
-		} else {
-			flash.error("Sorry we could not find the specified Forum");
-			render("emptypage.html");
-		}
-		
+	public static void forumQuestion(String sanitizedTitle, 
+									 long questionId,
+									 String sanitizedQuestionTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(studySession);
+		Question question = Question.findById(questionId);
+		notFoundIfNull(question);
+		render(studySession, question);
 	}
 	
 	public static void sessionPartActivityResponses(long studySessionId, long sessionPartId) {

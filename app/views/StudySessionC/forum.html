@@ -24,7 +24,7 @@
 	#{question question:forumQuestion,
 	           as:'t',
 			   controllerAction:'StudySessionC.forumQuestion',
-			   actionArgsMap:['studySessionId':studySession.id, 'questionId':forumQuestion.id] /}
+			   actionArgsMap:['sanitizedTitle':studySession.sanitizedTitle, 'questionId':forumQuestion.id, 'sanitizedQuestionTitle':forumQuestion.sanitizedTitle] /}
 #{/list}
 
 <!-- End forum section -->

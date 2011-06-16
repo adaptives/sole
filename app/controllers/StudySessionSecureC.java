@@ -107,6 +107,8 @@ public class StudySessionSecureC extends Controller {
 			@Required String title, @Required String content, String tags) {
 		
 		if (isParticipant(studySessionId)) {
+			StudySession studySession = StudySession.findById(studySessionId);
+			
 			SocialUser user = 
 				SocialUser.findById(Long.parseLong(Security.connected()));
 			
@@ -124,7 +126,7 @@ public class StudySessionSecureC extends Controller {
 			forum.questions.add(question);
 			forum.save();
 			createEventForQuestionActivity(user, studySessionId, question, QuestionActivityType.QUESTION);
-			StudySessionC.forum(studySessionId);
+			StudySessionC.forum(studySession.sanitizedTitle);
 		} else {
 			cLogger.info("user '" + Session.current().get(SocialAuthC.USER)
 					+ "' must be enrolled in StudySession '" + studySessionId
@@ -140,11 +142,12 @@ public class StudySessionSecureC extends Controller {
 		Question question = Question.findById(questionId);
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		if(user != null) {
+			StudySession studySession = StudySession.findById(studySessionId);
 			Answer answer = new Answer(answerContent, user, question);
 			question.answers.add(answer);
 			question.save();
 			createEventForQuestionActivity(user, studySessionId, question, QuestionActivityType.ANSWER);
-			StudySessionC.forumQuestion(studySessionId, questionId);
+			StudySessionC.forumQuestion(studySession.sanitizedTitle, questionId, question.sanitizedTitle);
 		} else {
 			cLogger.info("user '" + user.id + "' must be signed in before " +
 						 "posting answers");

@@ -6,6 +6,7 @@ import java.util.Map;
 import models.Course;
 import models.Question;
 import models.SocialUser;
+import models.StudySession;
 
 import play.mvc.Router;
 import play.mvc.Router.ActionDefinition;
@@ -35,9 +36,11 @@ public class LinkGenUtils {
 	
 	public static String getStudyGroupQuestionLink(long studySessionId, 
 												   Question question) {
+		StudySession studySession = StudySession.findById(studySessionId);
 		Map actionArgs = new HashMap();
-		actionArgs.put("studySessionId", studySessionId);
+		actionArgs.put("sanitizedTitle", studySession.sanitizedTitle);
 		actionArgs.put("questionId", question.id);
+		actionArgs.put("sanitizedQuestionTitle", question.sanitizedTitle);
 		ActionDefinition actionDef = 
 							Router.reverse("StudySessionC.forumQuestion", actionArgs);
 		return "<a href=\"" + actionDef.url + "\">" +  question.title + "</a>";
