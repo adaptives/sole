@@ -77,21 +77,19 @@ public class StudySessionC extends Controller {
 			   getDefaultStudySessionAffiliatez());
 	}
 
-	public static void studySession(long id) {
-		StudySession studySession = StudySession.findById(id);
-		if(studySession != null) {
-			StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
-			render(studySession, studySessionMeta);
-		} else {
-			flash.error("Sorry we could not find the Study Group");
-			render("emptypage.html");
-		}
+	public static void studySession(String sanitizedTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(studySession);
+		StudySessionMeta studySessionMeta = StudySessionMeta.forStudySession(studySession.id);
+		render(studySession, studySessionMeta);
 	}
 	
 	public static void sessionPart(long studySessionId, long id) {
+		StudySession studySession = StudySession.findById(studySessionId);
 		SessionPart sessionPart = SessionPart.findById(id);
 		if(sessionPart != null) { 
-			render(studySessionId, 
+			render(studySessionId,
+				   studySession,
 				   sessionPart);
 		} else {
 			flash.error("Sorry we could not find the Study Group Section");

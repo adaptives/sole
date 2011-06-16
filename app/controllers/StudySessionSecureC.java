@@ -228,11 +228,11 @@ public class StudySessionSecureC extends Controller {
         redirect(url);
 	}
 	
-	public static void application(long id, String application) {			
+	public static void application(long id, String application) {
+		StudySession studySession = StudySession.findById(id);
 		String userId = Security.connected();			
 		SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
-		if(connectedUser != null) {
-			StudySession studySession = StudySession.findById(id);
+		if(connectedUser != null) {			
 			if(studySession != null) {
 				if(studySession.facilitators.contains(connectedUser)) {
 					flash.error("You cannot enroll for this course because you are already a facilitator");
@@ -252,10 +252,16 @@ public class StudySessionSecureC extends Controller {
 		//studySession(id);
 		//We are redirecting to the original URL... TODO: Make this a utility method
 		String url = flash.get("url");
-        if(url == null) {
-        	StudySessionC.studySession(id);
+		
+		if(url == null) {
+			if(studySession != null) {
+				StudySessionC.studySession(studySession.sanitizedTitle);
+			} else {
+				StudySessionC.currentlist();
+			}        	
+        } else {		        
+        	redirect(url);
         }
-        redirect(url);
 	}
 	
 	public static void deregister(long id) {
@@ -264,11 +270,11 @@ public class StudySessionSecureC extends Controller {
 	}
 	
 	//TODO: This url should be called only via a POST request
-	public static void deregistration(long id, String cause) {						
+	public static void deregistration(long id, String cause) {
+		StudySession studySession = StudySession.findById(id);
 		String userId = Security.connected();			
 		SocialUser connectedUser = SocialUser.findById(Long.parseLong(userId));
-		if(connectedUser != null) {
-			StudySession studySession = StudySession.findById(id);
+		if(connectedUser != null) {			
 			if(studySession != null) {
 				studySession.deregister(connectedUser.id, cause);
 				//TODO: We should need only one, which one?
@@ -283,14 +289,18 @@ public class StudySessionSecureC extends Controller {
 			flash.error(MessageConstants.INTERNAL_ERROR);
 		}
 		//TODO: Could we have just rendered the view and passed id to it?
-		StudySessionC.studySession(id);
+		if(studySession != null) {
+			StudySessionC.studySession(studySession.sanitizedTitle);
+		} else {
+			StudySessionC.currentlist();
+		}		
 	}
 	
 	public static void manageParticipants(long studySessionId) {
 		if(canFacilitate(studySessionId)) {
 			StudySession studySession = StudySession.findById(studySessionId);
-			List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();
-			render(studySessionId, pendingApplications);
+			List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();			
+			render(studySessionId, studySession, pendingApplications);
 		}		
 	}
 	

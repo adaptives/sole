@@ -8,7 +8,7 @@
 #{studySessionAffiliatez studySession:studySession, location:1, flow:1 /}
 
 <div>Study Session - 
-	<a href="@{StudySessionC.studySession(studySession.id)}">${studySession.title}</a>
+	<a href="@{StudySessionC.studySession(studySession.sanitizedTitle)}">${studySession.title}</a>
 </div>
 <h3 class="study-session-title">${studySession.forum.title}</h3>
 

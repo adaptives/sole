@@ -5,7 +5,7 @@
 <div class="mainsubnav">
 	<div class="subnav mainnavs">
 	<ul>
-		<li><a class="#{studyGroupsSelectedStyle menu:'home' /}" href="@{StudySessionC.studySession(studySession.id)}">Study Group Home</a></li>
+		<li><a class="#{studyGroupsSelectedStyle menu:'home' /}" href="@{StudySessionC.studySession(studySession.sanitizedTitle)}">Study Group Home</a></li>
 		<li><a class="#{studyGroupsSelectedStyle menu:'participants'/}" href="@{StudySessionC.participants(studySession.id)}">Participants</a></li>
 		<li><a class="#{studyGroupsSelectedStyle menu:'forums' /}" href="@{StudySessionC.forum(studySession.id)}">Discussion Forum</a></li>
 		<li><a class="#{studyGroupsSelectedStyle menu:'resources'/}" href="@{StudySessionC.resources(studySession.id)}">Resources</a></li>

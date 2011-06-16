@@ -21,12 +21,12 @@
 
 	<div class="comentwrap">
 	 <div class="grid">
-	 	<a href="@{StudySessionC.studySession(_.key.id)}">
+	 	<a href="@{StudySessionC.studySession(_.key.sanitizedTitle)}">
 	 		<img src="@{StudySessionC.pic(_.key.id)}" border="0" width="60" height="60" />
 	 	</a>
 	 </div>
 	 <div class="comentwrappost-title"> 
-	 	<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
+	 	<a href="@{StudySessionC.studySession(_.key.sanitizedTitle)}">${_.key.title}</a>
 	 </div>
 	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yy')} - Ending: ${_.key.endDate.format('dd MMM yy')} </div>
 	 <div class="comentwrappost-course"> 
@@ -53,12 +53,12 @@
 
 	<div class="comentwrap">
 	 <div class="grid">
-	 	<a href="@{StudySessionC.studySession(_.key.id)}">
+	 	<a href="@{StudySessionC.studySession(_.key.sanitizedTitle)}">
 	 		<img src="@{StudySessionC.pic(_.key.id)}" border="0" width="60" height="60" />
 	 	</a>
 	 </div>
 	 <div class="comentwrappost-title"> 
-	 	<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a>
+	 	<a href="@{StudySessionC.studySession(_.key.sanitizedTitle)}">${_.key.title}</a>
 	 </div>
 	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yyyy')} - Ending: ${_.key.endDate.format('dd MMM yyyy')} </div>
 	 <div class="comentwrappost-course"> 
@@ -80,7 +80,7 @@
 <div class="study-sessions">
 #{list over}			
 	<div class="over-study-session-title">			
-		<a href="@{StudySessionC.studySession(_.key.id)}">${_.key.title}</a> <span>completed on ${_.key.endDate.format('dd MMM yy')}</span>
+		<a href="@{StudySessionC.studySession(_.key.sanitizedTitle)}">${_.key.title}</a> <span>completed on ${_.key.endDate.format('dd MMM yy')}</span>
 	</div>					
 #{/list}
 </div>

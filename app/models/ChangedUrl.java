@@ -20,8 +20,10 @@ public class ChangedUrl extends Model {
 	}
 	
 	public static String findNewUrl(String oldUrl) {
+		System.out.println("Finding new url for '" + oldUrl + "'");
 		String retVal = null;
-		ChangedUrl changedUrl =  ChangedUrl.find("select cu from ChangedUrl cu where cu.oldUrl = ?", oldUrl).first();
+		String query = "select cu from ChangedUrl cu where cu.oldUrl = ?";
+		ChangedUrl changedUrl =  ChangedUrl.find(query, oldUrl).first();
 		if(changedUrl != null) {
 			retVal = changedUrl.newUrl;
 		}

@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 
-<a href="@{StudySessionC.studySession(studySessionId)}">Back</a>
+<a href="@{StudySessionC.studySession(studySession.sanitizedTitle)}">Back</a>
 
 #{list items:pendingApplications, as:'pendingApplication'}
 	<div>
