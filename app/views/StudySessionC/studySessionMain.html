@@ -10,7 +10,7 @@
 		<li><a class="#{studyGroupsSelectedStyle menu:'forums' /}" href="@{StudySessionC.forum(studySession.sanitizedTitle)}">Discussion Forum</a></li>
 		<li><a class="#{studyGroupsSelectedStyle menu:'resources'/}" href="@{StudySessionC.resources(studySession.sanitizedTitle)}">Resources</a></li>
 		#{if session.user && studySession.canManageParticipants(session.user)}
-			<li><a #{studyGroupsSelectedStyle menu:'manage'/}" href="@{StudySessionSecureC.manageParticipants(studySession.id)}">Manage Participants</a></li>
+			<li><a #{studyGroupsSelectedStyle menu:'manage'/}" href="@{StudySessionSecureC.manageParticipants(studySession.sanitizedTitle)}">Manage Participants</a></li>
 		#{/ if}
 	</ul>
 	</div>

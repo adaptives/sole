@@ -171,11 +171,12 @@ public class StudySessionSecureC extends Controller {
 										 String comment) {
 
 		if(canFacilitate(studySessionId)) {
+			StudySession studySession = StudySession.findById(studySessionId);
 			StudySessionApplication studySessionApplication = 
 									StudySessionApplication.findById(applicationId);
 			studySessionApplication.changeStatus(1, comment);
 			studySessionApplication.save();
-			manageParticipants(studySessionId);
+			manageParticipants(studySession.sanitizedTitle);
 		}
 	}
 	
@@ -184,11 +185,12 @@ public class StudySessionSecureC extends Controller {
 			 							 String comment) {
 
 		if(canFacilitate(studySessionId)) {
+			StudySession studySession = StudySession.findById(studySessionId);
 			StudySessionApplication studySessionApplication = 
 				StudySessionApplication.findById(applicationId);
 			studySessionApplication.changeStatus(-1, comment);
 			studySessionApplication.save();
-			manageParticipants(studySessionId);
+			manageParticipants(studySession.sanitizedTitle);
 		}
 		
 	}
@@ -299,11 +301,11 @@ public class StudySessionSecureC extends Controller {
 		}		
 	}
 	
-	public static void manageParticipants(long studySessionId) {
-		if(canFacilitate(studySessionId)) {
-			StudySession studySession = StudySession.findById(studySessionId);
+	public static void manageParticipants(String sanitizedTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
+		if(canFacilitate(studySession.id)) {			
 			List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();			
-			render(studySessionId, studySession, pendingApplications);
+			render(studySession.id, studySession, pendingApplications);
 		}		
 	}
 	

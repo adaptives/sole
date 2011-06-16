@@ -25,7 +25,7 @@ GET     /studysessions/studysession/{sanitizedTitle}/resources                  
 GET     /studysessions/studysession/{sanitizedTitle}/sessionpart/{sessionPartSanitizedTitle}/activity/responses        StudySessionC.sessionPartActivityResponses
 GET     /studysessions/studysession/{sanitizedTitle}/forum                                                             StudySessionC.forum
 GET     /studysessions/studysession/{sanitizedTitle}/forum/question/{questionId}/{sanitizedQuestionTitle}              StudySessionC.forumQuestion
-GET     /studysessions/studysession/{studySessionId}/manageParticipants                                                StudySessionSecureC.manageParticipants
+GET     /studysessions/studysession/{sanitizedTitle}/manageParticipants                                                StudySessionSecureC.manageParticipants
 POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add                                       StudySessionSecureC.postQuestion
 POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} 	                           StudySessionSecureC.postAnswer
 POST    /activityresponse/{activityId}                                                                                 StudySessionSecureC.postActivityResponse
