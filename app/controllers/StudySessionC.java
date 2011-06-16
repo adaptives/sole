@@ -97,9 +97,9 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
-	public static void participants(long studySessionId) {
-		StudySession studySession = StudySession.findById(studySessionId);
-		List<SocialUser> participants = studySession.getAcceptedUsers();		
+	public static void participants(String sanitizedTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
+		List<SocialUser> participants = studySession.getAcceptedUsers();
 		render(studySession, participants);
 	}
 	
@@ -133,8 +133,8 @@ public class StudySessionC extends Controller {
 		}
 	}
 	
-	public static void resources(long studySessionId) {
-		StudySession studySession = StudySession.findById(studySessionId);
+	public static void resources(String sanitizedTitle) {
+		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
 		render(studySession);
 	}
 	

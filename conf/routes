@@ -20,7 +20,8 @@ GET     /bookgroups/bookgroup/{sanitizedTitle}/question/{questionId}  BookGroupC
 GET     /studysessions/currentlist                                                                  StudySessionC.currentlist
 GET     /studysessions/studysession/{sanitizedTitle}                                                StudySessionC.studySession
 GET     /studysessions/studysession/{studySessionId}/sessionpart/{id}                               StudySessionC.sessionPart
-GET     /studysessions/studysession/{studySessionId}/participants                                   StudySessionC.participants
+GET     /studysessions/studysession/{sanitizedTitle}/participants                                   StudySessionC.participants
+GET     /studysessions/studysession/{sanitizedTitle}/resources                                      StudySessionC.resources
 GET     /studysessions/studysession/{studySessionId}/sessionpart/{sessionPartId}/activity/responses StudySessionC.sessionPartActivityResponses
 GET     /studysessions/studysession/{studySessionId}/forum                                          StudySessionC.forum
 GET     /studysessions/studysession/{studySessionId}/forum/question/{questionId}                    StudySessionC.forumQuestion

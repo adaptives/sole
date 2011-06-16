@@ -156,7 +156,7 @@ public class StudySessionSecureC extends Controller {
 			StudySession studySession = StudySession.findById(studySessionId);
 			studySession.addFacilitator(userId);
 			studySession.save();
-			StudySessionC.participants(studySessionId);
+			StudySessionC.participants(studySession.sanitizedTitle);
 		} else {
 			cLogger.warn("Unauthorized attempt to maeFacilitator by '" + 
 						  userId + "' for course '" + studySessionId + "'");
