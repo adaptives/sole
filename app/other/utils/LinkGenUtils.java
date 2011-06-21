@@ -5,6 +5,7 @@ import java.util.Map;
 
 import models.Course;
 import models.Question;
+import models.SessionPart;
 import models.SocialUser;
 import models.StudySession;
 
@@ -49,8 +50,11 @@ public class LinkGenUtils {
 	public static String getViewAllResponsesLink(long studySessionId, 
 												 long sessionPartId) {
 		Map actionArgs = new HashMap();
-		actionArgs.put("studySessionId", studySessionId);
-		actionArgs.put("sessionPartId", sessionPartId);
+		StudySession studySession = StudySession.findById(studySessionId);
+		SessionPart sessionPart = SessionPart.findById(sessionPartId);
+		
+		actionArgs.put("sanitizedTitle", studySession.sanitizedTitle);
+		actionArgs.put("sessionPartSanitizedTitle", sessionPart.sanitizedTitle);
 		ActionDefinition actionDef = 
 							Router.reverse("StudySessionC.sessionPartActivityResponses", actionArgs);
 		return "<a href=\"" + actionDef.url + "\">" +  "response" + "</a>";

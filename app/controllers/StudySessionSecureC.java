@@ -305,7 +305,7 @@ public class StudySessionSecureC extends Controller {
 		StudySession studySession = StudySession.findBySanitizedTitle(sanitizedTitle);
 		if(canFacilitate(studySession.id)) {			
 			List<StudySessionApplication> pendingApplications = studySession.getPendingApplications();			
-			render(studySession.id, studySession, pendingApplications);
+			render(studySession, pendingApplications);
 		}		
 	}
 	

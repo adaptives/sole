@@ -14,7 +14,7 @@
 			${pendingApplication.application.raw()}
 		</div>
 		<div>
-			#{form @StudySessionSecureC.acceptApplication(studySessionId, pendingApplication.id)}
+			#{form @StudySessionSecureC.acceptApplication(studySession.id, pendingApplication.id)}
 				<div>
 					<textarea name="comment"></textarea>
 				</div>
@@ -22,7 +22,7 @@
 					<input type="submit" name="submit" value="Accept" />
 				</div>
 			#{/ form}
-			#{form @StudySessionSecureC.rejectApplication(studySessionId, pendingApplication.id)}
+			#{form @StudySessionSecureC.rejectApplication(studySession.id, pendingApplication.id)}
 				<div>
 					<textarea name="comment"></textarea>
 				</div>
