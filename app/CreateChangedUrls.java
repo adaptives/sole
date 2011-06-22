@@ -24,21 +24,13 @@ public class CreateChangedUrls extends Job {
 	public void doJob() {
 		List<Course> courses = Course.findAll();
 		for(Course course : courses) {
-			course.sanitizedTitle = StringUtils.replaceSpaceWithDashes(course.title);
-			course.save();
-			
-			Map<String, Object> argMap = new HashMap<String, Object>();
-			argMap.put("courseId", course.id);
-			ChangedUrl changedUrl = new ChangedUrl(Router.reverse("CourseC.course", argMap).url, "");
 			
 			List<CourseSection> courseSections = course.fetchSectionsByPlacement();
 			
 			for(CourseSection courseSection : courseSections) {
-				Map<String, Object> argsMap1 = new HashMap<String, Object>();
-				argsMap1.put("courseId", course.id);
-				argsMap1.put("sectionId", courseSection.id);
-				ChangedUrl changedUrlForCourseSection = 
-					new ChangedUrl(Router.reverse("CourseC.section", argsMap1).url, "");
+				courseSection.sanitizedTitle = StringUtils.replaceSpaceWithDashes(courseSection.title);
+				courseSection.save();
+				
 			}
 		}
 	}
