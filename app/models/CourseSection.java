@@ -19,6 +19,9 @@ public class CourseSection extends Model {
 	
 	@Required
 	public String title;
+	
+	public String sanitizedTitle;
+	
 	public int placement;
 	
 	@Lob

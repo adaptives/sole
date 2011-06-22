@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -22,6 +23,8 @@ public class Course extends Model {
 	
 	@Required
 	public String title;
+	
+	public String sanitizedTitle;
 	
 	@Lob
 	@MaxSize(10000)
