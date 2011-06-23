@@ -5,7 +5,7 @@
 		#{question question:question,
 	           as:'tba',
 			   controllerAction:'CourseC.forumQuestion',
-			   actionArgsMap:['courseId':course.id, 'questionId':question.id] /}
+			   actionArgsMap:['sanitizedTitle':course.sanitizedTitle, 'questionId':question.id] /}
 			   
 		<div id="answer-form" class="section-question-form">
 			#{answerForm protected:true,

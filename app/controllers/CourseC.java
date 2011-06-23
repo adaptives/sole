@@ -151,18 +151,14 @@ public class CourseC extends Controller {
 		section(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle);
 	}
 	
-	public static void forum(long courseId) {
-		Course course = Course.findById(courseId);
-		if(course != null) {
-			render(course);
-		} else {
-			flash.error("Page Not Found");
-			render("emptypage.html");
-		}
+	public static void forum(String sanitizedTitle) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		render(course);
 	}
 	
-	public static void forumQuestion(long courseId, long questionId) {
-		Course course = Course.findById(courseId);
+	public static void forumQuestion(String sanitizedTitle, long questionId) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		Question question = Question.findById(questionId);
 		render(course, question);
 	}

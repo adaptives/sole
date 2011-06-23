@@ -53,26 +53,35 @@ public class CourseSecureC extends Controller {
 		
 	}
 	
-	public static void postQuestion(long courseId, long forumId,
-			@Required String title, @Required String content, String tags) {
+	public static void postQuestion(long courseId, 
+									long forumId,
+									@Required String title, 
+									@Required String content, 
+									String tags) {
 
 		SocialUser user = SocialUser.findById(Long.parseLong(Security
 				.connected()));
-
+		Course course = Course.findById(courseId);
+		
 		Forum forum = Forum.findById(forumId);
-		Question question = new Question(title, content, user);
-		if (tags != null) {
-			String tagArray[] = tags.split(",");
-			if (tagArray != null) {
-				for (String tag : tagArray) {
-					question.tagWith(tag);
+		if(user != null && course != null && forum != null) {
+			Question question = new Question(title, content, user);
+			if (tags != null) {
+				String tagArray[] = tags.split(",");
+				if (tagArray != null) {
+					for (String tag : tagArray) {
+						question.tagWith(tag);
+					}
 				}
 			}
-		}
 
-		forum.questions.add(question);
-		forum.save();
-		CourseC.forum(courseId);
+			forum.questions.add(question);
+			forum.save();
+			CourseC.forum(course.sanitizedTitle);
+		} else {
+			//TODO: What do we do here?
+		}
+		
 	}
 	
 	public static void postAnswer(long courseId,
@@ -80,12 +89,13 @@ public class CourseSecureC extends Controller {
 			  					  long questionId,
 			  					  String answerContent) {
 		
+		Course course = Course.findById(courseId);
 		Question question = Question.findById(questionId);
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();
-		CourseC.forumQuestion(courseId, questionId);
+		CourseC.forumQuestion(course.sanitizedTitle, questionId);
 	}
 	
 }

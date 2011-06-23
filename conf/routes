@@ -3,19 +3,19 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
-GET     /courses/list                           CourseC.list
-GET     /courses/course/{sanitizedTitle}        CourseC.course
-GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}     CourseC.section
-GET     /courses/course/section/{sectionId}/question/{questionId} CourseC.question
-POST    /courses/course/section{sectionId}/question CourseC.addQuestion
-GET     /courses/course/{courseId}/forum        CourseC.forum
-GET     /courses/course/{courseId}/question/{questionId}  CourseC.forumQuestion
+GET     /                                       								Application.index
+GET     /courses/list                           								CourseC.list
+GET     /courses/course/{sanitizedTitle}        								CourseC.course
+GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}  CourseC.section
+GET     /courses/course/section/{sectionId}/question/{questionId} 				CourseC.question
+POST    /courses/course/section{sectionId}/question 							CourseC.addQuestion
+GET     /courses/course/{sanitizedTitle}/forum        							CourseC.forum
+GET     /courses/course/{sanitizedTitle}/question/{questionId}  				CourseC.forumQuestion
 
-GET     /bookgroups/list/{page}/{size}           BookGroupC.list
-GET     /bookgroups/show/{sanitizedTitle}/{page}/{size}        BookGroupC.show
-GET     /bookgroups/show/{sanitizedTitle}        BookGroupC.show
-GET     /bookgroups/bookgroup/{sanitizedTitle}/question/{questionId}  BookGroupC.forumQuestion
+GET     /bookgroups/list/{page}/{size}           								BookGroupC.list
+GET     /bookgroups/show/{sanitizedTitle}/{page}/{size}        					BookGroupC.show
+GET     /bookgroups/show/{sanitizedTitle}        								BookGroupC.show
+GET     /bookgroups/bookgroup/{sanitizedTitle}/question/{questionId}  			BookGroupC.forumQuestion
 
 GET     /studysessions/currentlist                                                                                     StudySessionC.currentlist
 GET     /studysessions/studysession/{sanitizedTitle}                                                                   StudySessionC.studySession

@@ -34,7 +34,7 @@
 		</div>
 	</div>
 #{/list}
-<div class="comment-form-header">Leave a comment. You can also ask questions on the course <a href="@{CourseC.forum(courseSection.course.id)}">forum</a>.</div>
+<div class="comment-form-header">Leave a comment. You can also ask questions on the course <a href="@{CourseC.forum(courseSection.course.sanitizedTitle)}">forum</a>.</div>
 <div class="comment-form">
 	#{form @CourseC.comment(courseSection.course.id, courseSection.id)}
 		<p>

@@ -6,7 +6,7 @@
 			#{question question:forumQuestion,
 	           		   as:'t',
 			           controllerAction:'CourseC.forumQuestion',
-			           actionArgsMap:['courseId':course.id, 'questionId':forumQuestion.id] /}
+			           actionArgsMap:['sanitizedTitle':course.sanitizedTitle, 'questionId':forumQuestion.id] /}
 		</div>
 	#{/list}	
 </div>
