@@ -32,7 +32,7 @@ public class CourseSectionTest extends UnitTest {
 		List<CourseSection> courseSections = CourseSection.findAll();
 		assertEquals(3, courseSections.size());
 		
-		CourseSection retrievedSection1 = CourseSection.find("byCourse", javaCourse).first();
+		CourseSection retrievedSection1 = CourseSection.findBySanitizedTitleByCouse(javaCourse, "section-1");
 		assertEquals(section1, retrievedSection1);
 	}
 	

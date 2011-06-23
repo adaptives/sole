@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import other.utils.StringUtils;
+
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -44,7 +46,17 @@ public class CourseSection extends Model {
 	public CourseSection(Course course, String title, String content) {
 		this.course = course;
 		this.title = title;
+		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(this.title);
 		this.content = content;
+	}
+	
+	public static CourseSection findBySanitizedTitleByCouse(Course course, 
+															String sanitizedTitle) {
+		
+		String query = "select cs from CourseSection cs where cs.course.id = ? and cs.sanitizedTitle = ?";
+		CourseSection courseSection = 
+			CourseSection.find(query, course.id, sanitizedTitle).first();
+		return courseSection;
 	}
 
 	@Override

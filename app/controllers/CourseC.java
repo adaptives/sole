@@ -57,7 +57,8 @@ public class CourseC extends Controller {
 		}		
 	}
 	
-	public static void section(long courseId, long sectionId) {
+	public static void section(String sanitizedTitle, 
+							   String courseSectionSanitizedTitle) {
 		List<String> tabIds = new ArrayList<String>();
 		tabIds.add("questions");
 		tabIds.add("selected-question");
@@ -67,7 +68,9 @@ public class CourseC extends Controller {
 		tabNames.add("Selected Question");
 		tabNames.add("Comments");
 		
-		CourseSection courseSection = CourseSection.findById(sectionId);
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		CourseSection courseSection = CourseSection.findBySanitizedTitleByCouse(course, courseSectionSanitizedTitle);
+		
 		if(courseSection != null) {
 			render("CourseC/section.html", courseSection, tabIds, tabNames);
 		} else {
@@ -145,7 +148,7 @@ public class CourseC extends Controller {
 		Comment comment = new Comment(message, name, email, website);
 		courseSection.comments.add(comment);
 		courseSection.save();
-		section(courseId, courseSection.id);
+		section(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle);
 	}
 	
 	public static void forum(long courseId) {

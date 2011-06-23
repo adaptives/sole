@@ -14,7 +14,7 @@
 #{list items:courseSections, as:'section'}
 	
 	<div class="course-section-link">
-		<a href="@{CourseC.section(course.id, section.id)}">${section.title}</a>
+		<a href="@{CourseC.section(course.sanitizedTitle, section.sanitizedTitle)}">${section.title}</a>
 	</div>
 	
 #{/list}
