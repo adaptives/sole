@@ -30,5 +30,6 @@ public class CourseTest extends UnitTest {
 		
 		Course retrievedJavaCourse = Course.find("byTitle", "Introduction to Java").first();
 		assertEquals(javaCourse, retrievedJavaCourse);
+		assertEquals("introduction-to-java", javaCourse.sanitizedTitle);
 	}
 }

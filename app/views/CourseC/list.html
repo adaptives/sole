@@ -13,12 +13,12 @@
 
 	<div class="comentwrap">
 	 <div class="grid">
-	 	<a href="@{CourseC.course(course.id)}">
+	 	<a href="@{CourseC.course(course.sanitizedTitle)}">
 	 		<img src="@{CourseC.pic(course.id)}" border="0" width="40" height="40" />
 	 	</a>
 	 </div>
 	 <div class="comentwrappost-title"> 
-	 	<a href="@{CourseC.course(course.id)}">${course.title}</a>
+	 	<a href="@{CourseC.course(course.sanitizedTitle)}">${course.title}</a>
 	 </div>
 	 
 	 <div class="comentwrappost-datetime"> </div>

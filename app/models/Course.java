@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import other.utils.StringUtils;
+
 import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -52,6 +54,7 @@ public class Course extends Model {
 	
 	public Course(String title, String description) {
 		this.title = title;
+		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(this.title);
 		this.description = description;
 		this.activities = new TreeSet<Activity>();
 		this.forum = new Forum(this.title, 
@@ -101,6 +104,11 @@ public class Course extends Model {
 	public List<CourseSection> fetchSectionsByPlacement() {
 		return CourseSection.
 					find("course = ? order by placement asc", this).fetch();
+	}
+	
+	public static Course findBySanitizedTitle(String sanitizedTitle) {
+		Course course = Course.find("select c from Course c where c.sanitizedTitle = ?", sanitizedTitle).first();
+		return course;
 	}
 	
 	public List<Question> getQuestionsAskedBySocialUser(long userId) {

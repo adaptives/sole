@@ -36,15 +36,11 @@ public class CourseC extends Controller {
 		render(courses);
 	}
 	
-	public static void course(long courseId) {
-		Course course = Course.find("byId", courseId).first();
-		if(course != null) {
-			List<CourseSection> courseSections = course.fetchSectionsByPlacement();
-			render(course, courseSections);
-		} else {
-			flash.error("Sorry we could not find the course");
-			render("emptypage.html");
-		}
+	public static void course(String sanitizedTitle) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);		
+		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
+		render(course, courseSections);		
 	}
 	
 	public static void pic(long courseId) {

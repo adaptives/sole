@@ -76,7 +76,7 @@
 		<div class="userprofile-tabs-content-title">Courses enrolled</div>
 		#{list items:coursesEnrolled, as:'courseEn'}
 			<div style="margin-bottom:5px;">
-			Enrolled in <a href="@{CourseC.course(courseEn.id)}">${courseEn.title}</a>, asked ${courseEn.getQuestionsAskedBySocialUser(userProfile.user.id).size()} questions, provided ${courseEn.getAnswersGivenBySocialUser(userProfile.user.id).size()} answers.
+			Enrolled in <a href="@{CourseC.course(courseEn.sanitizedTitle)}">${courseEn.title}</a>, asked ${courseEn.getQuestionsAskedBySocialUser(userProfile.user.id).size()} questions, provided ${courseEn.getAnswersGivenBySocialUser(userProfile.user.id).size()} answers.
 			</div>
 		#{/list}
 	</div>
@@ -84,7 +84,7 @@
 	<div class="userprofile-tabs-content">
 		<div class="userprofile-tabs-content-title">Courses completed</div>
 		#{list items:coursesCompleted, as:'courseCo'}
-			<a href="@{CourseC.course(courseCo.id)}">${courseCo.title}</a>
+			<a href="@{CourseC.course(courseCo.sanitizedTitle)}">${courseCo.title}</a>
 		#{/list}
 	</div>
 	

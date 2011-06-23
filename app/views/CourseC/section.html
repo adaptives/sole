@@ -4,7 +4,7 @@
 %{
 	flash.put("url", request.method == "GET" ? request.url : "/");
 }%
-<h3 class="course-section-title"><a href="@{CourseC.course(courseSection.course.id)}">${courseSection.course.title}</a> : ${courseSection.title}</h3>
+<h3 class="course-section-title"><a href="@{CourseC.course(courseSection.course.sanitizedTitle)}">${courseSection.course.title}</a> : ${courseSection.title}</h3>
 <div class="course-description">
 	${courseSection.content.nl2br()}
 </div>

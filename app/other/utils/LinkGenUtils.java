@@ -29,7 +29,7 @@ public class LinkGenUtils {
 	
 	public static String getDIYCourseLink(Course course) {
 		Map actionArgs = new HashMap();
-		actionArgs.put("courseId", course.id);
+		actionArgs.put("sanitizedTitle", course.sanitizedTitle);
 		ActionDefinition actionDef = 
 							Router.reverse("CourseC.course", actionArgs);
 		return "<a href=\"" + actionDef.url + "\">" +  course.title + "</a>";

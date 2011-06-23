@@ -45,7 +45,7 @@ public class CourseSecureC extends Controller {
 						  "while trying to enroll a user");
 			flash.error(MessageConstants.INTERNAL_ERROR);
 		}
-		CourseC.course(courseId);
+		CourseC.course(course.sanitizedTitle);
 	}
 	
 	//TODO: Implement

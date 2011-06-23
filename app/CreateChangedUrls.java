@@ -22,16 +22,16 @@ import play.test.Fixtures;
 public class CreateChangedUrls extends Job {
 	
 	public void doJob() {
-		List<Course> courses = Course.findAll();
-		for(Course course : courses) {
-			
-			List<CourseSection> courseSections = course.fetchSectionsByPlacement();
-			
-			for(CourseSection courseSection : courseSections) {
-				courseSection.sanitizedTitle = StringUtils.replaceSpaceWithDashes(courseSection.title);
-				courseSection.save();
-				
-			}
-		}
+//		List<Course> courses = Course.findAll();
+//		for(Course course : courses) {
+//			
+//			List<CourseSection> courseSections = course.fetchSectionsByPlacement();
+//			
+//			for(CourseSection courseSection : courseSections) {
+//				courseSection.sanitizedTitle = StringUtils.replaceSpaceWithDashes(courseSection.title);
+//				courseSection.save();
+//				
+//			}
+//		}
 	}
 }
