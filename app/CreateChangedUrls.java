@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import other.utils.StringUtils;
 
@@ -33,5 +35,62 @@ public class CreateChangedUrls extends Job {
 //				
 //			}
 //		}
+		
+		List<ChangedUrl> changedUrls = ChangedUrl.findAll();
+		for(ChangedUrl changedUrl : changedUrls) {
+			if(changedUrl.newUrl.equals("")) {
+				System.out.println("Evaluating url '" + changedUrl.oldUrl + "'");
+				///courses/course/5
+				String oldUrl = changedUrl.oldUrl;
+				String pattern = "/courses/course/(\\d)$";
+				Pattern p = Pattern.compile(pattern);
+				Matcher matcher = p.matcher(oldUrl);
+				
+				boolean matches = matcher.matches();
+				int groupCount = matcher.groupCount();
+				
+				if(matches && groupCount > 0) {
+					int groupStart = matcher.start(1);
+					int groupEnd = matcher.end(1);
+					String groupValue = oldUrl.substring(groupStart, groupEnd);
+					long courseId = Long.valueOf(groupValue);					
+					Course course = Course.findById(courseId);
+					if(course != null) {
+						String newUrl = oldUrl.replaceAll("/\\d", "/" + course.sanitizedTitle);
+						changedUrl.newUrl = newUrl;
+						changedUrl.save();
+						System.out.println("Changed url from '" + oldUrl + "' to '" + newUrl);
+					}
+				} else {
+					// /courses/course/5/section/84
+					pattern = "/courses/course/(\\d)/section/(\\d+)$";
+					p = Pattern.compile(pattern);
+					matcher = p.matcher(oldUrl);
+					matches = matcher.matches();
+					groupCount = matcher.groupCount();
+					if(matches && groupCount > 1) {
+						int group1Start = matcher.start(1);
+						int group1End = matcher.end(1);
+						String sCourseId = oldUrl.substring(group1Start, group1End);
+						long courseId = Long.valueOf(sCourseId);					
+						Course course = Course.findById(courseId);
+						
+						int group2Start = matcher.start(2);
+						int group2End = matcher.end(2);
+						String sCourseSectionId = oldUrl.substring(group2Start, group2End);
+						long courseSectionId = Long.valueOf(sCourseSectionId);
+						CourseSection courseSection = CourseSection.findById(courseSectionId);
+							
+						if(course != null && courseSection != null) {
+							String newUrl = oldUrl.replaceAll("/\\d+/", "/" + course.sanitizedTitle + "/");
+							newUrl = newUrl.replaceAll("/\\d+$", "/" + courseSection.sanitizedTitle);
+							changedUrl.newUrl = newUrl;
+							changedUrl.save();
+							System.out.println("Changed url from '" + oldUrl + "' to '" + newUrl);
+						}
+					}
+				}
+			}
+		}
 	}
 }
