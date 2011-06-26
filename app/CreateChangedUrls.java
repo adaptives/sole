@@ -58,7 +58,6 @@ public class CreateChangedUrls extends Job {
 						String newUrl = oldUrl.replaceAll("/\\d", "/" + course.sanitizedTitle);
 						changedUrl.newUrl = newUrl;
 						changedUrl.save();
-						System.out.println("Changed url from '" + oldUrl + "' to '" + newUrl);
 					}
 				} else {
 					// /courses/course/5/section/84
