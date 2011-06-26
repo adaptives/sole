@@ -1,7 +1,5 @@
 #{extends 'main.html' /}
 
-<strong style="color:green;">Coming soon ...</strong>
-*{
 #{list items:bookGroups, as:'bookGroup'}
 	<div>
 		<a href="@{BookGroupC.show(bookGroup.sanitizedTitle)}">${bookGroup.book.title}</a>
@@ -11,4 +9,3 @@
 <div>
 	#{paginate controllerAction:'BookGroupC.list', size:size, page:page, pages:pages /}
 </div>
-}*

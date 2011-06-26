@@ -21,7 +21,6 @@ public class BookGroupC extends Controller {
 				fetch((int)page, (int)size);
 		
 		long count = BookGroup.count();
-		
 		int pages = (int)(count/size);
 		if(count % size > 0) {
 			pages++;
@@ -34,17 +33,22 @@ public class BookGroupC extends Controller {
 		render(bookGroups, page, size, pages);
 	}
 	
-	public static void show(String sanitizedTitle, long page, long size) {
-		flash.put("url", request.method == "GET" ? request.url : "/blog");
-		if(!(page > 0) || !(size > 0)) {
-			show(sanitizedTitle, 1, 25);
-		}
-		
+	public static void show(String sanitizedTitle) {		
 		BookGroup bookGroup = BookGroup.findBySanitizedTitle(sanitizedTitle);		
-		render(bookGroup, page, size);
+		render(bookGroup);
 	}
 	
-	public static void forumQuestion(String sanitizedTitle, long questionId) {
+	public static void forum(String sanitizedTitle) {
+		String originalDestination = request.method == "GET" ? request.url : "/bookgroups"; 
+		flash.put("url", originalDestination);
+		BookGroup bookGroup = BookGroup.findBySanitizedTitle(sanitizedTitle);
+		render(bookGroup);
+	}
+	
+	public static void forumQuestion(String sanitizedTitle, 
+									 long questionId, 
+									 String sanitizedQuestionTitle) {
+		
 		BookGroup bookGroup = BookGroup.findBySanitizedTitle(sanitizedTitle);
 		Question question = Question.findById(questionId);
 		

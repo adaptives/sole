@@ -56,11 +56,12 @@ UserProfile(learnerdudeProfile):
     
                         
 Forum(junit40Apr2011Forum):
-    title: JUnit 4.0 forum
+    title: JUnit 4.0 forum    
     description: This forum is meant to discuss doubts in course on Test driven development with JUnit 4.0
 
 StudySession(junit40Apr2011):
-    title:          Test Driven Development with JUnit 4.0    
+    title:          Test Driven Development with JUnit 4.0
+    sanitizedTitle: test-driven-development-with-jUnit-40    
     startDate:      2011-05-07
     endDate:        2011-06-17
     forum:          junit40Apr2011Forum

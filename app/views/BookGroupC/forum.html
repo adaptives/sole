@@ -1,2 +1,31 @@
 #{extends 'BookGroupC/bookGroupMain.html' /}
 
+<div style="background-color: #B2F792; color: green; line-height:30px; margin-top: 40px;"><h4 style="padding: 4px;">Discuss the book</h4></div>
+
+<!--Start forum section -->
+<div id="CALeft">
+<div id="listA">
+
+#{list bookGroup.forum.questions, as:'forumQuestion'}
+	#{question question:forumQuestion,
+	           as:'t',
+			   controllerAction:'BookGroupC.forumQuestion',
+			   actionArgsMap:['sanitizedTitle':bookGroup.sanitizedTitle, 'questionId':forumQuestion.id, 'sanitizedQuestionTitle':forumQuestion.sanitizedTitle] /}
+#{/list}
+
+<!-- End forum section -->
+</div>
+</div>
+
+
+<div id="question-form" class="section-question-form">
+		#{if session.user}
+			#{questionForm controllerAction:'BookGroupSecureC.postQuestion', 
+						   actionArgsMap:['bookGroupId':bookGroup.id,'forumId':bookGroup.forum.id] /}
+		#{/ if}
+		#{else}
+			Please <a href="@{Secure.login}">login</a> to post questions.			
+		#{/else}
+		
+</div> 
+

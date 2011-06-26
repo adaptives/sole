@@ -1,41 +1,24 @@
-#{extends 'main.html' /}
+#{extends 'BookGroupC/bookGroupMain.html' /}
 
 <h4>Book</h4>
 <div>
-	${bookGroup.book.title}
+	<span style="font-weight: bold;">Title: </span> ${bookGroup.book.title}
+</div>
+<div>
+	<span style="font-weight: bold;">Authors: </span>  
+	#{list items:bookGroup.book.authors, as:'author'} 
+	    ${author.firstName} ${author.lastName}, 
+	#{/list}
 </div>
 
 <div>
 	#{if !bookGroup.hasStartedReading(session.user) && !bookGroup.hasCompletedReading(session.user)}
-		<a href="#">I am going to start reading this book</a>		
+				
 	#{/if}
 	#{elseif bookGroup.hasStartedReading(session.user) && !bookGroup.hasCompletedReading(session.user)}
-		<a href="#">I have completed reading this book</a>
+		
 	#{/elseif}
 	#{else}
-		<a href="#">You have finished reading this reading this book</a>
+		
 	#{/else}
 </div>
-
-<div style="background-color: #B2F792; color: green; line-height:30px; margin-top: 40px;"><h4 style="padding: 4px;">Discuss the book</h4></div>
-
-<div>
-	#{list items:bookGroup.getPagedQuestions(page, size), as:'forumQuestion'}
-		<div>
-			#{question question:forumQuestion,
-	           		   as:'t',
-			           controllerAction:'BookGroupC.forumQuestion',
-			           actionArgsMap:['sanitizedTitle':bookGroup.sanitizedTitle, 'questionId':forumQuestion.id] /}
-		</div>
-	#{/list}	
-</div>
-<div id="question-form" class="section-question-form">
-		#{if session.user}
-			#{questionForm controllerAction:'BookGroupSecureC.postQuestion', 
-						   actionArgsMap:['bookGroupId':bookGroup.id,'forumId':bookGroup.forum.id] /}
-		#{/ if}
-		#{else}
-			Please <a href="@{Secure.login}">login</a> to post questions.			
-		#{/else}
-		
-</div> 

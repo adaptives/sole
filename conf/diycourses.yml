@@ -1,9 +1,12 @@
 Forum(STATDMForum):
     title: Statistical Aspects of Data Mining (Data Mining at Google)
-    description: Forum for discussing quesitons relatedf to Statistical Aspects of Data Mining (Data Mining at Google)
+    sanitizedTitle: statistical-aspects-of-data-mining-data-mining-at-google
+    description: Forum for discussing questions related to Statistical Aspects of Data Mining (Data Mining at Google)
     
 Course(STATDM):
     title:          Statistical Aspects of Data Mining (Data Mining at Google)
+    sanitizedTitle:          statistical-aspects-of-data-mining-data-mining-at-google
+    sanitizedTitle: statistical-aspects-of-data-mining-data-mining-at-google
     forum:          STATDMForum
     description:    >
                     <p>This course is a talk series being given at Google by David Mease based on a Master's level stats course he taught at Stanford in 2007. The main topics are exploring and visualizing data, association analysis, classification, and clustering.<br />-short-
@@ -16,6 +19,8 @@ Course(STATDM):
 
 CourseSection(STATDM1):
     title:         Lecture 1
+    sanitizedTitle:         lecture-1
+    sanitizedTitle: lecture-1
     content:       >
                    <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/zRsMEl6PHhM?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     1
@@ -23,6 +28,8 @@ CourseSection(STATDM1):
 
 CourseSection(STATDM2):
     title:         Lecture 2
+    sanitizedTitle:         lecture-2
+    sanitizedTitle: lecture-2
     content:       >
                    <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/YFC2KUmEebc?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     2
@@ -30,6 +37,8 @@ CourseSection(STATDM2):
 
 CourseSection(STATDM3):
     title:      Lecture 3
+    sanitizedTitle:      lecture-3
+    sanitizedTitle: lecture-3
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/1HAAF4UT75o?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     3
@@ -37,6 +46,8 @@ CourseSection(STATDM3):
 
 CourseSection(STATDM4):
     title:      Lecture 4
+    sanitizedTitle:      lecture-4
+    sanitizedTitle: lecture-4
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/qBcI9WakS2o?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     4
@@ -44,6 +55,8 @@ CourseSection(STATDM4):
 
 CourseSection(STATDM5):
     title:      Lecture 5
+    sanitizedTitle:      lecture-5
+    sanitizedTitle: lecture-5
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/iXCPJNT9ZOQ?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     5
@@ -51,6 +64,8 @@ CourseSection(STATDM5):
 
 CourseSection(STATDM6):
     title:      Lecture 6
+    sanitizedTitle:      lecture-6
+    sanitizedTitle: lecture-6
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/XzxGnF_eiNo?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     6
@@ -58,6 +73,8 @@ CourseSection(STATDM6):
 
 CourseSection(STATDM7):
     title:      Lecture 7
+    sanitizedTitle:      lecture-7
+    sanitizedTitle: lecture-7
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/FoKxzorQIhU?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     7
@@ -65,6 +82,8 @@ CourseSection(STATDM7):
 
 CourseSection(STATDM8):
     title:      Lecture 8
+    sanitizedTitle:      lecture-8
+    sanitizedTitle: lecture-8
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/N5i85v0ckzY?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:     8
@@ -72,6 +91,8 @@ CourseSection(STATDM8):
 
 CourseSection(STATDM9):
     title:      Lecture 9
+    sanitizedTitle:      lecture-9
+    sanitizedTitle: lecture-9
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/xpuB9ydmBsM?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:  9
@@ -79,6 +100,8 @@ CourseSection(STATDM9):
 
 CourseSection(STATDM10):
     title:      Lecture 10
+    sanitizedTitle:      lecture-10
+    sanitizedTitle: lecture-10
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/CzvgrcQhWGg?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:  10
@@ -86,6 +109,8 @@ CourseSection(STATDM10):
 
 CourseSection(STATDM11):
     title:      Lecture 11
+    sanitizedTitle:      lecture-11
+    sanitizedTitle: lecture-11
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/l4a3e__QzoY?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:  11
@@ -93,6 +118,8 @@ CourseSection(STATDM11):
 
 CourseSection(STATDM12):
     title:      Lecture 12
+    sanitizedTitle:      lecture-12
+    sanitizedTitle: lecture-12
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/fmZYH3rmqDQ?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:  12
@@ -100,6 +127,8 @@ CourseSection(STATDM12):
 
 CourseSection(STATDM13):
     title:      Lecture 13
+    sanitizedTitle:      lecture-13
+    sanitizedTitle: lecture-13
     content:    >
                 <iframe title="YouTube video player" width="480" height="390" src="http://www.youtube.com/embed/-tWS0tN8sW0?rel=0" frameborder="0" allowfullscreen></iframe>
     placement:  13
@@ -108,16 +137,21 @@ CourseSection(STATDM13):
 
 Forum(SICPForum):
     title: Structure And Interpretation Of Computer Programs
+    sanitizedTitle: structure-and-interpretation-of-computer-programs
     description: This forum is meant to discuss doubts in course on Structure And Interpretation Of Computer Programs
 
 Course(SICP):
     title:        Structure And Interpretation Of Computer Programs
+    sanitizedTitle:        structure-and-interpretation-of-computer-programs
+    sanitizedTitle: structure-and-interpretation-of-computer-programs
     forum:        SICPForum
     description:  >
                   <p>This course introduces students to the principles of computation. Upon completion of this course, students should be able to explain and apply the basic methods from programming languages to analyze computational systems, and to generate computational solutions to abstract problems.<br /><br/><br />Substantial weekly programming assignments are an integral part of the course. These twenty video lectures by Hal Abelson and Gerald Jay Sussman are a complete presentation of the course, given in July 1986 for Hewlett-Packard employees, and professionally produced by Hewlett-Packard Television. These videos are also available here under a Creative Commons license compatible with commercial use.<br /><br/>The full text of the course text book is available <a href="http://mitpress.mit.edu/sicp/">here</a>.</p>
 
 CourseSection(SICP1):
     title:        Introduction to LISP
+    sanitizedTitle:        introduction-to-lisp
+    sanitizedTitle: introduction-to-lisp
     content:      >
                   <p>In this session we introduce the LISP programming language.</p>
                   <p><object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/2Op3QLzMgSY&amp;hl=en&amp;fs=1&amp;"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/2Op3QLzMgSY&amp;hl=en&amp;fs=1&amp;" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object></p>
@@ -126,6 +160,8 @@ CourseSection(SICP1):
 
 CourseSection(SICP2):
     title:      Procedures and processes
+    sanitizedTitle:      procedures-and-processes
+    sanitizedTitle: procedures-and-processes
     content:    >
                 <p>
                 In this lecture we discuss procedures, processes, and the substitution model.
@@ -138,6 +174,7 @@ CourseSection(SICP2):
 
 CourseSection(SICP3):
     title:      High order procedures
+    sanitizedTitle:      high-order-procedures
     content:    >
                 <p>
                 <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/erHp3r6PbJk&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/erHp3r6PbJk&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
@@ -147,6 +184,7 @@ CourseSection(SICP3):
 
 CourseSection(SICP4):
     title:      Compound data
+    sanitizedTitle:      compound-data
     content:    >
                 <p>
                 <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/ymsbTVLbyN4&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/ymsbTVLbyN4&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
@@ -156,6 +194,7 @@ CourseSection(SICP4):
 
 CourseSection(SICP5):
     title:      Henderson Escher example
+    sanitizedTitle:      henderson-escher-example
     content:    >
                 <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/2QgZVYI3tDs&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/2QgZVYI3tDs&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    5                
@@ -163,6 +202,7 @@ CourseSection(SICP5):
 
 CourseSection(SICP6):
     title:      Symbolic differentiation
+    sanitizedTitle:      symbolic-differentiation
     content:    >
                 <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/X21cKVtGvYk&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/X21cKVtGvYk&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    6
@@ -170,6 +210,7 @@ CourseSection(SICP6):
 
 CourseSection(SICP7):
     title:    Pattern matching and rule based substitution
+    sanitizedTitle:    pattern-matching-and-rule-based-substitution
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/amf5lTZ0UTc&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/amf5lTZ0UTc&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    7
@@ -177,6 +218,7 @@ CourseSection(SICP7):
 
 CourseSection(SICP8):
     title:    Generic operators
+    sanitizedTitle:    generic-operators
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/h6Z7vx9iUB8&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/h6Z7vx9iUB8&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    8
@@ -184,6 +226,7 @@ CourseSection(SICP8):
 
 CourseSection(SICP9):
     title:    Assignment, state, and side effects
+    sanitizedTitle:    assignment-state-and-side-effects
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/jl8EHP1WrWY&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/jl8EHP1WrWY&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    9
@@ -191,6 +234,7 @@ CourseSection(SICP9):
 
 CourseSection(SICP10):
     title:    Computational objects
+    sanitizedTitle:    computational-objects
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/SsBxcpkyMMw&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/SsBxcpkyMMw&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    10
@@ -198,6 +242,7 @@ CourseSection(SICP10):
 
 CourseSection(SICP11):
     title:    Streams part 1
+    sanitizedTitle:    streams-part-1
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/a2Qt9uxhNSM&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/a2Qt9uxhNSM&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    11
@@ -205,6 +250,7 @@ CourseSection(SICP11):
 
 CourseSection(SICP12):
     title:    Streams part 2
+    sanitizedTitle:    streams-part-2
     content:  >
               <object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/DCub3iqteuI&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/DCub3iqteuI&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>
     placement:    12
@@ -212,6 +258,7 @@ CourseSection(SICP12):
 
 CourseSection(SICP13):
     title:    Metacircular evaluator, part - 1
+    sanitizedTitle:    metacircular-evaluator-part--1
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/0m6hoOelZH8&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/0m6hoOelZH8&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    13
@@ -219,6 +266,7 @@ CourseSection(SICP13):
 
 CourseSection(SICP14):
     title:    Metacircular evaluator, part - 2
+    sanitizedTitle:    metacircular-evaluator-part--2
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/t5EI5fXX8K0&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/t5EI5fXX8K0&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    14
@@ -226,6 +274,7 @@ CourseSection(SICP14):
 
 CourseSection(SICP15):
     title:    Logic programming, part - 1
+    sanitizedTitle:    logic-programming-part--1
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/cyVXjnFL2Ps&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/cyVXjnFL2Ps&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    15
@@ -233,6 +282,7 @@ CourseSection(SICP15):
 
 CourseSection(SICP16):
     title:    Logic programming, part - 2
+    sanitizedTitle:    logic-programming-part--2
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/R3uRidfSpc4&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/R3uRidfSpc4&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    16
@@ -240,6 +290,7 @@ CourseSection(SICP16):
 
 CourseSection(SICP17):
     title:    Register machines
+    sanitizedTitle:    register-machines
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/jPDAPmx4pXE&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/jPDAPmx4pXE&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    17
@@ -247,6 +298,7 @@ CourseSection(SICP17):
 
 CourseSection(SICP18):
     title:    Explicit control evaluator
+    sanitizedTitle:    explicit-control-evaluator
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/SLcZXbyGC3E&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/SLcZXbyGC3E&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement: 18
@@ -254,6 +306,7 @@ CourseSection(SICP18):
 
 CourseSection(SICP19):
     title:    Compilation
+    sanitizedTitle:    compilation
     content:  >
               <object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/kNmiTTKiYd4&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/kNmiTTKiYd4&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>
     placement:    19
@@ -261,6 +314,7 @@ CourseSection(SICP19):
 
 CourseSection(SICP20):
     title:    Storage allocation and garbage collection
+    sanitizedTitle:    storage-allocation-and-garbage-collection
     content:  >
               <object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/2s2_FAf-yQs&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/2s2_FAf-yQs&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
     placement:    20
@@ -268,10 +322,13 @@ CourseSection(SICP20):
 
 Forum(RDBMSForum):
     title: Relational Database Management Systems
+    sanitizedTitle: relational-database-management-systems
     description: This forum is meant to discuss doubts in course on Relational Database Management Systems
 
 Course(RDBMS):
     title:          Relational Database Management Systems
+    sanitizedTitle:          relational-database-management-systems
+    sanitizedTitle: relational-database-management-systems
     forum:          RDBMSForum
     description:    >
                     <p>A more formal approach to Relational Database Management Systems, compared the way they were covered during Web Applications. Database systems are discussed from the physical layer of B-trees and file servers to the abstract layer of relational design. Also includes alternative and generic approaches to database design and database management system including relational, object-relational, and object-oriented systems, SQL standards, algebraic query languages, integrity constraints, triggers, functional dependencies, and normal forms.
@@ -293,6 +350,7 @@ Course(RDBMS):
 
 CourseSection(RDBMS1):
     title:    Lecture 1/11
+    sanitizedTitle:    lecture-111
     content:  >
               <p>
               Topics covered are  Overview, Query Processing, Embedded SQL, Cursors, Triggers 
@@ -305,6 +363,7 @@ CourseSection(RDBMS1):
 
 CourseSection(RDBMS2):
     title:    Lecture 2/11
+    sanitizedTitle:    lecture-211
     content:  >
               <p>
               Topics covered are   Relational Algebra, Relational Calculus
@@ -317,6 +376,7 @@ CourseSection(RDBMS2):
 
 CourseSection(RDBMS3):
     title:    Lecture 3/11
+    sanitizedTitle:    lecture-311
     content:  >
               <p>
               Topics covered are  Entity Relationship Diagrams
@@ -329,6 +389,7 @@ CourseSection(RDBMS3):
 
 CourseSection(RDBMS4):
     title:    Lecture 4/11
+    sanitizedTitle:    lecture-411
     content:  >
               <p>
               Topics covered are  RDBMS Memory and Disk Storage, RAID, Buffer Management
@@ -341,6 +402,7 @@ CourseSection(RDBMS4):
 
 CourseSection(RDBMS5):
     title:    Lecture 5/11
+    sanitizedTitle:    lecture-511
     content:  >
               <p>
               Topics covered are   Unordered/Sorted/Hashed Files, Indexes
@@ -353,6 +415,7 @@ CourseSection(RDBMS5):
 
 CourseSection(RDBMS6):
     title:    Lecture 6/11
+    sanitizedTitle:    lecture-611
     content:  >
               <p>
               Topics covered are   Index Sequential Access Method, B+ Trees
@@ -365,6 +428,7 @@ CourseSection(RDBMS6):
 
 CourseSection(RDBMS7):
     title:    Lecture 7/11
+    sanitizedTitle:    lecture-711
     content:  >
               <p>
               Topics covered are  Static and Dynamic Hash Indexing
@@ -377,6 +441,7 @@ CourseSection(RDBMS7):
 
 CourseSection(RDBMS8):
     title:    Lecture 8/11
+    sanitizedTitle:    lecture-811
     content:  >
               <p>
               Topics covered are  External Sorting, Merge Sort, Double Buffering, Replacement Sort
@@ -389,6 +454,7 @@ CourseSection(RDBMS8):
 
 CourseSection(RDBMS9):
     title:    Lecture 9/11
+    sanitizedTitle:    lecture-911
     content:  >
               <p>
               Topics covered are  Query Optimizers, Query Evaluation
@@ -401,6 +467,7 @@ CourseSection(RDBMS9):
 
 CourseSection(RDBMS10):
     title:    Lecture 10/11
+    sanitizedTitle:    lecture-1011
     content:  >
               <p>
               Topics covered are  Normal Forms
@@ -413,6 +480,7 @@ CourseSection(RDBMS10):
 
 CourseSection(RDBMS11):
     title:    Lecture 11/11
+    sanitizedTitle:    lecture-1111
     content:  >
               <p>
               Topics covered are  Query Analysis and Optimizing in Oracle
@@ -426,10 +494,13 @@ CourseSection(RDBMS11):
 
 Forum(PROGABSTRForum):
     title: Programming Abstractions (using C++)
+    sanitizedTitle: programming-abstractions-using-c
     description: This forum is meant to discuss doubts in course on Programming Abstractions (using C++)
     
 Course(PROGABSTR):
     title:          Programming Abstractions (using C++)
+    sanitizedTitle:          programming-abstractions-using-c
+    sanitizedTitle: programming-abstractions-using-C
     forum:          PROGABSTRForum
     description:    >
                     <p>This course (CS 106B) is the successor to CS 106A and covers more advanced programming topics such as recursion, algorithmic analysis, and data abstraction. It is taught using the C++ programming language, which is similar to both C and Java. In the past when both CS 106A and CS106B were taught in C/C++, the coupling between the two classes was very tight and it was unheard for students to take CS106B without having completed our CS 106A (we recommended CS 106X instead). Nowadays, some students do go straight into CS106B, this is typically appropriate for a student who done well in an intro programming course (e.g., scored 4 or 5 on the CS AP exam or earned a good grade in a college course) and has sufficient familiarity with good programming style and software engineering issues (at the level of CS 106A) to use this understanding as a foundation on which to tackle advanced topics.<br /><br/>
@@ -438,6 +509,7 @@ Course(PROGABSTR):
 
 CourseSection(PROGABSTR1):
     title:    Lecture 1 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-1--programming-abstractions-stanford
     content:    >
                 <p>
                 Julie Zelenski gives an introduction to the course, recursion, algorithms, dynamic data structures and data abstraction; she also introduced the significance of programming and gives her opinion of what makes 106B "great;" C++ is introduced, too.
@@ -451,6 +523,7 @@ CourseSection(PROGABSTR1):
 
 CourseSection(PROGABSTR2):
     title:    Lecture 2 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-2--programming-abstractions-stanford
     content:  >
               <p>
               Julie describes the similarities between C++ and Java, which include general syntax, primitive variable types, operators and control structures; she proceeds to go through the code of a basic C++ program and explains each individual piece of code, headers, global constants, global data types, and calling functions. She also proceeds to write a simple program during the lecture that gets input from the user and prints a statement to the screen.
@@ -464,6 +537,7 @@ CourseSection(PROGABSTR2):
 
 CourseSection(PROGABSTR3):
     title:    Lecture 3 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-3--programming-abstractions-stanford
     content:  >
               <p>
               Julie goes over C++ libraries and explains what they are and how they are useful. She continues to introduce C++ basics, including strings, various operators on strings and comparing two strings and takes special note that C++ is an 'industrial language' and does not guarantee anything and that the programmer has to be more attentive to finding his/her own bugs.
@@ -477,6 +551,7 @@ CourseSection(PROGABSTR3):
 
 CourseSection(PROGABSTR4):
     title:    Lecture 4 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-4--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues to cover the console input/output in C++ and discusses the file I/O and changing between an old style string to a C++ string format. She also begins to go over stream operations and their basic use as well as object oriented programming, and the use of scanner function and containers.
@@ -490,6 +565,7 @@ CourseSection(PROGABSTR4):
 
 CourseSection(PROGABSTR5):
     title:    Lecture 5 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-5--programming-abstractions-stanford
     content:  >
               <p>
               Julie discusses the use of templates, vectors and template specialization. She then goes through an example of code line by line explaining each part in detail. Finally, she goes on to explain what grid interfaces are and briefly goes over how you can use them in programming different games. 
@@ -503,6 +579,7 @@ CourseSection(PROGABSTR5):
 
 CourseSection(PROGABSTR6):
     title:    Lecture 6 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-6--programming-abstractions-stanford
     content:  >
               <p>
               In the sixth lecture, Julie discusses sequential containers, associative containers, map classes/interfaces, iteration over maps and set classes. She explains why set classes are different and sometimes better to use. 
@@ -516,6 +593,7 @@ CourseSection(PROGABSTR6):
 
 CourseSection(PROGABSTR7):
     title:    Lecture 7 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-7--programming-abstractions-stanford
     content:  >
               <p>
               Julie explains the idea of functions as data and specific plot functions and continues onto client feedback functions and ADTs. She then delves into recursion and solving problems using recursion. 
@@ -529,6 +607,7 @@ CourseSection(PROGABSTR7):
 
 CourseSection(PROGABSTR8):
     title:    Lecture 8 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-8--programming-abstractions-stanford
     content:  >
               <p>
               Julie talks about solving problems recursively. She covers functional recursion with the simple example of writing an exponential function using recursion. From the simple program performing as an exponential function Julie continues to show a more efficient recursion code. The next example she covers is that of binary search and how recursion is used in this instance. 
@@ -542,6 +621,7 @@ CourseSection(PROGABSTR8):
 
 CourseSection(PROGABSTR9):
     title:    Lecture 9 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-9--programming-abstractions-stanford
     content:  >
               <p>
               Julie goes over recursion and the proper ways to solve problems recursively. She continues with the example of a program that draws a fractal image and explains a Mandarin code to illustrate the different possibilities of drawing different pictures. She then discusses the problem of moving a stack of disks from one peg to the other peg. Later, she demonstrates the basic principle necessary to solve the problem with a child's toy and goes through how to solve the problem with a program. 
@@ -555,6 +635,7 @@ CourseSection(PROGABSTR9):
 
 CourseSection(PROGABSTR10):
     title:    Lecture 10 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-10--programming-abstractions-stanford
     content:  >
               <p>
               Julie explains procedural recursion and introduces permute code. She goes through another example of recursive code line by line, explaining each component. Recursive backtracking and it's usefulness are discussed. The example of placing several queen chess pieces on a board where none of them can attack the other is then demonstrated. 
@@ -568,6 +649,7 @@ CourseSection(PROGABSTR10):
 
 CourseSection(PROGABSTR11):
     title:    Lecture 11 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-11--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues with recursive backtracking and introduces pointers and recursive data. Following, she focuses on solving the problems rather than the exact code and later uses the example of a program that will solve a Sudoku puzzle. She explains that recognizing and looking for patterns between all of the different recursive examples is an important component to learning recursion. 
@@ -581,6 +663,7 @@ CourseSection(PROGABSTR11):
 
 CourseSection(PROGABSTR12):
     title:    Lecture 12 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-12--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues to go over pointers and moves on to recursive data and linked lists. She starts off explaining the basics of pointers and have two variables pointing to the same address then explains that it is better to not delete the same address more than once, as something not wanted might happen. Julie then explains the interaction between pointers and dynamic arrays.
@@ -594,6 +677,7 @@ CourseSection(PROGABSTR12):
 
 CourseSection(PROGABSTR13):
     title:    Lecture 13 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-13--programming-abstractions-stanford
     content:  >
               <p>
               Julie introduces linked lists and continues to discuss recursive data. She goes line by line through an example code she writes during the lecture. She then inserts variables in an order; she uses the example of an address book to explain this. Algorithm analysis are also introduced. 
@@ -607,6 +691,7 @@ CourseSection(PROGABSTR13):
 
 CourseSection(PROGABSTR14):
     title:    Lecture 14 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-14--programming-abstractions-stanford
     content:  >
               <p>
               Julie starts off with algorithm analysis, the big-O notation and introduces sorting. She begins off with a brief overview of what algorithm analysis is and how to utilize it. Later, she continues to go through recursive algorithms and their uses. 
@@ -620,6 +705,7 @@ CourseSection(PROGABSTR14):
 
 CourseSection(PROGABSTR15):
     title:    Lecture 15 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-15--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues to cover sorting. She begins with an example of a selection sorting code and a graphic demo of the code in progress. Thereafter, she explains the different methods available to sort different kinds of data; she also explains the pros and cons of using quadratic sorting versus linearithmic sorting. 
@@ -633,6 +719,7 @@ CourseSection(PROGABSTR15):
 
 CourseSection(PROGABSTR16):
     title:    Lecture 16 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-16--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues with sorting, specifically quadratic and linearithmic sorting methods, and then explains how to reasonably partition data sets for quicksort. Thereafter, she proceeds to go over different functional templates for sorting algorithms and also briefly goes over instantiation errors and how to fix them. 
@@ -646,6 +733,7 @@ CourseSection(PROGABSTR16):
 
 CourseSection(PROGABSTR17):
     title:    Lecture 17 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-17--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues to go over sort templates and callback functions, then shows a final version of the sort template, one that will be extremely useful in the next homework assignment. She also goes over class implementation and its uses as well as time constructors. 
@@ -659,6 +747,7 @@ CourseSection(PROGABSTR17):
 
 CourseSection(PROGABSTR18):
     title:    Lecture 18 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-18--programming-abstractions-stanford
     content:  >
               <p>
               Julie introduces the 'implement vector' and discusses ADTs (abstract data types) in more detail. She then develops a Vector from the ground up, explaining each step as she goes. 
@@ -672,6 +761,7 @@ CourseSection(PROGABSTR18):
 
 CourseSection(PROGABSTR19):
     title:    Lecture 19 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-19--programming-abstractions-stanford
     content:  >
               <p>
               Julie reiterates the rules for template implementers and continues by coding live with the class explaining each line of code in detail after writing it. Throughout the process of writing the code, she encounters several errors and debugs the code every several minutes. She continues to demonstrate how to write code involving stack. 
@@ -685,6 +775,7 @@ CourseSection(PROGABSTR19):
 
 CourseSection(PROGABSTR20):
     title:    Lecture 20 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-20--programming-abstractions-stanford
     content:  >
               <p>
               Julie continues discussing Vector and moves on to stack and queue, covering chapter ten in the course textbook. She goes over several rules for templates again to reinforce how important they are. 
@@ -698,6 +789,7 @@ CourseSection(PROGABSTR20):
 
 CourseSection(PROGABSTR21):
     title:    Lecture 21 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-21--programming-abstractions-stanford
     content:  >
               <p>
               Julie talks about the buffer version of vector vs. stack and follows this with an example of cursor design. She also talks about linked list insertion and deletion. Cursor movement is the next topic covered; she illustrates how the cursor points from one cell to the next. 
@@ -711,6 +803,7 @@ CourseSection(PROGABSTR21):
 
 CourseSection(PROGABSTR22):
     title:    Lecture 22 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-22--programming-abstractions-stanford
     content:  >
               <p>
               Julie discusses map as a vector and describes a different, possibly better, strategy. The basics of trees and their usefulness and how they can be used with binary search is then introduced. 
@@ -724,6 +817,7 @@ CourseSection(PROGABSTR22):
 
 CourseSection(PROGABSTR23):
     title:    Lecture 23 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-23--programming-abstractions-stanford
     content:  >
               <p>
               Julie shows a YouTube video of Barack Obama answering a question about what kind of sorting algorithm he would use to sort a list of data. She also gives several examples of problems that are capable of being solved with sorting. She goes on to say that if you think about certain problems as graphs, finding the solution is sometimes easier as well as easier to understand. To be able to do this, she explains how to represent graphs in C++.
@@ -737,6 +831,7 @@ CourseSection(PROGABSTR23):
 
 CourseSection(PROGABSTR24):
     title:    Lecture 24 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-24--programming-abstractions-stanford
     content:  >
               <p>
               Julie introduces hashing and it's uses in search and retrieval; map implementations and the different kinds of search algorithms are then discussed. Thereafter she explains that logarithmic searches are relatively fast and often finish the search in an immeasurable amount of time. She introduces a different approach to search that works in a faster manner than linear search. 
@@ -750,6 +845,7 @@ CourseSection(PROGABSTR24):
 
 CourseSection(PROGABSTR25):
     title:    Lecture 25 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-25--programming-abstractions-stanford
     content:  >
               <p>
               Julie examines a case study and opening up the lexicon file, which is complicated; she walks the students through the code and explains why she wrote it as she did as opposed to a sorted vector or binary search tree. She then introduces the DAWG data structure.
@@ -763,6 +859,7 @@ CourseSection(PROGABSTR25):
 
 CourseSection(PROGABSTR26):
     title:    Lecture 26 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-26--programming-abstractions-stanford
     content:  >
               <p>
               Julie ties up the "loose ends" of the course: after a general review of the concepts covered in the course, she asks which of two examples is the better. She then covers manipulation of dynamic data structures (lists, trees, graphs) as well as reviews code from similar assignments. Then she touches on design and efficiency of code. Lastly, she goes over the next courses one might take if continuing in computer science and the different paths possible. 
@@ -776,6 +873,7 @@ CourseSection(PROGABSTR26):
 
 CourseSection(PROGABSTR27):
     title:    Lecture 27 | Programming Abstractions (Stanford)
+    sanitizedTitle:    lecture-27--programming-abstractions-stanford
     content:  >
               <p>
               In the final lecture, Keith talks about the C++ programming language. He starts of with C++ history, C++ without CS 106 and what comes next. 
@@ -789,10 +887,13 @@ CourseSection(PROGABSTR27):
 
 Forum(DM-ADIUNIForum):
     title: Discrete Mathematics (Arsdigita University)
+    sanitizedTitle: discrete-mathematics-arsdigita-university
     description: This forum is meant to discuss doubts in course on Discrete Mathematics (Arsdigita University)
     
 Course(DM-ADIUNI):
     title:    Discrete Mathematics (Arsdigita University)
+    sanitizedTitle:    discrete-mathematics-arsdigita-university
+    sanitizedTitle: discrete-mathematics-arsdigita-university
     forum:    DM-ADIUNIForum
     description:    >
                     <p>Discrete Mathematics (Arsdigita University) This course covers the mathematical topics most directly related to computer science. Topics include: logic, relations, functions, basic set theory, countability and counting arguments, proof techniques, mathematical induction, graph theory, combinatorics, discrete probability, recursion, recurrence relations, and number theory.
@@ -801,6 +902,7 @@ Course(DM-ADIUNI):
 
 CourseSection(DM-ADIUNI1):
     title:    Lecture 1/20
+    sanitizedTitle:    lecture-120
     content:  >
               <p>
               Topics covered are  What kinds of problems are solved in discrete math?
@@ -813,6 +915,7 @@ CourseSection(DM-ADIUNI1):
 
 CourseSection(DM-ADIUNI2):
     title:    Lecture 2/20
+    sanitizedTitle:    lecture-220
     content:  >
               <p>
               Topics covered are  Boolean Algebra and formal logic
@@ -825,6 +928,7 @@ CourseSection(DM-ADIUNI2):
 
 CourseSection(DM-ADIUNI3):
     title:    Lecture 3/20
+    sanitizedTitle:    lecture-320
     content:  >
               <p>
               Topics covered are  More logic: quantifiers and predicates
@@ -837,6 +941,7 @@ CourseSection(DM-ADIUNI3):
 
 CourseSection(DM-ADIUNI4):
     title:    Lecture 4/20
+    sanitizedTitle:    lecture-420
     content:  >
               <p>
               Topics covered are  Sets
@@ -849,6 +954,7 @@ CourseSection(DM-ADIUNI4):
 
 CourseSection(DM-ADIUNI5):
     title:    Lecture 5/20
+    sanitizedTitle:    lecture-520
     content:  >
               <p>
               Topics covered are  Diagonalization, functions and sums review
@@ -861,6 +967,7 @@ CourseSection(DM-ADIUNI5):
 
 CourseSection(DM-ADIUNI6):
     title:    Lecture 6/20
+    sanitizedTitle:    lecture-620
     content:  >
               <p>
               Topics covered are  Basic arithmetic and geometric sums, closed forms
@@ -873,6 +980,7 @@ CourseSection(DM-ADIUNI6):
 
 CourseSection(DM-ADIUNI7):
     title:    Lecture 7/20
+    sanitizedTitle:    lecture-720
     content:  >
               <p>
               Topics covered are  Chinese rings puzzle
@@ -885,6 +993,7 @@ CourseSection(DM-ADIUNI7):
 
 CourseSection(DM-ADIUNI8):
     title:    Lecture 8/20
+    sanitizedTitle:    lecture-820
     content:  >
               <p>
               Topics covered are  Solving recurrence equations
@@ -897,6 +1006,7 @@ CourseSection(DM-ADIUNI8):
 
 CourseSection(DM-ADIUNI9):
     title:    Lecture 9/20
+    sanitizedTitle:    lecture-920
     content:  >
               <p>
               Topics covered are  Solving recurrence equations (cont.)
@@ -909,6 +1019,7 @@ CourseSection(DM-ADIUNI9):
 
 CourseSection(DM-ADIUNI10):
     title:    Lecture 10/20
+    sanitizedTitle:    lecture-1020
     content:  >
               <p>
               Topics covered are  Mathematical induction
@@ -921,6 +1032,7 @@ CourseSection(DM-ADIUNI10):
 
 CourseSection(DM-ADIUNI11):
     title:    Lecture 11/20
+    sanitizedTitle:    lecture-1120
     content:  >
               <p>
               Topics covered are  Combinations and permutations
@@ -933,6 +1045,7 @@ CourseSection(DM-ADIUNI11):
 
 CourseSection(DM-ADIUNI12):
     title:    Lecture 12/20
+    sanitizedTitle:    lecture-1220
     content:  >
               <p>
               Topics covered are  Counting Problems
@@ -945,6 +1058,7 @@ CourseSection(DM-ADIUNI12):
 
 CourseSection(DM-ADIUNI13):
     title:    Lecture 13/20
+    sanitizedTitle:    lecture-1320
     content:  >
               <p>
               Topics covered are  Counting problems
@@ -957,6 +1071,7 @@ CourseSection(DM-ADIUNI13):
 
 CourseSection(DM-ADIUNI14):
     title:    Lecture 14/20
+    sanitizedTitle:    lecture-1420
     content:  >
               <p>
               Topics covered are  Counting problems using combinations, distributions
@@ -969,6 +1084,7 @@ CourseSection(DM-ADIUNI14):
 
 CourseSection(DM-ADIUNI15):
     title:    Lecture 15/20
+    sanitizedTitle:    lecture-1520
     content:  >
               <p>
               Topics covered are  Counting problems using combinations, distributions
@@ -981,6 +1097,7 @@ CourseSection(DM-ADIUNI15):
 
 CourseSection(DM-ADIUNI16):
     title:    Lecture 16/20
+    sanitizedTitle:    lecture-1620
     content:  >
               <p>
               Topics covered are  The pigeonhole principle and examples. The inclusion/exclusion theorem and advanced examples. A combinatorial card trick
@@ -993,6 +1110,7 @@ CourseSection(DM-ADIUNI16):
 
 CourseSection(DM-ADIUNI17):
     title:    Lecture 17/20
+    sanitizedTitle:    lecture-1720
     content:  >
               <p>
               Topics covered are  Equivalence Relations and Partial Orders
@@ -1005,6 +1123,7 @@ CourseSection(DM-ADIUNI17):
 
 CourseSection(DM-ADIUNI18):
     title:    Lecture 18/20
+    sanitizedTitle:    lecture-1820
     content:  >
               <p>
               Topics covered are  Euclid's Algorithm
@@ -1017,6 +1136,7 @@ CourseSection(DM-ADIUNI18):
 
 CourseSection(DM-ADIUNI19):
     title:    Lecture 19/20
+    sanitizedTitle:    lecture-1920
     content:  >
               <p>
               Topics covered are  Recitation -- a combinatorial card trick
@@ -1029,6 +1149,7 @@ CourseSection(DM-ADIUNI19):
 
 CourseSection(DM-ADIUNI20):
     title:    Lecture 20/20
+    sanitizedTitle:    lecture-2020
     content:  >
               <p>
               Topics covered are  Cryptography
@@ -1038,4 +1159,3 @@ CourseSection(DM-ADIUNI20):
               </p>
     placement:    20
     course:    DM-ADIUNI
-

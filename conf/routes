@@ -3,19 +3,21 @@
 # ~~~~
 
 # Home page
-GET     /                                       								Application.index
-GET     /courses/list                           								CourseC.list
-GET     /courses/course/{sanitizedTitle}        								CourseC.course
-GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}  CourseC.section
-GET     /courses/course/section/{sectionId}/question/{questionId} 				CourseC.question
-POST    /courses/course/section{sectionId}/question 							CourseC.addQuestion
-GET     /courses/course/{sanitizedTitle}/forum        							CourseC.forum
-GET     /courses/course/{sanitizedTitle}/question/{questionId}  				CourseC.forumQuestion
+GET     /                                       								                                       Application.index
+GET     /courses/list                           								                                       CourseC.list
+GET     /courses/course/{sanitizedTitle}        								                                       CourseC.course
+GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}                                         CourseC.section
+GET     /courses/course/section/{sectionId}/question/{questionId} 				                                       CourseC.question
+POST    /courses/course/section{sectionId}/question 							                                       CourseC.addQuestion
+GET     /courses/course/{sanitizedTitle}/forum        							                                       CourseC.forum
+GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
+GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
 
-GET     /bookgroups/list/{page}/{size}           								BookGroupC.list
-GET     /bookgroups/show/{sanitizedTitle}/{page}/{size}        					BookGroupC.show
-GET     /bookgroups/show/{sanitizedTitle}        								BookGroupC.show
-GET     /bookgroups/bookgroup/{sanitizedTitle}/question/{questionId}  			BookGroupC.forumQuestion
+
+GET     /bookgroups/list/{page}/{size}           								                                       BookGroupC.list
+GET     /bookgroups/show/{sanitizedTitle}        								                                       BookGroupC.show
+GET     /bookgroups/show/{sanitizedTitle}/forum                                                                        BookGroupC.forum
+GET     /bookgroups/bookgroup/{sanitizedTitle}/question/{questionId}/{sanitizedQuestionTitle}  			               BookGroupC.forumQuestion
 
 GET     /studysessions/currentlist                                                                                     StudySessionC.currentlist
 GET     /studysessions/studysession/{sanitizedTitle}                                                                   StudySessionC.studySession
@@ -30,25 +32,25 @@ POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add
 POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} 	                           StudySessionSecureC.postAnswer
 POST    /activityresponse/{activityId}                                                                                 StudySessionSecureC.postActivityResponse
 
-GET     /page/{name}                           PageC.show
+GET     /page/{name}                                                                                                   PageC.show
 
-GET     /users/{page}/{size}                   UserProfileC.List
-GET     /users                                 UserProfileC.list
-GET     /users/{userId}                        UserProfileC.show
+GET     /users/{page}/{size}                                                                                           UserProfileC.List
+GET     /users                                                                                                         UserProfileC.list
+GET     /users/{userId}                                                                                                UserProfileC.show
 
-GET     /blog/list                             BlogPostC.list
-GET     /blog                                  BlogPostC.index
-GET     /blog/post/{year}/{month}/{day}/{sanitizedTitle}                        BlogPostC.show
-POST    /blog/{postId}/comment/add             BlogPostC.postComment
+GET     /blog/list                                                                                                     BlogPostC.list
+GET     /blog                                                                                                          BlogPostC.index
+GET     /blog/post/{year}/{month}/{day}/{sanitizedTitle}                                                               BlogPostC.show
+POST    /blog/{postId}/comment/add                                                                                     BlogPostC.postComment
 
-GET     /questionc/like/questionId/{questionId}    QuestionC.like
-GET     /questionc/like/answerId/{answerId}        QuestionC.likeAnswer
+GET     /questionc/like/questionId/{questionId}                                                                        QuestionC.like
+GET     /questionc/like/answerId/{answerId}                                                                            QuestionC.likeAnswer
 
-GET     /callbacks/auth/twitter                    SocialAuthC.twitterCallback
+GET     /callbacks/auth/twitter                                                                                        SocialAuthC.twitterCallback
 
-GET     /blog/obfuscate/feed                       FeedC.blog
-GET     /studySessions/studySession/{studySessionId}/feed  FeedC.studySession
-GET     /studySessions/feed                        FeedC.studySessions
+GET     /blog/obfuscate/feed                                                                                           FeedC.blog
+GET     /studySessions/studySession/{studySessionId}/feed                                                              FeedC.studySession
+GET     /studySessions/feed                                                                                            FeedC.studySessions
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

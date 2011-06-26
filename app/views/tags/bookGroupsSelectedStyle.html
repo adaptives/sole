@@ -11,16 +11,8 @@ controller = request.controller;
 
 action = request.action;
 }%
-
-
-#{if _menu == 'home'}
-	#{if !actionMapping.members.contains(action) && 
-	  	 !actionMapping.forums.contains(action)}		  
-	  	book-group-menu-item-selected
-	#{/if}
+#{if _menu == 'home'}#{if !actionMapping.members.contains(action) && !actionMapping.forums.contains(action)}submenu-item-selected#{/if}
 #{/if}
 #{else}
-	#{if validActions.contains(action)}
-		book-group-menu-item-selected
-	#{/if}
+#{if validActions.contains(action)}submenu-item-selected#{/if}
 #{/else}
