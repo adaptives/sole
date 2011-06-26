@@ -39,7 +39,6 @@ public class CreateChangedUrls extends Job {
 		List<ChangedUrl> changedUrls = ChangedUrl.findAll();
 		for(ChangedUrl changedUrl : changedUrls) {
 			if(changedUrl.newUrl.equals("")) {
-				System.out.println("Evaluating url '" + changedUrl.oldUrl + "'");
 				///courses/course/5
 				String oldUrl = changedUrl.oldUrl;
 				String pattern = "/courses/course/(\\d)$";
@@ -86,7 +85,6 @@ public class CreateChangedUrls extends Job {
 							newUrl = newUrl.replaceAll("/\\d+$", "/" + courseSection.sanitizedTitle);
 							changedUrl.newUrl = newUrl;
 							changedUrl.save();
-							System.out.println("Changed url from '" + oldUrl + "' to '" + newUrl);
 						}
 					}
 				}
