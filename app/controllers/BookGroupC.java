@@ -17,8 +17,7 @@ public class BookGroupC extends Controller {
 	
 	public static void list(long page, long size) {
 		List<BookGroup> bookGroups = 
-			BookGroup.find("select bg from BookGroup bg").
-				fetch((int)page, (int)size);
+			BookGroup.find("select bg from BookGroup bg").fetch((int)page, (int)size);
 		
 		long count = BookGroup.count();
 		int pages = (int)(count/size);

@@ -60,5 +60,9 @@ public class BookGroupSecureC extends Controller {
 		BookGroup bookGroup = BookGroup.findById(bookGroupId);
 		BookGroupC.forumQuestion(bookGroup.sanitizedTitle, questionId, question.sanitizedTitle);
 	}
+	
+	public static void createBookGroup() {
+		
+	}
 
 }

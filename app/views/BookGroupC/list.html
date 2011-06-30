@@ -1,5 +1,11 @@
 #{extends 'main.html' /}
 
+#{secure.check 'admin'}
+<div>
+<a href="@{BookGroupSecureC.createBookGroup}">Create new book group</a>
+</div>
+#{/secure.check}
+				
 #{list items:bookGroups, as:'bookGroup'}
 	<div>
 		<a href="@{BookGroupC.show(bookGroup.sanitizedTitle)}">${bookGroup.book.title}</a>
