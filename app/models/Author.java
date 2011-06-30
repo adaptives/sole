@@ -30,4 +30,22 @@ public class Author extends Model implements Comparable{
 		Author other = (Author)o;
 		return (int)(this.id - other.id);
 	}
+	
+	@Override
+	public String toString() {
+		String retVal = "";
+		if(this.firstName != null) {
+			retVal += this.firstName;
+		}
+		if(this.middleName != null) {
+			retVal += " " + this.middleName;
+		}
+		if(this.lastName != null) {
+			retVal += " " + this.lastName;
+		}
+		if(this.url != null) {
+			retVal += "[" + this.url + "]";
+		}
+		return retVal;
+	}
 }

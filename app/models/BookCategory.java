@@ -19,4 +19,9 @@ public class BookCategory extends Model {
 			BookCategory.find("select bc from BookCategory bc where bc.categoryName = ?", categoryName).first();
 		return bookCategory;
 	}
+	
+	@Override
+	public String toString() {
+		return this.categoryName;
+	}
 }
