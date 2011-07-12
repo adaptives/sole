@@ -10,6 +10,7 @@ import other.utils.StringUtils;
 import models.ChangedUrl;
 import models.Course;
 import models.CourseSection;
+import models.KeyValueData;
 import models.Question;
 import models.SessionPart;
 import models.SocialUser;
@@ -24,5 +25,11 @@ import play.test.Fixtures;
 public class CreateChangedUrls extends Job {
 	
 	public void doJob() {
+		List<KeyValueData> keyValueDatas = KeyValueData.findAll();
+		for(KeyValueData keyValueData : keyValueDatas) {
+			keyValueData.k = keyValueData.key;
+			keyValueData.v = keyValueData.value;
+			keyValueData.save();
+		}
 	}
 }

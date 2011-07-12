@@ -61,8 +61,20 @@ public class BookGroupSecureC extends Controller {
 		BookGroupC.forumQuestion(bookGroup.sanitizedTitle, questionId, question.sanitizedTitle);
 	}
 	
-	public static void createBookGroup() {
-		
+	public static void createBookGroups() {
+		if(Security.check("admin")) {
+			render();
+		} else {
+			renderText("You are not authorized to perform this action !");
+		}		
+	}
+	
+	public static void postBookGroupData(String data) {
+		if(Security.check("admin")) {
+			System.out.println("Creating book groups from your data '" + data + "'");
+		} else {
+			renderText("You are not authorized to perform this action !");
+		}
 	}
 
 }

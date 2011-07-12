@@ -11,8 +11,10 @@ import models.Question;
 import models.SocialUser;
 import play.data.validation.Required;
 import play.mvc.Controller;
+import play.mvc.With;
 import play.mvc.Router.ActionDefinition;
 
+@With(SocialAuthC.class)
 public class BookGroupC extends Controller {
 	
 	public static void list(long page, long size) {
