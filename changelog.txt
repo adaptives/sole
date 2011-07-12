@@ -8,3 +8,10 @@
    the table, and then restart the app. This will ensure that the
    USERREGISTRATIONDATE table will have only one FK. We can import the data
    into the table again after restarting.
+
+2011-07-12
+1. Updated Book controllers with an @with annotation to allow the username
+   to be displayed on the top of the screen just as all other controllers
+
+2. Added columns k and v to KeyValueData and added a Job to populate k and
+   v with the values of key and value.
