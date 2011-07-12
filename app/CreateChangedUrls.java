@@ -25,11 +25,11 @@ import play.test.Fixtures;
 public class CreateChangedUrls extends Job {
 	
 	public void doJob() {
-		List<KeyValueData> keyValueDatas = KeyValueData.findAll();
-		for(KeyValueData keyValueData : keyValueDatas) {
-			keyValueData.key = null;
-			keyValueData.value = null;
-			keyValueData.save();
-		}
+//		List<KeyValueData> keyValueDatas = KeyValueData.findAll();
+//		for(KeyValueData keyValueData : keyValueDatas) {
+//			keyValueData.key = null;
+//			keyValueData.value = null;
+//			keyValueData.save();
+//		}
 	}
 }
