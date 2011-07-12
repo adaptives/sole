@@ -12,8 +12,8 @@ public class KeyValueData extends Model {
 	public String v;
 	
 	public KeyValueData(String key, String value) {
-		this.key = key;
-		this.value = value;
+		this.k = key;
+		this.v = value;
 		create();
 	}
 	
@@ -23,15 +23,15 @@ public class KeyValueData extends Model {
 	
 	public static String findValue(String key, String defaultVal) {
 		String retVal = defaultVal;
-		KeyValueData keyValueData = KeyValueData.find("select kvd from KeyValueData kvd where kvd.key = ?", key).first();
+		KeyValueData keyValueData = KeyValueData.find("select kvd from KeyValueData kvd where kvd.k = ?", key).first();
 		if(keyValueData != null) {
-			retVal = keyValueData.value;
+			retVal = keyValueData.v;
 		}
 		return retVal;
 	}
 	
 	@Override
 	public String toString() {
-		return key;
+		return k;
 	}
 }
