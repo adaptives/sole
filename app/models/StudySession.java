@@ -289,21 +289,21 @@ public class StudySession extends Model {
 	}
 	
 	public static List<StudySession> getYetToStart(Date since) {
-		String query = "select ss from StudySession ss where ss.startDate > ?";
+		String query = "select ss from StudySession ss where ss.startDate > ? order by ss.startDate";
 		List<StudySession> studySessions =
 			StudySession.find(query, since).fetch();
 		return studySessions;
 	}
 	
 	public static List<StudySession> getOngoing(Date since) {
-		String query = "select ss from StudySession ss where ss.startDate <= ? and ss.endDate >= ?";
+		String query = "select ss from StudySession ss where ss.startDate <= ? and ss.endDate >= ? order by ss.startDate desc";
 		List<StudySession> studySessions =
 			StudySession.find(query, since, since).fetch();
 		return studySessions;
 	}
 	
 	public static List<StudySession> getOver(Date since) {
-		String query = "select ss from StudySession ss where ss.endDate < ?";
+		String query = "select ss from StudySession ss where ss.endDate < ? order by ss.endDate desc";
 		List<StudySession> studySessions =
 			StudySession.find(query, since).fetch();
 		return studySessions;

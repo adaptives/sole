@@ -28,7 +28,7 @@
 	 <div class="comentwrappost-title"> 
 	 	<a href="@{StudySessionC.studySession(_.key.sanitizedTitle)}">${_.key.title}</a>
 	 </div>
-	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yy')} - Ending: ${_.key.endDate.format('dd MMM yy')} </div>
+	 <div class="comentwrappost-datetime"> Starting: ${_.key.startDate.format('dd MMM yyyy')} - Ending: ${_.key.endDate.format('dd MMM yyyy')} </div>
 	 <div class="comentwrappost-course"> 
 	 	#{studySessionMetadata ss:_.key, ssm:_.value /} 
 		#{apply ss:_.key, ssm:_.value /} 

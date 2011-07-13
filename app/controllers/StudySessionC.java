@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class StudySessionC extends Controller {
 		//Get list of study sessions which are yet to start
 		List<StudySession> yetToStartList = StudySession.getYetToStart(now);
 		Map<StudySession, StudySessionMeta> yetToStart = 
-								new HashMap<StudySession, StudySessionMeta>();
+								new LinkedHashMap<StudySession, StudySessionMeta>();
 		for(StudySession studySession : yetToStartList) {
 			yetToStart.put(studySession, 
 										StudySessionMeta.
@@ -54,7 +55,7 @@ public class StudySessionC extends Controller {
 		//Get list of study sessions which have started
 		List<StudySession> ongoingList = StudySession.getOngoing(now);
 		Map<StudySession, StudySessionMeta> ongoing = 
-								new HashMap<StudySession, StudySessionMeta>();
+								new LinkedHashMap<StudySession, StudySessionMeta>();
 		for(StudySession studySession : ongoingList) {
 			ongoing.put(studySession, 
 						StudySessionMeta.
@@ -64,7 +65,7 @@ public class StudySessionC extends Controller {
 		//Get list of study sessions which are over (but not yet closed)
 		List<StudySession> overList = StudySession.getOver(now);
 		Map<StudySession, StudySessionMeta> over = 
-								new HashMap<StudySession, StudySessionMeta>();
+								new LinkedHashMap<StudySession, StudySessionMeta>();
 		for(StudySession studySession : overList) {
 			over.put(studySession, 
 					 StudySessionMeta.
