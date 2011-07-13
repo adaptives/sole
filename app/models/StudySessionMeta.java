@@ -28,4 +28,9 @@ public class StudySessionMeta extends Model {
 								  studySessionId).first();
 		return studySessionMeta;
 	}
+	
+	@Override
+	public String toString() {
+		return this.studySession.title;
+	}
 }

@@ -40,50 +40,36 @@ public class SoleTags extends FastTags {
 			return;
 		}
 		out.print("<span class=\"course-status\">");
+		if(studySessionMeta.canceled) {
+			out.println("<span style=\"color: #E02A02; weight: bold; font-size: 1.2em;\">This course has been cancelled </span>");
+		} else if(studySessionMeta.locked) {
+			out.println("<span style=\"color: #E03008; weight: bold; font-size: 1.2em;\">This course is closed for further participation </span>");	
+		} else if(studySessionMeta.enrollmentClosed) {
+			out.print("<span style=\"color: #E03008; weight: bold; font-size: 1.2em;\">This course is is full and is not accepting new applications </span>");
+		} else {
+			//out.print("<span style=\"color: #0090CE; weight: bold; font-size: 1.2em;\">This Course is accepting new applications </span>");
+		}
+		out.print("</span>");
+		
+		out.print("<div class=\"course-status\">");
 		
 		if(Security.isConnected()) {
 			String userId = Security.connected();
 			long lUserId = Long.parseLong(userId);
-			if(studySession.canEnroll(lUserId)) {
-				if(studySessionMeta.canceled) {
-					out.print("This course has been cancelled");
-				}
-				else if(studySessionMeta.locked) {
-					out.println("This course is closed for further participation");
-					
-				}
-				else if(studySessionMeta.enrollmentClosed) {
-					out.print("This course is full but you can follow along without formally participating");
-				}
-				else {
-					out.print("This Course is open for enrollment. ");
-				}
-			} else if(studySession.applicationStore.isUserApplicationPending(lUserId)) {
-				if(studySessionMeta.canceled) {
-					out.print("This course has been cancelled");
-				}
-				out.print("<span style=\"color: #E06A1B; weight: bold;\">Your applcation is pending approval. You will see a Twitter mention in your timeline from @diycs once you are approved. You can also come back here to check. Since we do not ask for your email id, we cannot generate emails when someone is approved.</span>");
+			out.print("<div>");
+			if(studySession.isFacilitator(lUserId)) {
+				out.println("<span style=\"color: #038E01; weight: bold; font-size: 1.2em;\"> You are a facilitator in this course. </span>");
 			} else if(studySession.applicationStore.isUserApplicationAccepted(lUserId)) {
-				out.print("<span style=\"color: green; weight: bold; font-size: 1.3em;\">You are enrolled in this course.</span> ");
-			} else if(studySession.isFacilitator(lUserId)) {
-				if(studySessionMeta.canceled) {
-					out.print("This course has been cancelled");
-				}
-				else if(studySessionMeta.locked) {
-					out.println("This course is closed for further participation");
-					
-				}
-				else if(studySessionMeta.enrollmentClosed) {
-					out.print("This course is full but you can follow along without formally participating");
-				}
-				else {
-					out.print("This Course is open for enrollment. ");
-				}
-				out.println("You are a facilitator in this course. ");
+				out.print("<span style=\"color: #038E01; weight: bold; font-size: 1.2em;\">You are enrolled in this course.</span> ");
+			} else if(studySession.applicationStore.isUserApplicationPending(lUserId)) {
+				out.print("<span style=\"color: #8AD153; weight: bold; font-size: 1.2em;\">Your applcation is pending approval. You will see a Twitter mention in your timeline from @diycs once you are approved. You can also come back here to check. Since we do not ask for your email id, we cannot generate emails when someone is approved.</span>");
 			}
+			out.print("</div>");
 		}
 		
-		out.print("</span>");
+		
+		
+		out.print("</div>");
 	}
 	
 	public static void _apply(Map<?, ?> args, 
