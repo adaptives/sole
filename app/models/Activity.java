@@ -27,7 +27,8 @@ public class Activity extends Model {
 	@OrderBy("timestamp")
 	public Set<ActivityResponse> activityResponses;
 	
-	public Activity(String content) {
+	public Activity(String title, String content) {
+		this.title = title;
 		this.content = content;
 		this.activityResponses = new TreeSet<ActivityResponse>();
 		create();

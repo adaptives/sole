@@ -16,47 +16,62 @@
 <div id="selected-question" class="selected-question">
 </div>
 
-<div id="comments" class="comments">
-#{list items:courseSection.comments, as:'comment'}
-	<div class="comment">
-		<div class="comment-content">
-			${comment.content}
-		</div>
-		<div class="comment-at-by">
-			<span>Posted on: </span><span>${comment.time.format('dd MMM yy')}</span>
-			<span>By: </span>
-			#{if comment.website}
-				<a href="${comment.website}">${comment.author}</a>
-			#{/if}
-			#{else}
-				${comment.author}
-			#{/else}
-		</div>
+<div>
+	<div style="margin-bottom: 16px;">
+		<div style="font-size: 1.6em; background: #99b888; width:100%; padding:4px; color: white;">Activities</div>
+		<div class="vspacediv">This session has the following activities. Please complete them and submit links to your work. A good place to publish your activities is your blog, website, some wiki, or or any publicly accessible page on the Internet.</div>
+		<div class="vspacediv"><a href="@{CourseC.sectionActivityResponses(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle)}"><h4>View all activity responses</h4></a></div>
 	</div>
-#{/list}
-<div class="comment-form-header">Leave a comment. You can also ask questions on the course <a href="@{CourseC.forum(courseSection.course.sanitizedTitle)}">forum</a>.</div>
-<div class="comment-form">
-	#{form @CourseC.comment(courseSection.course.id, courseSection.id)}
-		<p>
-			<div><label>Name <span class="required-field">(required)</span> </label></div>
-			<input type="text" name="name" value="" id="name" /> <span class="error">#{error 'name' /}</span>
-		</p>
-		<p>
-			<div><label>Email <span class="required-field">(required, but will not be displayed)</span></label></div>
-			<input type="text" name="email" value="" id="email" /> <span class="error">#{error 'email' /}</span>
-		</p>
-		<p>
-			<div><label>Website <span class="required-field"></span></label></div>
-			<input type="text" name="website" value="" id="website" /> <span class="error">#{error 'website' /}</span>
-		</p>
-		<p>
-			<div><label>Comment <span class="required-field">(required)</span></label></div>
-			<textarea name="message" rows="8" cols="40" id="message"></textarea>
-		</p>
-		<p>
-			<input type="submit" value="Submit" id="postComment" />
-			<input type="reset" value="Clear" />
-		</p>
-	#{/form}
-</div>
+	<div class="activewrapcontaint">
+		#{list items:courseSection.activities, as:'activity'}
+			<div class="activewrap">
+				<div class="standard-div">
+					<h4><img src="/public/images/applications-development.png"/> Activity ${activity_index} : ${activity.title}</h4>
+					${activity.content.raw()}
+				</div>
+				<div class="bdr" style="margin-bottom: 10px; padding-bottom: 10px;">
+					#{if !session.user}
+						<div style="margin-top: 10px; margin-bottom: 10px;">
+							<strong>If you are enrolled in this course, then please login to submit your response to this activity</strong>
+						</div>
+					#{/if}
+					#{elseif session.user && !courseSection.course.isSocialUserEnrolled(session.user)}
+						<div style="margin-top: 10px; margin-bottom: 10px;">
+							<strong>You cannot submit your response to this activity since you are not participating in this course, but you are welcome to audit this course, and do the activities on your own ...</strong>
+						</div>
+					#{/elseif}
+					#{if session.user && courseSection.course.isSocialUserEnrolled(session.user)}
+						<div style="margin: 15px; font-style: italic">
+							<span style="font-weight: bold;">Submit your response to this activity (link to a blog post, etc)</span>
+							<form action="/" id="activity-response-${activity_index}">					
+								<div>Title (optional) Do you want to provide an explanatory title for your activity submission ?</div>
+								<input type="text" name="activityResponseTitle" />
+								<div>Link (required) An Internet link to your work</div>
+								<input type="text" name="activityResponse" />
+								<div style="margin-top: 4px;">
+									<input type="submit" name="submit" value="Submit"/>
+								</div>
+								<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> total responses.
+							</form>
+						</div>
+						<script type="text/javascript">
+							$('#activity-response-${activity_index}').submit(function(e) {
+								// stop normal link click 
+								e.preventDefault();
+								var $form = $(this);
+								var ar = $form.find('input[name="activityResponse"]').val();
+								var art =  $form.find('input[name="activityResponseTitle"]').val();
+								$.post("/activityresponse/${activity.id}", {activityResponse:ar, title:art}, function(response) {
+									$('#activity-response-count-${activity_index}').html('<span style=\"color:green; font-weight: bold\">Thank You</span> ' + response);
+									$form.find('input[name="activityResponse"]').val("");
+									$form.find('input[name="activityResponseTitle"]').val("");
+								});
+							});		
+						</script>
+					#{/if}
+				</div>
+			</div>
+		#{/list}
+		
+	</div>
 </div>

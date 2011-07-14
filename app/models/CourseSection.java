@@ -2,6 +2,7 @@ package models;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -43,11 +44,15 @@ public class CourseSection extends Model {
 	@ManyToMany(cascade=CascadeType.ALL)
 	public Set<SocialUser> understoodParticipants;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	public Set<Activity> activities;
+	
 	public CourseSection(Course course, String title, String content) {
 		this.course = course;
 		this.title = title;
 		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(this.title);
 		this.content = content;
+		this.activities = new TreeSet<Activity>();
 	}
 	
 	public static CourseSection findBySanitizedTitleByCouse(Course course, 

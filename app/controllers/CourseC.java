@@ -162,4 +162,14 @@ public class CourseC extends Controller {
 		Question question = Question.findById(questionId);
 		render(course, question);
 	}
+	
+	public static void sectionActivityResponses(String courseSanitizedTitle, String courseSectionSanitizedTitle) {
+		Course course = Course.findBySanitizedTitle(courseSanitizedTitle);
+		notFoundIfNull(course);
+		
+		CourseSection courseSection = CourseSection.findBySanitizedTitleByCouse(course, courseSectionSanitizedTitle);
+		notFoundIfNull(courseSection);
+		
+		render(course, courseSection);
+	}
 }
