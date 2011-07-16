@@ -10,6 +10,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import other.utils.StringUtils;
 
@@ -45,6 +46,7 @@ public class CourseSection extends Model {
 	public Set<SocialUser> understoodParticipants;
 	
 	@OneToMany(cascade=CascadeType.ALL)
+	@OrderBy("id")
 	public Set<Activity> activities;
 	
 	public CourseSection(Course course, String title, String content) {

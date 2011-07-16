@@ -6,6 +6,8 @@ import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.Scope.Flash;
 import play.mvc.With;
+import models.Activity;
+import models.ActivityResponse;
 import models.Answer;
 import models.Course;
 import models.Forum;
@@ -98,4 +100,24 @@ public class CourseSecureC extends Controller {
 		CourseC.forumQuestion(course.sanitizedTitle, questionId);
 	}
 	
+	public static int postActivityResponse(long activityId,
+										   String activityResponse, 
+										   String title) {
+		
+		Activity activity = Activity.findById(activityId);
+		if (activityResponse != null && !activityResponse.equals("")) {
+			String sUserId = Security.connected();
+			long userId = Long.parseLong(sUserId);
+			SocialUser user = SocialUser.findById(userId);
+			if (user != null) {
+				ActivityResponse activityResponseObj = new ActivityResponse(
+						user, activity, activityResponse, title);
+				activityResponseObj.save();
+//				createEventForActivityResponse(user, activity, activityResponse);
+			}
+		}
+
+		return activity.activityResponses.size();
+	}
+
 }

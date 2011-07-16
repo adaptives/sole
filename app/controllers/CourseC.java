@@ -172,4 +172,5 @@ public class CourseC extends Controller {
 		
 		render(course, courseSection);
 	}
+
 }

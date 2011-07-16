@@ -60,14 +60,14 @@ public class CreateChangedUrls extends Job {
 			String contentTemplate = "<p>%s</p><p>%s</p><p><a href=\"%s\">Download mp4 Video (Torrent)</a></p><p><a href=\"%s\">Lecture transcripts</a></p>";
 			
 	public void doJob() {
-		Course course = Course.findBySanitizedTitle(courseSanitizedTitle);
-		if(course != null) {
-			for (int i=0; i<chapters.length; i++) {
-				String contents = String.format(contentTemplate, chapters[i][2], chapters[i][3], chapters[i][4], chapters[i][1]);
-				CourseSection courseSection = new CourseSection(course, chapters[i][0], contents);
-				courseSection.placement = i + 1;
-				courseSection.save();
-			}
-		}
+//		Course course = Course.findBySanitizedTitle(courseSanitizedTitle);
+//		if(course != null) {
+//			for (int i=0; i<chapters.length; i++) {
+//				String contents = String.format(contentTemplate, chapters[i][2], chapters[i][3], chapters[i][4], chapters[i][1]);
+//				CourseSection courseSection = new CourseSection(course, chapters[i][0], contents);
+//				courseSection.placement = i + 1;
+//				courseSection.save();
+//			}
+//		}
 	}
 }

@@ -13,7 +13,7 @@ POST    /courses/course/section{sectionId}/question 							                     
 GET     /courses/course/{sanitizedTitle}/forum        							                                       CourseC.forum
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
-
+POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
 
 GET     /bookgroups/list/{page}/{size}           								                                       BookGroupC.list
 GET     /bookgroups/show/{sanitizedTitle}        								                                       BookGroupC.show

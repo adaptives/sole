@@ -61,7 +61,7 @@
 								var $form = $(this);
 								var ar = $form.find('input[name="activityResponse"]').val();
 								var art =  $form.find('input[name="activityResponseTitle"]').val();
-								$.post("/activityresponse/${activity.id}", {activityResponse:ar, title:art}, function(response) {
+								$.post("/course/activityresponse/${activity.id}", {activityResponse:ar, title:art}, function(response) {
 									$('#activity-response-count-${activity_index}').html('<span style=\"color:green; font-weight: bold\">Thank You</span> ' + response);
 									$form.find('input[name="activityResponse"]').val("");
 									$form.find('input[name="activityResponseTitle"]').val("");
