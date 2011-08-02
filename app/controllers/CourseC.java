@@ -172,5 +172,19 @@ public class CourseC extends Controller {
 		
 		render(course, courseSection);
 	}
+	
+	public static void activityResponses(String courseSanitizedTitle) {
+		Course course = Course.findBySanitizedTitle(courseSanitizedTitle);
+		notFoundIfNull(course);
+		
+		render(course);
+	}
+	
+	public static void participants(String sanitizedTitle) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		
+		render(course);
+	}
 
 }

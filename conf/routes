@@ -7,13 +7,15 @@ GET     /                                       								                        
 GET     /courses/list                           								                                       CourseC.list
 GET     /courses/course/{sanitizedTitle}        								                                       CourseC.course
 GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}                                         CourseC.section
-GET     /courses/course/{courseSanitizedTitle}/section/{courseSectionSanitizedTitle}/activity/responses                CourseC.sectionActivityResponses
+GET     /courses/course/{courseSanitizedTitle}/section/{courseSectionSanitizedTitle}/activity/responses                CourseC.sectionActivityResponses'
+GET     /courses/course/{courseSanitizedTitle}/activity/responses                                                      CourseC.activityResponses
 GET     /courses/course/section/{sectionId}/question/{questionId} 				                                       CourseC.question
 POST    /courses/course/section{sectionId}/question 							                                       CourseC.addQuestion
 GET     /courses/course/{sanitizedTitle}/forum        							                                       CourseC.forum
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
 POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
+GET     /courses/course/{sanitizedTitle}/participants                                                                  CourseC.participants
 
 GET     /bookgroups/list/{page}/{size}           								                                       BookGroupC.list
 GET     /bookgroups/show/{sanitizedTitle}        								                                       BookGroupC.show

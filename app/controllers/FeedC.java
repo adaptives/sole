@@ -12,6 +12,8 @@ import java.util.Map;
 import other.utils.LinkGenUtils;
 
 import models.BlogPost;
+import models.Course;
+import models.DIYCourseEvent;
 import models.KeyValueData;
 import models.StudySession;
 import models.StudySessionEvent;
@@ -74,6 +76,25 @@ public class FeedC extends Controller {
 		}
 	}
 	
+	public static void course(long courseId) {
+		RSSFeedGenerator feedGen = RSSFeedGeneratorFactory.getDefault();
+		
+		try {			
+			RSS rss = new RSS();
+			Channel channel = getCourseChannel(courseId);
+			if(channel != null) {
+				rss.addChannel(channel);
+				String feed = feedGen.generateAsString(rss);
+				renderXml(feed);
+			} else {
+				cLogger.warn("Could not build Channel for Course '" + courseId + "'");
+			}
+		} catch(IOException ioe) {
+			//TODO: How do we specify to the blog reader that an error has occurred 
+			cLogger.error("Error while genarating the blog feed", ioe);
+		}
+	}
+
 	public static void studySessions() {
 		RSSFeedGenerator feedGen = RSSFeedGeneratorFactory.getDefault();
 		try {
@@ -87,6 +108,54 @@ public class FeedC extends Controller {
 		} catch(IOException ioe) {
 			
 		}
+	}
+
+	private static Channel getCourseChannel(long courseId) {
+		Channel channel = null;
+		Course course = Course.findById(courseId);
+		if(course != null) {
+			
+			List<DIYCourseEvent> courseEvents = DIYCourseEvent.tailByCourse(course, 1, 100);
+			
+			String courseLink = LinkGenUtils.getDIYCourseLink(course);
+			
+			channel = new Channel("Status updates for self paced course - " + course.title, 
+					 			   request.domain + ":" + request.port + courseLink, //TODO: Replace with linkutils actual link 
+					 			   "Status updates for self paced course - " + course.title);
+			
+			//TODO: Do we want to support separate copyright notices?
+			channel.setCopyright(KeyValueData.findValue(BLOG_COPYRIGHT, ""));
+			
+			try {
+				//TODO: This should be a daily date
+				channel.setPubDate(getToday());
+			} catch(ParseException pe) {
+				cLogger.error("Could not get today as Date", pe);
+			}
+			
+			//TODO: This should be a proper date which reflects the last build date
+			if(courseEvents != null && courseEvents.size() > 0) {
+				DIYCourseEvent latest = courseEvents.get(0);
+				channel.setLastBuildDate(latest.timestamp);
+			}
+			
+			channel.setTtl(60); //TODO: Can this be longer?
+			//channel.setImage(null);
+			//channel.setRating(rating);
+		
+			for(DIYCourseEvent courseEvent : courseEvents) {
+				channel.addItem(getCourseEventItem(courseEvent));
+			}
+			
+		}
+		return channel;
+	}
+	
+	private static Item getCourseEventItem(DIYCourseEvent courseEvent) {
+		Item item = new Item(courseEvent.title, courseEvent.text);
+		//item.setAuthor("get actual author ?");
+		item.setPubDate(courseEvent.timestamp);
+		return item;
 	}
 
 	private static Channel getStudySessionsChannel() {

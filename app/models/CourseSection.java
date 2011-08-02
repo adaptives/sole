@@ -65,6 +65,12 @@ public class CourseSection extends Model {
 			CourseSection.find(query, course.id, sanitizedTitle).first();
 		return courseSection;
 	}
+	
+	public static CourseSection findCourseSectionForActivity(Activity activity) {
+		String query = "select cs from CourseSection cs join cs.activities a where a.id = ?";
+		CourseSection cs = CourseSection.find(query, activity.id).first();
+		return cs;
+	}
 
 	@Override
 	public int hashCode() {

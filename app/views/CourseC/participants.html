@@ -1,0 +1,11 @@
+#{extends 'CourseC/courseMain.html' /}
+#{set noUpdates:true /}
+
+#{list items:course.enrolledParticipants, as:'participant'}
+	<div>
+		<span>
+			<img width="40" height="40" src="@{UserProfileC.pic(participant.id)}">
+		</span>
+		<a href="@{UserProfileC.show(participant.id)}">${participant.screenname}</a>
+	</div>
+#{/list}

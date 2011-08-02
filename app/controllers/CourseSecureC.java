@@ -10,6 +10,7 @@ import models.Activity;
 import models.ActivityResponse;
 import models.Answer;
 import models.Course;
+import models.DIYCourseEvent;
 import models.Forum;
 import models.Question;
 import models.SiteEvent;
@@ -79,6 +80,7 @@ public class CourseSecureC extends Controller {
 
 			forum.questions.add(question);
 			forum.save();
+			saveIfNotNull(DIYCourseEvent.buildFromQuestion(course, user, question));
 			CourseC.forum(course.sanitizedTitle);
 		} else {
 			//TODO: What do we do here?
@@ -97,6 +99,7 @@ public class CourseSecureC extends Controller {
 		Answer answer = new Answer(answerContent, user, question);
 		question.answers.add(answer);
 		question.save();
+		saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));
 		CourseC.forumQuestion(course.sanitizedTitle, questionId);
 	}
 	
@@ -113,11 +116,17 @@ public class CourseSecureC extends Controller {
 				ActivityResponse activityResponseObj = new ActivityResponse(
 						user, activity, activityResponse, title);
 				activityResponseObj.save();
-//				createEventForActivityResponse(user, activity, activityResponse);
+				saveIfNotNull(DIYCourseEvent.buildFromActivity(user, activityResponseObj));
 			}
 		}
 
 		return activity.activityResponses.size();
+	}
+
+	private static void saveIfNotNull(DIYCourseEvent event) {
+		if(event != null) {
+			event.save();
+		}
 	}
 
 }

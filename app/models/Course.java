@@ -141,4 +141,14 @@ public class Course extends Model {
 	public long getEnrolledUsersCount() {
 		return this.enrolledParticipants.size();
 	}
+	
+	public List<DIYCourseEvent> getUpdates() {
+		return DIYCourseEvent.tailByCourse(this, 1, 100);
+	}
+	
+	public static Course findCourseForActivity(Activity activity) {
+		String query = "select c from Course c join c.activities a where a.id = ?";
+		Course course = Course.find(query, activity.id).first();
+		return course;
+	}
 }
