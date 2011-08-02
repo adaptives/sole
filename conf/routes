@@ -54,6 +54,7 @@ GET     /callbacks/auth/twitter                                                 
 GET     /blog/obfuscate/feed                                                                                           FeedC.blog
 GET     /studySessions/studySession/{studySessionId}/feed                                                              FeedC.studySession
 GET     /studySessions/feed                                                                                            FeedC.studySessions
+GET     /courses/course/{sanitizedTitle}/feed                                                                          FeedC.course
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

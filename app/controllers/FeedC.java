@@ -76,18 +76,19 @@ public class FeedC extends Controller {
 		}
 	}
 	
-	public static void course(long courseId) {
+	public static void course(String sanitizedTitle) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		RSSFeedGenerator feedGen = RSSFeedGeneratorFactory.getDefault();
 		
 		try {			
 			RSS rss = new RSS();
-			Channel channel = getCourseChannel(courseId);
+			Channel channel = getCourseChannel(course.id);
 			if(channel != null) {
 				rss.addChannel(channel);
 				String feed = feedGen.generateAsString(rss);
 				renderXml(feed);
 			} else {
-				cLogger.warn("Could not build Channel for Course '" + courseId + "'");
+				cLogger.warn("Could not build Channel for Course '" + course.id + "'");
 			}
 		} catch(IOException ioe) {
 			//TODO: How do we specify to the blog reader that an error has occurred 
