@@ -6,9 +6,7 @@ import play.db.jpa.Model;
 
 @Entity
 public class KeyValueData extends Model {
-	public String key;
 	public String k;
-	public String value;
 	public String v;
 	
 	public KeyValueData(String key, String value) {
