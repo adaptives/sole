@@ -63,18 +63,6 @@
 						class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-95 #{selectedStyle menu:'home' /}">
 						<a href="@{Application.index}">Home</a>
 					</li>
-					<li id="menu-item-90"
-						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-90 #{selectedStyle menu:'courses' /}">
-						<a href="@{CourseC.list}">Self Paced Courses</a>
-					</li>
-					<li id="menu-item-92"
-						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-90 #{selectedStyle menu:'book_groups' /}">
-						<a href="@{BookGroupC.list(1,25)}">Book Groups</a>
-					</li>
-					<li id="#"
-						class="menu-item menu-item-type-post_type menu-item-object-page menu-item-94 #{selectedStyle menu:'study_groups' /}">
-						<a href="@{StudySessionC.currentlist}">Study Groups</a>
-					</li>
 					<li id="menu-item-180"
 						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'users' /}">
 						<a href="@{UserProfileC.list(1,24)}">Users</a>
@@ -113,7 +101,12 @@
 					 #{list items:blogPosts, as:'blogPost'}
 					 	<div class="site-event">#{blogPost as:'t', post:blogPost /}</div>
 					 #{/list}
-					 </div>								 
+					 </div>
+					 <div style="margin-top: 5px; margin-bottom: 5px;">&nbsp;</div>
+					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent Activity</div>
+					 <div class="community-activity">
+					 	#{communityActivity /}
+					 </div>
 			</div> <!-- End sidebar -->
 			
 			</div> <!-- end container -->

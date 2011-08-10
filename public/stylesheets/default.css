@@ -361,22 +361,19 @@ p {
 -------------------------------------------------------------- */
 
 .communitywrap{
-    font-size: 16px;
-    line-height: 24px;
-    padding:10px 10px;
+    font-size: 10px;
 	border-bottom:1px solid #CCCCCC;
     position: relative;
-	padding-bottom:20px;
+	padding-bottom:5px;
 }
 .communitywrappost-title{
     color: #000000;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
 	padding:5px;
 	background:#FDF2EC;
-	line-height:120%;
-/*    line-height: 1px;*/
-	}
+}
+
 .gridimg{
     display: inline;
     float: left;

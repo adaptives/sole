@@ -17,11 +17,6 @@ GET     /courses/course/{courseId}/enroll                                       
 POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
 GET     /courses/course/{sanitizedTitle}/participants                                                                  CourseC.participants
 
-GET     /bookgroups/list/{page}/{size}           								                                       BookGroupC.list
-GET     /bookgroups/show/{sanitizedTitle}        								                                       BookGroupC.show
-GET     /bookgroups/show/{sanitizedTitle}/forum                                                                        BookGroupC.forum
-GET     /bookgroups/bookgroup/{sanitizedTitle}/question/{questionId}/{sanitizedQuestionTitle}  			               BookGroupC.forumQuestion
-
 GET     /studysessions/currentlist                                                                                     StudySessionC.currentlist
 GET     /studysessions/studysession/{sanitizedTitle}                                                                   StudySessionC.studySession
 GET     /studysessions/studysession/{sanitizedTitle}/sessionpart/{sessionPartSanitizedTitle}                           StudySessionC.sessionPart
