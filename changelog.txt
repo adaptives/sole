@@ -15,3 +15,23 @@
 
 2. Added columns k and v to KeyValueData and added a Job to populate k and
    v with the values of key and value.
+   
+2011-08-10
+1. Removed book groups from code and data
+drop table book_bookcategory;
+drop table bookcategory;
+drop table booklinkprovider;
+drop table booklink;
+drop table book_author;
+drop table author;
+drop table book_group_completed_reading;
+drop table book_group_started_reading;
+drop table bookgroup;
+drop table book;
+
+2. Removed StudyGroups from the main page menu
+
+3. Moved 'Community Activities' list from the main page to the side bar
+
+4. Changed the contents of the main page to list all DIY courses
+
