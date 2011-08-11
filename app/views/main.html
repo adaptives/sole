@@ -49,27 +49,36 @@
         
     </head>
     <body>
-		
 			<div id="header">
 			<div class="logo"></div>
-			<div>
-				<h1>
-					<a href="#">DIY Computer Science</a>
-				</h1>
-			</div>
 			<div id="navigation">
 				<ul id="nav" class="menu">
-					<li id="menu-item-95"
+					#{secure.check 'admin'}
+					<li id="menu-item-1"
+						class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-95 #{selectedStyle menu:'admin' /}">
+						<a href="@{AdminC.index}">Admin</a>
+					</li>
+					#{/secure.check}
+					
+					<li id="menu-item-2"
 						class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-95 #{selectedStyle menu:'home' /}">
 						<a href="@{Application.index}">Home</a>
 					</li>
-					<li id="menu-item-180"
+					<li id="menu-item-3"
 						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'users' /}">
 						<a href="@{UserProfileC.list(1,24)}">Users</a>
 					</li>
-					<li id="menu-item-180"
+					<li id="menu-item-4"
 						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'blog' /}">
 						<a href="@{BlogPostC.list}">Blog</a>
+					</li>
+					<li id="menu-item-5"
+						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'help' /}">
+						<a href="@{HelpC.index()}">Help</a>
+					</li>
+					<li id="menu-item-6"
+						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'feedback' /}">
+						<a href="@{FeedbackC.index()}">Feedback</a>
 					</li>
 				</ul>
 			</div> <!-- navigation end -->
@@ -91,7 +100,22 @@
 			</div> <!-- end padder -->
 			</div> <!-- end content -->
 			<div  id="sidebar"> <!-- Sidebar -->
-					 <div style="margin-bottom: 10px;">#{socialButtons /}</div>
+			<div>
+					#{ifnot session.user}
+						<div><a style="color: green; font-family: Comic Sans, Comic Sans MS; font-size: 1.4em;" href="@{Secure.login}">Login</a></div> 
+					#{/ifnot}
+					#{else}
+						<div>
+						<span>						
+							<a class="connected-user" style="color: green; font-family: Comic Sans, Comic Sans MS; font-size: 1.3em;" href="@{UserProfileC.show(session.user)}">Welcome ${screenname}&nbsp;&nbsp;</a> 						
+						</span>
+						<span><a style="color: red; font-family: Comic Sans, Comic Sans MS;" href="@{Secure.logout}">Logout</a></span>
+						</div>						 
+					#{/else}					
+			</div>
+			<div style="clear: both;"></div>
+			<div style="margin-bottom: 10px;"></div>
+			<div style="margin-bottom: 10px;">#{socialButtons /}</div>
 					 <div style="margin-bottom: 10px;">
 					 	#{sidebarWidgets /}
 					 </div>					 
@@ -126,54 +150,7 @@
 					</div>
 				</div>
 			</div> <!-- footer end -->
-		
-		
 	
-	<!--Start Admin Bar -->
-	<div id="wpadminbar" class="no-grav">
-		<div class="quicklinks">
-			<ul>
-				#{ifnot session.user}
-					<li class="">
-					<a href="@{Secure.login}">Login</a>
-					</li>					
-				#{/ifnot}
-				#{else}
-					<li class="">
-						<a href="@{Secure.logout}">Logout</a>
-					</li>
-				#{/else}
-				#{secure.check 'admin'}
-					<li class="">
-						<a href="@{AdminC.index}">Admin</a>
-					</li>
-				#{/secure.check}
-
-				<li class="">
-					<a href="@{PageC.show('help')}">Help</a>
-				</li>
-
-				<li class="">
-					<a href="@{Application.feedback}">Feedback</a>
-				</li>
-				
-				<li class="">
-					#{if session.user}  
-						<a class="connected-user" href="@{UserProfileC.show(session.user)}">Welcome ${screenname}</a> 
-					#{/if}
-				</li>
-
-			</ul>
- 		</div>
-
-		<div id="adminbarsearch-wrap">
-			<form id="adminbarsearch" method="get" action="#">
-				<input id="adminbar-search" class="adminbar-input" type="text" maxlength="150" value="under construction" name="s">
-				<input class="adminbar-button" type="submit" value="Search">
-			</form>
-		</div>
-	</div>
-	<!--End Admin Bar -->
 	<!-- TODO: The list of scripts to load should come from the database -->	
     #{keyValueData k:'google.analytics' /}
     <script type="text/javascript"

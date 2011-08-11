@@ -42,24 +42,4 @@ public class Application extends Controller {
         index();
     }
 	
-	//-------------------------- Feedback
-	public static void feedback() {
-		List<Feedback> feedbacks = Feedback.findAll();
-		render(feedbacks);
-	}
-	
-	public static void createFeedback(@Required String name, 
-									  @Required @Email String email, 
-									  @Required String message) {
-		if(validation.hasErrors()) {
-			validation.keep();
-			params.flash();
-			flash.error("Please correct these errors");
-			feedback();
-		}
-		Feedback feedback = new Feedback(name, email, message);
-		feedback.save();
-		feedback();
-	}
-	
 }

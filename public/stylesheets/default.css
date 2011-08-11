@@ -65,44 +65,34 @@ h6 {
 
 .logo{
    float:left;
-   background:url(/public/images/logo.png) no-repeat;
+   background:url(/public/images/full_logo.png) no-repeat;
    height:54px;
-   width:54px; 
-   margin:10px;
+   width:450px; 
+   margin:0px 10px 0px 10px;   
 }
 
 
 #header {
     background-image:url(../images/header.jpg);
 	background-repeat:repeat-x;
-/*    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;*/
     color: #FFFFFF;
     height: 88px;
-    margin-top: 25px;
-/*    padding-top: 35px;*/
     position:relative;
 	width:100%;
 	z-index: 1000;
 	direction:ltr;
 	min-width: 960px;
 	left:0;
+	padding-top: 0px;
+	margin-top: 0px;
 }
-#header h1 {
+
+#header .diy {
     line-height:200%;
 	padding-left:25px;
-	margin-bottom: 10px;
-/*	position: absolute;*/
 	width: 50%;
 	font-family:Helvetica;
 	text-decoration:none;
-}
-#header h1 a {
-	color: #fff;
-	font-size: 24px;
-	text-decoration: none;
-	font-weight:normal;
-
 }
 
 ol {
@@ -661,3 +651,14 @@ a.promotionalred:active, input.promotionalred:active {
 
 /* > End Pager
 -------------------------------------------------------------- */
+
+/* ul without line breaks
+-------------------------------------------------------------- */
+.menu-list {
+	list-style: none;	
+}
+
+.menu-list li {
+	float: left;
+	margin: 5px;	
+}

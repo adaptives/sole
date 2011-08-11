@@ -24,7 +24,6 @@ public class SocialUser extends Model implements Comparable {
 	@Required
 	public String screenname;
 	
-	@javax.persistence.Column(unique = true)
 	@Email
 	public String email;
 	
