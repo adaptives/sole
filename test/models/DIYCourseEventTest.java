@@ -36,8 +36,9 @@ public class DIYCourseEventTest extends UnitTest {
 		javaCourse.save();
 		
 		DIYCourseEvent event = DIYCourseEvent.buildFromQuestion(javaCourse, user, question);
-		String expectedEventString = "<a href=\"/users/4\">testuser</a> asked a new question '<a href=\"/courses/course/introduction-to-java/question/1\">Question title</a>'";
-		assertEquals(expectedEventString, event.render());
+		String expectedEventString = 
+			"<a href=\"/users/%d\">testuser</a> asked a new question '<a href=\"/courses/course/introduction-to-java/question/1\">Question title</a>'";
+		assertEquals(String.format(expectedEventString, user.id), event.render());
 		
 	}
 	
@@ -60,8 +61,9 @@ public class DIYCourseEventTest extends UnitTest {
 		
 		DIYCourseEvent event = DIYCourseEvent.buildFromAnswer(javaCourse, user1, answer);
 		
-		String expectedEventString = "<a href=\"/users/8\">anothertestuser</a> provided an answer for question '<a href=\"/courses/course/introduction-to-java/question/2\">Question title</a>'";
-		assertEquals(expectedEventString, event.render());
+		String expectedEventString = 
+			"<a href=\"/users/%s\">anothertestuser</a> provided an answer for question '<a href=\"/courses/course/introduction-to-java/question/2\">Question title</a>'";
+		assertEquals(String.format(expectedEventString, user1.id), event.render());
 		
 	}
 	
@@ -82,8 +84,9 @@ public class DIYCourseEventTest extends UnitTest {
 		
 		DIYCourseEvent event = DIYCourseEvent.buildFromActivity(user1, activityResponse);
 		
-		String expectedEventString = "<a href=\"/users/11\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/activity/responses\">activity title</a>'";
-		assertEquals(expectedEventString, event.render());
+		String expectedEventString = 
+			"<a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/activity/responses\">activity title</a>'";
+		assertEquals(String.format(expectedEventString, user1.id), event.render());
 		
 	}
 	
@@ -106,8 +109,9 @@ public class DIYCourseEventTest extends UnitTest {
 		
 		DIYCourseEvent event = DIYCourseEvent.buildFromActivity(user1, activityResponse);
 		
-		String expectedEventString = "<a href=\"/users/14\">anothertestuser</a> submitted an activity response for activity '<a href=\"/coursec/sectionactivityresponses?courseSectionSanitizedTitle=section-1&courseSanitizedTitle=introduction-to-java\">activity title</a>'";
-		assertEquals(expectedEventString, event.render());
+		String expectedEventString = 
+			"<a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/section/section-1/activity/responses\">activity title</a>'";
+		assertEquals(String.format(expectedEventString, user1.id), event.render());
 		
 	}
 
