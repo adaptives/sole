@@ -21,7 +21,7 @@ public class LinkGenUtils {
 							Router.reverse("UserProfileC.show", actionArgs);
 		
 		ActionDefinition imageDef = Router.reverse("UserProfileC.pic", actionArgs);
-		String img = String.format("<img src=\"%s\" />", imageDef.url);
+		String img = String.format("<img width=\"20\" height=\"20\" src=\"%s\" />", imageDef.url);
 		String screenname = user.screenname;
 		String userLink = "<a href=\"" + actionDef.url + "\"> %s </a>";
 		return String.format(userLink, img) + String.format(userLink, screenname);
