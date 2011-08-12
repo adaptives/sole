@@ -1,4 +1,6 @@
 #{extends 'main.html' /}
+%{pageTitle = "User " + userProfile.user.screenname + " - Do It Yourself Computer Science"}%
+#{set title:pageTitle /}
 <div>
 	<img src="@{UserProfileC.pic(userProfile.user.id)}" width="60", height="60"/>
 </div>

@@ -1,4 +1,6 @@
 #{extends 'main.html' /}
+%{pageTitle = blogPost.title + " - Do It Yourself Computer Science"}%
+#{set title:pageTitle /}
 
 #{secure.check 'admin'}
 	<div>
