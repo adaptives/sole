@@ -74,7 +74,7 @@
 					</li>
 					<li id="menu-item-5"
 						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'help' /}">
-						<a href="@{HelpC.index()}">Help</a>
+						<a href="@{HelpC.index()}">How It Works</a>
 					</li>
 					<li id="menu-item-6"
 						class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'feedback' /}">
@@ -102,32 +102,39 @@
 			<div  id="sidebar"> <!-- Sidebar -->
 			<div>
 					#{ifnot session.user}
-						<div><a style="color: green; font-family: Comic Sans, Comic Sans MS; font-size: 1.4em;" href="@{Secure.login}">Login</a></div> 
+						<div><a style="color: green; font-family: Comic Sans, Comic Sans MS; font-size: 1.4em;" href="@{Secure.login}">
+								<img src="/public/images/signin.png" alt="Follow us on Twitter" width="110" height="40" />
+						</a></div> 
 					#{/ifnot}
 					#{else}
 						<div>
 						<span>						
-							<a class="connected-user" style="color: green; font-family: Comic Sans, Comic Sans MS; font-size: 1.3em;" href="@{UserProfileC.show(session.user)}">Welcome ${screenname}&nbsp;&nbsp;</a> 						
+							<span style="color: green; font-family: Comic Sans, Comic Sans MS;">Welcome </span>  
+							<a class="connected-user" style="color: green; font-family: Comic Sans, Comic Sans MS;" href="@{UserProfileC.show(session.user)}">${screenname}&nbsp;&nbsp;</a> 						
 						</span>
-						<span><a style="color: red; font-family: Comic Sans, Comic Sans MS;" href="@{Secure.logout}">Logout</a></span>
+						<span><a style="color: red; font-family: Comic Sans, Comic Sans MS;" href="@{Secure.logout}">logout();</a></span>
 						</div>						 
 					#{/else}					
 			</div>
 			<div style="clear: both;"></div>
 			<div style="margin-bottom: 10px;"></div>
-			<div style="margin-bottom: 10px;">#{socialButtons /}</div>
 					 <div style="margin-bottom: 10px;">
 					 	#{sidebarWidgets /}
 					 </div>					 
-					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent blog posts</div>
+					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent blog posts <img height="16" width="16" src="/public/images/blog_feed_logo.jpg"></div>
 					 <div class="community-activity">
 					 %{java.util.List<models.BlogPost> blogPosts = models.BlogPost.tail(5); %}
 					 #{list items:blogPosts, as:'blogPost'}
 					 	<div class="site-event">#{blogPost as:'t', post:blogPost /}</div>
 					 #{/list}
 					 </div>
-					 <div style="margin-top: 5px; margin-bottom: 5px;">&nbsp;</div>
-					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent Activity</div>
+				<div style="margin-bottom:5px; margin-top:5px;">
+					<a href="http://twitter.com/diycs"><img
+						src="/public/images/twitter-follow.jpg" width="80" height="50" alt="Follow us on Twitter" />
+					</a>
+				</div>
+
+			<div style="font-size: 1.4em; margin-bottom: 10px;">Recent Site Activity</div>
 					 <div class="community-activity">
 					 	#{communityActivity /}
 					 </div>
