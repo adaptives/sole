@@ -121,7 +121,7 @@
 					 <div style="margin-bottom: 10px;">
 					 	#{sidebarWidgets /}
 					 </div>					 
-					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent blog posts <img height="16" width="16" src="/public/images/blog_feed_logo.jpg"></div>
+					 <div style="font-size: 1.4em; margin-bottom: 10px;">Recent blog posts <a href="http://feeds.feedburner.com/DiyComputerScience"><img height="16" width="16" src="/public/images/blog_feed_logo.jpg" /></a></div>
 					 <div class="community-activity">
 					 %{java.util.List<models.BlogPost> blogPosts = models.BlogPost.tail(5); %}
 					 #{list items:blogPosts, as:'blogPost'}
