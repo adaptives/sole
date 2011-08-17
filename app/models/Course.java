@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -31,6 +32,9 @@ public class Course extends Model {
 	@Lob
 	@MaxSize(10000)
 	public String description;
+
+	@ManyToOne
+	public CourseCategory category;
 	
 	@OneToOne
 	public Pic coursePic;

@@ -662,3 +662,14 @@ a.promotionalred:active, input.promotionalred:active {
 	float: left;
 	margin: 5px;	
 }
+
+/* course category header
+-------------------------------------------------------------- */
+
+.course-category-header {
+	padding: 4px; 
+	font-weight: bold; 
+	font-size: 1.4em; 
+	background: url( ../images/box-lighter.png );
+	color: #fff;
+}

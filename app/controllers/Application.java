@@ -24,8 +24,9 @@ public class Application extends Controller {
 	
 	//------------------ HomePage
 	public static void index() {
-		List<Course> courses = Course.findAll();
-		render("CourseC/list.html", courses);
+		//List<Course> courses = Course.findAll();
+		List<CourseCategory> courseCategories = CourseCategory.findByOrderedPlacement();
+		render("CourseC/listByCategory.html", courseCategories);
     }
 	
 	public static void confirmRegistration(String uuid) {

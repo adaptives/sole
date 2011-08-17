@@ -1,0 +1,45 @@
+#{extends 'main.html' /}
+
+<div class="courses">
+
+<div style="margin-left: 5px; margin-bottom: 10px;">
+	<span style="padding-bottom: 4px; font-family: Comic Sans, Comic Sans MS; font-size: 1.4em; font-weight: bold; color: green;"> Free, Self Paced, Online Courses to Whet Your Learning Appetite !</span>
+</div>
+<ul>
+#{list items:courseCategories, as:'courseCategory'}
+	#{if courseCategory.courses != null && courseCategory.courses.size() != 0}
+	
+		<p class="course-category-header">
+			${courseCategory.name}
+		</p>
+		
+		#{list items:courseCategory.courses, as:'course'}
+			<div class="post-box">
+		
+			</div>
+	
+			<div class="comentwrap">
+			 <div class="grid">
+			 	<a href="@{CourseC.course(course.sanitizedTitle)}">
+			 		<img src="@{CourseC.pic(course.id)}" border="0" width="40" height="40" />
+			 	</a>
+			 </div>
+			 <div class="comentwrappost-title"> 
+			 	<a href="@{CourseC.course(course.sanitizedTitle)}">${course.title}</a>
+			 </div>
+			 
+			 <div class="comentwrappost-datetime"> </div>
+			 <div class="comentwrappost-course"> 
+			  </div>
+			 
+			 <div align="center" class="pepcomentwrap">
+			 <div class="pep"><img src="/public/images/people.png" border="0" width="20" height="17" /></div>
+			 <div class="peptext">${course.getEnrolledUsersCount()}</div>
+			 </div>
+			
+			</div>
+		#{/list}
+	#{/if}
+#{/list}	
+</ul>
+</div>
