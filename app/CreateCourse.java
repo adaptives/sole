@@ -12,8 +12,7 @@ public class CreateCourse extends Job {
 
 	public void doJob() {
 		
-		CourseCategory category = new CourseCategory("Appplied Computer Science");
-		category.save();
+		CourseCategory category = CourseCategory.findByName("Applied Computer Science");
 		
 		Course c = new Course("The Elements of Computing Systems", "Description");
 		c.category = category;
