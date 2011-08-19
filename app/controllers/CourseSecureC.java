@@ -36,12 +36,12 @@ public class CourseSecureC extends Controller {
 					course.enrolledParticipants.add(user);
 					course.save();
 					new SiteEvent(LinkGenUtils.getUserProfileLink(user) + 
-								  " enrolled in DIY Course " + 
+								  " enrolled in " + 
 								  LinkGenUtils.getDIYCourseLink(course));
 				}				
 			}
 			else {
-				
+				//control should never come here, because this is a secure action
 			}
 		} else {
 			cLogger.error("Could not find course '" + courseId + "' " +

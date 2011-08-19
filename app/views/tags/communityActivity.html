@@ -6,3 +6,11 @@
 		${siteEvent.text.raw()}	
 	</div>
 #{/list}
+<script type="text/javascript">
+	$('span.user-image-small').each(function(index) {
+		var theTag = $(this); 
+		$.get("/userprofilec/picTag?userId=" + this.id, function(response) {
+			theTag.html(response);	
+		})		
+	});
+</script>

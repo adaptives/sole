@@ -21,6 +21,7 @@ import models.Pic;
 import models.Question;
 import models.SocialUser;
 import models.StudySession;
+import models.TwitterUser;
 import models.User;
 import models.UserProfile;
 import play.Logger;
@@ -31,7 +32,9 @@ import play.db.jpa.Blob;
 import play.libs.Codec;
 import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Router;
 import play.mvc.With;
+import play.mvc.Router.ActionDefinition;
 import play.server.Server;
 
 @With(SocialAuthC.class)
@@ -186,6 +189,25 @@ public class UserProfileC extends Controller {
 		}		
 	}
 	
+	public static void picTag(long userId) {
+		String imageTag = "<img src=\"%s\" />";
+		String picTag = String.format(imageTag, "public/images/default_user_image.png");
+		
+		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
+		if(userProfile.profilePic != null) {
+			Map actionArgs = new HashMap();
+			actionArgs.put("userId", userId);			
+			ActionDefinition imageDef = Router.reverse("UserProfileC.pic", actionArgs);
+			picTag = String.format(imageTag, imageDef.url);
+		} else {
+			String twitterScreenname = TwitterUser.getTwitterUsernameForSocialUser(userId);
+			if(twitterScreenname != "") {
+				picTag = String.format(imageTag, getTwitterPicUrl(twitterScreenname));
+			}			
+		}
+		renderText(picTag);
+	}
+	
 	public static void update(long userId, 
 							  String aboutMyself, 
 							  String location, 
@@ -206,6 +228,11 @@ public class UserProfileC extends Controller {
 	private static UserProfile getUserProfileFromSocialUserId(long userId) {
 		String sql = "select distinct upr from UserProfile upr where upr.user.id = ?";
 		return UserProfile.find(sql, userId).first();
+	}
+	
+	private static String getTwitterPicUrl(String twitterScreenname) {
+		return String.format("http://api.twitter.com/1/users/profile_image?screen_name=%s&size=normal", 
+ 		                     twitterScreenname.substring("http://twitter.com/".length()));
 	}
 	
 }
