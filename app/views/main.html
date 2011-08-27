@@ -157,7 +157,14 @@
 					</div>
 				</div>
 			</div> <!-- footer end -->
-	
+	<script type="text/javascript">
+		$('span.user-image-small').each(function(index) {
+			var theTag = $(this); 
+			$.get("/userprofilec/picTag?userId=" + this.id, function(response) {
+				theTag.html(response);	
+			})		
+		});
+	</script>
 	<!-- TODO: The list of scripts to load should come from the database -->	
     #{keyValueData k:'google.analytics' /}
     <script type="text/javascript"
