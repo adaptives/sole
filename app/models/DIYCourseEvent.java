@@ -106,6 +106,13 @@ public class DIYCourseEvent extends Model {
 		return buff.toString();
 	}
 	
+	public String renderToFeed() {
+		StringBuffer buff = new StringBuffer();
+		buff.append(getUserProfileLink(this.originator));
+		buff.append(" " + text);
+		return buff.toString();
+	}
+	
 	private Object getUserImagePlaceholder() {
 		String placeholder = "<span id=\"%s\" class=\"user-image-small\"></span>";
 		return String.format(placeholder, this.originator.id);

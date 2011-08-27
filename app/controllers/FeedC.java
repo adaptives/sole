@@ -153,7 +153,7 @@ public class FeedC extends Controller {
 	}
 	
 	private static Item getCourseEventItem(DIYCourseEvent courseEvent) {
-		Item item = new Item(courseEvent.title, courseEvent.text);
+		Item item = new Item(courseEvent.title, courseEvent.renderToFeed());
 		//item.setAuthor("get actual author ?");
 		item.setPubDate(courseEvent.timestamp);
 		return item;
