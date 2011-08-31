@@ -4,9 +4,7 @@
 
 <td style="padding-right: 30px; padding-left: 30px; padding-top: 20px; padding-bottom: 20px;">
 	<div>
-		<span style="margin-right: 10px;">
-			<img width="48" height="48" src="@{UserProfileC.pic(_theUser.id)}">
-		</span>
+		<span id="${_theUser.id}" class="user-image-small" style="margin-right: 10px;"></span>
 	</div>
 	<div>
 		<a href="@{UserProfileC.show(_theUser.id)}">${_theUser.screenname}</a>
