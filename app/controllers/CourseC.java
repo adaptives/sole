@@ -194,9 +194,7 @@ public class CourseC extends Controller {
 		List<SocialUser> participants = SocialUser.find(query, course.id).fetch((int)page, (int)size);
 		long count = course.getEnrolledUsersCount();
 		int pages = (int)(count/size);
-		if(count % size > 0) {
-			pages++;
-		}
+		pages++;
 		
 		render(course, participants, page, size, pages);
 	}	

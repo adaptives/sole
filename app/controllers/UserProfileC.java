@@ -67,9 +67,7 @@ public class UserProfileC extends Controller {
 		long count = SocialUser.count();
 		
 		int pages = (int)(count/size);
-		if(count % size > 0) {
-			pages++;
-		}
+		pages++;
 		
 		render("UserProfileC/list.html", allUsers, page, size, pages);
 	}
