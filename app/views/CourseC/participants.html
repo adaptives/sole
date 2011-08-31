@@ -1,11 +1,11 @@
 #{extends 'CourseC/courseMain.html' /}
 #{set noUpdates:true /}
 
-#{list items:course.enrolledParticipants, as:'participant'}
-	<div>
-		<span>
-			<img width="40" height="40" src="@{UserProfileC.pic(participant.id)}">
-		</span>
-		<a href="@{UserProfileC.show(participant.id)}">${participant.screenname}</a>
-	</div>
+<table>
+#{list items:participants, as:'participant'}
+	#{user_block_display item_index:participant_index, theUser:participant /}
 #{/list}
+</table>
+
+#{paginate controllerAction:'CourseC.participants', size:size, page:page, pages:pages, action_params:['sanitizedTitle':course.sanitizedTitle] /}
+</div>

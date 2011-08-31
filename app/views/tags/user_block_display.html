@@ -1,0 +1,17 @@
+#{if _item_index - 1 % 4 == 0}
+<tr>	
+#{/if}
+
+<td style="padding-right: 40px; padding-left: 40px; padding-top: 20px; padding-bottom: 20px;">
+	<div>
+		<span style="margin-right: 10px;">
+			<img width="48" height="48" src="@{UserProfileC.pic(_theUser.id)}">
+		</span>
+	</div>
+	<div>
+		<a href="@{UserProfileC.show(_theUser.id)}">${_theUser.screenname}</a>
+	</div>
+</td>
+#{if (_item_index) % 4 == 0}
+</tr>
+#{/if}

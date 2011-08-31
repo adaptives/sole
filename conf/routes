@@ -19,7 +19,7 @@ GET     /courses/course/{sanitizedTitle}/forum        							                   
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
 POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
-GET     /courses/course/{sanitizedTitle}/participants                                                                  CourseC.participants
+GET     /courses/course/{sanitizedTitle}/participants/{page}/{size}                                                    CourseC.participants
 
 GET     /studysessions/currentlist                                                                                     StudySessionC.currentlist
 GET     /studysessions/studysession/{sanitizedTitle}                                                                   StudySessionC.studySession

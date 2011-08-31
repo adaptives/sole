@@ -180,11 +180,25 @@ public class CourseC extends Controller {
 		render(course);
 	}
 	
-	public static void participants(String sanitizedTitle) {
+	public static void participants(String sanitizedTitle, long page, long size) {
+		//sensible defaults
+		if(size < 1) {
+			size = 24;
+		}
+		if(page < 1) {
+			page = 1;
+		}
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		notFoundIfNull(course);
+		String query = "select p from Course c join c.enrolledParticipants p where c.id = ?";
+		List<SocialUser> participants = SocialUser.find(query, course.id).fetch((int)page, (int)size);
+		long count = course.getEnrolledUsersCount();
+		int pages = (int)(count/size);
+		if(count % size > 0) {
+			pages++;
+		}
 		
-		render(course);
-	}
+		render(course, participants, page, size, pages);
+	}	
 
 }

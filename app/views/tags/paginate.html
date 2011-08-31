@@ -1,8 +1,14 @@
 <div class="pager fr">
 %{
-
+     
+    if(_action_params == null) {
+        _action_params = [:];
+    }
+    
 	1.upto(_pages) {
-		actionDefinition = play.mvc.Router.reverse(_controllerAction, ['page':it, 'size':_size]);
+		_action_params.put('page', it);
+    	_action_params.put('size',_size);
+		actionDefinition = play.mvc.Router.reverse(_controllerAction, _action_params);
 		if(it == _page) {
 			out.println("<span class=\"page-numbers current\">${it}</span>");
 		} else {
