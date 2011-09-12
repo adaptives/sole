@@ -148,7 +148,7 @@ public class DIYCourseEvent extends Model {
 		ActionDefinition showQuestionActionDef = 
 						Router.reverse("CourseC.sectionActivityResponses", showQuestionActionArgs);
 		String template = "<a href=\"%s\">%s</a>";
-		return String.format(template, showQuestionActionDef.url, activityResponse.activity.title);
+		return String.format(template, showQuestionActionDef.url + "#" + activityResponse.activity.id, activityResponse.activity.title);
 	}
 	
 	private static String getViewAllActivitiesURL(Course course, 
@@ -160,7 +160,7 @@ public class DIYCourseEvent extends Model {
 		ActionDefinition showQuestionActionDef = 
 						Router.reverse("CourseC.activityResponses", showQuestionActionArgs);
 		String template = "<a href=\"%s\">%s</a>";
-		return String.format(template, showQuestionActionDef.url, activityResponse.activity.title);
+		return String.format(template, showQuestionActionDef.url + "#" + activityResponse.activity.id, activityResponse.activity.title);
 	}
 
 }

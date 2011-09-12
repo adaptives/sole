@@ -24,7 +24,7 @@ public class Activity extends Model {
 	public String content;
 	
 	@OneToMany(mappedBy="activity", cascade=CascadeType.ALL)
-	@OrderBy("timestamp")
+	@OrderBy("timestamp DESC")
 	public Set<ActivityResponse> activityResponses;
 	
 	public Activity(String title, String content) {
