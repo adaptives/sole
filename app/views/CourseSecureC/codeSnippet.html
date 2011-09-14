@@ -1,0 +1,48 @@
+#{extends 'CourseC/courseMain.html' /}
+#{set noUpdates:true /}
+
+#{if codeSnippet.owns(controllers.Security.connected())}
+	<div>
+		<a href="@{CourseSecureC.pastebin(course.sanitizedTitle)}">Back to the pastebin</a>
+	</div>
+#{/if}
+#{else}
+	<div style="font-weight: bold;">
+		This code snippet was created by another user.
+	</div>
+#{/else}
+<p>
+	<div style="font-weight: bold;">Embed Code</div>
+	<div>
+		%{
+			embedLink = play.mvc.Router.reverse("CourseC.embedCodeSnippet", ['sanitizedTitle':course.sanitizedTitle, 'codeSnippetId':codeSnippet.id]);
+			String embedCodeTemplate = "<iframe src=\"%s\" height=\"400\" width=\"600\"></iframe>"
+			String embedCode = String.format(embedCodeTemplate, "http://" + request.domain + ":" + request.port + embedLink.url);
+		}%
+		<input type="text" value="${embedCode}" size="70"/>
+	</div>
+</p>
+<br/>
+#{if codeSnippet.owns(controllers.Security.connected())}
+	<div>
+		<span><a href="@{CourseSecureC.editCodeSnippet(course.sanitizedTitle, codeSnippet.id)}">Edit</a> | </span>
+		<span><a id="delete-snippet" href="@{CourseSecureC.deleteCodeSnippet(course.sanitizedTitle, codeSnippet.id)}">Delete</a></span>
+	</div>
+	<script type="text/javascript">
+		$('#delete-snippet').click(function(e) {
+			if(confirm("Do you really want to delete this code snippet?")) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+		
+	</script>
+#{/if}
+
+<div>
+<strong>Title:</strong> ${codeSnippet.title}
+</div>
+<div style="border: 1px solid; padding: 5px;">
+	${codeSnippet.code.nl2br()}
+</div>

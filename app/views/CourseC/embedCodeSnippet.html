@@ -1,0 +1,11 @@
+<div style="margin-left: -10px; margin-top: -10px; margin-right: -10px; background-color: #AAA; padding: 3px;">
+	<div style="font-size: 60%; font-color: #666;">Code Snippet from the <a target="_blank" href="@{CourseC.course(course.sanitizedTitle)}">${course.title}</a> course at diycomputerscience.com</div>
+	<div style="font-size: 60%; font-color: #666;">Code snippet created by <a target="_blank" href="@{UserProfileC.show(codeSnippet.user.id)}">${codeSnippet.user.screenname}</a></div>
+	<div style="font-size: 80%; font-color: #333;"><strong>Title:</strong> ${codeSnippet.title}</div>
+</div>
+	
+</div>
+
+<div style="padding: 5px; font-size: 90%">
+	${codeSnippet.code.nl2br()}
+</div>

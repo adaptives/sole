@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import other.utils.LinkGenUtils;
 import play.Logger;
 import play.data.validation.Required;
@@ -9,15 +11,16 @@ import play.mvc.With;
 import models.Activity;
 import models.ActivityResponse;
 import models.Answer;
+import models.CodeSnippet;
 import models.Course;
 import models.DIYCourseEvent;
 import models.Forum;
+import models.Pastebin;
 import models.Question;
 import models.SiteEvent;
 import models.SocialUser;
 
-//TODO: Add SocialAuthC.class to @With
-@With(Secure.class)
+@With({Secure.class, SocialAuthC.class})
 public class CourseSecureC extends Controller {
 	
 	public static final org.apache.log4j.Logger cLogger = 
@@ -121,6 +124,149 @@ public class CourseSecureC extends Controller {
 		}
 
 		return activity.activityResponses.size();
+	}
+	
+	public static void pastebin(@Required String sanitizedTitle) {
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+		
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		
+		Pastebin pastebin = Pastebin.findByName(course.sanitizedTitle);
+		notFoundIfNull(pastebin);
+		
+		List<CodeSnippet> codeSnippets = pastebin.findSnippetsByUser(user.id);
+		render(course, codeSnippets);
+	}
+	
+	public static void postCodeSnippet(@Required long courseId, 
+			                           @Required String title,
+									   @Required String code) {
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+		
+		if(validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+		} else {
+			String sUserId = Security.connected();
+			long userId = Long.parseLong(sUserId);
+			SocialUser user = SocialUser.findById(userId);
+			
+			Pastebin pastebin = Pastebin.findByName(course.sanitizedTitle);
+			notFoundIfNull(pastebin);
+			
+			CodeSnippet codeSnippet = new CodeSnippet(user, pastebin, title, code);
+			codeSnippet.save();
+		}
+		
+		pastebin(course.sanitizedTitle);
+	}
+	
+	public static void codeSnippet(@Required String sanitizedTitle, 
+								   @Required long codeSnippetId) {
+		
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+		
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		
+		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
+		notFoundIfNull(codeSnippet);
+		
+		//TODO: This code will have to change when we strongly link pastebins with courses
+		//as opposed to linking them via their name
+		if(codeSnippet.pastebin.restricted) {
+			if(codeSnippet.user.id == user.id || 
+					(course.isSocialUserEnrolled(sUserId) && codeSnippet.pastebin.name .equals(sanitizedTitle))) {
+				render(course, codeSnippet);
+			} else {
+				flash.error("You can access a code snippet in this course only if it is your's or if you are enrolled in the course");
+				pastebin(course.sanitizedTitle);
+			}
+		} else {
+			render(course, codeSnippet);
+		}		
+	}
+	
+	public static void editCodeSnippet(@Required String sanitizedTitle,
+								       @Required long codeSnippetId) {
+
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+
+		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
+		notFoundIfNull(codeSnippet);
+
+		if (codeSnippet.user.id == user.id) {
+			render(course, codeSnippet);
+		} else {
+			flash.error("You can only edit your own code snippets");
+			pastebin(sanitizedTitle);
+		}
+	}
+	
+	public static void deleteCodeSnippet(@Required String sanitizedTitle,
+									     @Required long codeSnippetId) {
+
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+
+		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
+		notFoundIfNull(codeSnippet);
+
+		if (codeSnippet.user.id == user.id) {
+			codeSnippet.delete();			
+		} else {
+			flash.error("You can only delete your own code snippets");
+		}
+		
+		pastebin(sanitizedTitle);
+	}
+	
+	public static void postEditCodeSnippet(@Required long courseId,
+			                               @Required long codeSnippetId,
+									       @Required String title, 
+									       @Required String code) {
+
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+
+		Pastebin pastebin = Pastebin.findByName(course.sanitizedTitle);
+		notFoundIfNull(pastebin);
+
+		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
+		if(codeSnippet.user.id == user.id) {
+			if(validation.hasErrors()) {
+				params.flash();
+				validation.keep();
+				editCodeSnippet(course.sanitizedTitle, codeSnippetId);
+			} else {
+				codeSnippet.title = title;
+				codeSnippet.code = code;
+				codeSnippet.save();
+				codeSnippet(course.sanitizedTitle, codeSnippetId);
+			}
+		} else {
+			flash.error("You do not own the code snippet");
+			pastebin(course.sanitizedTitle);
+		}
 	}
 
 	private static void saveIfNotNull(DIYCourseEvent event) {

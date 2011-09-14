@@ -20,6 +20,13 @@ GET     /courses/course/{sanitizedTitle}/question/{questionId}  				            
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
 POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
 GET     /courses/course/{sanitizedTitle}/participants/{page}/{size}                                                    CourseC.participants
+POST    /courses/course/{courseId}/codeSnippet 							                                               CourseSecureC.postCodeSnippet
+GET     /courses/course/{sanitizedTitle}/pastebin                                                                      CourseSecureC.pastebin
+GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}                                          CourseSecureC.codeSnippet
+GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/edit                                     CourseSecureC.editCodeSnippet
+GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/delete                                   CourseSecureC.deleteCodeSnippet
+GET     /course/{sanitizedTitle}/codesnippet/{codeSnippetId}                                                           CourseC.embedCodeSnippet
+
 
 GET     /studysessions/currentlist                                                                                     StudySessionC.currentlist
 GET     /studysessions/studysession/{sanitizedTitle}                                                                   StudySessionC.studySession

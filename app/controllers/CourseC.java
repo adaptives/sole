@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import models.Answer;
+import models.CodeSnippet;
 import models.Comment;
 import models.Course;
 import models.CourseSection;
@@ -38,7 +39,7 @@ public class CourseC extends Controller {
 	
 	public static void course(String sanitizedTitle) {
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
-		notFoundIfNull(course);		
+		notFoundIfNull(course);
 		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
 		render(course, courseSections);		
 	}
@@ -196,7 +197,29 @@ public class CourseC extends Controller {
 		int pages = (int)(count/size);
 		pages++;
 		
-		render(course, participants, page, size, pages);
-	}	
+		render(course, participants, page, size, pages);		
+	}
+	
+	public static void embedCodeSnippet(@Required String sanitizedTitle, 
+			   					   		@Required long codeSnippetId) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		
+		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
+		if(codeSnippet.pastebin.restricted) {
+			if(Security.isConnected()) {				
+				if(course != null && course.isSocialUserEnrolled(Security.connected())) {
+					render(course, codeSnippet);
+				} else {
+					render("CourseC/noEmbedCodeSnippet.html", course);
+				}
+			} else {
+				render("CourseC/noEmbedCodeSnippet.html", course);
+			}
+		} else {
+			render(course, codeSnippet);
+		}
+		
+	}
 
 }

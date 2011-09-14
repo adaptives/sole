@@ -1,0 +1,62 @@
+#{extends 'CourseC/courseMain.html' /}
+#{set noUpdates:true /}
+
+#{if course.isSocialUserEnrolled(controllers.Security.connected())}
+
+<H3>Your existing code snippets</H3>
+<div style="font-style: italic; font-weight: bold; font-size: 90%">
+	#{if codeSnippets?.size() > 0}
+		You can embed any of your code snippets listed below, in your blog or webpage. Please click on the code snippet to view the emded code.
+	#{/if}
+</div>
+<div>
+#{list items:codeSnippets, as:'codeSnippet'}
+	<div><a href="@{CourseSecureC.codeSnippet(course.sanitizedTitle, codeSnippet.id)}">${codeSnippet.title}</a></div>
+#{/list}
+</div>
+<H3>New Code Snippet</H3>
+<div>
+	#{form @CourseSecureC.postCodeSnippet(course.id)}
+		#{ifErrors}
+			<p class="error">Please correct these errors.</p>
+		#{/ifErrors}
+		
+		#{field 'title'}
+		<p>
+			<div>
+				<label>Title:</label>#{ifError 'title'}<span class="error">#{error 'title' /}</span>#{/ifError}
+			</div>
+			<div>
+				<input type="text" 
+					   name="${field.name}" 
+					   size="70" 
+					   value="${flash['title']}" />
+			</div>
+		</p>
+		#{/field}
+		
+		#{field 'code'}
+		<p>
+			<div>
+			<label>Code</label>
+			#{ifError 'code'}<span class="error">#{error 'code' /}</span>#{/ifError}
+			</div>
+			<div>
+				<textarea rows="20" cols="80" name="${field.name}">${flash['code']}</textarea>
+			</div>
+		</p>
+		#{/field}
+		<p>
+			<div>
+				<input type="submit" name="submit" value="Submit" />
+				<input type="reset" name="reset" value="Reset" />
+			</div>
+		</p>
+	#{/form}
+</div>
+
+#{/if}
+#{else}
+	<span>You have to be enrolled in this course to post code in the pastebin. </span>
+	#{courseEnrollment course:course /}
+#{/else}

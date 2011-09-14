@@ -1,0 +1,48 @@
+#{extends 'CourseC/courseMain.html' /}
+#{set noUpdates:true /}
+
+<div>
+	<a href="@{CourseSecureC.pastebin(course.sanitizedTitle)}">Back to the pastebin</a>
+</div>
+
+<H3>Edit Code Snippet</H3>
+
+<div>
+	#{form @CourseSecureC.postEditCodeSnippet(course.id, codeSnippet.id)}
+		#{ifErrors}
+			<p class="error">Please correct these errors.</p>
+		#{/ifErrors}
+				
+		#{field 'title'}
+		<p>
+			<div>
+				<label>Title:</label>#{ifError 'title'}<span class="error">#{error 'title' /}</span>#{/ifError}
+			</div>
+			<div>
+				<input type="text" 
+					   name="${field.name}" 
+					   size="70" 
+					   value="#{ifError 'title'}${flash['title']}#{/ifError}#{else}${codeSnippet.title}#{/else}" />
+			</div>
+		</p>
+		#{/field}
+		
+		#{field 'code'}
+		<p>
+			<div>
+			<label>Code</label>
+			#{ifError 'code'}<span class="error">#{error 'code' /}</span>#{/ifError}
+			</div>
+			<div>
+				<textarea rows="20" cols="80" name="${field.name}">#{ifError 'code'}${flash['code']}#{/ifError}#{else}${codeSnippet.code}#{/else}</textarea>
+			</div>
+		</p>
+		#{/field}
+		<p>
+			<div>
+				<input type="submit" name="submit" value="Submit" />
+				<input type="reset" name="reset" value="Reset" />
+			</div>
+		</p>
+	#{/form}
+</div>
