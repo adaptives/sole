@@ -37,4 +37,8 @@ public class Pastebin extends Model {
 		List<CodeSnippet> codeSnippets = Pastebin.find(query, this.id, userId).fetch();
 		return codeSnippets;
 	}
+	
+	public String toString() {
+		return this.name;
+	}
 }
