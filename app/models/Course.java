@@ -65,7 +65,10 @@ public class Course extends Model {
 							   "Forum for discussing all things relared to " + this.title);
 		this.enrolledParticipants = new TreeSet<SocialUser>();
 		this.completedParticipants = new TreeSet<SocialUser>();
-		create();
+		Pastebin pastebin = new Pastebin(this.sanitizedTitle);
+		pastebin.save();
+		
+		create();		
 	}
 
 	@Override
