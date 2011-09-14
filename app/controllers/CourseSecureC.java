@@ -138,7 +138,7 @@ public class CourseSecureC extends Controller {
 		notFoundIfNull(pastebin);
 		
 		List<CodeSnippet> codeSnippets = pastebin.findSnippetsByUser(user.id);
-		render(course, codeSnippets);
+		render(course, pastebin, codeSnippets);
 	}
 	
 	public static void postCodeSnippet(@Required long courseId, 

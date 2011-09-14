@@ -206,6 +206,11 @@ public class CourseC extends Controller {
 		notFoundIfNull(course);
 		
 		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
+		if(codeSnippet == null) {
+			String message = "404 Not Found";
+			render("CourseC/noEmbedCodeSnippet.html", course, message);
+		}
+		
 		if(codeSnippet.pastebin.restricted) {
 			if(Security.isConnected()) {				
 				if(course != null && course.isSocialUserEnrolled(Security.connected())) {

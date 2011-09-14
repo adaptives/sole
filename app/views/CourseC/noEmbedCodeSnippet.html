@@ -6,6 +6,11 @@
 
 <div style="padding: 5px; font-size: 90%">
 	<div>
-		This code snippet is accessible only to participants of the <i>'${course.title}'</i> course.
+		#{if message}
+			${message}
+		#{/if}
+		#{else}
+			This code snippet is accessible only to participants of the <i>'${course.title}'</i> course.
+		#{/else}
 	</div>
 </div>

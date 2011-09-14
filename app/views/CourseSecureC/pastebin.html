@@ -2,9 +2,15 @@
 #{set noUpdates:true /}
 
 #{if course.isSocialUserEnrolled(controllers.Security.connected())}
-
+<p>
+#{if pastebin?.restricted}
+	<div style="font-weight: bold; font-style: italic; color: #FE2E2E;">
+		The pastebin for this course is restricted. This means when you embed any code snippet in your blog, only those people who are registered in this course and logged in to this website will be able to see the code. The rest will see a polite 'access denied' message.
+	</div>
+#{/if}
+</p>
 <H3>Your existing code snippets</H3>
-<div style="font-style: italic; font-weight: bold; font-size: 90%">
+<div style="font-style: italic; font-weight: bold; font-size: 90%; color: #31B404;">
 	#{if codeSnippets?.size() > 0}
 		You can embed any of your code snippets listed below, in your blog or webpage. Please click on the code snippet to view the emded code.
 	#{/if}
