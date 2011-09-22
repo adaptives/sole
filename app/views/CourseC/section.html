@@ -18,7 +18,7 @@
 	<div style="margin-bottom: 16px;">
 		<div style="font-size: 1.6em; background: #99b888; width:100%; padding:4px; color: white;">Activities</div>
 		<div class="vspacediv">This session has the following activities. Please complete them and submit links to your work. A good place to publish your activities is your blog, website, some wiki, or any publicly accessible page on the Internet.</div>
-		<div class="vspacediv"><a href="@{CourseC.sectionActivityResponses(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle)}"><h4>View all activity responses</h4></a></div>
+		<div class="vspacediv"><a href="@{CourseC.sectionActivityResponses(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle)}"><img src="/public/images/view_all_activity_responses.jpg" alt="View All Activity Responses" title="View all activity responses for this section"/></a></div>
 	</div>
 	<div class="activewrapcontaint">
 		#{list items:courseSection.activities, as:'activity'}
@@ -53,7 +53,12 @@
 									<span id="activity-response-ajax-loader-${activity_index}" style="visibility:hidden;">
 										<img src="/public/images/ajax-loader.gif" />
 									</span>
-									<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> total responses.
+									%{
+										route= play.mvc.Router.reverse('CourseC.sectionActivityResponses', [courseSanitizedTitle:courseSection.course.sanitizedTitle, courseSectionSanitizedTitle:courseSection.sanitizedTitle]) 										
+									}%
+									<a href="${route.url}#${activity.id}">
+										<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> total responses.
+									</a>
 								</div>
 							</form>
 						</div>

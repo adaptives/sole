@@ -1,11 +1,14 @@
 #{extends 'CourseC/courseMain.html' /}
 #{set course:courseSection.course /}
+#{set noUpdates:true /}
 
 <h4> Responses received for various activities in ${courseSection.course.title} : <a href="@{CourseC.section(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle)}">${courseSection.title}</a></h4>
 #{list items:courseSection.activities, as:'activity'}
-	<a name="${activity.id}">
-		<h4 style="margin-top:15px; margin-bottom:15px">Activity ${activity_index} : ${activity.title}</h4>
-	</a>
+	<div style="margin-top: 20px;">
+		<div style="font-size: 1.6em; background: #99b888; width:100%; padding:4px; color: white;"><a style="color: #FFF;" name="${activity.id}">Activity ${activity_index} : ${activity.title}</a></div>
+		<div class="vspacediv" style="font-style: italic;">The list below contains all responses submitted for this activity. Participants will appreciate if you take the time to review one or more responses.</div>
+	</div>
+	
 	#{list items:activity.activityResponses, as:'activityResponse'}
 		<div>
 			<span><a href="@{CourseC.sectionActivityResponseReview(course.sanitizedTitle, courseSection.sanitizedTitle, activityResponse.id)}"><img src="/public/images/review.jpg" alt="Review" title="Review this activity response"/> </a></span>
