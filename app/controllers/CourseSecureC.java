@@ -173,7 +173,7 @@ public class CourseSecureC extends Controller {
 		if(ajax) {
 			String responseMsg = "-1";
 			//We do not want to make any further database calls if this upvote is not legal
-			if(activityResponse != null && activityResponse.user.id != user.id) {
+			if(activityResponse != null && activityResponse.user.id != user.id && !activityResponse.hasLiked(user)) {
 				course = Course.findBySanitizedTitle(courseSanitizedTitle);						
 				if(course != null) {
 					section = CourseSection.
@@ -194,7 +194,7 @@ public class CourseSecureC extends Controller {
 			section = CourseSection.findBySanitizedTitleByCouse(course, 
 				        										sectionSanitizedTitle);
 			notFoundIfNull(section);
-			if(activityResponse.user.id != user.id) {				
+			if(activityResponse.user.id != user.id && !activityResponse.hasLiked(user)) {				
 				ActivityResponseLiked activityResponseLiked = 
 					new ActivityResponseLiked(activityResponse, user);
 			}
