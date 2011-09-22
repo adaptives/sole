@@ -8,7 +8,7 @@
 	</a>
 	#{list items:activity.activityResponses, as:'activityResponse'}
 		<div>
-			<span><a href="@{CourseC.sectionActivityResponseReview(course.sanitizedTitle, courseSection.sanitizedTitle, activityResponse.id)}">Review </a></span>
+			<span><a href="@{CourseC.sectionActivityResponseReview(course.sanitizedTitle, courseSection.sanitizedTitle, activityResponse.id)}"><img src="/public/images/review.jpg" alt="Review" title="Review this activity response"/> </a></span>
 			<a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a> submitted <a href="${activityResponse.responseLink}" target='_blank'>${activityResponse.title ? activityResponse.title : activityResponse.responseLink}</a> ${activityResponse.timestamp?.since(true)}
 		</div>				
 	#{/list}
