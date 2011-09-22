@@ -5,25 +5,18 @@
 </div>
 
 <div>
-	<div>		
-		<span style="font-weight: bold;">Activity: </span>
-		<span>${activityResponse.activity.content.raw()}</span>		
-	</div>
-	<div>
-		<div class="activity-response-user, small-user-container">
-			<span style="font-weight: bold; margin-right: 15px;"> Response provided by user: </span>
+	<div style="margin-top: 15px;">
+		<div class="activity-response-user, small-user-container" style="font-weight: bold;">			
 			<span id="${activityResponse.user.id}" class="user-image-small" style="margin-right: 10px;"></span>
 			<span><a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a></span>
+			<span>submitted this response </span>
+			<span>( <a href="${activityResponse.responseLink}" target='_blank'>${activityResponse.title ? activityResponse.title : activityResponse.responseLink}</a> ) </span>
 			<span>about ${activityResponse.timestamp?.since(true)}</span>
 		</div>
 		
-		<div>
-			<span style="font-weight: bold;">Please click the link below to see the response: </span>
-			<span><a href="${activityResponse.responseLink}" target='_blank'>${activityResponse.title ? activityResponse.title : activityResponse.responseLink}</a> </span>
-		</div>
 	</div>
-</div>
-<div>
+	
+	<div>
 	<div style="margin-top: 5px;">
 		#{if controllers.Security.isConnected() && String.valueOf(activityResponse.user.id).equals(session.user)}
 			<div class="delete-activity-response">
@@ -68,10 +61,39 @@
 			#{/else}
 		</div>
 </div>
-<div style="margin-top: 15px;">
-<div style="font-weight: bold;">
-Reviews (Please use the form below to provide a constructive review of the activity):
+	
+	
+	<div style="margin-top: 15px; background-color: #DDD;">		
+		<span style="font-weight: bold;">Activity for which the response shown above has been provided: </span>
+		<span>${activityResponse.activity.content.raw()}</span>		
+	</div>
+	
 </div>
+<div style="margin-top: 15px;">
+
+<div style="margin-bottom: 16px;">
+	<div style="font-size: 1.6em; background: #99b888; width:100%; padding:4px; color: white;">Reviews</div>
+	<div class="vspacediv">This section contains reviews provided by the community for the activity response specified at the top of the page. Please use the form at the end to provide a constructive review of the activity.</div>	
+</div>
+
+<div style="border-top: 1px dotted;"></div>
+
+<div>
+	#{list items:activityResponse.reviews, as:'review'}
+		<div style="margin-top: 25px; margin-bottom: 25px;">
+			<div style="background-color: #FFF;">
+				${review.review.nl2br()}
+			</div>
+			<div class="small-user-container" style="background-color: #CCC;; padding: 2px; text-align: right;">
+				<span id="${review.user.id}" class="user-image-small" style="margin-right: 10px;"></span>
+				<span><a href="@{UserProfileC.show(review.user.id)}">${review.user.screenname}</a></span>
+				<span style="font-style: italic;">${review.timestamp?.since(true)}</span>
+			</div>				
+		</div>
+	#{/list}
+</div>
+
+<div style="border-top: 1px dotted;"></div>
 
 #{if controllers.Security.isConnected()}
 	#{if course.isSocialUserEnrolled(controllers.Security.connected())}
@@ -101,23 +123,6 @@ Reviews (Please use the form below to provide a constructive review of the activ
 #{else}
   <span> Please <a href="/login">login</a> to provide a review of this activity response</span>
 #{/else}
-</div>
-
-<hr />
-
-<div>
-	#{list items:activityResponse.reviews, as:'review'}
-		<div style="margin-top: 25px; margin-bottom: 25px;">
-			<div style="background-color: #FFF;">
-				${review.review.nl2br()}
-			</div>
-			<div class="small-user-container" style="background-color: #CCC;; padding: 2px; text-align: right;">
-				<span id="${activityResponse.user.id}" class="user-image-small" style="margin-right: 10px;"></span>
-				<span><a href="@{UserProfileC.show(review.user.id)}">${review.user.screenname}</a></span>
-				<span style="font-style: italic;">${review.timestamp?.since(true)}</span>
-			</div>				
-		</div>
-	#{/list}
 </div>
 
 <script type="text/javascript">
