@@ -1,4 +1,4 @@
-#{if session.user}
+#{if controllers.Security.isConnected()}
 		#{ifnot _course.isSocialUserEnrolled(session.user)}
 			<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
 		#{/ifnot}

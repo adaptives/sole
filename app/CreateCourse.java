@@ -14,10 +14,6 @@ import play.test.Fixtures;
 public class CreateCourse extends Job {
 
 	public void doJob() {
-		List<Course> courses = Course.findAll();
-		for(Course course : courses) {
-			Pastebin pastebin = new Pastebin(course.sanitizedTitle);
-			pastebin.save();
-		}
+		
 	}
 }

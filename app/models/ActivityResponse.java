@@ -1,12 +1,14 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.Logger;
 import play.data.validation.URL;
@@ -33,6 +35,9 @@ public class ActivityResponse extends Model {
 	
 	@ManyToOne
 	public Activity activity;
+	
+	@OneToMany(mappedBy="activityResponse", cascade=CascadeType.ALL)
+	public List<ActivityResponseReview> reviews;
 	
 	public ActivityResponse(SocialUser user,
 							Activity activity,

@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import other.utils.AuthUtils;
 import other.utils.LinkGenUtils;
 import play.Logger;
 import play.data.validation.Required;
@@ -10,9 +11,12 @@ import play.mvc.Scope.Flash;
 import play.mvc.With;
 import models.Activity;
 import models.ActivityResponse;
+import models.ActivityResponseLiked;
+import models.ActivityResponseReview;
 import models.Answer;
 import models.CodeSnippet;
 import models.Course;
+import models.CourseSection;
 import models.DIYCourseEvent;
 import models.Forum;
 import models.Pastebin;
@@ -124,6 +128,116 @@ public class CourseSecureC extends Controller {
 		}
 
 		return activity.activityResponses.size();
+	}
+	
+	public static void postActivityResponseReview(long courseId,
+			                                      long sectionId,
+												  long activityResponseId, 
+												  String review) {
+		String sUserId = Security.connected();
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
+		
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+		
+		CourseSection section = CourseSection.findById(sectionId);
+		notFoundIfNull(sectionId);
+		
+		ActivityResponse activityResponse = ActivityResponse.findById(activityResponseId);
+		notFoundIfNull(activityResponse);
+		
+		//TODO: Ensure that this activity belongs to this course
+		
+		ActivityResponseReview activityResponseReview = 
+			new ActivityResponseReview(activityResponse, user, review);
+		
+		CourseC.sectionActivityResponseReview(course.sanitizedTitle, 
+											  section.sanitizedTitle, 
+											  activityResponseId);
+	}
+	
+	public static void voteActivityResponse(String courseSanitizedTitle, 
+										    String sectionSanitizedTitle, 
+										    long activityResponseId, 
+										    Boolean ajax) {
+		
+		SocialUser user = AuthUtils.getSocialUser();
+		
+		ActivityResponse activityResponse = 
+								ActivityResponse.findById(activityResponseId);
+		
+		Course course = null;
+		CourseSection section = null;
+		
+		if(ajax) {
+			String responseMsg = "-1";
+			//We do not want to make any further database calls if this upvote is not legal
+			if(activityResponse != null && activityResponse.user.id != user.id) {
+				course = Course.findBySanitizedTitle(courseSanitizedTitle);						
+				if(course != null) {
+					section = CourseSection.
+									findBySanitizedTitleByCouse(course, 
+					        									sectionSanitizedTitle);
+					if(section != null) {
+						ActivityResponseLiked activityResponseLiked = 
+								new ActivityResponseLiked(activityResponse, user);								
+						responseMsg = String.valueOf(activityResponse.likes());
+					}
+				}
+			}				
+			renderText(responseMsg);
+		} else {
+			notFoundIfNull(activityResponse);
+			course = Course.findBySanitizedTitle(courseSanitizedTitle);
+			notFoundIfNull(course);				
+			section = CourseSection.findBySanitizedTitleByCouse(course, 
+				        										sectionSanitizedTitle);
+			notFoundIfNull(section);
+			if(activityResponse.user.id != user.id) {				
+				ActivityResponseLiked activityResponseLiked = 
+					new ActivityResponseLiked(activityResponse, user);
+			}
+			CourseC.sectionActivityResponseReview(course.sanitizedTitle, 
+					  							  section.sanitizedTitle, 
+					  							  activityResponseId);
+		}
+	}
+	
+	public static void deleteActivityResponse(long activityResponseId,
+											  String courseSanitizedTitle,
+											  String sectionSanitizedTitle) {
+		ActivityResponse deletedAr = null;
+		ActivityResponse activityResponse = ActivityResponse.findById(activityResponseId);
+		notFoundIfNull(activityResponse);
+		SocialUser user = AuthUtils.getSocialUser();
+		if(activityResponse.user.id == user.id) {
+			//TODO: Try firing just one query to delete 
+			List<ActivityResponseLiked> arls = ActivityResponseLiked.findByActivityResponse(activityResponseId);
+			for(ActivityResponseLiked arl : arls) {
+				arl.delete();
+			}
+			deletedAr = activityResponse.delete();
+			
+			if(deletedAr != null) {
+				cLogger.info("Deleted Activity Response '" + activityResponseId + "'");
+				String msg = "Activity response successfully deleted";
+				flash.success(msg);
+				//TODO: We are assuming that we will only get a delete request from a section activity response... what if we got one from a course activity response ?
+				CourseC.sectionActivityResponses(courseSanitizedTitle, sectionSanitizedTitle);
+			} else {			
+				cLogger.warn("Could not delete activity response '" + activityResponseId + "'");
+				String msg = "Activity response could not be deleted";
+				flash.error(msg);
+				CourseC.sectionActivityResponseReview(courseSanitizedTitle, sectionSanitizedTitle, activityResponseId);
+			}
+		} else {
+			cLogger.warn("User " + user.id + " attempted to delete activity response '" + activityResponseId + "' which they do not own");
+			String msg = "You cannot delete someone else's activity response";
+			flash.error(msg);
+			CourseC.sectionActivityResponseReview(courseSanitizedTitle, sectionSanitizedTitle, activityResponseId);
+		}
+				
 	}
 	
 	public static void pastebin(@Required String sanitizedTitle) {
@@ -274,5 +388,5 @@ public class CourseSecureC extends Controller {
 			event.save();
 		}
 	}
-
+	
 }

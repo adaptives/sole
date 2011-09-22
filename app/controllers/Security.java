@@ -50,7 +50,6 @@ public class Security extends Secure.Security{
     static void onAuthenticated() {
     	//'username' is set in Session by Secure.authenticate
     	String username = session.get("username");
-//    	System.out.println("username : '" + username + "'");
     	List<SocialUser> socialUsers = SocialUser.findAll();
     	List<User> users = User.findAll();
     	User loggedInUser = User.find("select u from User u where u.email = ?", username).first();

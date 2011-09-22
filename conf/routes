@@ -19,6 +19,9 @@ GET     /courses/course/{sanitizedTitle}/forum        							                   
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
 POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
+GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/vote/ajax/{ajax} CourseSecureC.voteActivityResponse
+GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/review    CourseC.sectionActivityResponseReview
+GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/delete    CourseSecureC.deleteActivityResponse
 GET     /courses/course/{sanitizedTitle}/participants/{page}/{size}                                                    CourseC.participants
 POST    /courses/course/{courseId}/codeSnippet 							                                               CourseSecureC.postCodeSnippet
 GET     /courses/course/{sanitizedTitle}/pastebin                                                                      CourseSecureC.pastebin

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import models.ActivityResponse;
 import models.Answer;
 import models.CodeSnippet;
 import models.Comment;
@@ -45,12 +46,18 @@ public class CourseC extends Controller {
 	}
 	
 	public static void pic(long courseId) {
+		flash.keep();
 		Course course = Course.find("byId", courseId).first();
-		if(course.coursePic != null) {
-			renderBinary(course.coursePic.image.get());
-		} else {
+		InputStream is = null;
+		if(course != null && course.coursePic != null) {
+			is = course.coursePic.image.get();
+			if(is != null) {
+				renderBinary(course.coursePic.image.get());
+			}			
+		} 
+		if(is == null) {
 			try {
-				InputStream is = new FileInputStream(Play.getFile("public/images/default_course_image.gif"));
+				is = new FileInputStream(Play.getFile("public/images/default_course_image.gif"));
 				renderBinary(is);
 			} catch(Exception e) {
 				cLogger.error("Could not render default user image ", e);
@@ -172,6 +179,22 @@ public class CourseC extends Controller {
 		notFoundIfNull(courseSection);
 		
 		render(course, courseSection);
+	}
+	
+	public static void sectionActivityResponseReview(String courseSanitizedTitle,
+													 String sectionSanitizedTitle,
+											         long activityResponseId) {
+		Course course = Course.findBySanitizedTitle(courseSanitizedTitle);
+		notFoundIfNull(course);
+		
+		CourseSection section = CourseSection.findBySanitizedTitleByCouse(course, sectionSanitizedTitle);
+		notFoundIfNull(section);
+		
+		ActivityResponse activityResponse = ActivityResponse.findById(activityResponseId);
+		notFoundIfNull(activityResponse);
+		
+		//TODO: Ensure that this activity response actually belongs to an activity from this course
+		render(course, section, activityResponse);
 	}
 	
 	public static void activityResponses(String courseSanitizedTitle) {

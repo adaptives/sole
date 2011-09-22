@@ -168,12 +168,17 @@ public class UserProfileC extends Controller {
 	}
 	
 	public static void pic(long userId) {
+		flash.keep();
 		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
-		if(userProfile.profilePic != null) {
-			renderBinary(userProfile.profilePic.image.get());
-		} else {
-			try {
-				InputStream is = null;
+		InputStream is = null;
+		if(userProfile != null && userProfile.profilePic != null) {
+			is = userProfile.profilePic.image.get();
+			if(is != null) {
+				renderBinary(is);
+			}
+		} 
+		if(is == null) {
+			try {				
 				if(userProfile.user.screenname != null && userProfile.user.screenname.startsWith("http://twitter.com/")) {
 					is = TwitterUtils.getStreamToTwitterPic(userProfile.user.screenname);
 				}
@@ -188,8 +193,9 @@ public class UserProfileC extends Controller {
 	}
 	
 	public static void picTag(long userId) {
+		flash.keep();
 		String imageTag = "<img src=\"%s\" />";
-		String picTag = String.format(imageTag, "public/images/default_user_image.png");
+		String picTag = String.format(imageTag, "/public/images/default_user_image.png");
 		
 		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
 		if(userProfile.profilePic != null) {

@@ -1,0 +1,133 @@
+#{extends 'CourseC/courseMain.html' /}
+#{set noUpdates:true /}
+<div>
+<span style="font-weight: bold;">Section: </span><span><a href="@{CourseC.section(course.sanitizedTitle, section.sanitizedTitle)}">${section.title}</a></span>
+</div>
+
+<div>
+	<div>		
+		<span style="font-weight: bold;">Activity: </span>
+		<span>${activityResponse.activity.content.raw()}</span>		
+	</div>
+	<div>
+		<div class="activity-response-user, small-user-container">
+			<span style="font-weight: bold; margin-right: 15px;"> Response provided by user: </span>
+			<span id="${activityResponse.user.id}" class="user-image-small" style="margin-right: 10px;"></span>
+			<span><a href="@{UserProfileC.show(activityResponse.user.id)}">${activityResponse.user.screenname}</a></span>
+			<span>about ${activityResponse.timestamp?.since(true)}</span>
+		</div>
+		
+		<div>
+			<span style="font-weight: bold;">Please click the link below to see the response: </span>
+			<span><a href="${activityResponse.responseLink}" target='_blank'>${activityResponse.title ? activityResponse.title : activityResponse.responseLink}</a> </span>
+		</div>
+	</div>
+</div>
+<div>
+	<div style="margin-top: 5px;">
+		#{if controllers.Security.isConnected() && String.valueOf(activityResponse.user.id).equals(session.user)}
+			<div class="delete-activity-response">
+				<a id="delete-activity-response-${activityResponse.id}" title="delete" href="@{CourseSecureC.deleteActivityResponse(activityResponse.id, course.sanitizedTitle, section.sanitizedTitle)}">					
+					<span><img style="hieght: 30px; width: 70px" title="delete this activity response" src="/public/images/delete_icon.jpeg" /></span>
+				</a>
+			</div>			
+		#{/if} 
+	</div>
+	<div>
+			<span id="upvote-activity-response-${activityResponse.id}-score" class="post-score"
+				title="current number of votes">${activityResponse.likes()}</span>
+			
+			#{if controllers.Security.isConnected()}
+				<a id="upvote-activity-response-${activityResponse.id}" 
+				   title="I like this activity response"
+				   class="post" href="" rel="nofollow"> 
+				       <img src="/public/images/vote-arrow-up.png" alt="voteup image" border="0" /> 
+				</a>
+				
+				<script type="text/javascript">
+				$('#upvote-activity-response-${activityResponse.id}').click(
+						function(e) {
+							// stop normal link click
+							e.preventDefault();
+							var theUrl = "@{CourseSecureC.voteActivityResponse(course.sanitizedTitle, section.sanitizedTitle, activityResponse.id, Boolean.TRUE)}";
+							$.get(theUrl, function(voteCount) {
+								if(voteCount !== '-1') {
+									$('#upvote-activity-response-${activityResponse.id}-score').html(voteCount);	
+								}
+							});
+						});
+				</script>
+			#{/if}
+			#{else}
+				<a id="upvote-activity-response-${activityResponse.id}" 
+				   title="I like this activity response"
+				   class="post" 
+				   href="@{CourseSecureC.voteActivityResponse(course.sanitizedTitle, section.sanitizedTitle, activityResponse.id, false)}"> 
+				       <img src="/public/images/vote-arrow-up.png" alt="voteup image" height="14" width="14" border="0" /> 
+				</a>
+			#{/else}
+		</div>
+</div>
+<div style="margin-top: 15px;">
+<div style="font-weight: bold;">
+Reviews (Please use the form below to provide a constructive review of the activity):
+</div>
+
+#{if controllers.Security.isConnected()}
+	#{if course.isSocialUserEnrolled(controllers.Security.connected())}
+		<div>
+			#{form @CourseSecureC.postActivityResponseReview(course.id, section.id, activityResponse.id)}
+				#{ifErrors}
+					<p class="error">Please correct these errors.</p>
+				#{/ifErrors}
+				
+				#{field 'review'}
+					<p>
+						<div>
+							#{ifError 'review'}<span class="error">#{error 'review' /}</span>#{/ifError}
+						</div>
+						<div>
+							<textarea rows="10" cols="80" name="${field.name}">${flash['review']}</textarea>
+						</div>
+					</p>
+					<p>
+						<input type="submit" name="submmit" value="Submit" />
+					</p>
+				#{/field}
+			#{/form}
+		</div>
+	#{/if}
+#{/if}
+#{else}
+  <span> Please <a href="/login">login</a> to provide a review of this activity response</span>
+#{/else}
+</div>
+
+<hr />
+
+<div>
+	#{list items:activityResponse.reviews, as:'review'}
+		<div style="margin-top: 25px; margin-bottom: 25px;">
+			<div style="background-color: #FFF;">
+				${review.review.nl2br()}
+			</div>
+			<div class="small-user-container" style="background-color: #CCC;; padding: 2px; text-align: right;">
+				<span id="${activityResponse.user.id}" class="user-image-small" style="margin-right: 10px;"></span>
+				<span><a href="@{UserProfileC.show(review.user.id)}">${review.user.screenname}</a></span>
+				<span style="font-style: italic;">${review.timestamp?.since(true)}</span>
+			</div>				
+		</div>
+	#{/list}
+</div>
+
+<script type="text/javascript">
+	$('document').ready(function() {
+    	$('#delete-activity-response-${activityResponse.id}').click(function(e) {
+    		if(confirm("Do you really want to delete this activity response (please remember all data associated with it will be deleted) ? ")) {
+    			return true;
+    		} else {
+    			return false;	
+    		}			
+		});
+    })
+</script>
