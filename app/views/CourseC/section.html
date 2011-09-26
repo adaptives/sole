@@ -24,7 +24,7 @@
 		#{list items:courseSection.activities, as:'activity'}
 			<div class="activewrap">
 				<div class="standard-div">
-					<h4><img src="/public/images/applications-development.png"/> Activity ${activity_index} : ${activity.title}</h4>
+					<h4><img src="/public/images/applications-development.png"/>Activity ${activity_index} : ${activity.title}</h4>
 					${activity.content.raw()}
 				</div>
 				<div class="bdr" style="margin-bottom: 10px; padding-bottom: 10px;">
@@ -56,6 +56,7 @@
 									%{
 										route= play.mvc.Router.reverse('CourseC.sectionActivityResponses', [courseSanitizedTitle:courseSection.course.sanitizedTitle, courseSectionSanitizedTitle:courseSection.sanitizedTitle]) 										
 									}%
+									#{activityResponseIndicator activity:activity /}
 									<a href="${route.url}#${activity.id}">
 										<span id="activity-response-count-${activity_index}">${activity.activityResponses.size()}</span> total responses.
 									</a>

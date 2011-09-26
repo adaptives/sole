@@ -20,7 +20,7 @@ public class ActivityResponseTest extends UnitTest {
 	public void setUp() throws Exception {
 		Fixtures.deleteAll();
 		Fixtures.load("users-and-study-sessions.yml");
-		createCourse();
+		ActivityTest.createCourseWithActivities();
 	}
 
 	@After
@@ -72,19 +72,6 @@ public class ActivityResponseTest extends UnitTest {
 		ActivityResponse deletedActivityResponse = retrieveActivityResponse.delete();
 		assertNotNull(deletedActivityResponse);
 		assertEquals(0, ActivityResponse.findAll().size());
-	}
-	
-	private void createCourse() {
-		CourseCategory cat = new CourseCategory("courses");
-		cat.save();
-		
-		Course course = new Course("Play Framework", "Play framework course");
-		course.category = cat;
-		course.save();
-		CourseSection section = new CourseSection(course, "introduction", "Introductory section");
-		Activity activity = new Activity("Blog", "Please write a blog post");
-		section.activities.add(activity);
-		section.save();
 	}
 
 }
