@@ -3,6 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.Feedback;
+import models.ModeratedFeedback;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.mvc.Controller;
@@ -10,7 +11,7 @@ import play.mvc.Controller;
 public class FeedbackC extends Controller {
 
 	public static void index() {
-		List<Feedback> feedbacks = Feedback.findAll();
+		List<ModeratedFeedback> feedbacks = ModeratedFeedback.findModerated();		
 		render(feedbacks);
 	}
 
