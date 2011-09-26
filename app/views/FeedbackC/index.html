@@ -15,19 +15,30 @@
 
 </div>
 
+%{
+	java.util.Date date = new java.util.Date();
+	long ts = date.getTime();
+	int random1 = (int)ts % 5;
+	int random2 = (int)ts % 3;
+}%
 <div class="feedback-form">
 	#{form @FeedbackC.createFeedback()}
+		<input type="hidden" name="cans" value="${random1 + random2}" />
 		<p>
 			<div><label>Name <span class="required-field">(required)</span> </label></div>
-			<input type="text" name="name" value="" id="name" /> <span class="error">#{error 'name' /}</span>
+			<input type="text" name="name" value="${flash.name}" id="name" /> <span class="error">#{error 'name' /}</span>
 		</p>
 		<p>
 			<div><label>Email <span class="required-field">(required, but will not be displayed)</span></label></div>
-			<input type="text" name="email" value="" id="email" /> <span class="error">#{error 'email' /}</span>
+			<input type="text" name="email" value="${flash.email}" id="email" /> <span class="error">#{error 'email' /}</span>
 		</p>
 		<p>
 			<div><label>Message <span class="required-field">(required)</span></label></div>
-			<textarea id="feedback_text" class="simple" name="message" rows="8" cols="40" id="message"></textarea>
+			<textarea id="feedback_text" class="simple" name="message" rows="8" cols="40" id="message">${flash.message}</textarea>
+		</p>
+		<p>
+			<div><label>If you are not a bot, please enter the answer of "${random1} + ${random2}" </label></div>
+			<input type="text" name="cansval" value="" id="cansval" /> <span class="error">#{error 'cansval' /}</span>
 		</p>
 		<p>
 			<input type="submit" value="Submit" id="postFeedback" />

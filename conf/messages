@@ -1,3 +1,5 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+must.be.human = You seem to be a bot
