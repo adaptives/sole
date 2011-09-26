@@ -24,6 +24,7 @@ public class FeedbackC extends Controller {
 		}
 		Feedback feedback = new Feedback(name, email, message);
 		feedback.save();
+		
 		index();
 	}
 }
