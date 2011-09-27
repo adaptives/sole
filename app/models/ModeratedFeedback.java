@@ -32,8 +32,8 @@ public class ModeratedFeedback extends Model {
 		String template = "'%s' : '%s' at '%s' approved %b '%s'";
 		return String.format(template, 
 							 this.name, 
-							 this.email, 
-							 this.timestamp.toString(), 
+							 this.email,
+							 this.timestamp != null ? this.timestamp.toString() : "", 
 							 this.moderated, 
 							 this.message);
 	}
