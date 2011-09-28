@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MethodNotSupportedException;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -64,7 +65,7 @@ public class DIYCourseEvent extends Model {
 		return new DIYCourseEvent(course, originator, title, text);
 	}
 	
-	public static DIYCourseEvent buildFromActivity(SocialUser originator,
+	public static DIYCourseEvent buildFromActivityResponse(SocialUser originator,
 			  			  						   ActivityResponse activityResponse) {
 		
 		DIYCourseEvent event = null;
@@ -89,6 +90,38 @@ public class DIYCourseEvent extends Model {
 		}
 		if(course != null) {
 			event = new DIYCourseEvent(course, originator, title, text); 
+		}
+		return event;
+	}
+	
+	public static DIYCourseEvent buildFromActivityResponseReview(SocialUser originator, 
+																 ActivityResponseReview review) {
+
+		DIYCourseEvent event = null;
+		Course course = null;
+		String title = "New review for activity '" + review.activityResponse.activity.title + "'";
+		String text = "";
+
+		CourseSection courseSectionForActivity = 
+			CourseSection.findCourseSectionForActivity(review.activityResponse.activity);
+		if (courseSectionForActivity != null) {
+			course = courseSectionForActivity.course;
+			text = "reviewed a response submitted for activity '"
+					+ getActivityReviewURL(course, courseSectionForActivity, review) + "'";
+		} else {
+			Course courseForActivity = Course
+					.findCourseForActivity(review.activityResponse.activity);
+			if (courseForActivity != null) {
+				course = courseForActivity;
+				text = "reviewed a submitted response for activity '"
+						+ getActivityReviewURL(courseForActivity, review) + "'";
+			} else {
+				cLogger.warn("This ActivityResponse belongs to neither a courseSection nor a course '"
+						+ review.id + "'");
+			}
+		}
+		if (course != null) {
+			event = new DIYCourseEvent(course, originator, title, text);
 		}
 		return event;
 	}
@@ -161,6 +194,27 @@ public class DIYCourseEvent extends Model {
 						Router.reverse("CourseC.activityResponses", showQuestionActionArgs);
 		String template = "<a href=\"%s\">%s</a>";
 		return String.format(template, showQuestionActionDef.url + "#" + activityResponse.activity.id, activityResponse.activity.title);
+	}
+	
+	private static String getActivityReviewURL(Course course, 
+											   CourseSection courseSection, 
+											   ActivityResponseReview review) {
+		Map args = new HashMap();
+		args.put("courseSanitizedTitle", course.sanitizedTitle);
+		args.put("sectionSanitizedTitle", courseSection.sanitizedTitle);
+		args.put("activityResponseId", review.activityResponse.id);
+		String url = Router.reverse("CourseC.sectionActivityResponseReview", args).url;
+		String template = "<a href=\"%s\">%s</a>";
+		return String.format(template, url, review.activityResponse.activity.title);
+	}
+	
+	//TODO: Implement this method
+	private static String getActivityReviewURL(Course course,
+											   ActivityResponseReview review) {
+		if(true) {
+			throw new RuntimeException("Method not supported");
+		}
+		return null;
 	}
 
 }

@@ -82,7 +82,7 @@ public class DIYCourseEventTest extends UnitTest {
 		
 		ActivityResponse activityResponse = new ActivityResponse(user1, activity, "http://diycomputerscience.com", "Peer Learning Environemnt for Computer Science");
 		
-		DIYCourseEvent event = DIYCourseEvent.buildFromActivity(user1, activityResponse);
+		DIYCourseEvent event = DIYCourseEvent.buildFromActivityResponse(user1, activityResponse);
 		
 		String expectedEventString = 
 			"<span id=\"%s\" class=\"user-image-small\"></span><a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/activity/responses#%s\">activity title</a>'";
@@ -107,7 +107,7 @@ public class DIYCourseEventTest extends UnitTest {
 		
 		ActivityResponse activityResponse = new ActivityResponse(user1, activity, "http://diycomputerscience.com", "Peer Learning Environemnt for Computer Science");
 		
-		DIYCourseEvent event = DIYCourseEvent.buildFromActivity(user1, activityResponse);
+		DIYCourseEvent event = DIYCourseEvent.buildFromActivityResponse(user1, activityResponse);
 		
 		String expectedEventString = 
 			"<span id=\"%s\" class=\"user-image-small\"></span><a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/section/section-1/activity/responses#%s\">activity title</a>'";

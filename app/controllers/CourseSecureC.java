@@ -123,7 +123,7 @@ public class CourseSecureC extends Controller {
 				ActivityResponse activityResponseObj = new ActivityResponse(
 						user, activity, activityResponse, title);
 				activityResponseObj.save();
-				saveIfNotNull(DIYCourseEvent.buildFromActivity(user, activityResponseObj));
+				saveIfNotNull(DIYCourseEvent.buildFromActivityResponse(user, activityResponseObj));
 			}
 		}
 
@@ -151,6 +151,8 @@ public class CourseSecureC extends Controller {
 		
 		ActivityResponseReview activityResponseReview = 
 			new ActivityResponseReview(activityResponse, user, review);
+		
+		saveIfNotNull(DIYCourseEvent.buildFromActivityResponseReview(user, activityResponseReview));
 		
 		CourseC.sectionActivityResponseReview(course.sanitizedTitle, 
 											  section.sanitizedTitle, 
