@@ -5,9 +5,7 @@ import java.util.Map;
 
 import models.Course;
 import models.Question;
-import models.SessionPart;
 import models.SocialUser;
-import models.StudySession;
 
 import play.mvc.Router;
 import play.mvc.Router.ActionDefinition;
@@ -34,31 +32,6 @@ public class LinkGenUtils {
 		ActionDefinition actionDef = 
 							Router.reverse("CourseC.course", actionArgs);
 		return "<a href=\"" + actionDef.url + "\">" +  course.title + "</a>";
-	}
-	
-	public static String getStudyGroupQuestionLink(long studySessionId, 
-												   Question question) {
-		StudySession studySession = StudySession.findById(studySessionId);
-		Map actionArgs = new HashMap();
-		actionArgs.put("sanitizedTitle", studySession.sanitizedTitle);
-		actionArgs.put("questionId", question.id);
-		actionArgs.put("sanitizedQuestionTitle", question.sanitizedTitle);
-		ActionDefinition actionDef = 
-							Router.reverse("StudySessionC.forumQuestion", actionArgs);
-		return "<a href=\"" + actionDef.url + "\">" +  question.title + "</a>";
-	}
-	
-	public static String getViewAllResponsesLink(long studySessionId, 
-												 long sessionPartId) {
-		Map actionArgs = new HashMap();
-		StudySession studySession = StudySession.findById(studySessionId);
-		SessionPart sessionPart = SessionPart.findById(sessionPartId);
-		
-		actionArgs.put("sanitizedTitle", studySession.sanitizedTitle);
-		actionArgs.put("sessionPartSanitizedTitle", sessionPart.sanitizedTitle);
-		ActionDefinition actionDef = 
-							Router.reverse("StudySessionC.sessionPartActivityResponses", actionArgs);
-		return "<a href=\"" + actionDef.url + "\">" +  "response" + "</a>";
 	}
 	
 	public static String getStudySessionLink(long studySessionId) {

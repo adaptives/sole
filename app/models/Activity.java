@@ -37,23 +37,6 @@ public class Activity extends Model {
 		create();
 	}
 	
-	public StudySession findStudySession() {
-		StudySession studySession = null;
-		//First look for this activity in SessionParts
-		studySession = StudySession.find("select ss from StudySession ss join ss.sessionParts sp join sp.activities a where a.id = ?", this.id).first();		
-		if(studySession == null) {
-			//Since activity is not found in SessionPart let's look for it in StudySession
-			studySession = StudySession.find("select ss from StudySession ss join ss.activities a where a.id = ?", this.id).first();
-		}
-		return studySession;
-	}
-	
-	public SessionPart findSessionPart() {
-		SessionPart sessionPart = 
-			SessionPart.find("select sp from SessionPart sp join sp.activities a where a.id = ?", this.id).first();
-		return sessionPart;
-	}
-	
 	public boolean hasResponded(String sUserId) {
 		boolean retVal = false;
 		try {

@@ -30,20 +30,6 @@ GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/ed
 GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/delete                                   CourseSecureC.deleteCodeSnippet
 GET     /course/{sanitizedTitle}/codesnippet/{codeSnippetId}                                                           CourseC.embedCodeSnippet
 
-
-GET     /studysessions/currentlist                                                                                     StudySessionC.currentlist
-GET     /studysessions/studysession/{sanitizedTitle}                                                                   StudySessionC.studySession
-GET     /studysessions/studysession/{sanitizedTitle}/sessionpart/{sessionPartSanitizedTitle}                           StudySessionC.sessionPart
-GET     /studysessions/studysession/{sanitizedTitle}/participants                                                      StudySessionC.participants
-GET     /studysessions/studysession/{sanitizedTitle}/resources                                                         StudySessionC.resources
-GET     /studysessions/studysession/{sanitizedTitle}/sessionpart/{sessionPartSanitizedTitle}/activity/responses        StudySessionC.sessionPartActivityResponses
-GET     /studysessions/studysession/{sanitizedTitle}/forum                                                             StudySessionC.forum
-GET     /studysessions/studysession/{sanitizedTitle}/forum/question/{questionId}/{sanitizedQuestionTitle}              StudySessionC.forumQuestion
-GET     /studysessions/studysession/{sanitizedTitle}/manageParticipants                                                StudySessionSecureC.manageParticipants
-POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/add                                       StudySessionSecureC.postQuestion
-POST    /studysessions/studysession/{studySessionId}/forum{forumId}/question/{questionId} 	                           StudySessionSecureC.postAnswer
-POST    /activityresponse/{activityId}                                                                                 StudySessionSecureC.postActivityResponse
-
 GET     /page/{name}                                                                                                   PageC.show
 
 GET     /users/{page}/{size}                                                                                           UserProfileC.List
@@ -61,8 +47,6 @@ GET     /questionc/like/answerId/{answerId}                                     
 GET     /callbacks/auth/twitter                                                                                        SocialAuthC.twitterCallback
 
 GET     /blog/obfuscate/feed                                                                                           FeedC.blog
-GET     /studySessions/studySession/{studySessionId}/feed                                                              FeedC.studySession
-GET     /studySessions/feed                                                                                            FeedC.studySessions
 GET     /courses/course/{sanitizedTitle}/feed                                                                          FeedC.course
 
 # Map static resources from the /app/public folder to the /public path

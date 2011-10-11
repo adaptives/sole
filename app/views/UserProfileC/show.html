@@ -108,28 +108,6 @@
 </div>
 
 <div id="study-sessions">
-	<div style="margin-bottom: 20px;">
-		This user has participated in ${studySessionsParticipated.size()} study sessions, asked ${studySessionQuestions.size()} questions, provided ${studySessionAnswers.size()} answers.
-	</div>
-	<div class="userprofile-tabs-content">
-		<div class="userprofile-tabs-content-title">Questions asked in Study Session forums</div>
-		#{list items:studySessionQuestions, as:'studySessionQuestionDetails'}
-			<div>
-				<span>+${studySessionQuestionDetails[0].likes()}</span><a href="@{StudySessionC.forumQuestion(studySessionQuestionDetails[1], studySessionQuestionDetails[0].id, studySessionQuestionDetails[0].sanitizedTitle)}">${studySessionQuestionDetails[0].title}</a>
-			</div>
-		#{/list}
-	</div>
-	
-	<div class="userprofile-tabs-content">
-		<div class="userprofile-tabs-content-title">Answers given in Study Sessions</div>
-		<ul style="list-style:none;">
-		#{list items:studySessionAnswers, as:'studySessionAnswerDetail'}
-			<li>
-			<span>+${studySessionAnswerDetail[0].likes()}</span><a href="@{StudySessionC.forumQuestion(studySessionAnswerDetail[1], studySessionAnswerDetail[0].id, studySessionQuestionDetails[0].sanitizedTitle)}">${studySessionAnswerDetail[0].title}</a>
-			</li>
-		#{/list}
-		</ul>
-	</div>
 </div>
 
 <div id="challenges-taken">

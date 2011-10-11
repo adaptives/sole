@@ -20,7 +20,6 @@ import models.Forum;
 import models.Pic;
 import models.Question;
 import models.SocialUser;
-import models.StudySession;
 import models.TwitterUser;
 import models.User;
 import models.UserProfile;
@@ -112,27 +111,13 @@ public class UserProfileC extends Controller {
 			List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
 			List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
 			List diyQuestions = CourseSection.find("select distinct q, cs.id from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
-			List diyAnswers = StudySession.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
+			List diyAnswers = CourseSection.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
 			
-			//TODO: Closed / private study session questions should not be included here
-			
-			List studySessionQuestions = 
-				StudySession.find("select distinct q, ss.sanitizedTitle from StudySession ss join ss.forum.questions as q where q.author.id = ?", userId).fetch();
-			List studySessionAnswers = 
-				StudySession.find("select q, ss.sanitizedTitle from StudySession ss join ss.forum.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
-			List<StudySession> studySessionsParticipated = 
-				StudySession.find("select ss from StudySession ss join ss.applicationStore aps join aps.applications a where a.socialUser.id = ? and a.currentStatus = 1", userId).fetch();
-	 
 			render(userProfile, 
 				   coursesEnrolled, 
 				   coursesCompleted, 
 				   diyQuestions, 
-				   diyAnswers, 
-				   studySessionsParticipated, 
-				   studySessionQuestions, 
-				   studySessionAnswers, 
-				   tabIds, 
-				   tabNames);
+				   diyAnswers);
 		} else {
 			flash.error("We could not find the requested user");
 			render("emptypage.html");
