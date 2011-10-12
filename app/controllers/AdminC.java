@@ -38,6 +38,7 @@ public class AdminC extends Controller{
 	}
 	
 	public static void submitData(String data) {
+		System.out.println("Adding data '" + data + "'");
 		Pattern keyPattern = Pattern.compile("([^(]+)\\(([^)]+)\\)");
 		
 		try {
@@ -74,6 +75,7 @@ public class AdminC extends Controller{
 	                        }
 	
 	                    }
+	                    System.out.println("About to save model '" + model + "'");
 	                    model._save();
 	                    Class<?> tType = cType;
 	                    while (!tType.equals(Object.class)) {

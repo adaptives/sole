@@ -6,6 +6,13 @@
 GET    /help                                                                                                           HelpC.index
 GET    /feedback                                                                                                       FeedbackC.index
 
+#Admin Menu
+GET     /adminc                                                                                                        AdminC.index
+GET     /adminc/data                                                                                                   AdminC.uploadData
+POST    /adminc/data/yml                                                                                               AdminC.submitData
+GET     /adminc/signup                                                                                                 RegisterC.signup
+POST    /adminc/register                                                                                               RegisterC.register
+                                           
 # Home page
 GET     /                                       								                                       Application.index
 GET     /courses/list                           								                                       CourseC.list
@@ -66,6 +73,6 @@ GET     /public/                                staticDir:public
 *       /                                       module:secure
 
 # Catch all
-*       /{controller}/{action}                  {controller}.{action}
-#*       /*                                      404
+#*       /{controller}/{action}                  {controller}.{action}
+*       /*                                      404
 
