@@ -67,20 +67,12 @@ public class CourseC extends Controller {
 	
 	public static void section(String sanitizedTitle, 
 							   String courseSectionSanitizedTitle) {
-		List<String> tabIds = new ArrayList<String>();
-		tabIds.add("questions");
-		tabIds.add("selected-question");
-		tabIds.add("comments");
-		List<String> tabNames = new ArrayList<String>();
-		tabNames.add("Questions");
-		tabNames.add("Selected Question");
-		tabNames.add("Comments");
 		
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		CourseSection courseSection = CourseSection.findBySanitizedTitleByCouse(course, courseSectionSanitizedTitle);
 		
 		if(courseSection != null) {
-			render("CourseC/section.html", courseSection, tabIds, tabNames);
+			render("CourseC/section.html", courseSection);
 		} else {
 			//TODO: We should actually render the course with this error message
 			flash.error("Sorry we could not find the section");
