@@ -1,0 +1,18 @@
+<div>
+%{
+prev = _courseSection.previous()
+next = _courseSection.next()
+}%
+<div style="float: left;">
+#{if prev}
+<a href="@{CourseC.section(prev.course.sanitizedTitle, prev.sanitizedTitle)}"><img title="previous" src="/public/images/arrow-left-double.png" /></a>
+#{/if}
+</div>
+<div style="float: right;">
+#{if next}
+<a href="@{CourseC.section(next.course.sanitizedTitle, next.sanitizedTitle)}"><img title="next" src="/public/images/arrow-right-double.png" /></a>
+#{/if}
+</div>
+</div>
+
+<div style="clear: both;"></div>

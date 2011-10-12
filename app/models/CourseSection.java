@@ -57,6 +57,24 @@ public class CourseSection extends Model {
 		this.activities = new TreeSet<Activity>();
 	}
 	
+	public CourseSection previous() {
+		CourseSection courseSection = null;
+		int pPlacement = this.placement - 1;
+		if(pPlacement >= 0) {
+			String query = "select cs from CourseSection cs where cs.course.id = ? and cs.placement = ?";
+			courseSection = CourseSection.find(query, this.course.id, pPlacement).first();
+		}
+		return courseSection;
+	}
+	
+	public CourseSection next() {
+		CourseSection courseSection = null;
+		int pPlacement = this.placement + 1;
+		String query = "select cs from CourseSection cs where cs.course.id = ? and cs.placement = ?";
+		courseSection = CourseSection.find(query, this.course.id, pPlacement).first();
+		return courseSection;
+	}
+	
 	public static CourseSection findBySanitizedTitleByCouse(Course course, 
 															String sanitizedTitle) {
 		

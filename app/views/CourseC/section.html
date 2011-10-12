@@ -1,6 +1,9 @@
 #{extends 'CourseC/courseMain.html' /}
 #{set course:courseSection.course /}
 
+
+#{coursePagination courseSection:courseSection /}
+
 <h3 class="course-section-title"><a href="@{CourseC.course(courseSection.course.sanitizedTitle)}">${courseSection.course.title}</a> : ${courseSection.title}</h3>
 <div class="course-description">
 	${courseSection.content.nl2br()}
