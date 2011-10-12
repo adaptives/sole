@@ -40,6 +40,7 @@ POST    /course/activityresponse/{activityId}                                   
 POST    /courses/course/{courseId}/codeSnippet 							                                               CourseSecureC.postCodeSnippet
 POST    /courses/course/{courseId}/forum/{forumId}/question/                                                           CourseSecureC.postQuestion
 POST    /courses/course/{courseId}/forum/{forumId}/question/{questionId}/answer                                        CourseSecureC.postAnswer
+POST    /courses/course/{courseId}/pastebin/codesnippet/{codeSnippetId}/edit                                           CourseSecureC.postEditCodeSnippet
 
 GET     /page/{name}                                                                                                   PageC.show
 
