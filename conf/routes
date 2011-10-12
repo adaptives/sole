@@ -14,24 +14,30 @@ GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}  
 GET     /courses/course/{courseSanitizedTitle}/section/{courseSectionSanitizedTitle}/activity/responses                CourseC.sectionActivityResponses
 GET     /courses/course/{courseSanitizedTitle}/activity/responses                                                      CourseC.activityResponses
 GET     /courses/course/section/{sectionId}/question/{questionId} 				                                       CourseC.question
-POST    /courses/course/section{sectionId}/question 							                                       CourseC.addQuestion
 GET     /courses/course/{sanitizedTitle}/forum        							                                       CourseC.forum
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
-POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/vote/ajax/{ajax} CourseSecureC.voteActivityResponse
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/review    CourseC.sectionActivityResponseReview
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/delete    CourseSecureC.deleteActivityResponse
 GET     /courses/course/{sanitizedTitle}/participants/{page}/{size}                                                    CourseC.participants
-POST    /courses/course/{courseId}/codeSnippet 							                                               CourseSecureC.postCodeSnippet
 GET     /courses/course/{sanitizedTitle}/pastebin                                                                      CourseSecureC.pastebin
 GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}                                          CourseSecureC.codeSnippet
 GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/edit                                     CourseSecureC.editCodeSnippet
 GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/delete                                   CourseSecureC.deleteCodeSnippet
 GET     /course/{sanitizedTitle}/codesnippet/{codeSnippetId}                                                           CourseC.embedCodeSnippet
+GET     /course/{courseId}/pic                                                                                         CourseC.pic
+POST    /courses/{courseId}/sections/{sectionId}/activityresponse/{activityResponseId}/review                          CourseSecureC.postActivityResponseReview
+POST    /courses/course/section{sectionId}/question 							                                       CourseC.addQuestion
+POST    /course/activityresponse/{activityId}                                                                          CourseSecureC.postActivityResponse
+POST    /courses/course/{courseId}/codeSnippet 							                                               CourseSecureC.postCodeSnippet
+POST    /courses/course/{courseId}/forum/{forumId}/question/                                                           CourseSecureC.postQuestion
+POST    /courses/course/{courseId}/forum/{forumId}/question/{questionId}/answer                                        CourseSecureC.postAnswer
 
 GET     /page/{name}                                                                                                   PageC.show
 
+GET     /users/picTag/{userId}                                                                                         UserProfileC.picTag
+GET     /users/{userId}/pic                                                                                            UserProfileC.pic
 GET     /users/{page}/{size}                                                                                           UserProfileC.List
 GET     /users                                                                                                         UserProfileC.list
 GET     /users/{userId}                                                                                                UserProfileC.show
@@ -45,6 +51,7 @@ GET     /questionc/like/questionId/{questionId}                                 
 GET     /questionc/like/answerId/{answerId}                                                                            QuestionC.likeAnswer
 
 GET     /callbacks/auth/twitter                                                                                        SocialAuthC.twitterCallback
+GET     /socialauth/twitter/login                                                                                      SocialAuthC.authWithTwitter
 
 GET     /blog/obfuscate/feed                                                                                           FeedC.blog
 GET     /courses/course/{sanitizedTitle}/feed                                                                          FeedC.course
@@ -60,3 +67,5 @@ GET     /public/                                staticDir:public
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+#*       /*                                      404
+

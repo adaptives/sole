@@ -160,7 +160,8 @@
 	<script type="text/javascript">
 		$('span.user-image-small').each(function(index) {
 			var theTag = $(this); 
-			$.get("/userprofilec/picTag?userId=" + this.id, function(response) {
+			var url = "/users/picTag/" + this.id;
+			$.get(url, function(response) {				
 				theTag.html(response);	
 			})		
 		});
