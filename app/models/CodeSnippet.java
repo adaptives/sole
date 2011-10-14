@@ -6,11 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
+import controllers.CourseSecureC;
+
+import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class CodeSnippet extends Model {
+	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(CodeSnippet.class); 
 	
 	@Required
 	@ManyToOne
@@ -50,7 +55,7 @@ public class CodeSnippet extends Model {
 				retVal = true;
 			}
 		} catch(Exception e) {
-			
+			cLogger.warn("Unparseable userId '" + userId + "'");
 		}
 		return retVal;
 	}
