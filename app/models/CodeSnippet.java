@@ -48,6 +48,7 @@ public class CodeSnippet extends Model {
 	}
 	
 	public boolean owns(String userId) {
+		cLogger.info("Determing if user '" + userId + "' owns the codeSnippet whose owner is '" + this.user.id + "'");
 		boolean retVal = false;
 		try {
 			Long lUserId = Long.parseLong(userId);
