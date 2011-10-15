@@ -52,7 +52,7 @@ public class CodeSnippet extends Model {
 		boolean retVal = false;
 		try {
 			Long lUserId = Long.parseLong(userId);
-			if(this.user.id == lUserId) {
+			if((long)this.user.id == (long)lUserId) {
 				retVal = true;
 			} else {
 				cLogger.info(lUserId + " is not equal to " + this.user.id);
