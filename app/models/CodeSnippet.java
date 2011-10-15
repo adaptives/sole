@@ -54,6 +54,8 @@ public class CodeSnippet extends Model {
 			Long lUserId = Long.parseLong(userId);
 			if(this.user.id == lUserId) {
 				retVal = true;
+			} else {
+				cLogger.info(lUserId + " is not equal to " + this.user.id);
 			}
 		} catch(Exception e) {
 			cLogger.warn("Unparseable userId '" + userId + "'");
