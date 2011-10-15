@@ -58,6 +58,7 @@ public class CodeSnippet extends Model {
 		} catch(Exception e) {
 			cLogger.warn("Unparseable userId '" + userId + "'");
 		}
+		cLogger.info("They do ? " + retVal);
 		return retVal;
 	}
 	
