@@ -48,19 +48,16 @@ public class CodeSnippet extends Model {
 	}
 	
 	public boolean owns(String userId) {
-		cLogger.info("Determing if user '" + userId + "' owns the codeSnippet whose owner is '" + this.user.id + "'");
 		boolean retVal = false;
 		try {
 			Long lUserId = Long.parseLong(userId);
+			//TODO: Why do we need this cast ???
 			if((long)this.user.id == (long)lUserId) {
 				retVal = true;
-			} else {
-				cLogger.info(lUserId + " is not equal to " + this.user.id);
 			}
 		} catch(Exception e) {
 			cLogger.warn("Unparseable userId '" + userId + "'");
 		}
-		cLogger.info("They do ? " + retVal);
 		return retVal;
 	}
 	
