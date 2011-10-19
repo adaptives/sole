@@ -99,6 +99,7 @@
 	#{if course.isSocialUserEnrolled(controllers.Security.connected())}    		
 		
 		<div class="wmd-panel">
+			<div style="font-weight: bold; margin-bottom: 15px;">Would You Like To Review This Activity Response?</div>
 			<div style="font-style: italic;">This editor supports the markdown format. Please visit <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">this page</a>, If you are not familiar with Markdown.</div>
 		    <div id="wmd-button-bar"></div>
 			#{form @CourseSecureC.postActivityResponseReview(course.id, section.id, activityResponse.id)}
