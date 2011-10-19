@@ -96,8 +96,11 @@
 <div style="border-top: 1px dotted;"></div>
 
 #{if controllers.Security.isConnected()}
-	#{if course.isSocialUserEnrolled(controllers.Security.connected())}
-		<div>
+	#{if course.isSocialUserEnrolled(controllers.Security.connected())}    		
+		
+		<div class="wmd-panel">
+			<div style="font-style: italic;">This editor supports the markdown format. Please visit <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">this page</a>, If you are not familiar with Markdown.</div>
+		    <div id="wmd-button-bar"></div>
 			#{form @CourseSecureC.postActivityResponseReview(course.id, section.id, activityResponse.id)}
 				#{ifErrors}
 					<p class="error">Please correct these errors.</p>
@@ -109,7 +112,7 @@
 							#{ifError 'review'}<span class="error">#{error 'review' /}</span>#{/ifError}
 						</div>
 						<div>
-							<textarea id="review-text" rows="10" cols="80" name="${field.name}">${flash['review']}</textarea>
+							<textarea class="wmd-input" id="wmd-input" name="${field.name}">${flash['review']}</textarea>
 						</div>
 					</p>
 					<p>
@@ -118,15 +121,25 @@
 				#{/field}
 			#{/form}
 		</div>
-		<div id="preview" class="inline-preview">
-		Preview of text entered in the textbox above will appear here.
-		</div>
+				
+		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+		
 	#{/if}
 #{/if}
 #{else}
   <span> Please <a href="/login">login</a> to provide a review of this activity response</span>
 #{/else}
 </div>
+<script type="text/javascript">
+	(function () {
+		var help = function () { alert("For help using markdown, please visit http://daringfireball.net/projects/markdown/syntax"); }
+	    var converter1 = Markdown.getSanitizingConverter();
+	    var editor1 = new Markdown.Editor(converter1, "", { handler: help });
+	    editor1.run();
+	    
+	})();
+</script>
+
 
 <script type="text/javascript">
 	$('document').ready(function() {
@@ -137,15 +150,5 @@
     			return false;	
     		}			
 		});
-    	
-    	$('#review-text').bind("keyup keypress", function(e){
-    		var current_text = $('#review-text').val();
-    		var url = "/markdown/processmarkdown";
-    		var params = {text:current_text};
-    		$.post(url, params, function(response) {
-    			//$('#preview').html("aaaa");
-    			$('#preview').html(response);
-    		});    		
-    	});
     })
 </script>
