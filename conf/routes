@@ -64,6 +64,8 @@ GET     /socialauth/twitter/login                                               
 GET     /blog/obfuscate/feed                                                                                           FeedC.blog
 GET     /courses/course/{sanitizedTitle}/feed                                                                          FeedC.course
 
+POST    /markdown/processmarkdown                                                                                      MarkdownC.processMarkdown
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 

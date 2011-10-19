@@ -109,7 +109,7 @@
 							#{ifError 'review'}<span class="error">#{error 'review' /}</span>#{/ifError}
 						</div>
 						<div>
-							<textarea rows="10" cols="80" name="${field.name}">${flash['review']}</textarea>
+							<textarea id="review-text" rows="10" cols="80" name="${field.name}">${flash['review']}</textarea>
 						</div>
 					</p>
 					<p>
@@ -117,6 +117,9 @@
 					</p>
 				#{/field}
 			#{/form}
+		</div>
+		<div id="preview" class="inline-preview">
+		Preview of text entered in the textbox above will appear here.
 		</div>
 	#{/if}
 #{/if}
@@ -134,5 +137,15 @@
     			return false;	
     		}			
 		});
+    	
+    	$('#review-text').bind("keyup keypress", function(e){
+    		var current_text = $('#review-text').val();
+    		var url = "/markdown/processmarkdown";
+    		var params = {text:current_text};
+    		$.post(url, params, function(response) {
+    			//$('#preview').html("aaaa");
+    			$('#preview').html(response);
+    		});    		
+    	});
     })
 </script>
