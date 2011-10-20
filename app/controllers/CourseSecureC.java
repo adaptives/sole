@@ -133,7 +133,8 @@ public class CourseSecureC extends Controller {
 	public static void postActivityResponseReview(long courseId,
 			                                      long sectionId,
 												  long activityResponseId, 
-												  String review) {
+												  @Required String review) {
+		
 		String sUserId = Security.connected();
 		long userId = Long.parseLong(sUserId);
 		SocialUser user = SocialUser.findById(userId);
@@ -147,13 +148,18 @@ public class CourseSecureC extends Controller {
 		ActivityResponse activityResponse = ActivityResponse.findById(activityResponseId);
 		notFoundIfNull(activityResponse);
 		
-		//TODO: Ensure that this activity belongs to this course
-		
-		ActivityResponseReview activityResponseReview = 
-			new ActivityResponseReview(activityResponse, user, review);
-		
-		saveIfNotNull(DIYCourseEvent.buildFromActivityResponseReview(user, activityResponseReview));
-		
+		if(validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+			
+		} else {			
+			//TODO: Ensure that this activity belongs to this course
+			
+			ActivityResponseReview activityResponseReview = 
+				new ActivityResponseReview(activityResponse, user, review);
+			
+			saveIfNotNull(DIYCourseEvent.buildFromActivityResponseReview(user, activityResponseReview));
+		}
 		CourseC.sectionActivityResponseReview(course.sanitizedTitle, 
 											  section.sanitizedTitle, 
 											  activityResponseId);

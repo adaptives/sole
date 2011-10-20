@@ -8,10 +8,7 @@
 			   actionArgsMap:['sanitizedTitle':course.sanitizedTitle, 'questionId':question.id] /}
 			   
 		<div id="answer-form" class="section-question-form">
-			#{answerForm protected:true,
-				             user:session.user,
-							 controllerAction:'CourseSecureC.postAnswer',
-							 actionArgsMap:[courseId:course.id, forumId:course.forum.id, questionId:question.id] /}		
+		    #{markdownAnswerForm course:course, question:question /}							 
 	    </div>
 	#{/if}
 </div>

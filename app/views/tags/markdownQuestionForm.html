@@ -1,0 +1,55 @@
+<div class="wmd-panel">
+	<div style="font-weight: bold; margin-bottom: 15px;">Ask a question!</div>
+	#{form @CourseSecureC.postQuestion(_course.id, _course.forum.id)}
+		#{ifErrors}
+			<p class="error">Please correct these errors.</p>
+		#{/ifErrors}
+		
+		#{field 'title'}
+			<p>
+				<div>
+					#{ifError 'title'}<span class="error">#{error 'title' /}</span>#{/ifError}
+				</div>
+				<div><label>Title <span class="required-field">(required)</span></label></div>
+	    		<input type="text" name="title" value="" id="title" size="80"/>
+	    	</p>
+	    #{/field}
+	
+		#{field 'content'}
+			<p>
+				<div>
+					#{ifError 'content'}<span class="error">#{error 'content' /}</span>#{/ifError}
+				</div>				
+				<div style="font-style: italic;">This editor supports the markdown format. Please visit <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">this page</a>, If you are not familiar with Markdown.</div>
+		    	<div id="wmd-button-bar"></div>
+				<div>
+					<textarea class="wmd-input" id="wmd-input" name="${field.name}">${flash['content']}</textarea>
+				</div>				
+			</p>			
+		#{/field}
+		
+		#{field 'tags'}
+			<div>
+				#{ifError 'tags'}<span class="error">#{error 'tags' /}</span>#{/ifError}
+			</div>
+			<div><label>Tags <span class="required-field">(you can specify multiple tags, separated with commas)</span></label></div>
+        	<input type="text" name="tags" value="" id="tags" /> <span class="error">#{error 'tags' /}</span>
+    	#{/field}
+    	
+    	<p>
+			<input type="submit" name="submmit" value="Submit" />
+		</p>
+	#{/form}
+</div>
+				
+<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+
+<script type="text/javascript">
+	(function () {
+		var help = function () { alert("For help using markdown, please visit http://daringfireball.net/projects/markdown/syntax"); }
+	    var converter1 = Markdown.getSanitizingConverter();
+	    var editor1 = new Markdown.Editor(converter1, "", { handler: help });
+	    editor1.run();
+	    
+	})();
+</script>
