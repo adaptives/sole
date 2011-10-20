@@ -49,6 +49,8 @@ GET     /users/{userId}/pic                                                     
 GET     /users/{page}/{size}                                                                                           UserProfileC.List
 GET     /users                                                                                                         UserProfileC.list
 GET     /users/{userId}                                                                                                UserProfileC.show
+POST    /users/changepwd/{username}                                                                                    UserProfileC.change
+POST    /users/update/{userId}                                                                                         UserProfileC.update
 
 GET     /blog/list                                                                                                     BlogPostC.list
 GET     /blog                                                                                                          BlogPostC.index
