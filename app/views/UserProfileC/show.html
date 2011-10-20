@@ -95,7 +95,7 @@
 		<div class="userprofile-tabs-content-title">Questions asked in DIY courses</div>
 		#{list items:diyQuestions, as:'diyQuestionDetails'}
 			<div>			
-				<span>+${diyQuestionDetails[0].likes()}</span><a href="@{CourseC.question(diyQuestionDetails[1], diyQuestionDetails[0].id)}">${diyQuestionDetails[0].title}</a>
+				<span>+${diyQuestionDetails[0].likes()}</span><a href="@{CourseC.forumQuestion(diyQuestionDetails[1], diyQuestionDetails[0].id)}">${diyQuestionDetails[0].title}</a>
 			</div>
 		#{/list}
 	</div>
@@ -103,7 +103,9 @@
 	<div class="userprofile-tabs-content">
 		<div class="userprofile-tabs-content-title">Answers given in DIY courses</div>
 		#{list items:diyAnswers, as:'diyAnswerDetail'}
-			<span>+${diyAnswerDetail[0].likes()}</span><a href="@{CourseC.question(diyAnswerDetail[1], diyAnswerDetail[0].id)}">${diyAnswerDetail[0].title}</a>
+			<div>
+				<span>+${diyAnswerDetail[0].likes()}</span><a href="@{CourseC.forumQuestion(diyAnswerDetail[1], diyAnswerDetail[0].question.id)}">${diyAnswerDetail[0].question.title}</a>
+			</div>
 		#{/list}
 	</div>
 </div>

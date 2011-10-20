@@ -78,50 +78,21 @@ public class UserProfileC extends Controller {
 	}
 	
 	public static void show(long userId) {
-		
-		
-		List<String> tabIds = new ArrayList<String>();
-		List<String> tabNames = new ArrayList<String>();
-		
-		if(Security.isConnected()) {
-			SocialUser connectedUser = SocialUser.findById(Long.parseLong(Security.connected()));
-			if(connectedUser.id == userId) {
-				tabIds.add("settings");
-				tabNames.add("Settings");
-			}			
-		}
-		tabIds.add("merit");
-		tabIds.add("courses");
-		tabIds.add("study-sessions");
-		tabIds.add("challenges-taken");
-		
 				
-		tabNames.add("Merit");
-		tabNames.add("DIY Courses");
-		tabNames.add("Study Sessions");
-		tabNames.add("Challenges Taken");
-		
-		
-		
 		UserProfile userProfile = getUserProfileFromSocialUserId(userId);
+		notFoundIfNull(userProfile);
+					
+		List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
+		List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
+		List diyQuestions = Course.find("select distinct q, c.sanitizedTitle from Course c join c.forum as f join f.questions q where q.author.id = ?", userId).fetch();
+		List diyAnswers = Course.find("select distinct a, c.sanitizedTitle from Course c join c.forum as f join f.questions q join q.answers a where a.author.id = ?", userId).fetch();
 		
-		if(userProfile != null) {
-			//Get a list of questions asked by the user in DIY courses
-			
-			List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
-			List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
-			List diyQuestions = CourseSection.find("select distinct q, cs.id from CourseSection cs join cs.questions as q where q.author.id = ?", userId).fetch();
-			List diyAnswers = CourseSection.find("select q, cs.id from CourseSection cs join cs.questions as q join q.answers as a where a.author.id = ?", userId).fetch();
-			
-			render(userProfile, 
-				   coursesEnrolled, 
-				   coursesCompleted, 
-				   diyQuestions, 
-				   diyAnswers);
-		} else {
-			flash.error("We could not find the requested user");
-			render("emptypage.html");
-		}
+		render(userProfile, 
+			   coursesEnrolled, 
+			   coursesCompleted, 
+			   diyQuestions, 
+			   diyAnswers);
+		
 	}
 	
 	public static void change(String username, 
