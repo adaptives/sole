@@ -30,4 +30,10 @@ public class UserProfile extends Model {
 	public UserProfile(SocialUser user) {
 		this.user = user;
 	}
+	
+	public boolean isUsernamePwdUser() {
+		String query = "select u from User u where u.socialUser.id = ?";
+		User user = User.find(query, this.user.id).first();
+		return user != null;
+	}
 }

@@ -21,28 +21,29 @@
 <div id="settings">
 	#{if session.user && userProfile.user.id == Long.parseLong(session.user)}
 		<div class="personal-details">
-			<span>Your email is ${userProfile.user.email}</span>
-			<div>Change your password:</div>
-			#{form @UserProfileC.change(userProfile.user.email)}
-				<div>
-					<div>Old Password</div>
-					<input type="password" name="oldPassword" value="">
-				</div>
-				<div>
-					<div>New Password</div>
-					<input type="password" name="newPassword" value="">
-					<span class="error">#{error 'newPassword' /}</span>
-					<div>Retype New Password</div>
-					<input type="password" name="newPassword2" value="">
-					<span class="error">#{error 'newPassword2' /}</span>
-				</div>
-				
-				<p>
-		    		<input type="submit" value="Submit" id="postComment" />
-		    		<input type="reset" value="Clear" />
-				</p>
-			#{/form}
-			
+		    #{if userProfile.isUsernamePwdUser()}
+				<span>Your email is ${userProfile.user.email}</span>
+				<div>Change your password:</div>
+				#{form @UserProfileC.change(userProfile.user.email)}
+					<div>
+						<div>Old Password</div>
+						<input type="password" name="oldPassword" value="">
+					</div>
+					<div>
+						<div>New Password</div>
+						<input type="password" name="newPassword" value="">
+						<span class="error">#{error 'newPassword' /}</span>
+						<div>Retype New Password</div>
+						<input type="password" name="newPassword2" value="">
+						<span class="error">#{error 'newPassword2' /}</span>
+					</div>
+					
+					<p>
+			    		<input type="submit" value="Submit" id="postComment" />
+			    		<input type="reset" value="Clear" />
+					</p>
+				#{/form}
+			#{/if}
 			
 				
 			#{form @UserProfileC.update(userProfile.user.id), enctype:'multipart/form-data'}
