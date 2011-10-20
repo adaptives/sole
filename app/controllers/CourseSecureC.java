@@ -71,10 +71,17 @@ public class CourseSecureC extends Controller {
 
 		SocialUser user = SocialUser.findById(Long.parseLong(Security
 				.connected()));
+		
 		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
 		
 		Forum forum = Forum.findById(forumId);
-		if(user != null && course != null && forum != null) {
+		notFoundIfNull(forum);
+		
+		if(validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+		} else {		
 			Question question = new Question(title, content, user);
 			if (tags != null) {
 				String tagArray[] = tags.split(",");
@@ -84,29 +91,37 @@ public class CourseSecureC extends Controller {
 					}
 				}
 			}
-
+	
 			forum.questions.add(question);
 			forum.save();
 			saveIfNotNull(DIYCourseEvent.buildFromQuestion(course, user, question));
-			CourseC.forum(course.sanitizedTitle);
-		} else {
-			//TODO: What do we do here?
 		}
-		
+		CourseC.forum(course.sanitizedTitle);		
 	}
 	
 	public static void postAnswer(long courseId,
 			  					  long forumId,
 			  					  long questionId,
-			  					  String answerContent) {
+			  					  @Required String answerContent) {
 		
 		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+		
 		Question question = Question.findById(questionId);
+		notFoundIfNull(question);
+		
 		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
-		Answer answer = new Answer(answerContent, user, question);
-		question.answers.add(answer);
-		question.save();
-		saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));
+		notFoundIfNull(user);
+		
+		if(validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+		} else {
+			Answer answer = new Answer(answerContent, user, question);
+			question.answers.add(answer);
+			question.save();
+			saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));			
+		}
 		CourseC.forumQuestion(course.sanitizedTitle, questionId);
 	}
 	
