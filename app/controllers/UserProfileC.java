@@ -128,7 +128,6 @@ public class UserProfileC extends Controller {
 							  String oldPassword, 
 							  @Required @MinSize(5) String newPassword, 
 							  @Required @MinSize(5) String newPassword2) {
-		System.out.println("Changing user profile");
 		if (validation.hasErrors()) {
             validation.keep();
             params.flash();
@@ -202,7 +201,6 @@ public class UserProfileC extends Controller {
 							  String aboutMyself, 
 							  String location, 
 							  Blob profilePicBlob) {
-		System.out.println("Updating user profile");
 		UserProfile userProfile = UserProfile.find("select distinct upr from UserProfile upr where upr.user.id = ?", userId).first();
 		if(profilePicBlob != null) {
 			//TODO: Delete the old profile pic
