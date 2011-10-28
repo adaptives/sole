@@ -5,6 +5,7 @@ import java.util.List;
 import other.utils.AuthUtils;
 import other.utils.LinkGenUtils;
 import play.Logger;
+import play.Play;
 import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.Scope.Flash;
@@ -131,7 +132,14 @@ public class CourseSecureC extends Controller {
 	private static void generateMessageForQuestionAnswered(Question question, 
 														   Course course) {
 		//TODO: We should take the admin user's id from the configuration file
-		SocialUser from = SocialUser.findById((long)1);
+		String messagingFrom = Play.configuration.getProperty("messaging.from");
+		long lMessagingFrom = (long)1;
+		try {
+			lMessagingFrom = Long.valueOf(messagingFrom);
+		} catch(Exception e) {
+			cLogger.warn("Could not find value for messaging.from in the configuration file. Using the default value of 17");
+		}
+		SocialUser from = SocialUser.findById(lMessagingFrom);
 		SocialUser to = question.author;
 		String title = "There is a new answer to your question '" + question.title + "'";
 		String content = "Your question '" + question.title + "' has a new answer " + DIYCourseEvent.getQuestionURL(course, question);		
