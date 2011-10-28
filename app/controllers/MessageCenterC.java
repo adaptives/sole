@@ -15,13 +15,13 @@ public class MessageCenterC extends Controller {
 			SocialUser.findById(Long.parseLong(Security.connected()));
 		
 		MessageCenter messageCenter = MessageCenter.findByUserId(user.id);
-		
 		int pages = calculatePages(messageCenter.inbox.size(), (int)size);
 		
 		render(messageCenter, page, size, pages);
 	}
 	
 	public static void inboxMessage(long messageId) {
+		//TODO: Make sure this message belongs to the logged in user
 		SocialUser user = 
 			SocialUser.findById(Long.parseLong(Security.connected()));
 		
@@ -30,6 +30,8 @@ public class MessageCenterC extends Controller {
 		PrivateMessage message = messageCenter.findInboxMessage(messageId);
 		if(message != null) {
 			JsonMessage jsonMessage = JsonMessage.build(message);
+			message.messageProperties.isRead = true;
+			message.save();
 			renderJSON(jsonMessage);
 		} else {
 			renderJSON("error");

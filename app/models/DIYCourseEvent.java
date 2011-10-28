@@ -164,7 +164,8 @@ public class DIYCourseEvent extends Model {
 		return String.format(template, showUserActionDef.url, originator.screenname);
 	}
 	
-	private static String getQuestionURL(Course course, Question question) {
+	//TODO: Move this method to a utility class
+	public static String getQuestionURL(Course course, Question question) {
 		Map showQuestionActionArgs = new HashMap();
 		showQuestionActionArgs.put("sanitizedTitle", course.sanitizedTitle);
 		showQuestionActionArgs.put("questionId", question.id);

@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+
+#{if messageCenter}
+<h2>Inbox</h2>
+<div>	
+	#{list items:messageCenter.inbox, as:'message'}
+		%{
+		 style = "style=\""
+		 style += !message.messageProperties.isRead ? "font-weight: bold;" : ""
+		 style += "\"" 
+		}%
+		<div id="inbox-msg-${message.id}-div" ${style.raw()}>
+			<span>
+				${message.timestamp.format("yyyy-MM-dd hh:mm")}
+			</span>
+			<a id="inbox-msg-${message.id}" href="#">${message.subject}</a>			
+			#{displayMessage messageId:message.id,
+						 controllerAction:'MessageCenterC.inboxMessage',
+						 actionArgsMap:['messageId':message.id],  
+						 fromContent:"from-content", 
+						 toContent:"to-content", 
+						 dateContent:"date-content", 
+						 subjectContent:"subject-content", 
+						 bodyContent:"body-content" /}
+		</div>		
+		
+	#{/list}
+</div>
+
+<div id="message" style="background-color: #CCC; padding: 4px; margin: 5px; visibility: hidden;">
+	<!--  
+	<div id="from">
+		<span style="font-weight: bold;">From: </span>
+		<span id="from-content"></span>
+	</div>
+	-->
+	
+	<div id="date">
+		<span style="font-weight: bold;">Date: </span>
+		<span id="date-content"></span>
+	</div>
+	
+	<div id="subject">
+		<span style="font-weight: bold;">Subject: </span>
+		<span id="subject-content"></span>
+	</div>
+	
+	<div id="body">
+		<span id="body-content"></span>
+	</div>
+</div>
+
+<div>
+#{paginate controllerAction:'MessageCenterC.inbox', size:size, page:page, pages:pages /}
+</div>
+
+#{/if}

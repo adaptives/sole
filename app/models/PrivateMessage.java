@@ -50,6 +50,17 @@ public class PrivateMessage extends Model implements Comparable {
 		this.messageProperties = new MessageProperties(this);
 	}
 
+	public static void send(SocialUser from,
+							SocialUser to,
+							String subject,
+							String content) {
+		PrivateMessage message = new PrivateMessage(from, to, subject, content);
+		message.save();
+		MessageCenter messageCenter = MessageCenter.findByUserId(message.from.id);
+		messageCenter.inbox.add(message);
+		messageCenter.save();
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		PrivateMessage other = (PrivateMessage)o;

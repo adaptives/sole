@@ -57,11 +57,31 @@ public class PrivateMessageTest extends UnitTest {
 		String title = "message title";
 		String msgBody = "message body";
 		
-		PrivateMessage m1 = new PrivateMessage(from, to, title, msgBody);
+		PrivateMessage m1 = new PrivateMessage(from, to, title+"1", msgBody+"1");
 		m1.save();
 		
-		PrivateMessage m2 = new PrivateMessage(from, to, title, msgBody);
+		PrivateMessage m2 = new PrivateMessage(from, to, title+"2", msgBody+"2");
 		m2.save();
+		
+		//retrieve
+		List<PrivateMessage> retrievedMessages = PrivateMessage.findAll();
+		assertEquals(2, retrievedMessages.size());
+		
+		PrivateMessage retrievedMessage1 = retrievedMessages.get(0);
+		assertEquals(from.id, retrievedMessage1.from.id);
+		assertEquals(title+"1", retrievedMessage1.subject);
+		assertEquals(msgBody+"1", retrievedMessage1.body);
+		assertNotNull(retrievedMessage1.messageProperties);
+		assertEquals(retrievedMessage1.id, retrievedMessage1.messageProperties.message.id);
+		assertFalse(retrievedMessage1.messageProperties.isRead);
+		
+		PrivateMessage retrievedMessage2 = retrievedMessages.get(1);
+		assertEquals(from.id, retrievedMessage2.from.id);
+		assertEquals(title+"2", retrievedMessage2.subject);
+		assertEquals(msgBody+"2", retrievedMessage2.body);
+		assertNotNull(retrievedMessage2.messageProperties);
+		assertEquals(retrievedMessage2.id, retrievedMessage2.messageProperties.message.id);
+		assertFalse(retrievedMessage2.messageProperties.isRead);
 	}
 
 }

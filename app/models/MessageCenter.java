@@ -1,28 +1,31 @@
 package models;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 
+import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
 public class MessageCenter extends Model {
+	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(MessageCenter.class);
 
 	@OneToOne
 	public SocialUser owner;
 	
-	@ManyToMany
-	@JoinTable(name="MessageCenter_Inbox")
+	@OneToMany(cascade=CascadeType.ALL)
+	@OrderBy("timestamp DESC")
 	public Set<PrivateMessage> inbox;
-		
+	
 	public MessageCenter(SocialUser owner) {
 		this.owner = owner;
 		this.inbox = new TreeSet<PrivateMessage>();
@@ -40,7 +43,21 @@ public class MessageCenter extends Model {
 		return message;
 	}
 	
-	public List<PrivateMessage> getMessages(int count) {
-		return null;
+	public static String messageCount(String userId) {
+		String retVal = "";
+		try {
+			long lUserId = Long.valueOf(userId);
+			String query = "select count(distinct m) from MessageCenter mc join mc.inbox m where m.messageProperties.isRead = ? and mc.owner.id = ?";
+			long count = MessageCenter.count(query, false, lUserId);
+			retVal = count != 0 ? "*" : "";
+		} catch(Exception e) {
+			cLogger.error("The user is incorrect '" + userId + "'");
+		}
+		return retVal;
+	}
+		
+	@Override
+	public String toString() {
+		return this.owner.screenname;
 	}
 }

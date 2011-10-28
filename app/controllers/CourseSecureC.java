@@ -19,7 +19,9 @@ import models.Course;
 import models.CourseSection;
 import models.DIYCourseEvent;
 import models.Forum;
+import models.MessageCenter;
 import models.Pastebin;
+import models.PrivateMessage;
 import models.Question;
 import models.SiteEvent;
 import models.SocialUser;
@@ -120,11 +122,27 @@ public class CourseSecureC extends Controller {
 			Answer answer = new Answer(answerContent, user, question);
 			question.answers.add(answer);
 			question.save();
-			saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));			
+			saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));
+			generateMessageForQuestionAnswered(question, course);			
 		}
 		CourseC.forumQuestion(course.sanitizedTitle, questionId);
 	}
 	
+	private static void generateMessageForQuestionAnswered(Question question, 
+														   Course course) {
+		//TODO: We should take the admin user's id from the configuration file
+		SocialUser from = SocialUser.findById((long)1);
+		SocialUser to = question.author;
+		String title = "There is a new answer to your question '" + question.title + "'";
+		String content = "Your question '" + question.title + "' has a new answer " + DIYCourseEvent.getQuestionURL(course, question);		
+		//PrivateMessage.send(from, to, title, content);
+		PrivateMessage message = new PrivateMessage(from, to, title, content);
+		message.save();
+		MessageCenter messageCenter = MessageCenter.findByUserId(message.to.id);
+		messageCenter.inbox.add(message);
+		messageCenter.save();
+	}
+
 	public static int postActivityResponse(long activityId,
 										   String activityResponse, 
 										   String title) {

@@ -1,0 +1,30 @@
+%{
+  jsonUrl = play.mvc.Router.reverse(_controllerAction, _actionArgsMap);
+}%
+<script type="text/javascript">
+	$('#inbox-msg-${_messageId}').click(function(e) {
+		// stop normal link click 
+		e.preventDefault();
+		$('#message').css('visibility', 'visible');
+		$.getJSON("${jsonUrl}", function(jsonMsg) {
+			$('#inbox-msg-${_messageId}-div').attr("style", "");
+			
+			//var from = jsonMsg['from'];
+			//var fromNode = $("#${_fromContent}");
+			//fromNode.html(from);
+			
+			var date = jsonMsg['timestamp'];
+			var dateNode = $("#${_dateContent}");
+			dateNode.html(date);
+			
+			var subject = jsonMsg['subject'];
+			var subjectNode = $("#${_subjectContent}");
+			subjectNode.html(subject);
+			
+			var body = jsonMsg['body'];
+			var bodyNode = $("#${_bodyContent}");
+			bodyNode.html(body);
+			
+		});
+	});		
+</script>

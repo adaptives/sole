@@ -66,6 +66,10 @@ GET     /socialauth/twitter/login                                               
 GET     /blog/obfuscate/feed                                                                                           FeedC.blog
 GET     /courses/course/{sanitizedTitle}/feed                                                                          FeedC.course
 
+# Messages
+GET     /messages/inbox/{page}/{size}                                                                                  MessageCenterC.inbox
+GET     /messages/inbox/{messageId}                                                                                    MessageCenterC.inboxMessage
+
 POST    /markdown/processmarkdown                                                                                      MarkdownC.processMarkdown
 
 # Map static resources from the /app/public folder to the /public path
