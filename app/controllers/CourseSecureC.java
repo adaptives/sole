@@ -4,6 +4,7 @@ import java.util.List;
 
 import other.utils.AuthUtils;
 import other.utils.LinkGenUtils;
+import other.utils.MessagingUtils;
 import play.Logger;
 import play.Play;
 import play.data.validation.Required;
@@ -124,32 +125,11 @@ public class CourseSecureC extends Controller {
 			question.answers.add(answer);
 			question.save();
 			saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));
-			generateMessageForQuestionAnswered(question, course);			
+			MessagingUtils.generateMessageForQuestionAnswered(question, course);			
 		}
 		CourseC.forumQuestion(course.sanitizedTitle, questionId);
 	}
 	
-	private static void generateMessageForQuestionAnswered(Question question, 
-														   Course course) {
-		//TODO: We should take the admin user's id from the configuration file
-		String messagingFrom = Play.configuration.getProperty("messaging.from");
-		long lMessagingFrom = (long)1;
-		try {
-			lMessagingFrom = Long.valueOf(messagingFrom);
-		} catch(Exception e) {
-			cLogger.warn("Could not find value for messaging.from in the configuration file. Using the default value of 17");
-		}
-		SocialUser from = SocialUser.findById(lMessagingFrom);
-		SocialUser to = question.author;
-		String title = "There is a new answer to your question '" + question.title + "'";
-		String content = "Your question '" + question.title + "' has a new answer " + DIYCourseEvent.getQuestionURL(course, question);		
-		//PrivateMessage.send(from, to, title, content);
-		PrivateMessage message = new PrivateMessage(from, to, title, content);
-		message.save();
-		MessageCenter messageCenter = MessageCenter.findByUserId(message.to.id);
-		messageCenter.inbox.add(message);
-		messageCenter.save();
-	}
 
 	public static int postActivityResponse(long activityId,
 										   String activityResponse, 
@@ -200,6 +180,7 @@ public class CourseSecureC extends Controller {
 				new ActivityResponseReview(activityResponse, user, review);
 			
 			saveIfNotNull(DIYCourseEvent.buildFromActivityResponseReview(user, activityResponseReview));
+			MessagingUtils.generateActivityResponseReviewMessage(course, section, activityResponseReview);
 		}
 		CourseC.sectionActivityResponseReview(course.sanitizedTitle, 
 											  section.sanitizedTitle, 

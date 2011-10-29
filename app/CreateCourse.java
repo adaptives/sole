@@ -17,9 +17,9 @@ import play.test.Fixtures;
 public class CreateCourse extends Job {
 	
 	public void doJob() {
-		for(Object socialUser : SocialUser.findAll()) {
-			MessageCenter messageCenter = new MessageCenter((SocialUser)socialUser);
-			messageCenter.save();
-		}
+//		for(Object socialUser : SocialUser.findAll()) {
+//			MessageCenter messageCenter = new MessageCenter((SocialUser)socialUser);
+//			messageCenter.save();
+//		}
 	}
 }

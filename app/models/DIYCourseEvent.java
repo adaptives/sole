@@ -197,9 +197,9 @@ public class DIYCourseEvent extends Model {
 		return String.format(template, showQuestionActionDef.url + "#" + activityResponse.activity.id, activityResponse.activity.title);
 	}
 	
-	private static String getActivityReviewURL(Course course, 
-											   CourseSection courseSection, 
-											   ActivityResponseReview review) {
+	public static String getActivityReviewURL(Course course, 
+											  CourseSection courseSection, 
+											  ActivityResponseReview review) {
 		Map args = new HashMap();
 		args.put("courseSanitizedTitle", course.sanitizedTitle);
 		args.put("sectionSanitizedTitle", courseSection.sanitizedTitle);
