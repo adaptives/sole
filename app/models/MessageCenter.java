@@ -43,7 +43,7 @@ public class MessageCenter extends Model {
 		return message;
 	}
 	
-	public static String messageCount(String userId) {
+	public static String unreadIndicator(String userId) {
 		String retVal = "";
 		try {
 			long lUserId = Long.valueOf(userId);

@@ -86,7 +86,7 @@
 					#{if session.user}
 						<li id="main-item-7"
 						    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-180 #{selectedStyle menu:'messages' /}">
-							<a class="connected-user" href="@{MessageCenterC.inbox(1,24)}">Messages ${models.MessageCenter.messageCount(controllers.Security.connected())}</a>
+							<a class="connected-user" href="@{MessageCenterC.inbox(1,24)}">Messages ${models.MessageCenter.unreadIndicator(controllers.Security.connected())}</a>
 						</li>
 					#{/if}
 				</ul>

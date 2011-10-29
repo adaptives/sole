@@ -84,6 +84,34 @@ public class MessageCenterTest extends UnitTest {
 		assertEquals("test message", ((PrivateMessage)messages[0]).body);
 	}
 
+	@Test
+	public void testMessageCount() throws Exception {
+		//create
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		SocialUser user1 = socialUsers.get(0);
+		SocialUser user2 = socialUsers.get(1);
+		
+		MessageCenter messageCenter1 = new MessageCenter(user1);
+		messageCenter1.save();
+		
+		MessageCenter messageCenter2 = new MessageCenter(user2);
+		messageCenter2.save();
+		
+		PrivateMessage message1 = createTestMessage(user1, user2);
+		message1.save();
+		messageCenter1.inbox.add(message1);
+		messageCenter1.save();
+		
+		assertEquals("*", MessageCenter.unreadIndicator(String.valueOf(user1.id)));
+		
+		assertEquals("", MessageCenter.unreadIndicator(String.valueOf(user2.id)));
+		
+		message1.messageProperties.isRead = true;
+		message1.save();
+		
+		assertEquals("", MessageCenter.unreadIndicator(String.valueOf(user1.id)));
+	}
+	
 	private PrivateMessage createTestMessage(SocialUser fromUser, SocialUser toUser) {		
 		PrivateMessage message = new PrivateMessage(fromUser, toUser, "test title", "test message");
 		return message;
