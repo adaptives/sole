@@ -72,6 +72,9 @@ GET     /messages/inbox/{messageId}                                             
 
 POST    /markdown/processmarkdown                                                                                      MarkdownC.processMarkdown
 
+# Notifier
+GET     /confirmregistration                                                                                           Application.confirmRegistration
+
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 

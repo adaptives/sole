@@ -48,13 +48,13 @@ public class RegisterC extends Controller {
                 if (Notifier.welcome(user)) {
                     flash.success("Your account is created. Please check your emails ...");                
                 } else {
-                	flash.error("Oops ... (the email cannot be sent)");
-                }
-                AdminC.index();
+                	flash.error("Oops ... (the email could not be sent)");
+                }                
             } catch (Throwable e) {
                 Logger.error(e, "Mail error");
                 flash.error(MessageConstants.INTERNAL_ERROR);
             }
+            AdminC.index();
         } catch(Exception e) {            
             validation.keep();
             params.flash();
