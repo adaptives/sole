@@ -13,6 +13,7 @@ import javax.persistence.UniqueConstraint;
 import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 @Entity
@@ -47,8 +48,15 @@ public class SocialUser extends Model implements Comparable {
 			this.roles.add(role);
 		} else {
 			cLogger.warn("Could not find a role for learner");
-		}
-		//create();		
+		}			
+	}
+	
+	@Override
+	public <T extends JPABase> T save() {
+		T retVal = super.save();
+		MessageCenter messageCenter = new MessageCenter(this);
+		messageCenter.save();
+		return retVal;
 	}
 
 	@Override
