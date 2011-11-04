@@ -1,0 +1,38 @@
+#{extends 'main.html' /}
+
+<h2>Create a course group</h2>
+
+<form action="/adminc/newCourseGroup" method="POST">
+	<p>
+		Title: <input type="text" name="title" />
+	</p>
+	<select class="course" name="courseId" size=10>
+		#{list items:courses, as:'course'}
+			<option value="${course.id}">${course.title}
+		#{/list}
+	</select>
+	<div id="course-participants">
+	
+	</div>
+	<div>
+		<input type="submit" value="submit" name="submit" />
+	</div>
+</form>
+
+<script type="text/javascript">
+	$('.course').change(function() {
+		$.get("/courses/" + $(this).attr('value') + "/jsonparticipants", function(voteCount) {
+			var participantsSelection = '<select name="courseParticipants" class="participants" multiple size="25">';
+			jQuery.each(voteCount, function() {
+				var aParticipant = '<option value="' + this['id'] + '">' + this['screenname'];
+				participantsSelection += aParticipant;
+			})
+			participantsSelection += "</select>";
+			$("#course-participants").html(participantsSelection);
+		});
+		
+	  	//$('.course option:selected').each(function() {
+	  		//var selectedCourse = $(this).attr('value');	  		
+	  	//});
+	});
+</script>

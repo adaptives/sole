@@ -2,6 +2,7 @@ package controllers;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +13,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import models.Course;
+import models.CourseGroup;
+import models.SocialUser;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -35,6 +40,26 @@ public class AdminC extends Controller{
 	
 	public static void uploadData() {
 		render();
+	}
+	
+	public static void createCourseGroup() {
+		List<Course> courses = Course.findAll();
+		render(courses);
+	}
+	
+	public static void newCourseGroup(String title, Long courseId, List<Long> courseParticipants) {
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+		CourseGroup courseGroup = new CourseGroup(title, course);
+		for(Long aParticipant : courseParticipants) {
+			SocialUser aSocialUser = SocialUser.findById(aParticipant);
+			if(aSocialUser != null) {
+				courseGroup.users.add(aSocialUser);
+			}
+		}
+		courseGroup.save();
+		flash.success("The course group has been created successfully");s
+		createCourseGroup();
 	}
 	
 	public static void submitData(String data) {

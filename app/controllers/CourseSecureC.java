@@ -18,6 +18,7 @@ import models.ActivityResponseReview;
 import models.Answer;
 import models.CodeSnippet;
 import models.Course;
+import models.CourseGroup;
 import models.CourseSection;
 import models.DIYCourseEvent;
 import models.Forum;
@@ -413,6 +414,14 @@ public class CourseSecureC extends Controller {
 		}
 	}
 
+	public static void group(String sanitizedTitle, String groupTitle) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		CourseGroup courseGroup = CourseGroup.findBySanitizedTitle(groupTitle);
+		notFoundIfNull(courseGroup);
+		render(course, courseGroup);
+	}
+	
 	private static void saveIfNotNull(DIYCourseEvent event) {
 		if(event != null) {
 			event.save();

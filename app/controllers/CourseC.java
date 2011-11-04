@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import other.json.JsonSocialUser;
+
 import models.ActivityResponse;
 import models.Answer;
 import models.CodeSnippet;
 import models.Comment;
 import models.Course;
+import models.CourseGroup;
 import models.CourseSection;
 import models.Forum;
 import models.Question;
@@ -42,7 +45,8 @@ public class CourseC extends Controller {
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		notFoundIfNull(course);
 		List<CourseSection> courseSections = course.fetchSectionsByPlacement();
-		render(course, courseSections);		
+		List<CourseGroup> courseGroups = CourseGroup.findGroupsForCourse(course.id);
+		render(course, courseSections, courseGroups);		
 	}
 	
 	public static void pic(long courseId) {
@@ -213,6 +217,17 @@ public class CourseC extends Controller {
 		pages++;
 		
 		render(course, participants, page, size, pages);		
+	}
+	
+	public static void participantsJson(long id) {
+		Course course = Course.findById(id);
+		String query = "select p from Course c join c.enrolledParticipants p where c.id = ?";
+		List<SocialUser> participants = SocialUser.find(query, course.id).fetch();
+		List<JsonSocialUser> jsonParticipants = new ArrayList<JsonSocialUser>();
+		for(SocialUser socialUser : participants) {
+			jsonParticipants.add(new JsonSocialUser(socialUser));
+		}
+		renderJSON(jsonParticipants);		
 	}
 	
 	public static void embedCodeSnippet(@Required String sanitizedTitle, 
