@@ -58,7 +58,7 @@ public class AdminC extends Controller{
 			}
 		}
 		courseGroup.save();
-		flash.success("The course group has been created successfully");s
+		flash.success("The course group has been created successfully");
 		createCourseGroup();
 	}
 	
