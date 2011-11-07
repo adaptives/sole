@@ -11,6 +11,7 @@ GET     /adminc                                                                 
 GET     /adminc/data                                                                                                   AdminC.uploadData
 GET     /adminc/manageCourseGroups                                                                                     AdminC.manageCourseGroups
 GET     /adminc/editCourseGroup/{id}                                                                                   AdminC.editCourseGroup
+POST    /adminc/saveExistingCourseGroup                                                                                AdminC.saveExistingCourseGroup            
 GET     /adminc/createCourseGroup                                                                                      AdminC.createCourseGroup
 POST    /adminc/data/yml                                                                                               AdminC.submitData
 POST    /adminc/newCourseGroup                                                                                         AdminC.newCourseGroup
