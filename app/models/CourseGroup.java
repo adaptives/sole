@@ -39,7 +39,7 @@ public class CourseGroup extends Model {
 	}
 	
 	public static CourseGroup findBySanitizedTitle(String title) {
-		String query = "select cg from CourseGroup cg where cg.title = ?";
+		String query = "select cg from CourseGroup cg where cg.sanitizedTitle = ?";
 		return CourseGroup.find(query, title).first();
 	}
 	

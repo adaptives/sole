@@ -416,9 +416,9 @@ public class CourseSecureC extends Controller {
 
 	public static void group(String sanitizedTitle, String groupTitle) {
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
-		notFoundIfNull(course);
+		notFoundIfNull(course, "Course '" + sanitizedTitle + "'");
 		CourseGroup courseGroup = CourseGroup.findBySanitizedTitle(groupTitle);
-		notFoundIfNull(courseGroup);
+		notFoundIfNull(courseGroup, "Group '" + groupTitle + "'");
 		render(course, courseGroup);
 	}
 	
