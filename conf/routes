@@ -9,6 +9,8 @@ GET    /feedback                                                                
 #Admin Menu
 GET     /adminc                                                                                                        AdminC.index
 GET     /adminc/data                                                                                                   AdminC.uploadData
+GET     /adminc/manageCourseGroups                                                                                     AdminC.manageCourseGroups
+GET     /adminc/editCourseGroup/{id}                                                                                   AdminC.editCourseGroup
 GET     /adminc/createCourseGroup                                                                                      AdminC.createCourseGroup
 POST    /adminc/data/yml                                                                                               AdminC.submitData
 POST    /adminc/newCourseGroup                                                                                         AdminC.newCourseGroup

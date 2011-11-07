@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+<p>
+<a href="@{AdminC.createCourseGroup}">Create new course group</a>
+</p>
+<p>
+<h2>Edit existing course group</h2>
+#{list items:courseGroups, as:'courseGroup'}
+	<div>
+		<a href="@{AdminC.editCourseGroup(courseGroup.id)}">${courseGroup.title}</a>
+	</div>
+#{/list}
+</p>

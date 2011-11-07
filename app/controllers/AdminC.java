@@ -42,6 +42,31 @@ public class AdminC extends Controller{
 		render();
 	}
 	
+	public static void manageCourseGroups() {
+		List<CourseGroup> courseGroups = CourseGroup.findAll();
+		render(courseGroups);
+	}
+	
+	public static void editCourseGroup(long id) {
+		CourseGroup courseGroup = CourseGroup.findById(id);
+		render(courseGroup);
+	}
+	
+	public static void saveExistingCourseGroup(String sanitizedTitle, List<Long> courseParticipants) {
+		CourseGroup courseGroup = CourseGroup.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(courseGroup);
+		courseGroup.users.clear();
+		for(Long aParticipant : courseParticipants) {
+			SocialUser aSocialUser = SocialUser.findById(aParticipant);
+			if(aSocialUser != null) {
+				courseGroup.users.add(aSocialUser);
+			}
+		}
+		courseGroup.save();
+		flash.success("The course group has been created successfully");
+		manageCourseGroups();
+	}
+	
 	public static void createCourseGroup() {
 		List<Course> courses = Course.findAll();
 		render(courses);
@@ -59,7 +84,7 @@ public class AdminC extends Controller{
 		}
 		courseGroup.save();
 		flash.success("The course group has been created successfully");
-		createCourseGroup();
+		manageCourseGroups();
 	}
 	
 	public static void submitData(String data) {

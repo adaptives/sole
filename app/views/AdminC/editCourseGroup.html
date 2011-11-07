@@ -1,0 +1,26 @@
+#{extends 'main.html' /}
+
+<h2>Edit Course Group</h2>
+
+<h2>${courseGroup.title}</h2>
+
+<form action="/adminc/saveExistingCourseGroup" method="POST">
+	<input type="hidden" name="sanitizedTitle" value="${courseGroup.sanitizedTitle}" />
+	<select name="courseParticipants" multiple="yes" size=10>
+		#{list items:courseGroup.course.enrolledParticipants, as:'enrolledParticipant'}
+			%{
+			    selectedStatus = "";
+				if(courseGroup.users.contains(enrolledParticipant)) {
+					selectedStatus = "selected=\"true\"";
+				}
+			}%
+			<option value="${enrolledParticipant.id}" ${selectedStatus.raw()}>${enrolledParticipant.screenname}</option>
+		#{/list}
+	</select>
+	<div id="course-participants">
+	
+	</div>
+	<div>
+		<input type="submit" value="submit" name="submit" />
+	</div>
+</form>
