@@ -5,33 +5,41 @@
 <tr>
     <td>Sections-></td>
 	#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
-		<td colspan=${section.activities.size()}">${section.title}</td>			
+		<td style="background-color: #82825E;" colspan=${section.activities.size()}">${section.title}</td>			
 	#{/list}
 </tr>
 
 <tr>
     <td>User</td>
 	#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
-		#{list items:section.activities, as:'activity'}
-			<td>${activity.title}</td>
-		#{/list}			
+		#{if section.activities.size() > 0}
+			#{list items:section.activities, as:'activity'}
+				<td style="background-color: #ACAC83;">${activity.title}</td>
+			#{/list}
+		#{/if}
+		#{else}
+			<td>&nbsp;</td>
+		#{/else}			
 	#{/list}
 </tr>
 
 #{list items: courseGroup.users, as:'user'}
 	<tr>
-		<td>${user.screenname}</td>
+		<td style="background-color: #DADACF;">${user.screenname}</td>
 		#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
-			#{list items:section.activities, as:'activity'}
-				<td>
-				#{if activity.hasResponded(String.valueOf(user.id))}
-				Y
-				#{/if}
-				#{else}
-				-
-				#{/else}
-				</td>
-			#{/list}
+			#{if section.activities.size() > 0}
+				#{list items:section.activities, as:'activity'}					
+					#{if activity.hasResponded(String.valueOf(user.id))}
+					<td style="background-color: #99FF66;">&nbsp;</td>
+					#{/if}
+					#{else}
+					<td style="background-color: #FF0000;">&nbsp;</td>
+					#{/else}				
+				#{/list}
+			#{/if}
+			#{else}
+				<td>&nbsp;</td>
+			#{/else}
 		#{/list}
 	</tr>
 #{/list}
