@@ -77,7 +77,7 @@ public class CourseGroupTest extends UnitTest {
 		CourseGroup javascriptGroup1 = new CourseGroup("Javascript grp 2011-11", javascriptCourse);
 		javascriptGroup1.save();
 		
-		CourseGroup retrievedJavaGroup1 = CourseGroup.findBySanitizedTitle("Java grp 2011-10");
+		CourseGroup retrievedJavaGroup1 = CourseGroup.findBySanitizedTitle("java-grp-2011-10");
 		assertEquals(javaGroup1.id, retrievedJavaGroup1.id);
 		
 		CourseGroup nonexistentGroup = CourseGroup.findBySanitizedTitle("");

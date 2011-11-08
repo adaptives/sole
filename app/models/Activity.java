@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -51,8 +53,34 @@ public class Activity extends Model {
 		return retVal;
 	}
 	
+	public List<ActivityResponse> getResponsesByUser(String sUserId) {
+		List<ActivityResponse> retVal = new ArrayList<ActivityResponse>();
+		try {
+			long userId = Long.parseLong(sUserId);
+			String query = "select ar from Activity a join a.activityResponses ar where a.id = ? and ar.user.id = ?";
+			List<ActivityResponse> activityResponses = ActivityResponse.find(query, this.id, userId).fetch();
+			if(activityResponses != null) {
+				retVal = activityResponses;
+			}
+		} catch(Exception e) {
+			cLogger.warn("Recieved incorrect userId '" + sUserId + "'");
+		}
+		return retVal;
+	}
+	
+	public List<ActivityResponse> getAllResponses() {
+		List<ActivityResponse> activityResponses;
+		String query = "select ar from Activity a join a.activityResponses ar where a.id = ?";
+		activityResponses = Activity.find(query, this.id).fetch();
+		if(activityResponses == null) {
+			activityResponses = new ArrayList<ActivityResponse>();
+		}
+		return activityResponses;
+	}
+	
 	@Override
 	public String toString() {
 		return String.valueOf(this.id) + " " + this.title;
 	}
+
 }

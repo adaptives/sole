@@ -15,7 +15,7 @@ import play.data.validation.URL;
 import play.db.jpa.Model;
 
 @Entity
-public class ActivityResponse extends Model {
+public class ActivityResponse extends Model implements Comparable {
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(ActivityResponse.class);
 	
@@ -57,6 +57,11 @@ public class ActivityResponse extends Model {
 		return (int)ActivityResponseLiked.count(query, this.id);
 	}
 	
+	public int reviews() {
+		String query = "select count(distinct arr) from ActivityResponseReview arr where arr.activityResponse.id = ?";
+		return (int)ActivityResponseReview.count(query, this.id);
+	}
+	
 	public void like(SocialUser user) {
 		//Users cannot upvote their own activityResponse and they cannot upvote any 
 		//activityResponse more than once 
@@ -82,11 +87,22 @@ public class ActivityResponse extends Model {
 		}
 	}
 	
+	public String link() {
+		CourseSection courseSection = CourseSection.findCourseSectionForActivity(this.activity);
+		return DIYCourseEvent.getActivityReviewURL(courseSection.course, courseSection, this);
+	}
+	
 	@Override
 	public String toString() {
 		return this.user.screenname + " " + 
 		       this.activity.title + " " + 		  
 		       this.responseLink + "/" +
 		       this.title;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		ActivityResponse other = (ActivityResponse)arg0;
+		return this.timestamp.compareTo(other.timestamp);		
 	}
 }

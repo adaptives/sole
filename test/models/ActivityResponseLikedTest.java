@@ -73,7 +73,7 @@ public class ActivityResponseLikedTest extends UnitTest {
 	public void testMultipleLikesBySameUser() {
 		//create
 		List<SocialUser> users = SocialUser.findAll(); 
-		Activity activity = new Activity("Test activity", "Test Activity Content");
+		Activity activity = new Activity("Test activity", "Test Activity Content");		
 		
 		ActivityResponse activityResponse1 = new ActivityResponse(users.get(0), 
 																  activity, 

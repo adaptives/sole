@@ -1,20 +1,22 @@
+#{extends 'reports_main.html' /}
+
 <h2>${courseGroup.title}</h2>
 
 <table border="1">
 
 <tr>
-    <td>Sections-></td>
+    <td>&nbsp;</td>
 	#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
-		<td style="background-color: #82825E;" colspan=${section.activities.size()}">${section.title}</td>			
+		<td style="background-color: #82825E; font-weight: bold; color: white; padding: 3px;" colspan=${section.activities.size()}">${section.title}</td>			
 	#{/list}
 </tr>
 
 <tr>
-    <td>User</td>
+    <td>&nbsp;</td>
 	#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
 		#{if section.activities.size() > 0}
 			#{list items:section.activities, as:'activity'}
-				<td style="background-color: #ACAC83;">${activity.title}</td>
+				<td style="background-color: #ACAC83; font-weight: bold; padding: 3px;">${activity.title}</td>
 			#{/list}
 		#{/if}
 		#{else}
@@ -30,7 +32,11 @@
 			#{if section.activities.size() > 0}
 				#{list items:section.activities, as:'activity'}					
 					#{if activity.hasResponded(String.valueOf(user.id))}
-					<td style="background-color: #99FF66;">&nbsp;</td>
+					<td style="background-color: #99FF66; padding: 1px;">
+						#{list items:activity.getResponsesByUser(String.valueOf(user.id)), as:'activityResponseByUser'}
+							<span class="report-cell-sumary"><a target="_blank" title="${activityResponseByUser.title} - ${activityResponseByUser.likes()} likes, ${activityResponseByUser.reviews()} reviews" href="${activityResponseByUser.link()}">  (${activityResponseByUser.likes()})(${activityResponseByUser.reviews()})s, </a></span>
+						#{/list}
+					</td>
 					#{/if}
 					#{else}
 					<td style="background-color: #FF0000;">&nbsp;</td>

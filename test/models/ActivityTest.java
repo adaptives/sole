@@ -68,6 +68,48 @@ public class ActivityTest extends UnitTest {
 		assertFalse(activity.hasResponded(String.valueOf(socialUsers.get(1).id)));
 	}
 	
+	@Test
+	public void testGetAllResponses() {
+		createCourseWithActivities();
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		Course course = Course.findBySanitizedTitle("play-framework");
+		CourseSection section = CourseSection.findBySanitizedTitleByCouse(course, "introduction");
+		
+		Activity activity = section.activities.iterator().next();
+		
+		ActivityResponse activityResponse00 = new ActivityResponse(socialUsers.get(0), activity, "title", "http://diycomputerscience.com");
+		activityResponse00.save();
+		
+		ActivityResponse activityResponse01 = new ActivityResponse(socialUsers.get(0), activity, "title 1", "http://diycomputerscience.com");
+		activityResponse01.save();
+		
+		List<ActivityResponse> activityResponses = activity.getAllResponses();
+		assertEquals(2, activityResponses.size());		
+	}
+	
+	@Test
+	public void testGetResponsesByUser() {
+		createCourseWithActivities();
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		Course course = Course.findBySanitizedTitle("play-framework");
+		CourseSection section = CourseSection.findBySanitizedTitleByCouse(course, "introduction");
+		
+		Activity activity = section.activities.iterator().next();
+		
+		ActivityResponse activityResponse00 = new ActivityResponse(socialUsers.get(0), activity, "title", "http://diycomputerscience.com");
+		activityResponse00.save();
+		
+		ActivityResponse activityResponse01 = new ActivityResponse(socialUsers.get(0), activity, "title 1", "http://diycomputerscience.com");
+		activityResponse01.save();
+		
+		
+		List<ActivityResponse> activityResponsesByUser0 = activity.getResponsesByUser(String.valueOf(socialUsers.get(0).id));
+		assertEquals(2, activityResponsesByUser0.size());
+		
+		List<ActivityResponse> activityResponsesByUser1 = activity.getResponsesByUser(String.valueOf(socialUsers.get(1).id));
+		assertEquals(0, activityResponsesByUser1.size());		
+	}
+	
 	public static void createCourse() {
 		CourseCategory cat = new CourseCategory("courses");
 		cat.save();

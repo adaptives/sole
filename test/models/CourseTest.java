@@ -66,4 +66,33 @@ public class CourseTest extends UnitTest {
 		Course retrievedCourse = Course.findById(javaCourse.id); 
 		assertEquals(1, retrievedCourse.activities.size());
 	}
+	
+//	@Test
+//	public void testHasCompleted() throws Exception {
+//		Fixtures.load("users-and-study-sessions.yml");
+//		
+//		List<SocialUser> socialUsers = SocialUser.findAll();
+//		
+//		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
+//		javaCourse.save();
+//		
+//		CourseSection cs1 = new CourseSection(javaCourse, "section 1", "section 1 content");
+//		Activity cs1a1 = new Activity("Activity 1", "Content for activity 1");
+//		Activity cs1a2 = new Activity("Activity 2", "Content for activity 2");		
+//		Activity cs1a3 = new Activity("Activity 3", "Content for activity 3");
+//		cs1.activities.add(cs1a1);
+//		cs1.activities.add(cs1a2);
+//		cs1.activities.add(cs1a3);
+//		cs1.save();
+//		
+//		CourseSection cs2 = new CourseSection(javaCourse, "section 2", "section 2 content");		
+//		Activity cs2a1 = new Activity("Activity 4", "Content for activity 4");
+//		cs2.activities.add(cs2a1);
+//		cs2.save();
+//		
+//		CourseSection cs3 = new CourseSection(javaCourse, "section 3", "section 3 content");
+//		cs3.save();
+//		
+//		assertFalse(javaCourse.hasCompleted(String.valueOf(socialUsers.get(0))));
+//	}
 }

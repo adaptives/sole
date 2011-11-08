@@ -209,6 +209,18 @@ public class DIYCourseEvent extends Model {
 		return String.format(template, url, review.activityResponse.activity.title);
 	}
 	
+	public static String getActivityReviewURL(Course course,
+											  CourseSection courseSection, 
+											  ActivityResponse activityResponse) {
+		Map args = new HashMap();
+		args.put("courseSanitizedTitle", course.sanitizedTitle);
+		args.put("sectionSanitizedTitle", courseSection.sanitizedTitle);
+		args.put("activityResponseId", activityResponse.id);
+		String url = Router.reverse("CourseC.sectionActivityResponseReview",
+				args).url;
+		return url;
+	}
+	
 	//TODO: Implement this method
 	private static String getActivityReviewURL(Course course,
 											   ActivityResponseReview review) {
