@@ -13,7 +13,6 @@ import other.json.JsonSocialUser;
 import models.ActivityResponse;
 import models.Answer;
 import models.CodeSnippet;
-import models.Comment;
 import models.Course;
 import models.CourseGroup;
 import models.CourseSection;

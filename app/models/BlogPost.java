@@ -30,9 +30,6 @@ public class BlogPost extends Model {
 	@ManyToMany
 	public Set<Tag> tags;
 	
-	@OneToMany
-	public Set<Comment> comments;
-	
 	public BlogPost(SocialUser author, 
 					String title,  
 					String content) {
@@ -43,7 +40,6 @@ public class BlogPost extends Model {
 		this.lastUpdatedAt = postedAt;
 		this.content = content;
 		this.tags = new TreeSet<Tag>();
-		this.comments = new TreeSet<Comment>();
 		//create();
 	}
 	

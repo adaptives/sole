@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import models.BlogPost;
-import models.Comment;
 import models.SocialUser;
 import play.data.validation.Required;
 import play.mvc.Controller;
@@ -59,28 +58,6 @@ public class BlogPostC extends Controller {
 		}
 		blogPost.save();
 		list();		
-	}
-	
-	public static void postComment(long postId, 
-								   String name, 
-								   String email, 
-								   String website, 
-								   String message) {
-		
-		BlogPost blogPost = BlogPost.findById(postId);
-		Comment comment = new Comment(message, name, email, website);
-		comment.save();
-		blogPost.comments.add(comment);
-		blogPost.save();
-		
-		SimpleDateFormat yearDateFormat = new SimpleDateFormat("yyyy");
-		SimpleDateFormat monthDateFormat = new SimpleDateFormat("MM");
-		SimpleDateFormat dayDateFormat = new SimpleDateFormat("dd");
-		
-		show(yearDateFormat.format(blogPost.postedAt),
-			 monthDateFormat.format(blogPost.postedAt),
-			 dayDateFormat.format(blogPost.postedAt),
-			 blogPost.sanitizedTitle);
 	}
 	
 }
