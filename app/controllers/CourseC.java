@@ -142,19 +142,6 @@ public class CourseC extends Controller {
 		question(sectionId, questionId);
 	}
 	
-	public static void comment(long courseId,
-							   long courseSectionId,
-							   @Required String name, 
-			  				   @Required @Email String email,
-			  				   String website,
-			  				   @Required String message) {
-		CourseSection courseSection = CourseSection.findById(courseSectionId);
-		Comment comment = new Comment(message, name, email, website);
-		courseSection.comments.add(comment);
-		courseSection.save();
-		section(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle);
-	}
-	
 	public static void forum(String sanitizedTitle) {
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		notFoundIfNull(course);

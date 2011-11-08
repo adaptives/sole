@@ -36,12 +36,6 @@ public class CourseSection extends Model {
 	@ManyToOne
 	public Course course;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	public Set<Comment> comments;
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	public Set<Question> questions;
-	
 	@ManyToMany(cascade=CascadeType.ALL)
 	public Set<SocialUser> understoodParticipants;
 	
