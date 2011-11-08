@@ -68,29 +68,6 @@ public class DIYCourseEventTest extends UnitTest {
 	}
 	
 	@Test
-	public void testBuildFromCourseActivityResponse() throws Exception {
-		//create Course
-		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
-		javaCourse.save();
-		
-		SocialUser user0 = (SocialUser)SocialUser.findAll().get(0);
-		SocialUser user1 = (SocialUser)SocialUser.findAll().get(1);
-		
-		Activity activity = new Activity("activity title", "activity content");
-		javaCourse.activities.add(activity);
-		javaCourse.save();
-		
-		ActivityResponse activityResponse = new ActivityResponse(user1, activity, "http://diycomputerscience.com", "Peer Learning Environemnt for Computer Science");
-		
-		DIYCourseEvent event = DIYCourseEvent.buildFromActivityResponse(user1, activityResponse);
-		
-		String expectedEventString = 
-			"<span id=\"%s\" class=\"user-image-small\"></span><a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/activity/responses#%s\">activity title</a>'";
-		assertEquals(String.format(expectedEventString, user1.id, user1.id, activity.id), event.render());
-		
-	}
-	
-	@Test
 	public void testBuildFromCourseSectionActivityResponse() throws Exception {
 		//create Course
 		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 

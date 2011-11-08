@@ -180,13 +180,6 @@ public class CourseC extends Controller {
 		render(course, section, activityResponse);
 	}
 	
-	public static void activityResponses(String courseSanitizedTitle) {
-		Course course = Course.findBySanitizedTitle(courseSanitizedTitle);
-		notFoundIfNull(course);
-		
-		render(course);
-	}
-	
 	public static void participants(String sanitizedTitle, long page, long size) {
 		//sensible defaults
 		if(size < 1) {

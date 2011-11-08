@@ -78,15 +78,6 @@ public class DIYCourseEvent extends Model {
 			course = courseSectionForActivity.course;
 			text = "submitted an activity response for activity '" + 
 					getViewAllActivitiesURL(course, courseSectionForActivity, activityResponse) + "'";
-		} else {
-			Course courseForActivity = Course.findCourseForActivity(activityResponse.activity);
-			if(courseForActivity != null) {
-				course = courseForActivity;
-				text = "submitted an activity response for activity '" + 
-				getViewAllActivitiesURL(courseForActivity, activityResponse) + "'";
-			} else {
-				cLogger.warn("This ActivityResponse belongs to neither a courseSection nor a course '" + activityResponse.id + "'");
-			}
 		}
 		if(course != null) {
 			event = new DIYCourseEvent(course, originator, title, text); 
@@ -108,17 +99,6 @@ public class DIYCourseEvent extends Model {
 			course = courseSectionForActivity.course;
 			text = "reviewed a response submitted for activity '"
 					+ getActivityReviewURL(course, courseSectionForActivity, review) + "'";
-		} else {
-			Course courseForActivity = Course
-					.findCourseForActivity(review.activityResponse.activity);
-			if (courseForActivity != null) {
-				course = courseForActivity;
-				text = "reviewed a submitted response for activity '"
-						+ getActivityReviewURL(courseForActivity, review) + "'";
-			} else {
-				cLogger.warn("This ActivityResponse belongs to neither a courseSection nor a course '"
-						+ review.id + "'");
-			}
 		}
 		if (course != null) {
 			event = new DIYCourseEvent(course, originator, title, text);

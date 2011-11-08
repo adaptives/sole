@@ -24,7 +24,6 @@ GET     /courses/list                           								                        
 GET     /courses/course/{sanitizedTitle}        								                                       CourseC.course
 GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}                                         CourseC.section
 GET     /courses/course/{courseSanitizedTitle}/section/{courseSectionSanitizedTitle}/activity/responses                CourseC.sectionActivityResponses
-GET     /courses/course/{courseSanitizedTitle}/activity/responses                                                      CourseC.activityResponses
 GET     /courses/course/section/{sectionId}/question/{questionId} 				                                       CourseC.question
 GET     /courses/course/{sanitizedTitle}/forum        							                                       CourseC.forum
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion

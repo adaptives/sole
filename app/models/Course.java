@@ -39,9 +39,6 @@ public class Course extends Model {
 	@OneToOne
 	public Pic coursePic;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	public Set<Activity> activities;
-	
 	@OneToOne(cascade=CascadeType.ALL)
 	public Forum forum;
 	
@@ -59,8 +56,7 @@ public class Course extends Model {
 	public Course(String title, String description) {
 		this.title = title;
 		this.sanitizedTitle = StringUtils.replaceSpaceWithDashes(this.title);
-		this.description = description;
-		this.activities = new TreeSet<Activity>();
+		this.description = description;		
 		this.forum = new Forum(this.title, 
 							   "Forum for discussing all things relared to " + this.title);
 		this.enrolledParticipants = new TreeSet<SocialUser>();
@@ -153,9 +149,4 @@ public class Course extends Model {
 		return DIYCourseEvent.tailByCourse(this, 1, 100);
 	}
 	
-	public static Course findCourseForActivity(Activity activity) {
-		String query = "select c from Course c join c.activities a where a.id = ?";
-		Course course = Course.find(query, activity.id).first();
-		return course;
-	}
 }

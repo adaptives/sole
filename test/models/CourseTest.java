@@ -53,20 +53,6 @@ public class CourseTest extends UnitTest {
 		assertEquals(1, retrievedCourse.forum.questions.size());
 	}
 	
-	@Test
-	public void testActivities() throws Exception {
-		//create
-		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
-		javaCourse.save();
-		Activity activity = new Activity("Activity 1", "Content for activity 1");
-		javaCourse.activities.add(activity);
-		javaCourse.save();
-		
-		//verify
-		Course retrievedCourse = Course.findById(javaCourse.id); 
-		assertEquals(1, retrievedCourse.activities.size());
-	}
-	
 //	@Test
 //	public void testHasCompleted() throws Exception {
 //		Fixtures.load("users-and-study-sessions.yml");
