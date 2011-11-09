@@ -1,5 +1,6 @@
 import java.util.List;
 
+import models.Activity;
 import models.Course;
 import models.CourseCategory;
 import models.CourseSection;
@@ -19,5 +20,11 @@ public class CreateCourse extends Job {
 //			MessageCenter messageCenter = new MessageCenter((SocialUser)socialUser);
 //			messageCenter.save();
 //		}
+		List<Activity> activities = Activity.findAll();
+		for(Activity activity : activities) {
+			long longId = activity.id;
+			activity.placement = (int)longId;
+			activity.save();
+		}
 	}
 }

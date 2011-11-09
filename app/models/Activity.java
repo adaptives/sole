@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
@@ -17,11 +18,14 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
-public class Activity extends Model {
+public class Activity extends Model implements Comparable {
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Activity.class);
 	
 	public String title;
+	
+	@Column(nullable=true)
+	public Integer placement;
 	
 	@Required
 	@Lob
@@ -33,10 +37,23 @@ public class Activity extends Model {
 	public Set<ActivityResponse> activityResponses;
 	
 	public Activity(String title, String content) {
+		this(title, content, 0);
+	}
+	
+	public Activity(String title, String content, int placement) {
 		this.title = title;
+		this.placement = placement;
 		this.content = content;
 		this.activityResponses = new TreeSet<ActivityResponse>();
 		create();
+	}
+	
+	public Integer getPlacement() {
+		if(this.placement == null) {
+			return 0;
+		} else {
+			return this.placement;
+		}
 	}
 	
 	public boolean hasResponded(String sUserId) {
@@ -81,6 +98,12 @@ public class Activity extends Model {
 	@Override
 	public String toString() {
 		return String.valueOf(this.id) + " " + this.title;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		Activity other = (Activity)arg0;
+		return this.placement.compareTo(other.placement);
 	}
 
 }

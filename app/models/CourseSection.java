@@ -83,6 +83,11 @@ public class CourseSection extends Model {
 		CourseSection cs = CourseSection.find(query, activity.id).first();
 		return cs;
 	}
+	
+	public List<Activity> fetchActivitiesByPlacement() {
+		String query = "select a from CourseSection cs join cs.activities a where cs.id = ? order by a.placement";
+		return CourseSection.find(query, this.id).fetch();
+	}
 
 	@Override
 	public int hashCode() {

@@ -85,5 +85,31 @@ public class CourseSectionTest extends UnitTest {
 		List<CourseSection> retrievedCourseSections = retrievedCourse.fetchSectionsByPlacement(); 
 		assertEquals(1, retrievedCourseSections.get(1).activities.size());
 	}
+	
+	@Test
+	public void testFetchActivitiesByPlacement() throws Exception {
+		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
+		javaCourse = javaCourse.save();
+		
+		CourseSection section1 = new CourseSection(javaCourse, "section 1", "description of section 1");
+		section1.placement = 1;
+		section1.save();
+				
+		Activity activity1 = new Activity("Activity 1", "Content for activity 1", 1);
+		section1.activities.add(activity1);
+		
+		Activity activity3 = new Activity("Activity 3", "Content for activity 3", 3);
+		section1.activities.add(activity3);
+		
+		Activity activity2 = new Activity("Activity 2", "Content for activity 2", 2);
+		section1.activities.add(activity2);
+		
+		section1.save();
+		
+		List<Activity> retrievedActivities = section1.fetchActivitiesByPlacement();
+		assertEquals(new Integer(1), (Integer)retrievedActivities.get(0).placement);
+		assertEquals(new Integer(2), (Integer)retrievedActivities.get(1).placement);
+		assertEquals(new Integer(3), (Integer)retrievedActivities.get(2).placement);
+	}
 
 }
