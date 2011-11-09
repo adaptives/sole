@@ -27,6 +27,6 @@
 #{list items:courseGroups, as:'courseGroup'}
 	<div><a target="_blank" href="@{CourseSecureC.group(course.sanitizedTitle, courseGroup.sanitizedTitle)}">${courseGroup.title}</a></div>
 #{/list}
+</div>
 #{/secure.check}
 
-</div>
