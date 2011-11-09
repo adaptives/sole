@@ -149,4 +149,24 @@ public class Course extends Model {
 		return DIYCourseEvent.tailByCourse(this, 1, 100);
 	}
 	
+	public double getActivityCompletionStatus(String sSocialUser) {
+		int completed = 0;
+		int total = 0;
+		double retVal = 0.0;
+		List<CourseSection> sections = fetchSectionsByPlacement();
+		for(CourseSection section : sections) {
+			for(Activity activity : section.activities) {
+				total++;
+				if(activity.hasResponded(sSocialUser)) {
+					completed++;
+				}
+			}
+		}
+		if(total != 0) {
+			retVal = (100.0 * completed)/total;
+		}
+		
+		return retVal;
+	}
+	
 }
