@@ -115,12 +115,12 @@ public class Course extends Model {
 	}
 	
 	public List<Question> getQuestionsAskedBySocialUser(long userId) {
-		List<Question> questions = CourseSection.find("select q from CourseSection cs join cs.questions q where cs.course.id = ? and q.author.id = ?", this.id, userId).fetch();
+		List<Question> questions = CourseSection.find("select q from Course c join c.forum.questions q where c.id = ? and q.author.id = ?", this.id, userId).fetch();
 		return questions;
 	}
 	
 	public List<Answer> getAnswersGivenBySocialUser(long userId) {
-		List<Answer> answers = CourseSection.find("select a from CourseSection cs join cs.questions q join q.answers a where cs.course.id = ? and a.author.id = ?", this.id, userId).fetch();
+		List<Answer> answers = CourseSection.find("select a from Course c join c.forum.questions q join q.answers a where c.id = ? and a.author.id = ?", this.id, userId).fetch();
 		return answers;
 	}
 	

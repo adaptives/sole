@@ -53,6 +53,48 @@ public class CourseTest extends UnitTest {
 		assertEquals(1, retrievedCourse.forum.questions.size());
 	}
 	
+	@Test
+	public void testGetQuestionsAskedBySocialUser() throws Exception {
+		Fixtures.load("users-and-study-sessions.yml");
+		
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		
+		//create Course
+		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
+		javaCourse.save();
+		
+		Question javaQuestion1 = new Question("title 1", "content 1", socialUsers.get(0));
+		javaCourse.forum.questions.add(javaQuestion1);
+		javaCourse.save();
+		
+		assertEquals(1, javaCourse.getQuestionsAskedBySocialUser(socialUsers.get(0).id).size());
+		assertEquals(0, javaCourse.getQuestionsAskedBySocialUser(socialUsers.get(1).id).size());
+	}
+	
+	@Test
+	public void testGetAnswersGivenBySocialUser() throws Exception {
+		Fixtures.load("users-and-study-sessions.yml");
+		
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		
+		//create Course
+		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
+		javaCourse.save();
+		
+		Question javaQuestion1 = new Question("title 1", "content 1", socialUsers.get(0));
+		javaCourse.forum.questions.add(javaQuestion1);
+		javaCourse.save();
+		
+		Answer javaQuestion1Answer1 = new Answer("this is the answer", socialUsers.get(0), javaQuestion1);
+		javaQuestion1.answers.add(javaQuestion1Answer1);
+		javaQuestion1.save();
+		
+		assertEquals(1, javaCourse.getAnswersGivenBySocialUser(socialUsers.get(0).id).size());
+		assertEquals(0, javaCourse.getAnswersGivenBySocialUser(socialUsers.get(1).id).size());
+	}
+	
+	
+	
 //	@Test
 //	public void testHasCompleted() throws Exception {
 //		Fixtures.load("users-and-study-sessions.yml");
