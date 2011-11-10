@@ -87,8 +87,15 @@ public class SoleTags extends FastTags {
 			  						   PrintWriter out, 
 			  						   ExecutableTemplate template, 
 			  						   int fromLine) {
-		List<SidebarWidget> sidebarWidgets = SidebarWidget.findAll(); 
-			//SidebarWidget.find("select sw from SidebarWidget sw order by sw.position").fetch();
+		String context = (String)args.get("context");
+		if(context == null || context == "") {
+			context = "default";
+		}
+		List<SidebarWidget> sidebarWidgets = SidebarWidget.findByContext(context);
+		if(sidebarWidgets.size() == 0) {
+			sidebarWidgets = SidebarWidget.findByContext("default");
+		}
+			
 		for(SidebarWidget sidebarWidget : sidebarWidgets) {
 			out.println("<div class=\"sidebar-widget\">");
 			out.println("<div class=\"sidebar-widget-title\">");

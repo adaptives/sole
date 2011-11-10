@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
@@ -10,6 +12,7 @@ public class SidebarWidget extends Model {
 	
 	public String title;
 	public String displayTitle;
+	public String context;
 	@Lob
 	public String content;
 	public int location;
@@ -18,6 +21,14 @@ public class SidebarWidget extends Model {
 		this.title = title;
 		this.displayTitle = displayTitle;
 		this.content = content;
+	}
+	
+	public static List<SidebarWidget> findByContext(String context) {
+		if(context == null) {
+			context = "";
+		}
+		String query = "select sw from SidebarWidget sw where sw.context = ?";
+		return SidebarWidget.find(query, context).fetch();
 	}
 	
 	@Override
