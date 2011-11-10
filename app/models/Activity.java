@@ -48,14 +48,6 @@ public class Activity extends Model implements Comparable {
 		create();
 	}
 	
-	public Integer getPlacement() {
-		if(this.placement == null) {
-			return 0;
-		} else {
-			return this.placement;
-		}
-	}
-	
 	public boolean hasResponded(String sUserId) {
 		boolean retVal = false;
 		try {

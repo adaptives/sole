@@ -18,10 +18,10 @@
 		<div class="vspacediv"><a href="@{CourseC.sectionActivityResponses(courseSection.course.sanitizedTitle, courseSection.sanitizedTitle)}"><img src="/public/images/view_all_activity_responses.jpg" alt="View All Activity Responses" title="View all activity responses for this section"/></a></div>
 	</div>
 	<div class="activewrapcontaint">
-		#{list items:courseSection.activities, as:'activity'}
+		#{list items:courseSection.fetchActivitiesByPlacement(), as:'activity'}
 			<div class="activewrap">
 				<div class="standard-div">
-					<h4><img src="/public/images/applications-development.png"/>Activity ${activity_index} : ${activity.title}</h4>
+					<h4><img src="/public/images/applications-development.png"/>Activity ${activity_index} : ${activity.title} </h4>
 					${activity.content.raw()}
 				</div>
 				<div class="bdr" style="margin-bottom: 10px; padding-bottom: 10px;">

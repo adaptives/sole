@@ -19,6 +19,12 @@ public class CreateCourse extends Job {
 //		for(Object socialUser : SocialUser.findAll()) {
 //			MessageCenter messageCenter = new MessageCenter((SocialUser)socialUser);
 //			messageCenter.save();
-//		}		
+//		}
+//		List<Activity> activities = Activity.findAll();
+//		for(Activity activity : activities) {
+//			long longId = activity.id;
+//			activity.placement = (int)longId;
+//			activity.save();
+//		}
 	}
 }
