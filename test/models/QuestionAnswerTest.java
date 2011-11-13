@@ -12,6 +12,7 @@ import models.Question;
 import models.SocialUser;
 import models.User;
 
+import org.apache.ivy.core.search.RevisionEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -80,5 +81,20 @@ public class QuestionAnswerTest extends UnitTest {
 			assertEquals(question, retrievedAnswer.question);
 		}
 		
+	}
+	
+	@Test
+	public void testLatestAnswer() throws Exception {
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		SocialUser questionAuthor = socialUsers.get(0);
+		Question question = new Question("title", "content", questionAuthor);
+	    question.save();
+	    Answer answer = new Answer("content 1", questionAuthor, question);
+	    assertEquals("content 1", answer.getLatestRevision());
+	    AnswerRevision answerRevision = new AnswerRevision("", "content 2", questionAuthor, answer);
+	    answerRevision.save();
+	    answer.latestRevision = answerRevision;
+	    answer.save();
+	    assertEquals("content 2", answer.getLatestRevision());
 	}
 }
