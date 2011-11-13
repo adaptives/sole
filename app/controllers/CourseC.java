@@ -149,7 +149,9 @@ public class CourseC extends Controller {
 	
 	public static void forumQuestion(String sanitizedTitle, long questionId) {
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
 		Question question = Question.findById(questionId);
+		notFoundIfNull(question);
 		render(course, question);
 	}
 	

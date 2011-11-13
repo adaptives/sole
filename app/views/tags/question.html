@@ -33,6 +33,78 @@
     </div>
 </div>
 #{/if}
+#{elseif _as == "tb"}
+	<div>
+		<div class="headNormal">
+			<!-- Change this # ref to the url of the question -->
+    		<h2><a href="#">${_question.title}</a></h2>
+		</div>
+		<table style="width:100%;" id="question-table" >
+			<tr>
+		    	<td style="width:30px;vertical-align:top">
+		        	<div class="vote-buttons">
+						<a id="upvote-question-${_question.id}"  title="I like this question"
+		    									 class="post"
+		     									 href="/vote/8840/up/" rel="nofollow">
+		     				<img src="/public/images/vote-arrow-up.png"
+						   alt="voteup image" height="24" width="24"
+						   border="0">
+		     			</a>
+		
+						<div id="question-${_question.id}-score" class="post-score" title="current number of votes">
+		    				${_question.likes()}
+						</div>
+		
+		            </div>
+		            <script type="text/javascript">
+						$('#upvote-question-${_question.id}').click(
+							function(e) {
+								// stop normal link click
+								e.preventDefault();
+								$.get("/questionc/like/questionId/${_question.id}",
+									  function(voteCount) {
+									  $('#question-${_question.id}-score').html(voteCount);
+								});
+						});
+					</script>
+		         </td>
+		         
+				 <td>
+		         	<div id="item-right">
+		
+		            	<div class="question-body">
+		                	${_question.content.md().sanitize().raw()}
+		                </div>
+		                <div id="question-tags" class="tags-container tags">
+		                    #{list items:_question.tags, as:'tag'}
+		                	<a href="#" class="post-tag tag-link-comment"
+		                    						 title="see questions tagged 'comment'" rel="tag">${tag.name}</a>
+		                    #{/list}
+		                </div>
+		                
+		                <div id="question-controls" class="post-controls">                            
+		                </div>
+		                
+		                <div class="post-update-info-container">                                    	
+							<div class='post-update-info post-update-info-user'>
+			    				<p style="line-height:12px;">
+			        				asked <strong>${_question.askedAt.since(true)}</strong>
+			    				</p>
+			    				<img class="gravatar" width="32" height="32" src="@{UserProfileC.pic(_question.author.id)}" alt="${_question.author.screenname}'s image" />
+			    				<p>
+			    					<a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a><br/>			    					
+			    				</p>
+							</div>
+		
+		
+		                </div>
+		        	</div>
+		                        
+				</td>
+			</tr>
+		</table>
+</div>
+#{/elseif}
 #{elseif _as == "tba"}
 	<div>
 		<div class="headNormal">
@@ -140,7 +212,7 @@
 						<div class="item-right">
 							<div class="answer-body">
 								<p>
-									${theAnswer.content.md().sanitize().raw()}
+									${theAnswer.getLatestRevision()}
 								</p>
 							</div>
 							<div class="answer-controls post-controls">
@@ -173,6 +245,11 @@
 											class="badgecount">4</span>
 										</span>
 										-->
+										#{if theAnswer.canEdit() }										
+										<div>
+											<a href="@{CourseSecureC.editAnswer(_course.sanitizedTitle, _question.id, theAnswer.id)}">edit</a>
+										</div>
+										#{/if}
 									</p>
 								</div>
 

@@ -3,6 +3,29 @@
 	<div style="font-weight: bold; margin-bottom: 15px;">Provide an answer to this question.</div>
 	<div style="font-style: italic;">This editor supports the markdown format. Please visit <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">this page</a>, If you are not familiar with Markdown.</div>
     <div id="wmd-button-bar"></div>
+    #{if _answer}
+    	<div>Please edit your answer</div>
+    	#{form @CourseSecureC.postEditAnswer(_course.id, _course.forum.id, _question.id, _answer.id)}
+			#{ifErrors}
+				<p class="error">Please correct these errors.</p>
+			#{/ifErrors}
+			
+			#{field 'answerContent'}
+				<p>
+					<div>
+						#{ifError 'answerContent'}<span class="error">#{error 'answerContent' /}</span>#{/ifError}
+					</div>
+					<div>
+						<textarea class="wmd-input" id="wmd-input" name="${field.name}">${_answer.getLatestRevision()}</textarea>
+					</div>
+				</p>
+				<p>
+					<input type="submit" name="submmit" value="Submit" />
+				</p>
+			#{/field}
+		#{/form}
+    #{/if}
+    #{else}
 	#{form @CourseSecureC.postAnswer(_course.id, _course.forum.id, _question.id)}
 		#{ifErrors}
 			<p class="error">Please correct these errors.</p>
@@ -14,7 +37,7 @@
 					#{ifError 'answerContent'}<span class="error">#{error 'answerContent' /}</span>#{/ifError}
 				</div>
 				<div>
-					<textarea class="wmd-input" id="wmd-input" name="${field.name}">${flash['review']}</textarea>
+					<textarea class="wmd-input" id="wmd-input" name="${field.name}">${flash['answerContent']}</textarea>
 				</div>
 			</p>
 			<p>
@@ -22,6 +45,7 @@
 			</p>
 		#{/field}
 	#{/form}
+	#{/else}
 </div>
 				
 <div id="wmd-preview" class="wmd-panel wmd-preview"></div>

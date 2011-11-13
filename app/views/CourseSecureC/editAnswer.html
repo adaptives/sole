@@ -4,12 +4,12 @@
 	#{if question}
 		#{question question:question,
 		           course:course,
-	               as:'tba',
+	               as:'tb',
 			       controllerAction:'CourseC.forumQuestion',
 			       actionArgsMap:['sanitizedTitle':course.sanitizedTitle, 'questionId':question.id] /}
 			   
 		<div id="answer-form" class="section-question-form">
-		    #{markdownAnswerForm course:course, question:question /}							 
+		    #{markdownAnswerForm course:course, question:question, answer:answer /}							 
 	    </div>
 	#{/if}
 </div>

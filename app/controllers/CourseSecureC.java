@@ -16,6 +16,7 @@ import models.ActivityResponse;
 import models.ActivityResponseLiked;
 import models.ActivityResponseReview;
 import models.Answer;
+import models.AnswerRevision;
 import models.CodeSnippet;
 import models.Course;
 import models.CourseGroup;
@@ -102,6 +103,61 @@ public class CourseSecureC extends Controller {
 			saveIfNotNull(DIYCourseEvent.buildFromQuestion(course, user, question));
 		}
 		CourseC.forum(course.sanitizedTitle);		
+	}
+	
+	public static void editAnswer(String sanitizedTitle, 
+								  long questionId,
+								  long answerId) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course);
+		Question question = Question.findById(questionId);
+		notFoundIfNull(question);
+		Answer answer = Answer.findById(answerId);
+		notFoundIfNull(answer);
+		if(answer.canEdit()) {
+			render(course, question, answer);
+		} else {
+			render("errors/500.html");
+		}		
+	}
+	
+	public static void postEditAnswer(long courseId,
+								      long forumId,
+								      long questionId,
+								      long answerId,
+								      @Required String answerContent) {
+
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+
+		Question question = Question.findById(questionId);
+		notFoundIfNull(question);
+
+		Answer answer = Answer.findById(answerId);
+		notFoundIfNull(answer);
+		
+		SocialUser user = SocialUser.findById(Long.parseLong(Security
+				.connected()));
+		notFoundIfNull(user);
+
+		if(answer.canEdit()) {
+			if (validation.hasErrors()) {
+				params.flash();
+				validation.keep();
+				editAnswer(course.sanitizedTitle, questionId, answerId);
+			} else {
+				AnswerRevision answerRevision = new AnswerRevision("", answerContent, user, answer);
+				answerRevision.save();
+				answer.latestRevision = answerRevision;
+				answer.save();
+				//saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));
+				//MessagingUtils.generateMessageForQuestionAnswered(question, course);
+				CourseC.forumQuestion(course.sanitizedTitle, questionId);
+			}			
+		} else {
+			render("errors/500.html");
+		}
+		
 	}
 	
 	public static void postAnswer(long courseId,

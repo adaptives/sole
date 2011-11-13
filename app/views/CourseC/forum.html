@@ -5,6 +5,7 @@
 	#{list items:course.forum.questions, as:'forumQuestion'}
 		<div>
 			#{question question:forumQuestion,
+			           course:course,
 	           		   as:'t',
 			           controllerAction:'CourseC.forumQuestion',
 			           actionArgsMap:['sanitizedTitle':course.sanitizedTitle, 'questionId':forumQuestion.id] /}

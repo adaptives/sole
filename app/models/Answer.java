@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import controllers.Security;
 
 import play.Logger;
 import play.data.validation.Required;
@@ -21,6 +24,9 @@ public class Answer extends Model {
 	@ManyToOne
 	@Required
 	public Question question;
+	
+	@OneToOne
+	public AnswerRevision latestRevision;
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Answer.class);
 	
@@ -58,6 +64,30 @@ public class Answer extends Model {
 		} else {
 			return true;
 		}
+	}
+	
+	public boolean canEdit() {
+		boolean retVal = false;
+		String sUserId = Security.connected();
+		try {
+			long userId = Long.parseLong(sUserId);
+			if(this.author.id == userId) {
+				retVal = true;
+			}
+		} catch(Exception e) {
+			//no action
+		}
+		return retVal;
+	}
+	
+	public String getLatestRevision() {
+		String retVal = "";
+		if(this.latestRevision != null) {
+			retVal = this.latestRevision.content;
+		} else {
+			retVal = this.content;
+		}
+		return retVal;
 	}
 	
 	public String toString() {
