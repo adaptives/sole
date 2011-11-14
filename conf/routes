@@ -65,7 +65,9 @@ POST    /users/update/{userId}                                                  
 GET     /blog/list                                                                                                     BlogPostC.list
 GET     /blog                                                                                                          BlogPostC.index
 GET     /blog/post/{year}/{month}/{day}/{sanitizedTitle}                                                               BlogPostC.show
+GET     /blog/form                                                                                                     BlogPostC.form
 POST    /blog/{postId}/comment/add                                                                                     BlogPostC.postComment
+POST    /blog/add                                                                                                      BlogPostC.save
 
 GET     /questionc/like/questionId/{questionId}                                                                        QuestionC.like
 GET     /questionc/like/answerId/{answerId}                                                                            QuestionC.likeAnswer
