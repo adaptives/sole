@@ -125,6 +125,7 @@ public class CourseSecureC extends Controller {
 								      long forumId,
 								      long questionId,
 								      long answerId,
+								      String note,
 								      @Required String answerContent) {
 
 		Course course = Course.findById(courseId);
@@ -146,7 +147,7 @@ public class CourseSecureC extends Controller {
 				validation.keep();
 				editAnswer(course.sanitizedTitle, questionId, answerId);
 			} else {
-				AnswerRevision answerRevision = new AnswerRevision("", answerContent, user, answer);
+				AnswerRevision answerRevision = new AnswerRevision(note, answerContent, user, answer);
 				answerRevision.save();
 				answer.latestRevision = answerRevision;
 				answer.save();
