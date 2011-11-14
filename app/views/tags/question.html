@@ -245,7 +245,7 @@
 											class="badgecount">4</span>
 										</span>
 										-->
-										#{if theAnswer.canEdit() }										
+										#{if theAnswer.canEdit(controllers.Security.connected()) }										
 										<div>
 											<a href="@{CourseSecureC.editAnswer(_course.sanitizedTitle, _question.id, theAnswer.id)}">edit</a>
 										</div>

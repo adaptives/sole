@@ -66,9 +66,8 @@ public class Answer extends Model {
 		}
 	}
 	
-	public boolean canEdit() {
+	public boolean canEdit(String sUserId) {
 		boolean retVal = false;
-		String sUserId = Security.connected();
 		try {
 			long userId = Long.parseLong(sUserId);
 			if(this.author.id == userId) {

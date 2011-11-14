@@ -114,10 +114,10 @@ public class CourseSecureC extends Controller {
 		notFoundIfNull(question);
 		Answer answer = Answer.findById(answerId);
 		notFoundIfNull(answer);
-		if(answer.canEdit()) {
+		if(answer.canEdit(Security.connected())) {
 			render(course, question, answer);
 		} else {
-			render("errors/500.html");
+			error(500, "Permission denied");
 		}		
 	}
 	
@@ -140,7 +140,7 @@ public class CourseSecureC extends Controller {
 				.connected()));
 		notFoundIfNull(user);
 
-		if(answer.canEdit()) {
+		if(answer.canEdit(Security.connected())) {
 			if (validation.hasErrors()) {
 				params.flash();
 				validation.keep();
