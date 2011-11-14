@@ -23,7 +23,7 @@ import play.test.Fixtures;
 import play.test.UnitTest;
 
 
-public class QuestionAnswerTest extends UnitTest {
+public class AnswerTest extends UnitTest {
 	@Before
 	public void setUp() {
 		Fixtures.deleteAll();
@@ -37,24 +37,6 @@ public class QuestionAnswerTest extends UnitTest {
 	@After
 	public void tearDown() {
 		
-	}
-	
-	@Test
-	public void testAddQuestion() {
-		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
-		Date expectedAskedAt = new Date();
-		Question question = new Question("New question", "New question for test", user);
-		question.save();
-		
-		List<Question> retrievedQuestions = Question.findAll();
-		Assert.assertEquals(1, retrievedQuestions.size());
-		Question retrievedQuestion = retrievedQuestions.get(0);
-		Assert.assertEquals("New question", retrievedQuestion.title);
-		Assert.assertEquals("new-question", retrievedQuestion.sanitizedTitle);
-		Assert.assertEquals("New question for test", retrievedQuestion.content);
-		Assert.assertEquals(user, retrievedQuestion.author);
-		Assert.assertEquals(0, retrievedQuestion.answers.size());
-		Assert.assertEquals(expectedAskedAt.getTime(), retrievedQuestion.askedAt.getTime(), 10);
 	}
 	
 	@Test
