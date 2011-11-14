@@ -2,6 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+#Ignore these requests
+GET    /favicon.ico                                                                                                    404
+
 # Main menu links
 GET    /help                                                                                                           HelpC.index
 
