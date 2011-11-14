@@ -212,7 +212,7 @@
 						<div class="item-right">
 							<div class="answer-body">
 								<p>
-									${theAnswer.getLatestRevision()}
+									${theAnswer.getLatestRevision().md().sanitize().raw()}
 								</p>
 							</div>
 							<div class="answer-controls post-controls">
