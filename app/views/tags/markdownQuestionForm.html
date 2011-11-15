@@ -10,7 +10,14 @@
 			<div style="font-weight: bold;">Title:</div>
 			<div>${_question.title}</div>
 			</p>
-			
+
+			#{field 'editNote'}
+				<p>
+					<div style="font-weight: bold;">Edit Note:</div>
+					<div><input type="text" name="note" value="${flash['note']}" size="80" /></div>
+				</p>
+			#{/field}
+						
 			#{field 'content'}
 				<p>
 					<div>

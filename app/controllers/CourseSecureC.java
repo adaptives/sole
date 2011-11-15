@@ -122,7 +122,8 @@ public class CourseSecureC extends Controller {
 
 	public static void postEditQuestion(long courseId, 
 									    long forumId,
-									    long questionId, 
+									    long questionId,
+									    String note,
 									    @Required String content, 
 									    String tags) {
 
@@ -142,7 +143,7 @@ public class CourseSecureC extends Controller {
 			validation.keep();
 		} else {
 			QuestionRevision questionRevision = 
-							new QuestionRevision("", content, user, question);
+							new QuestionRevision(note, content, user, question);
 			questionRevision.save();
 			question.latestRevision = questionRevision;
 			question.save();
