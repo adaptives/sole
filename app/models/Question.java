@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 
 import other.utils.StringUtils;
@@ -40,6 +41,9 @@ public class Question extends Model {
 	public boolean closed;
 	public boolean answered;
 	public boolean flagged;
+	
+	@OneToOne
+	public QuestionRevision latestRevision;
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Question.class);
 	
@@ -92,6 +96,29 @@ public class Question extends Model {
 	
 	public int likes() {
 		return (int)QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question.id = ?", this.id);
+	}
+	
+	public String getLatestRevision() {
+		String retVal = "";
+		if(this.latestRevision != null) {
+			retVal = this.latestRevision.content;
+		} else {
+			retVal = this.content;
+		}
+		return retVal;
+	}
+	
+	public boolean canEdit(String sUserId) {
+		boolean retVal = false;
+		try {
+			long userId = Long.parseLong(sUserId);
+			if(this.author.id == userId) {
+				retVal = true;
+			}
+		} catch(Exception e) {
+			//no action
+		}
+		return retVal;
 	}
 	
 	public String toString() {

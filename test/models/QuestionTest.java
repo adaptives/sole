@@ -40,7 +40,7 @@ public class QuestionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testAddQuestion() {
+	public void testAddQuestion() throws Exception {
 		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
 		Date expectedAskedAt = new Date();
 		Question question = new Question("New question", "New question for test", user);
@@ -57,4 +57,30 @@ public class QuestionTest extends UnitTest {
 		Assert.assertEquals(expectedAskedAt.getTime(), retrievedQuestion.askedAt.getTime(), 10);
 	}
 	
+	@Test
+	public void testGetLatestRevision() throws Exception {
+		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
+		Question question = new Question("New question", "New question for test", user);
+		question.save();
+		assertEquals("New question for test", question.getLatestRevision());
+		
+		QuestionRevision questionRevision = new QuestionRevision("testing", "new content", user, question);
+		questionRevision.save();
+		question.latestRevision = questionRevision;
+		question.save();
+		assertEquals("new content", question.getLatestRevision());
+	}
+	
+	@Test
+	public void testCanEdit() throws Exception {
+		List<SocialUser> users = SocialUser.findAll();
+		SocialUser user = users.get(0);
+		SocialUser user1 = users.get(1);
+		
+		Question question = new Question("New question", "New question for test", user);
+		question.save();
+		
+		assertTrue(question.canEdit(String.valueOf(user.id)));
+		assertFalse(question.canEdit(String.valueOf(user1.id)));
+	}
 }
