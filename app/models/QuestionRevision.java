@@ -1,8 +1,12 @@
 package models;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import play.data.validation.Required;
@@ -17,6 +21,9 @@ public class QuestionRevision extends Model {
 	public SocialUser author;
 	public Date revisedAt;
 	
+	@ManyToMany(cascade=CascadeType.PERSIST)
+    public Set<Tag> tags;
+	
 	@ManyToOne
 	@Required
 	public Question question;
@@ -29,6 +36,15 @@ public class QuestionRevision extends Model {
 		this.content = content;
 		this.author = author;
 		this.question = question;
+		this.tags = new TreeSet<Tag>();
 		this.revisedAt = new Date();
+	}
+	
+	public void tagWith(String tag) {
+		tags.add(Tag.findOrCreateByName(tag));
+	}
+	
+	public String toString() {
+		return id + " " + this.question.title;
 	}
 }

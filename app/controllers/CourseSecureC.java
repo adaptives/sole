@@ -27,6 +27,7 @@ import models.MessageCenter;
 import models.Pastebin;
 import models.PrivateMessage;
 import models.Question;
+import models.QuestionRevision;
 import models.SiteEvent;
 import models.SocialUser;
 
@@ -69,6 +70,20 @@ public class CourseSecureC extends Controller {
 		
 	}
 	
+	public static void editQuestion(String sanitizedTitle, 
+								    long questionId) {
+		Course course = Course.findBySanitizedTitle(sanitizedTitle);
+		notFoundIfNull(course, "course");
+		Question question = Question.findById(questionId);
+		notFoundIfNull(question, "question");
+
+		if (question.canEdit(Security.connected())) {
+			render(course, question);
+		} else {
+			error(500, "Permission denied");
+		}
+	}
+	
 	public static void postQuestion(long courseId, 
 									long forumId,
 									@Required String title, 
@@ -103,6 +118,49 @@ public class CourseSecureC extends Controller {
 			saveIfNotNull(DIYCourseEvent.buildFromQuestion(course, user, question));
 		}
 		CourseC.forum(course.sanitizedTitle);		
+	}
+
+	public static void postEditQuestion(long courseId, 
+									    long forumId,
+									    long questionId, 
+									    @Required String content, 
+									    String tags) {
+
+		SocialUser user = SocialUser.findById(Long.parseLong(Security.connected()));
+
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+
+		Forum forum = Forum.findById(forumId);
+		notFoundIfNull(forum);
+		
+		Question question = Question.findById(questionId);
+		notFoundIfNull(question);
+
+		if (validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+		} else {
+			QuestionRevision questionRevision = 
+							new QuestionRevision("", content, user, question);
+			questionRevision.save();
+			question.latestRevision = questionRevision;
+			question.save();
+			
+			if (tags != null) {
+				String tagArray[] = tags.split(",");
+				if (tagArray != null) {
+					for (String tag : tagArray) {
+						if(tag.trim() != "") {
+							questionRevision.tagWith(tag);
+						}
+					}
+					questionRevision.save();
+				}				
+			}
+
+		}
+		CourseC.forum(course.sanitizedTitle);
 	}
 	
 	public static void editAnswer(String sanitizedTitle, 

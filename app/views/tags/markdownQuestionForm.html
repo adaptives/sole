@@ -1,4 +1,43 @@
 <div class="wmd-panel">
+	#{if _question}
+		<div style="font-weight: bold; margin-bottom: 15px;">Ask a question!</div>
+		#{form @CourseSecureC.postEditQuestion(_course.id, _course.forum.id, _question.id)}
+			#{ifErrors}
+				<p class="error">Please correct these errors.</p>
+			#{/ifErrors}
+			
+			<p>
+			<div style="font-weight: bold;">Title:</div>
+			<div>${_question.title}</div>
+			</p>
+			
+			#{field 'content'}
+				<p>
+					<div>
+						#{ifError 'content'}<span class="error">#{error 'content' /}</span>#{/ifError}
+					</div>				
+					<div style="font-style: italic;">This editor supports the markdown format. Please visit <a target="_blank" href="http://daringfireball.net/projects/markdown/syntax">this page</a>, If you are not familiar with Markdown.</div>
+			    	<div id="wmd-button-bar"></div>
+					<div>
+						<textarea class="wmd-input" id="wmd-input" name="${field.name}">${_question.fetchLatestRevision()}</textarea>
+					</div>				
+				</p>			
+			#{/field}
+			
+			#{field 'tags'}
+				<div>
+					#{ifError 'tags'}<span class="error">#{error 'tags' /}</span>#{/ifError}
+				</div>
+				<div><label>Tags <span class="required-field">(you can specify multiple tags, separated with commas)</span></label></div>
+	        	<input type="text" name="tags" value="#{tags tags:_question.fetchLatestTags() /}" id="tags" /> <span class="error">#{error 'tags' /}</span>
+	    	#{/field}
+	    	
+	    	<p>
+				<input type="submit" name="submmit" value="Submit" />
+			</p>
+		#{/form}
+	#{/if}
+	#{else}
 	<div style="font-weight: bold; margin-bottom: 15px;">Ask a question!</div>
 	#{form @CourseSecureC.postQuestion(_course.id, _course.forum.id)}
 		#{ifErrors}
@@ -40,6 +79,7 @@
 			<input type="submit" name="submmit" value="Submit" />
 		</p>
 	#{/form}
+	#{/else}
 </div>
 				
 <div id="wmd-preview" class="wmd-panel wmd-preview"></div>

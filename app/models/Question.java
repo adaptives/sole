@@ -98,7 +98,7 @@ public class Question extends Model {
 		return (int)QuestionLiked.count("select count(distinct ql) from QuestionLiked ql where ql.question.id = ?", this.id);
 	}
 	
-	public String getLatestRevision() {
+	public String fetchLatestRevision() {
 		String retVal = "";
 		if(this.latestRevision != null) {
 			retVal = this.latestRevision.content;
@@ -106,6 +106,14 @@ public class Question extends Model {
 			retVal = this.content;
 		}
 		return retVal;
+	}
+	
+	public Set<Tag> fetchLatestTags() {
+		if(null != this.latestRevision) {
+			return this.latestRevision.tags;
+		} else {
+			return this.tags;
+		}
 	}
 	
 	public boolean canEdit(String sUserId) {

@@ -1,0 +1,7 @@
+%{
+	String sTags = "";
+	for(models.Tag tag : _tags) {
+		sTags += tag.name + ", "
+	}
+}%
+${sTags}

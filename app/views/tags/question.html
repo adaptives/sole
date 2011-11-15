@@ -26,7 +26,7 @@
         </div>
 
         <div class="tags">
-        	#{list items:_question.tags, as:'tag'}
+        	#{list items:_question.fetchLatestTags(), as:'tag'}
         		<a class="#" title="see questions tagged 'osqa'" rel="tag">${tag.name} </a>
 			#{/list}            
         </div>
@@ -73,10 +73,10 @@
 		         	<div id="item-right">
 		
 		            	<div class="question-body">
-		                	${_question.content.md().sanitize().raw()}
+		                	${_question.fetchLatestRevision().md().sanitize().raw()}
 		                </div>
 		                <div id="question-tags" class="tags-container tags">
-		                    #{list items:_question.tags, as:'tag'}
+		                    #{list items:_question.fetchLatestTags(), as:'tag'}
 		                	<a href="#" class="post-tag tag-link-comment"
 		                    						 title="see questions tagged 'comment'" rel="tag">${tag.name}</a>
 		                    #{/list}
@@ -145,12 +145,11 @@
 		         	<div id="item-right">
 		
 		            	<div class="question-body">
-		                	${_question.content.md().sanitize().raw()}
+		                	${_question.fetchLatestRevision().md().sanitize().raw()}
 		                </div>
 		                <div id="question-tags" class="tags-container tags">
-		                    #{list items:_question.tags, as:'tag'}
-		                	<a href="#" class="post-tag tag-link-comment"
-		                    						 title="see questions tagged 'comment'" rel="tag">${tag.name}</a>
+		                    #{list items:_question.fetchLatestTags(), as:'tag'}
+		                		<a href="#" class="post-tag tag-link-comment" title="see questions tagged 'comment'" rel="tag">${tag.name}</a>
 		                    #{/list}
 		                </div>
 		                
@@ -165,6 +164,11 @@
 			    				<img class="gravatar" width="32" height="32" src="@{UserProfileC.pic(_question.author.id)}" alt="${_question.author.screenname}'s image" />
 			    				<p>
 			    					<a href="@{UserProfileC.show(_question.author.id)}">${_question.author.screenname}</a><br/>			    					
+			    				</p>
+			    				<p>
+			    					#{if _question.canEdit(controllers.Security.connected())}
+			    						<a href="@{CourseSecureC.editQuestion(_course.sanitizedTitle, _question.id)}">edit</a>
+			    					#{/if}
 			    				</p>
 							</div>
 		
