@@ -141,6 +141,7 @@ public class CourseSecureC extends Controller {
 		if (validation.hasErrors()) {
 			params.flash();
 			validation.keep();
+			editQuestion(course.sanitizedTitle, question.id);
 		} else {
 			QuestionRevision questionRevision = 
 							new QuestionRevision(note, content, user, question);
@@ -159,9 +160,9 @@ public class CourseSecureC extends Controller {
 					questionRevision.save();
 				}				
 			}
-
+			CourseC.forum(course.sanitizedTitle);
 		}
-		CourseC.forum(course.sanitizedTitle);
+		
 	}
 	
 	public static void editAnswer(String sanitizedTitle, 
