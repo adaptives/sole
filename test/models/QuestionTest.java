@@ -62,13 +62,13 @@ public class QuestionTest extends UnitTest {
 		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
 		Question question = new Question("New question", "New question for test", user);
 		question.save();
-		assertEquals("New question for test", question.getLatestRevision());
+		assertEquals("New question for test", question.fetchLatestRevision());
 		
 		QuestionRevision questionRevision = new QuestionRevision("testing", "new content", user, question);
 		questionRevision.save();
 		question.latestRevision = questionRevision;
 		question.save();
-		assertEquals("new content", question.getLatestRevision());
+		assertEquals("new content", question.fetchLatestRevision());
 	}
 	
 	@Test

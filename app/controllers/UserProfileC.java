@@ -14,6 +14,7 @@ import java.util.Map;
 import other.utils.TwitterUtils;
 
 import models.Answer;
+import models.Badge;
 import models.Course;
 import models.CourseSection;
 import models.Forum;
@@ -81,13 +82,15 @@ public class UserProfileC extends Controller {
 				
 		UserProfile userProfile = getUserProfileFromSocialUserId(userId);
 		notFoundIfNull(userProfile);
-					
+		
+		List<Badge> badges = Badge.fetchBadgesForSocialUser(String.valueOf(userId)); 
 		List<Course> coursesEnrolled = Course.find("select c from Course c join c.enrolledParticipants ep where ep.id = ?", userId).fetch();
 		List<Course> coursesCompleted = Course.find("select c from Course c join c.completedParticipants cp where cp.id = ?", userId).fetch();		
 		List diyQuestions = Course.find("select distinct q, c.sanitizedTitle from Course c join c.forum as f join f.questions q where q.author.id = ?", userId).fetch();
 		List diyAnswers = Course.find("select distinct a, c.sanitizedTitle from Course c join c.forum as f join f.questions q join q.answers a where a.author.id = ?", userId).fetch();
 		
-		render(userProfile, 
+		render(userProfile,
+			   badges,
 			   coursesEnrolled, 
 			   coursesCompleted, 
 			   diyQuestions, 
