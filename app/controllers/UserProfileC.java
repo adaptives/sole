@@ -187,6 +187,27 @@ public class UserProfileC extends Controller {
 		show(userId);
 	}
 	
+	public static void badgeIcon(long badgeId) {
+		flash.keep();
+		Badge badge = Badge.findById(badgeId);
+		notFoundIfNull(badge);
+		InputStream is = null;
+		if(badge.badgeDef.badgeIcon != null) {
+			is = badge.badgeDef.badgeIcon.image.get();
+			if(is != null) {
+				renderBinary(is);
+			}			
+		} 
+		if(is == null) {
+			try {
+				is = new FileInputStream(Play.getFile("public/images/default_course_image.gif"));
+				renderBinary(is);
+			} catch(Exception e) {
+				cLogger.error("Could not render default user image ", e);
+			}
+		}
+	}
+	
 	private static UserProfile getUserProfileFromSocialUserId(long userId) {
 		String sql = "select distinct upr from UserProfile upr where upr.user.id = ?";
 		return UserProfile.find(sql, userId).first();

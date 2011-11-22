@@ -57,6 +57,7 @@ GET     /courses/{id}/jsonparticipants                                          
 GET     /page/{name}                                                                                                   PageC.show
 
 GET     /users/picTag/{userId}                                                                                         UserProfileC.picTag
+GET     /users/badge/{badgeId}                                                                                         UserProfileC.badgeIcon
 GET     /users/{userId}/pic                                                                                            UserProfileC.pic
 GET     /users/{page}/{size}                                                                                           UserProfileC.List
 GET     /users                                                                                                         UserProfileC.list

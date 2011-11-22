@@ -78,8 +78,16 @@
 	</div>
 	<div>
 		#{list items:badges, as:"badge"}
-			<div>${badge.badgeDef.name}</div>
+			<div style="float: left;">
+				<div>	
+					<img width="70" height="50" src="@{UserProfileC.badgeIcon(badge.id)}" />
+				</div>
+				<div>
+					${badge.badgeDef.name}
+				</div>
+			</div>
 		#{/list}
+		<div style="clear: both;"></div>
 	</div>
 </div>
 
