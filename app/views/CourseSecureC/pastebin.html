@@ -17,7 +17,7 @@
 </div>
 <div>
 #{list items:codeSnippets, as:'codeSnippet'}
-	<div><a href="@{CourseSecureC.codeSnippet(course.sanitizedTitle, codeSnippet.id)}">${codeSnippet.title}</a></div>
+	<div><a href="@{CourseC.codeSnippet(course.sanitizedTitle, codeSnippet.id)}">${codeSnippet.title}</a></div>
 #{/list}
 </div>
 <H3>New Code Snippet</H3>

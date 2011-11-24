@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+%{pageTitle = "User " + userProfile.user.screenname + " - Do It Yourself Computer Science"}%
+#{set title:pageTitle /}
+
+<div style="float: left;">
+	<div>
+		<img src="@{UserProfileC.pic(userProfile.user.id)}" width="50", height="50"/>
+	</div>
+	<div style="font-weight: bold;">
+		${userProfile.user.screenname} 
+	</div>
+</div>
+<div style="float: left;">
+<img src="/public/images/right-arrow-with-margin.png" title="has earned the badge" />
+</div>
+<div style="float: left;">
+	<div>	
+		<img width="70" height="50" src="@{UserProfileC.badgeIcon(badge.id)}" />
+	</div>
+	<div style="font-weight: bold; font-style: italic;">
+		${badge.badgeDef.name}
+	</div>
+</div>
+<div style="clear: both;"></div>
+<div style="font-weight: bold; margin-top: 10px; margin-bottom: 10px;">Details</div>
+<div>
+	<p>
+		<span style="font-weight: bold;">Awarded On: </span><span>${badge.timestamp.since(true)}</span>
+	</p>
+	<p>
+		<span style="font-weight: bold;">Awarded For: </span><span>${badge.badgeDef.description}</span>
+	</p>
+	<p>
+		<span style="font-weight: bold;">Comments: </span><span>${badge.note}</span>
+	</p>
+</div>

@@ -3,6 +3,7 @@ package models;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import play.db.jpa.Model;
@@ -17,6 +18,9 @@ public class BadgeDef extends Model {
 	public String description;
 	
 	public boolean multiIssue;
+	
+	@ManyToOne
+	public BadgeType type;
 	
 	@OneToOne
 	public Pic badgeIcon;

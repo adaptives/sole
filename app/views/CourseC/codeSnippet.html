@@ -1,29 +1,42 @@
 #{extends 'CourseC/courseMain.html' /}
 #{set noUpdates:true /}
 
+%{
+    cargs = ['sanitizedTitle':course.sanitizedTitle, 'codeSnippetId':codeSnippet.id]
+	
+	embedLink = play.mvc.Router.reverse("CourseC.embedCodeSnippet", cargs);
+	String embedCodeTemplate = "<iframe src=\"%s\" height=\"400\" width=\"600\"></iframe>"
+	String embedCode = String.format(embedCodeTemplate, "http://" + request.domain + ":" + request.port + embedLink.url);
+	
+	codeSnippetUrl = "http://" + request.domain + ":" + request.port + play.mvc.Router.reverse("CourseC.codeSnippet", cargs);
+}%
+
+#{if controllers.Security.isConnected()}
 #{if codeSnippet.owns(controllers.Security.connected())}
-	<div>
-		<a href="@{CourseSecureC.pastebin(course.sanitizedTitle)}">Back to the pastebin</a>
-	</div>
+<div>
+	<a href="@{CourseSecureC.pastebin(course.sanitizedTitle)}">Back to the pastebin</a>
+</div>
 #{/if}
 #{else}
 	<div style="font-weight: bold;">
 		This code snippet was created by another user.
 	</div>
 #{/else}
-<p>
-	<div style="font-weight: bold;">Embed Code</div>
-	<div>
-		%{
-			embedLink = play.mvc.Router.reverse("CourseC.embedCodeSnippet", ['sanitizedTitle':course.sanitizedTitle, 'codeSnippetId':codeSnippet.id]);
-			String embedCodeTemplate = "<iframe src=\"%s\" height=\"400\" width=\"600\"></iframe>"
-			String embedCode = String.format(embedCodeTemplate, "http://" + request.domain + ":" + request.port + embedLink.url);
-		}%
-		<input type="text" value="${embedCode}" size="70"/>
-	</div>
-</p>
-<br/>
+#{/if}
+
 #{if codeSnippet.owns(controllers.Security.connected())}
+	<p>
+		<div>
+			<input type="text" value="${codeSnippetUrl}" size="70" />
+		</div>
+		<div style="font-weight: bold;">Embed Code</div>
+		<div>	
+			<input type="text" value="${embedCode}" size="70"/>
+		</div>
+	</p>
+	
+	<br/>
+
 	<div>
 		<span><a href="@{CourseSecureC.editCodeSnippet(course.sanitizedTitle, codeSnippet.id)}">Edit</a> | </span>
 		<span><a id="delete-snippet" href="@{CourseSecureC.deleteCodeSnippet(course.sanitizedTitle, codeSnippet.id)}">Delete</a></span>

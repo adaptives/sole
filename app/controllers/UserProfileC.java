@@ -208,6 +208,20 @@ public class UserProfileC extends Controller {
 		}
 	}
 	
+	public static void badgeDetails(long userId, long badgeId) {
+		SocialUser user = SocialUser.findById(userId);
+		notFoundIfNull(user);
+		UserProfile userProfile = getUserProfileFromSocialUserId(userId);
+		notFoundIfNull(userProfile);
+		Badge badge = Badge.findById(badgeId);
+		notFoundIfNull(badge);
+		if(badge.awardee.id == user.id) {
+			render(userProfile, badge);
+		} else {
+			error("Badge does not belong to user");
+		}
+	}
+	
 	private static UserProfile getUserProfileFromSocialUserId(long userId) {
 		String sql = "select distinct upr from UserProfile upr where upr.user.id = ?";
 		return UserProfile.find(sql, userId).first();

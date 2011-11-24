@@ -427,34 +427,6 @@ public class CourseSecureC extends Controller {
 		pastebin(course.sanitizedTitle);
 	}
 	
-	public static void codeSnippet(@Required String sanitizedTitle, 
-								   @Required long codeSnippetId) {
-		
-		String sUserId = Security.connected();
-		long userId = Long.parseLong(sUserId);
-		SocialUser user = SocialUser.findById(userId);
-		
-		Course course = Course.findBySanitizedTitle(sanitizedTitle);
-		notFoundIfNull(course);
-		
-		CodeSnippet codeSnippet = CodeSnippet.findById(codeSnippetId);
-		notFoundIfNull(codeSnippet);
-		
-		//TODO: This code will have to change when we strongly link pastebins with courses
-		//as opposed to linking them via their name
-		if(codeSnippet.pastebin.restricted) {
-			if(codeSnippet.user.id == user.id || 
-					(course.isSocialUserEnrolled(sUserId) && codeSnippet.pastebin.name .equals(sanitizedTitle))) {
-				render(course, codeSnippet);
-			} else {
-				flash.error("You can access a code snippet in this course only if it is your's or if you are enrolled in the course");
-				pastebin(course.sanitizedTitle);
-			}
-		} else {
-			render(course, codeSnippet);
-		}		
-	}
-	
 	public static void editCodeSnippet(@Required String sanitizedTitle,
 								       @Required long codeSnippetId) {
 
@@ -523,7 +495,7 @@ public class CourseSecureC extends Controller {
 				codeSnippet.title = title;
 				codeSnippet.code = code;
 				codeSnippet.save();
-				codeSnippet(course.sanitizedTitle, codeSnippetId);
+				CourseC.codeSnippet(course.sanitizedTitle, codeSnippetId);
 			}
 		} else {
 			flash.error("You do not own the code snippet");

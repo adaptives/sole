@@ -23,6 +23,10 @@ public class BadgeDefTest extends UnitTest {
 	
 	@Test
 	public void testCreateAndRetrieve() throws Exception {
+		String type = "certification";
+		BadgeType badgeType = new BadgeType(type);
+		badgeType.save();
+		
 		String badgeName = "Java 101";
 		String badgeDescription = "Java 101 badge";
 		String badgeTitle = "Java 101";
@@ -30,6 +34,7 @@ public class BadgeDefTest extends UnitTest {
 		BadgeDef badgeDef = new BadgeDef(badgeName);
 		badgeDef.description = badgeDescription;
 		badgeDef.title = badgeTitle;
+		badgeDef.type = badgeType;
 		badgeDef.save();
 		
 		List<BadgeDef> retrievedBadgeDefs = BadgeDef.findAll();
@@ -38,6 +43,7 @@ public class BadgeDefTest extends UnitTest {
 		assertEquals(badgeName, retrievedBadgeDef.name);
 		assertEquals(badgeTitle, retrievedBadgeDef.title);
 		assertEquals(badgeDescription, retrievedBadgeDef.description);
+		assertEquals(type, retrievedBadgeDef.type.type);
 	}
 	
 	public void testFetchBadgesForSocialUser() {

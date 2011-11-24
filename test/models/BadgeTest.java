@@ -26,7 +26,7 @@ public class BadgeTest extends UnitTest {
 		//Java 101 Badge Def
 		String java101BadgeName = "Java 101";
 		String java101BadgeDescription = "Java 101 badge";
-		String java101BadgeTitle = "Java 101";
+		String java101BadgeTitle = "Java 101 title";
 		
 		BadgeDef java101BadgeDef = new BadgeDef(java101BadgeName);
 		java101BadgeDef.description = java101BadgeDescription;
@@ -34,9 +34,9 @@ public class BadgeTest extends UnitTest {
 		java101BadgeDef.save();
 		
 		//Python 101 Badge Def
-		String python101BadgeName = "Java 101";
-		String python101BadgeDescription = "Java 101 badge";
-		String python101BadgeTitle = "Java 101";
+		String python101BadgeName = "Python 101";
+		String python101BadgeDescription = "Python 101 badge";
+		String python101BadgeTitle = "Python 101 title";
 		
 		BadgeDef python101BadgeDef = new BadgeDef(python101BadgeName);
 		python101BadgeDef.description = python101BadgeDescription;
@@ -50,13 +50,21 @@ public class BadgeTest extends UnitTest {
 		awardedBy.add(socialUsers.get(0));
 		
 		Badge java101Badge1 = new Badge(java101BadgeDef, socialUsers.get(1), awardedBy, "good work");
+		String evidenceNote = "classroom test";
+		EvidenceOfCompetency evidence = new EvidenceOfCompetency(evidenceNote);
+		evidence.save();
+		java101Badge1.evidence = evidence;
 		java101Badge1.save();
 		
 		Badge python101Badge1 = new Badge(python101BadgeDef, socialUsers.get(1), awardedBy, "good work");
 		python101Badge1.save();
 		
-		List<Badge> badgesForUser = Badge.fetchBadgesForSocialUser(String.valueOf(socialUsers.get(1).id)); 
-		assertEquals(2, badgesForUser.size());
+		List<Badge> retreivedBadgesForUser = Badge.fetchBadgesForSocialUser(String.valueOf(socialUsers.get(1).id)); 
+		assertEquals(2, retreivedBadgesForUser.size());
+		
+		Badge retreivedBadgeJava101 = retreivedBadgesForUser.get(0);
+		assertEquals(java101BadgeName, retreivedBadgeJava101.badgeDef.name);
+		assertEquals(evidenceNote, retreivedBadgeJava101.evidence.note);
 	}
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import play.Logger;
 import play.db.jpa.Model;
@@ -27,6 +28,9 @@ public class Badge extends Model {
 	public Date timestamp;
 	
 	public String note;
+	
+	@OneToOne
+	public EvidenceOfCompetency evidence;
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Badge.class);
 	

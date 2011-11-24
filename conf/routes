@@ -37,7 +37,7 @@ GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityR
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/delete    CourseSecureC.deleteActivityResponse
 GET     /courses/course/{sanitizedTitle}/participants/{page}/{size}                                                    CourseC.participants
 GET     /courses/course/{sanitizedTitle}/pastebin                                                                      CourseSecureC.pastebin
-GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}                                          CourseSecureC.codeSnippet
+GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}                                          CourseC.codeSnippet
 GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/edit                                     CourseSecureC.editCodeSnippet
 GET     /courses/course/{sanitizedTitle}/pastebin/codesnippet/{codeSnippetId}/delete                                   CourseSecureC.deleteCodeSnippet
 GET     /course/{sanitizedTitle}/codesnippet/{codeSnippetId}                                                           CourseC.embedCodeSnippet
@@ -58,6 +58,7 @@ GET     /page/{name}                                                            
 
 GET     /users/picTag/{userId}                                                                                         UserProfileC.picTag
 GET     /users/badge/{badgeId}                                                                                         UserProfileC.badgeIcon
+GET     /users/{userId}/badge/{badgeId}                                                                                UserProfileC.badgeDetails
 GET     /users/{userId}/pic                                                                                            UserProfileC.pic
 GET     /users/{page}/{size}                                                                                           UserProfileC.List
 GET     /users                                                                                                         UserProfileC.list
