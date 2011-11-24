@@ -65,9 +65,26 @@ public class CourseSecureC extends Controller {
 		CourseC.course(course.sanitizedTitle);
 	}
 	
-	//TODO: Implement
 	public static void markCompleted(long courseId) {
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+		String sUserId = Security.connected();		
+		long userId = Long.parseLong(sUserId);
+		SocialUser user = SocialUser.findById(userId);
 		
+		if(course.isSocialUserEnrolled(sUserId)) {
+			if(course.getActivityCompletionStatus(sUserId) == 100.0) {
+				course.completedParticipants.add(user);
+				course.save();
+				flash.success("Congratulations, you have completed the course!");
+			} else {
+				flash.error("You cannot mark this course as completed, because you have not submitted responses to all the activities in this course.");
+			}
+		} else {
+			flash.error("You cannot mark this course as completed, because you have not enrolled in this course.");
+		}
+		
+		CourseC.course(course.sanitizedTitle);
 	}
 	
 	public static void editQuestion(String sanitizedTitle, 

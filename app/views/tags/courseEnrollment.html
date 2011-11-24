@@ -1,12 +1,15 @@
 #{if controllers.Security.isConnected()}
-		#{ifnot _course.isSocialUserEnrolled(session.user)}
+		#{if !_course.isSocialUserEnrolled(session.user)}
 			<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
-		#{/ifnot}
+		#{/if}
+		#{elseif _course.hasCompleted(session.user)}
+			<span class="study-session-enrollment">You have completed all the activities in this course</span>
+		#{/elseif}
 		#{else}
 			%{progress = (int)(_course.getActivityCompletionStatus(controllers.Security.connected()))}%
 			<span class="study-session-enrollment">You are enrolled in this course (Completed ${progress}%)</span>
 			#{if progress == 100.0}
-			<span class="study-session-enrollment">Mark course as completed</span>
+			<a class="course-enrollment" href="@{CourseSecureC.markCompleted(_course.id)}">Mark course as completed</a>
 			#{/if}
 		#{/else}
 #{/if}

@@ -169,4 +169,20 @@ public class Course extends Model {
 		return retVal;
 	}
 	
+	public boolean hasCompleted(String sSocialUser) {
+		boolean retVal = false;
+		try {
+			long userId = Long.parseLong(sSocialUser);
+			SocialUser user = SocialUser.findById(userId);
+			if(user != null) {
+				if(this.completedParticipants.contains(user)) {
+					retVal = true;
+				}
+			}			
+		} catch(Exception e) {
+			
+		}
+		return retVal;
+	}
+	
 }

@@ -32,6 +32,7 @@ GET     /courses/course/{sanitizedTitle}/question/{questionId}  				            
 GET     /courses/course/{sanitizedTitle}/question/{questionId}/edit                                                    CourseSecureC.editQuestion
 GET     /courses/course/{sanitizedTitle}/question/{questionId}/answer/{answerId}/edit                                  CourseSecureC.editAnswer
 GET     /courses/course/{courseId}/enroll                                                                              CourseSecureC.enroll
+GET     /courses/course/{courseId}/markcompleted                                                                       CourseSecureC.markCompleted
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/vote/ajax/{ajax} CourseSecureC.voteActivityResponse
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/review    CourseC.sectionActivityResponseReview
 GET     /course/{courseSanitizedTitle}/section/{sectionSanitizedTitle}/activityResponse/{activityResponseId}/delete    CourseSecureC.deleteActivityResponse
