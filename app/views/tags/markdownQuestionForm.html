@@ -79,7 +79,7 @@
 				#{ifError 'tags'}<span class="error">#{error 'tags' /}</span>#{/ifError}
 			</div>
 			<div><label>Tags <span class="required-field">(you can specify multiple tags, separated with commas)</span></label></div>
-        	<input type="text" name="tags" value="" id="tags" /> <span class="error">#{error 'tags' /}</span>
+        	<input type="text" name="tags" value="${flash['tags']}" id="tags" /> <span class="error">#{error 'tags' /}</span>
     	#{/field}
     	
     	<p>
