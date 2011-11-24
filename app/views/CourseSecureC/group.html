@@ -25,15 +25,15 @@
 	#{/list}
 </tr>
 
-#{list items: courseGroup.users, as:'user'}
+#{list items: courseGroup.fetchSortedUsers(), as:'userCourseProgress'}
 	<tr>
-		<td style="background-color: #DADACF;">${user.screenname}</td>
+		<td style="background-color: #DADACF;">${userCourseProgress.user.screenname} (${(int)userCourseProgress.progress} %)</td>
 		#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
 			#{if section.activities.size() > 0}
 				#{list items:section.activities, as:'activity'}					
-					#{if activity.hasResponded(String.valueOf(user.id))}
+					#{if activity.hasResponded(String.valueOf(userCourseProgress.user.id))}
 					<td style="background-color: #99FF66; padding: 1px;">
-						#{list items:activity.getResponsesByUser(String.valueOf(user.id)), as:'activityResponseByUser'}
+						#{list items:activity.getResponsesByUser(String.valueOf(userCourseProgress.user.id)), as:'activityResponseByUser'}
 							<span class="report-cell-sumary"><a target="_blank" title="${activityResponseByUser.title} - ${activityResponseByUser.likes()} likes, ${activityResponseByUser.reviews()} reviews" href="${activityResponseByUser.link()}">  (${activityResponseByUser.likes()})(${activityResponseByUser.reviews()})s, </a></span>
 						#{/list}
 					</td>

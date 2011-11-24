@@ -3,7 +3,11 @@
 			<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
 		#{/ifnot}
 		#{else}
-			<span class="study-session-enrollment">You are enrolled in this course</span>
+			%{progress = (int)(_course.getActivityCompletionStatus(controllers.Security.connected()))}%
+			<span class="study-session-enrollment">You are enrolled in this course (${progress} % complete)</span>
+			#{if progress == 100.0}
+			<span class="study-session-enrollment">Mark course as completed</span>
+			#{/if}
 		#{/else}
 #{/if}
 #{else}
