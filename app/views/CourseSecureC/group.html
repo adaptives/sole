@@ -27,9 +27,13 @@
 
 #{list items: courseGroup.fetchSortedUsers(), as:'userCourseProgress'}
 	<tr>
-		<td style="background-color: #DADACF;">
+		%{
+			userProgress = (int)userCourseProgress.progress
+			usernameBgColor = userProgress == 100 ? "#99FF66;" :  "#DADACF;"
+		%}
+		<td style="background-color: ${usernameBgColor}">
 			<div>${userCourseProgress.user.screenname}</div> 
-			<div style="font-weight: bold;">(completed ${(int)userCourseProgress.progress}%)</div>
+			<div style="font-weight: bold;">(completed ${userProgress}%)</div>
 		</td>
 		#{list items:courseGroup.course.fetchSectionsByPlacement(), as:'section'}
 			#{if section.activities.size() > 0}
