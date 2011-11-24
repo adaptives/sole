@@ -4,7 +4,7 @@
 		#{/ifnot}
 		#{else}
 			%{progress = (int)(_course.getActivityCompletionStatus(controllers.Security.connected()))}%
-			<span class="study-session-enrollment">You are enrolled in this course (${progress} % complete)</span>
+			<span class="study-session-enrollment">You are enrolled in this course (Completed ${progress}%)</span>
 			#{if progress == 100.0}
 			<span class="study-session-enrollment">Mark course as completed</span>
 			#{/if}
