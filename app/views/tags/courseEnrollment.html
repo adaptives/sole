@@ -3,7 +3,7 @@
 			<a class="course-enrollment" href="@{CourseSecureC.enroll(_course.id)}">Enroll</a>
 		#{/if}
 		#{elseif _course.hasCompleted(session.user)}
-			<span class="study-session-enrollment">You have completed all the activities in this course</span>
+			<span class="study-session-enrollment" style="font-weight: bold;">You have completed all the activities in this course</span>
 		#{/elseif}
 		#{else}
 			%{progress = (int)(_course.getActivityCompletionStatus(controllers.Security.connected()))}%
