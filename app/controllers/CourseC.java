@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import other.json.JsonSocialUser;
+import other.utils.LinkGenUtils;
 
 import models.ActivityResponse;
 import models.Answer;
@@ -251,16 +252,22 @@ public class CourseC extends Controller {
 		// with courses
 		// as opposed to linking them via their name
 		if (codeSnippet.pastebin.restricted) {
-			String sUserId = Security.connected();
-			long userId = Long.parseLong(sUserId);
-			SocialUser user = SocialUser.findById(userId);
-			if (codeSnippet.user.id == user.id
-					|| (course.isSocialUserEnrolled(sUserId) && codeSnippet.pastebin.name
-							.equals(sanitizedTitle))) {
-				render(course, codeSnippet);
-			} else {
-				error("You can access a code snippet in this course only if it is your's or if you are enrolled in the course");
+			if(Security.isConnected()) {
+				try {
+					String sUserId = Security.connected();
+					long userId = Long.parseLong(sUserId);
+					SocialUser user = SocialUser.findById(userId);
+					if (codeSnippet.user.id == user.id
+							|| (course.isSocialUserEnrolled(sUserId) && codeSnippet.pastebin.name
+									.equals(sanitizedTitle))) {
+						render(course, codeSnippet);
+					}
+				} catch(Exception e) {
+					//
+				}
 			}
+			error("This is a protected code snippet and can be viewed only by logged in users who are also enrolled in the course - " + LinkGenUtils.getDIYCourseLink(course));
+			
 		} else {
 			render(course, codeSnippet);
 		}
