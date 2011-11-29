@@ -21,6 +21,12 @@ public class StringExtensions extends JavaExtensions {
 		return obj.toString().replaceAll(" ", "&nbsp;");
 	}
 	
+	public static String makeCode(Object obj) {
+		String str = (String)obj;
+		String codeString = "<pre><code>" + str + "</code></pre>";
+		return codeString;
+	}
+	
 	public static String md(Object obj) {
 		String retVal = obj.toString();
 		try {
