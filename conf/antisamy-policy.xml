@@ -135,6 +135,8 @@ Slashdot allowed tags taken from "Reply" page:
 		<tag name="blockquote" action="validate"/>
 		<tag name="tt" action="validate"/>
 		<tag name="strong" action="validate"/>
+		<tag name="pre" action="validate"/>
+		<tag name="code" action="validate"/>
 		
 		<tag name="br" action="truncate"/>
 
