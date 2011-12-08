@@ -2,7 +2,7 @@
 #{set noUpdates:true /}
 
 <div>
-	#{list items:course.forum.questions, as:'forumQuestion'}
+	#{list items:questions, as:'forumQuestion'}
 		<div>
 			#{question question:forumQuestion,
 			           course:course,
@@ -21,3 +21,9 @@
 		#{/else}
 		
 </div>
+
+
+%{
+actionParams = [sanitizedTitle:course.sanitizedTitle]
+}%
+#{paginate controllerAction:'CourseC.forum', size:size, page:page, pages:pages,  action_params:actionParams /}

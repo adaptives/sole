@@ -134,7 +134,7 @@ public class CourseSecureC extends Controller {
 			forum.save();
 			saveIfNotNull(DIYCourseEvent.buildFromQuestion(course, user, question));
 		}
-		CourseC.forum(course.sanitizedTitle);		
+		CourseC.forum(course.sanitizedTitle, 1, 24);		
 	}
 
 	public static void postEditQuestion(long courseId, 
@@ -177,7 +177,7 @@ public class CourseSecureC extends Controller {
 					questionRevision.save();
 				}				
 			}
-			CourseC.forum(course.sanitizedTitle);
+			CourseC.forumQuestion(course.sanitizedTitle, question.id);
 		}
 		
 	}

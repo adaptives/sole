@@ -29,6 +29,11 @@ public class Forum extends Model {
 		create();
 	}
 	
+	public List<Question> fetchQuestionsByPage(int length, int page) {
+		String query = "select q from Forum f join f.questions q where f.id = ? order by q.askedAt DESC";
+		return Forum.find(query, this.id).fetch(page, length);
+	}
+	
 	@Override
 	public String toString() {
 		return this.title;

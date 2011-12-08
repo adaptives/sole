@@ -9,7 +9,7 @@
 	<div class="subnav mainnavs">
 	<ul>
 		<li><a class="#{diyCourseSelectedStyle menu:'home' /}" href="@{CourseC.course(course.sanitizedTitle)}">Course Home</a></li>
-		<li><a class="#{diyCourseSelectedStyle menu:'forum' /}" href="@{CourseC.forum(course.sanitizedTitle)}">Discussion Forum</a></li>
+		<li><a class="#{diyCourseSelectedStyle menu:'forum' /}" href="@{CourseC.forum(course.sanitizedTitle, 1, 24)}">Discussion Forum</a></li>
 		<li><a class="#{diyCourseSelectedStyle menu:'participants' /}" href="@{CourseC.participants(course.sanitizedTitle, 1, 24)}">Participants</a></li>
 		<li><a class="#{diyCourseSelectedStyle menu:'pastebin' /}" href="@{CourseSecureC.pastebin(course.sanitizedTitle)}">Pastebin</a></li>
 	</ul>

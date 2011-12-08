@@ -142,10 +142,28 @@ public class CourseC extends Controller {
 		question(sectionId, questionId);
 	}
 	
-	public static void forum(String sanitizedTitle) {
+	public static void forum(String sanitizedTitle, int page, int size) {
+		if(page < 1) {
+			flash.error("Incorrect value for page '" + page + "' . The value must be equal or greater than 1");
+			render("emptypage.html");
+		}
+		if(size < 1) {
+			flash.error("Incorrect value for size '" + size + "' . The value must be equal or greater than 1");
+			render("emptypage.html");
+		}
+		
+				
 		Course course = Course.findBySanitizedTitle(sanitizedTitle);
 		notFoundIfNull(course);
-		render(course);
+		List<Question> questions = course.forum.fetchQuestionsByPage(size, page);
+		
+		// TODO: Should be optimized 
+		long count = course.forum.questions.size();
+		
+		int pages = (int)(count/size);
+		pages++;
+		
+		render(course, questions, page, size, pages);
 	}
 	
 	public static void forumQuestion(String sanitizedTitle, long questionId) {

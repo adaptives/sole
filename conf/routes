@@ -27,7 +27,7 @@ GET     /courses/course/{sanitizedTitle}        								                        
 GET     /courses/course/{sanitizedTitle}/section/{courseSectionSanitizedTitle}                                         CourseC.section
 GET     /courses/course/{courseSanitizedTitle}/section/{courseSectionSanitizedTitle}/activity/responses                CourseC.sectionActivityResponses
 GET     /courses/course/section/{sectionId}/question/{questionId} 				                                       CourseC.question
-GET     /courses/course/{sanitizedTitle}/forum        							                                       CourseC.forum
+GET     /courses/course/{sanitizedTitle}/forum/{page}/{size}					                                       CourseC.forum
 GET     /courses/course/{sanitizedTitle}/question/{questionId}  				                                       CourseC.forumQuestion
 GET     /courses/course/{sanitizedTitle}/question/{questionId}/edit                                                    CourseSecureC.editQuestion
 GET     /courses/course/{sanitizedTitle}/question/{questionId}/answer/{answerId}/edit                                  CourseSecureC.editAnswer
