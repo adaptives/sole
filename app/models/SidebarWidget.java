@@ -27,7 +27,7 @@ public class SidebarWidget extends Model {
 		if(context == null) {
 			context = "";
 		}
-		String query = "select sw from SidebarWidget sw where sw.context = ?";
+		String query = "select sw from SidebarWidget sw where sw.context = ? order by location ASC";
 		return SidebarWidget.find(query, context).fetch();
 	}
 	
