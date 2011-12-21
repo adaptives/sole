@@ -3,7 +3,10 @@
 <div>
 <span style="font-weight: bold;">Section: </span><span><a href="@{CourseC.section(course.sanitizedTitle, section.sanitizedTitle)}">${section.title}</a></span>
 </div>
-
+<div style="margin-top: 15px; background-color: #DDD;">		
+	<span style="font-weight: bold;">Activity: </span>		
+	<span>${activityResponse.activity.content.raw()}</span>		
+</div>
 <div>
 	<div style="margin-top: 15px;">
 		<div class="activity-response-user, small-user-container" style="font-weight: bold;">			
@@ -61,12 +64,6 @@
 			#{/else}
 		</div>
 </div>
-	
-	
-	<div style="margin-top: 15px; background-color: #DDD;">		
-		<span style="font-weight: bold;">Activity for which the response shown above has been provided: </span>		
-		<span>${activityResponse.activity.content.raw()}</span>		
-	</div>
 	
 </div>
 <div style="margin-top: 15px;">
