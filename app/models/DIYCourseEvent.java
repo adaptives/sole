@@ -75,12 +75,11 @@ public class DIYCourseEvent extends Model {
 		
 		CourseSection courseSectionForActivity = CourseSection.findCourseSectionForActivity(activityResponse.activity);
 		if(courseSectionForActivity != null) {
+			String template = "submitted an activity response for activity '<a href=\"%s\">%s</a>'";
 			course = courseSectionForActivity.course;
-			text = "submitted an activity response for activity '" + 
-					getViewAllActivitiesURL(course, courseSectionForActivity, activityResponse) + "'";
-		}
-		if(course != null) {
-			event = new DIYCourseEvent(course, originator, title, text); 
+			String url = getActivityReviewURL(course, courseSectionForActivity, activityResponse);
+			text = String.format(template, url, activityResponse.activity.title);
+			event = new DIYCourseEvent(course, originator, title, text);
 		}
 		return event;
 	}
@@ -155,7 +154,9 @@ public class DIYCourseEvent extends Model {
 		return String.format(template, showQuestionActionDef.url, question.title);		
 	}
 	
-	private static String getViewAllActivitiesURL(Course course, CourseSection courseSection, ActivityResponse activityResponse) {
+	private static String getViewAllActivitiesURL(Course course, 
+												  CourseSection courseSection, 
+												  ActivityResponse activityResponse) {
 		Map showQuestionActionArgs = new HashMap();
 		showQuestionActionArgs.put("courseSanitizedTitle", course.sanitizedTitle);
 		showQuestionActionArgs.put("courseSectionSanitizedTitle", courseSection.sanitizedTitle);
