@@ -72,12 +72,6 @@ public class UserProfileC extends Controller {
 		render("UserProfileC/list.html", allUsers, page, size, pages);
 	}
 	
-	public static void list() {
-		List<SocialUser> allUsers = 
-			SocialUser.find("select su from SocialUser su order by su.screenname").fetch();		
-		render(allUsers);
-	}
-	
 	public static void show(long userId) {
 				
 		UserProfile userProfile = getUserProfileFromSocialUserId(userId);

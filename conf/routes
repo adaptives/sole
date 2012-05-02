@@ -62,7 +62,6 @@ GET     /users/badge/{badgeId}                                                  
 GET     /users/{userId}/badge/{badgeId}                                                                                UserProfileC.badgeDetails
 GET     /users/{userId}/pic                                                                                            UserProfileC.pic
 GET     /users/{page}/{size}                                                                                           UserProfileC.List
-GET     /users                                                                                                         UserProfileC.list
 GET     /users/{userId}                                                                                                UserProfileC.show
 POST    /users/changepwd/{username}                                                                                    UserProfileC.change
 POST    /users/update/{userId}                                                                                         UserProfileC.update
