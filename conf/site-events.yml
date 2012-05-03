@@ -1,5 +1,0 @@
-SiteEvent(s1):
-    text: User <a href="http://localhost:9000/users/15">http://twitter.com/bitsandwaves</a> ENROLLED in DIY Course <a href="http://localhost:9000/courses/course/2">Structure And Interpretation Of Computer Programs</a>
-    timestamp: 2011-01-25 
-    
-    
