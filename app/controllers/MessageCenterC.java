@@ -27,7 +27,7 @@ public class MessageCenterC extends Controller {
 		
 		MessageCenter messageCenter = MessageCenter.findByUserId(user.id);
 		
-		PrivateMessage message = messageCenter.findInboxMessage(messageId);
+		PrivateMessage message = messageCenter.findInboxMessage(messageId);		
 		if(message != null) {
 			JsonMessage jsonMessage = JsonMessage.build(message);
 			message.messageProperties.isRead = true;

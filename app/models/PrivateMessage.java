@@ -42,6 +42,19 @@ public class PrivateMessage extends Model implements Comparable {
 				   		  String title, 
 				   		  String body) {
 		
+		if(from == null) {
+			throw new IllegalArgumentException("Parameter 'from' cannot be null");
+		}
+		if(to == null) {
+			throw new IllegalArgumentException("Parameter 'to' cannot be null");
+		}
+		if(title == null) {
+			throw new IllegalArgumentException("Parameter 'title' cannot be null");
+		}
+		if(body == null) {
+			throw new IllegalArgumentException("Parameter 'body' cannot be null");
+		}
+		
 		this.from = from;
 		this.to = to;		
 		this.subject = title;
@@ -75,5 +88,10 @@ public class PrivateMessage extends Model implements Comparable {
 		} 
 		
 		return retVal;
+	}
+	
+	@Override
+	public String toString() {
+		return this.from + " " + this.to + " '" + this.subject + "'"; 
 	}
 }

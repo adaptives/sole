@@ -27,9 +27,13 @@ public class MessagingUtils {
 		String content = "Your question '" + question.title
 				+ "' has a new answer "
 				+ DIYCourseEvent.getQuestionURL(course, question);
-		// PrivateMessage.send(from, to, title, content);
-		PrivateMessage message = new PrivateMessage(from, to, title, content);
-		createMessage(message);
+		try {
+			// PrivateMessage.send(from, to, title, content);
+			PrivateMessage message = new PrivateMessage(from, to, title, content);
+			createMessage(message);
+		} catch(IllegalArgumentException iae) {
+			cLogger.warn("Could not send message for question answered", iae);
+		}
 	}
 	
 	public static void generateActivityResponseReviewMessage(Course course,
@@ -43,10 +47,14 @@ public class MessagingUtils {
 						 activityResponseReview.activityResponse.title + 
 						 "'. Click on this link to view the review - " + 
 						 DIYCourseEvent.getActivityReviewURL(course, section, activityResponseReview); 
-				
-		// PrivateMessage.send(from, to, title, content);
-		PrivateMessage message = new PrivateMessage(from, to, title, content);
-		createMessage(message);
+		
+		try {
+			// PrivateMessage.send(from, to, title, content);
+			PrivateMessage message = new PrivateMessage(from, to, title, content);
+			createMessage(message);
+		} catch(IllegalArgumentException iae) {
+			cLogger.warn("Could not send message for activity response", iae);
+		}
 	}
 	
 	private static SocialUser getMessageFrom() {
