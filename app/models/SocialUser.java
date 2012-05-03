@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -42,7 +43,12 @@ public class SocialUser extends Model implements Comparable {
 		this.email = email;
 		this.screenname = screenname;
 		this.userProfile = new UserProfile(this);
-		this.roles = new TreeSet<Role>();
+		this.roles = new TreeSet<Role>(new Comparator<Role>() {
+			@Override
+			public int compare(Role arg0, Role arg1) {
+				return arg0.name.compareTo(arg1.name);
+			}
+		});
 		Role role = Role.find("select r from Role r where r.name = ?", "learner").first();
 		if(role != null) {
 			this.roles.add(role);
