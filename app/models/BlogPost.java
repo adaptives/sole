@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,6 +26,7 @@ public class BlogPost extends Model {
 	public String sanitizedTitle;
 	public Date postedAt;
 	public Date lastUpdatedAt;
+	@Lob
 	public String content;
 	
 	@ManyToMany

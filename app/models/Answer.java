@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -14,6 +15,7 @@ import play.db.jpa.Model;
 
 @Entity
 public class Answer extends Model {
+	@Lob
 	public String content;
 	@ManyToOne
 	public SocialUser author;

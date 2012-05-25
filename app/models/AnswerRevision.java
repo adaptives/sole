@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import play.data.validation.Required;
@@ -11,6 +12,7 @@ import play.db.jpa.Model;
 @Entity
 public class AnswerRevision extends Model {
 	public String note;
+	@Lob
 	public String content;
 	
 	@ManyToOne

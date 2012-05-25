@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.mail.MethodNotSupportedException;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import controllers.Activitys;
@@ -30,6 +31,7 @@ public class DIYCourseEvent extends Model {
 	
 	public String title;
 	
+	@Lob
 	public String text;
 	
 	public Date timestamp;

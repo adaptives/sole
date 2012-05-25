@@ -1,12 +1,14 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 import play.db.jpa.Model;
 
 @Entity
 public class KeyValueData extends Model {
 	public String k;
+	@Lob
 	public String v;
 	
 	public KeyValueData(String key, String value) {
