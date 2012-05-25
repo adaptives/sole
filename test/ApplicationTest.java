@@ -7,7 +7,7 @@ import models.*;
 public class ApplicationTest extends FunctionalTest {
 
     @Test
-    public void testThatIndexPageWorks() {
+    public void testThatIndexPageWorks() {    	
         Response response = GET("/");
         assertStatus(200, response);
 //        assertContentType("text/html", response);

@@ -1,24 +1,19 @@
 package models;
 
-import static org.junit.Assert.*;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 
-import models.Answer;
-import models.Question;
-import models.SocialUser;
-import models.User;
-
-import org.apache.ivy.core.search.RevisionEntry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import controllers.Security;
+import other.utils.InitUtils;
 
+import play.jobs.Job;
 import play.test.Fixtures;
 import play.test.UnitTest;
 
@@ -27,11 +22,7 @@ public class QuestionTest extends UnitTest {
 	@Before
 	public void setUp() {
 		Fixtures.deleteAll();
-		Fixtures.load("users-and-study-sessions.yml");
-		Fixtures.load("pages.yml");
-		Fixtures.load("diycourses.yml");
-		Fixtures.load("kvdata.yml");
-		Fixtures.load("site-events.yml");
+		InitUtils.initData();
 	}
 	
 	@After
@@ -41,7 +32,10 @@ public class QuestionTest extends UnitTest {
 	
 	@Test
 	public void testAddQuestion() throws Exception {
-		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
+		List<SocialUser> users = SocialUser.findAll();
+		SocialUser user = users.get(0);
+		assertNotNull(user);
+		
 		Date expectedAskedAt = new Date();
 		Question question = new Question("New question", "New question for test", user);
 		question.save();
@@ -58,18 +52,49 @@ public class QuestionTest extends UnitTest {
 	}
 	
 	@Test
-	public void testGetLatestRevision() throws Exception {
-		SocialUser user = SocialUser.find("byEmail", "someone@somewhere.com").first();
+	public void testFetchLatestRevision() throws Exception {
+		List<SocialUser> users = SocialUser.findAll();
+		SocialUser user = users.get(0);
+		assertNotNull(user);
+		
 		Question question = new Question("New question", "New question for test", user);
 		question.save();
 		assertEquals("New question for test", question.fetchLatestRevision());
 		
 		QuestionRevision questionRevision = new QuestionRevision("testing", "new content", user, question);
 		questionRevision.save();
-		question.latestRevision = questionRevision;
-		question.save();
+		
 		assertEquals("new content", question.fetchLatestRevision());
 	}
+	
+	@Test
+	public void testFetchLatestTags() throws Exception {
+		List<SocialUser> users = SocialUser.findAll();
+		SocialUser user = users.get(0);
+		assertNotNull(user);
+		
+		Question question = new Question("New question", "New question for test", user);
+		question.save();
+		assertEquals("New question for test", question.fetchLatestRevision());
+		
+		QuestionRevision questionRevision = new QuestionRevision("testing", "new content", user, question);
+		List<String> newTags = new ArrayList<String>();
+		newTags.add("new_tag1");
+		newTags.add("new_tag2");
+		for(String newTag : newTags) {
+			questionRevision.tagWith(newTag);
+		}		
+		questionRevision.save();
+		
+		Set<Tag> retreivedTags = question.fetchLatestTags();
+		assertEquals(2, retreivedTags.size());
+		for(Tag tag : retreivedTags) {
+			assertTrue(newTags.contains(tag.name));
+			newTags.remove(tag.name);
+		}
+	}
+	
+	
 	
 	@Test
 	public void testCanEdit() throws Exception {

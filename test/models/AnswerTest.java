@@ -17,6 +17,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import other.utils.InitUtils;
+
 import controllers.Security;
 
 import play.test.Fixtures;
@@ -27,11 +29,7 @@ public class AnswerTest extends UnitTest {
 	@Before
 	public void setUp() {
 		Fixtures.deleteAll();
-		Fixtures.load("users-and-study-sessions.yml");
-		Fixtures.load("pages.yml");
-		Fixtures.load("diycourses.yml");
-		Fixtures.load("kvdata.yml");
-		Fixtures.load("site-events.yml");
+		InitUtils.initData();
 	}
 	
 	@After
@@ -66,7 +64,7 @@ public class AnswerTest extends UnitTest {
 	}
 	
 	@Test
-	public void testLatestAnswer() throws Exception {
+	public void testLatestAnswer() throws Exception {		
 		List<SocialUser> socialUsers = SocialUser.findAll();
 		SocialUser questionAuthor = socialUsers.get(0);
 		Question question = new Question("title", "content", questionAuthor);
@@ -74,8 +72,7 @@ public class AnswerTest extends UnitTest {
 	    Answer answer = new Answer("content 1", questionAuthor, question);
 	    assertEquals("content 1", answer.getLatestRevision());
 	    AnswerRevision answerRevision = new AnswerRevision("", "content 2", questionAuthor, answer);
-	    answerRevision.save();
-	    answer.latestRevision = answerRevision;
+	    answerRevision.save();	    
 	    answer.save();
 	    assertEquals("content 2", answer.getLatestRevision());
 	}

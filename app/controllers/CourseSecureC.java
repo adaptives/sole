@@ -163,8 +163,6 @@ public class CourseSecureC extends Controller {
 			QuestionRevision questionRevision = 
 							new QuestionRevision(note, content, user, question);
 			questionRevision.save();
-			question.latestRevision = questionRevision;
-			question.save();
 			
 			if (tags != null) {
 				String tagArray[] = tags.split(",");
@@ -226,8 +224,6 @@ public class CourseSecureC extends Controller {
 			} else {
 				AnswerRevision answerRevision = new AnswerRevision(note, answerContent, user, answer);
 				answerRevision.save();
-				answer.latestRevision = answerRevision;
-				answer.save();
 				//saveIfNotNull(DIYCourseEvent.buildFromAnswer(course, user, answer));
 				//MessagingUtils.generateMessageForQuestionAnswered(question, course);
 				CourseC.forumQuestion(course.sanitizedTitle, questionId);

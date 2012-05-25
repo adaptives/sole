@@ -14,7 +14,7 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
-public class Answer extends Model {
+public class Answer extends Model implements Comparable {
 	@Lob
 	public String content;
 	@ManyToOne
@@ -26,10 +26,7 @@ public class Answer extends Model {
 	@ManyToOne
 	@Required
 	public Question question;
-	
-	@OneToOne
-	public AnswerRevision latestRevision;
-	
+		
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Answer.class);
 	
 	public Answer(String content, SocialUser author, Question question) {
@@ -81,18 +78,33 @@ public class Answer extends Model {
 		return retVal;
 	}
 	
+	//TODO: Inconsistent naming since this method begins with a 'fetch' in model.Question
 	public String getLatestRevision() {
-		String retVal = "";
-		if(this.latestRevision != null) {
-			retVal = this.latestRevision.content;
-		} else {
-			retVal = this.content;
+		String defaultContent = this.content;
+		String query = "select ar from AnswerRevision ar where ar.answer.id = ? order by ar.revisedAt asc";
+		AnswerRevision ar = AnswerRevision.find(query, this.id).first();
+		if(ar != null) {
+			defaultContent = ar.content;
 		}
-		return retVal;
+		return defaultContent;
 	}
-	
+		
 	public String toString() {
 		return id + " " + content;
+	}
+
+	@Override
+	//TODO: Create a compareUtils which will compare long objects once and for all
+	public int compareTo(Object arg0) {
+		Answer answer = (Answer)arg0;
+		long diff = this.id - answer.id;
+		if(diff < 0) {
+			return -1;
+		} else if(diff > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 }

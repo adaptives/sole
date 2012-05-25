@@ -40,10 +40,7 @@ public class Question extends Model {
 	
 	public boolean closed;
 	public boolean answered;
-	public boolean flagged;
-	
-	@OneToOne
-	public QuestionRevision latestRevision;
+	public boolean flagged;	
 	
 	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(Question.class);
 	
@@ -99,21 +96,23 @@ public class Question extends Model {
 	}
 	
 	public String fetchLatestRevision() {
-		String retVal = "";
-		if(this.latestRevision != null) {
-			retVal = this.latestRevision.content;
-		} else {
-			retVal = this.content;
+		String defaultContent = this.content;
+		String query = "select qr from QuestionRevision qr where qr.question.id = ? order by qr.revisedAt asc";
+		QuestionRevision qr = QuestionRevision.find(query, this.id).first();
+		if(qr != null) {
+			defaultContent = qr.content;
 		}
-		return retVal;
+		return defaultContent;
 	}
 	
 	public Set<Tag> fetchLatestTags() {
-		if(null != this.latestRevision) {
-			return this.latestRevision.tags;
-		} else {
-			return this.tags;
+		Set<Tag> defaultTags = this.tags;
+		String query = "select qr from QuestionRevision qr where qr.question.id = ? order by qr.revisedAt asc";
+		QuestionRevision qr = QuestionRevision.find(query, this.id).first();
+		if(qr != null) {
+			defaultTags = qr.tags;
 		}
+		return defaultTags;
 	}
 	
 	public boolean canEdit(String sUserId) {

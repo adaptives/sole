@@ -124,7 +124,7 @@ public class Course extends Model {
 		return answers;
 	}
 	
-	public boolean isSocialUserEnrolled(String userId) {
+	public boolean isSocialUserEnrolled(String userId) {		
 		boolean retVal = false;
 		if(userId != null) {
 			try {
