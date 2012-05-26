@@ -6,6 +6,7 @@ import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -15,6 +16,7 @@ import play.db.jpa.Model;
 @Entity
 public class QuestionRevision extends Model {
 	public String note;
+	@Lob
 	public String content;
 	
 	@ManyToOne

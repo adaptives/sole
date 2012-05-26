@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,6 +26,7 @@ public class Question extends Model {
 	
 	public String title;
 	public String sanitizedTitle;
+	@Lob
 	public String content;
 	@ManyToOne
 	public SocialUser author;
