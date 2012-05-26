@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -23,6 +24,7 @@ public class ActivityResponse extends Model implements Comparable {
 	public SocialUser user;
 	
 	@URL
+	@Column(length=1024)
 	public String responseLink;
 	public String title;
 	
