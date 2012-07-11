@@ -19,7 +19,7 @@ public class Bootstrap extends Job {
 
 	public void doJob() {
 		if(Play.mode == Play.Mode.DEV && SocialUser.findAll().size() == 0) {
-			InitUtils.initData();
+			//InitUtils.initData();
 		}
 	}
 	
