@@ -11,6 +11,9 @@ GET    /help                                                                    
 #Admin Menu
 GET     /adminc                                                                                                        AdminC.index
 GET     /adminc/data                                                                                                   AdminC.uploadData
+GET     /adminc/manageCourses                                                                                          AdminC.manageCourses
+GET     /adminc/manageCourse/{id}                                                                                      AdminC.manageCourse
+POST    /adminc/saveCourse                                                                                             AdminC.saveCourse
 GET     /adminc/manageCourseGroups                                                                                     AdminC.manageCourseGroups
 GET     /adminc/editCourseGroup/{id}                                                                                   AdminC.editCourseGroup
 POST    /adminc/saveExistingCourseGroup                                                                                AdminC.saveExistingCourseGroup            

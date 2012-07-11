@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+
+<h2>Create a new course</h2>
+
+<form action="/adminc/saveCourse" method="POST">
+	<p>
+		<div>Title:</div>
+		<div> 
+			<input type="text" name="title" />
+		</div>
+	</p>
+	
+	<p>
+		#{select 'categoryId', items:categories /}
+	</p>
+	
+	<p>
+		<div>Sections: </div>
+		<div>
+			<textarea rows="10" cols="80" name="sections"></textarea>
+		</div>
+	</p>
+	<div>
+		<input type="submit" value="submit" name="submit" />
+	</div>
+</form>
+
+<h2>Edit an existing course</h2>
+<div>
+#{list items:courses, as:'course'}
+	<div>
+		<a href="@{AdminC.manageCourse(course.id)}">${course.title}</a>
+	</div>
+#{/list}
+</div>

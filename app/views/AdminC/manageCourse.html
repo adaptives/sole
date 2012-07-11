@@ -1,0 +1,13 @@
+#{extends 'main.html' /}
+
+<h2>Course details</h2>
+Click here to edit course details
+
+<h2>Sections</h2>
+<div>
+#{list items:sections, as:'section'}
+	<div>
+		<a href="@{CourseSections.show(section.id)}">${section.title}</a>
+	</div>
+#{/list}
+</div>

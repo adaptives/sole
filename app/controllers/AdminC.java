@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +18,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import models.Course;
+import models.CourseCategory;
 import models.CourseGroup;
+import models.CourseSection;
 import models.SocialUser;
 
 import org.yaml.snakeyaml.Yaml;
@@ -40,6 +45,45 @@ public class AdminC extends Controller{
 	
 	public static void uploadData() {
 		render();
+	}
+	
+	public static void manageCourses() {
+		List<CourseCategory> categories = CourseCategory.findAll();
+		List<Course> courses = Course.findAll();
+		render(categories, courses);
+	}
+	
+	public static void manageCourse(long id) {
+		Course course = Course.findById(id);
+		notFoundIfNull(course);
+		List<CourseSection> sections = course.fetchSectionsByPlacement();
+		notFoundIfNull(sections);
+		render(course, sections);
+	}
+	
+	public static void saveCourse(String title, String sections, long categoryId) {
+		String callToActionString = "Put course contents here !";
+		try {
+			//Create the course
+			Course course = new Course(title, callToActionString);
+			CourseCategory category = CourseCategory.findById(categoryId);
+			if(category != null) {
+				course.category = category;
+				course.save();
+			}
+			
+			//Create sections
+			BufferedReader reader = new BufferedReader(new StringReader(sections));
+			String line = null;
+			while((line = reader.readLine()) != null) {
+				CourseSection section = new CourseSection(course, line, callToActionString);
+				section.save();
+			}
+			manageCourses();
+		} catch(Exception ioe) {
+			flash.error("Could not create course and sections " + ioe);
+			render("emptypage.html");
+		}
 	}
 	
 	public static void manageCourseGroups() {
