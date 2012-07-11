@@ -86,6 +86,30 @@ public class AdminC extends Controller{
 		}
 	}
 	
+	public static void saveSection(long courseId, String title, String contents) {
+		Course course = Course.findById(courseId);
+		notFoundIfNull(course);
+		CourseSection section = new CourseSection(course, title, contents);
+		section.save();
+		manageCourse(course.id);
+	}
+	
+	public static void changePlacements(long courseId) {
+		Map<String, String[]> all = params.all();
+		for(String key : all.keySet()) {
+			if(key.startsWith("placement")) {
+				String sSectionId = key.substring(key.indexOf("-")+1);
+				long sectionId = Long.parseLong(sSectionId);
+				CourseSection section = CourseSection.findById(sectionId);
+				notFoundIfNull(section);
+				String placementArr[] = all.get(key);
+				section.placement = Integer.parseInt(placementArr[0]);
+				section.save();
+			}
+		}
+		manageCourse(courseId);
+	}
+	
 	public static void manageCourseGroups() {
 		List<CourseGroup> courseGroups = CourseGroup.findAll();
 		render(courseGroups);
