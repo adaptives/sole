@@ -1,6 +1,7 @@
 #{extends 'main.html' /}
 
-<h2>Course details</h2>
+<a href="@{AdminC.manageCourses}">Back to manage courses</a>
+<h2>Course: ${course.title}</h2>
 Click <a href="@{Courses.show(course.id)}">here</a> to edit course details.
 
 <h2>Sections</h2>

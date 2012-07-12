@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-
+<a href="@{AdminC.manageCourse(section.course.id)}">Back to manage course</a>
 <h2>Course: ${section.course.title}</h2>
 <h2>Section: ${section.title}</h2>
 Click <a href="@{CourseSections.show(section.id)}">here</a> to edit section details.
