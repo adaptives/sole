@@ -14,7 +14,14 @@ GET     /adminc/data                                                            
 GET     /adminc/manageCourses                                                                                          AdminC.manageCourses
 GET     /adminc/manageCourse/{id}                                                                                      AdminC.manageCourse
 POST    /adminc/saveCourse                                                                                             AdminC.saveCourse
+GET     /adminc/manageSection/{sectionId}                                                                              AdminC.manageSection
 POST    /adminc/saveSection/course/{courseId}                                                                          AdminC.saveSection
+GET     /adminc/deleteSectionConfirm/{sectionId}                                                                       AdminC.deleteSectionConfirm
+POST    /adminc/deleteSection/{sectionId}                                                                              AdminC.deleteSection
+GET     /adminc/deleteActivityConfirm/activity/{activityId}/section/{sectionId}                                        AdminC.deleteActivityConfirm
+POST    /adminc/deleteActivity/{activityId}                                                                            AdminC.deleteActivity
+POST    /adminc/saveActivity/section/{sectionId}                                                                       AdminC.saveActivity
+POST    /adminc/changeActivityPlacements/section/{sectionId}                                                           AdminC.changeActivityPlacements
 POST    /adminc/changePlacements/course/{courseId}                                                                     AdminC.changePlacements
 GET     /adminc/manageCourseGroups                                                                                     AdminC.manageCourseGroups
 GET     /adminc/editCourseGroup/{id}                                                                                   AdminC.editCourseGroup

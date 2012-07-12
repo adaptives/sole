@@ -8,7 +8,9 @@ Click <a href="@{Courses.show(course.id)}">here</a> to edit course details.
 <form action="/adminc/changePlacements/course/${course.id}" method="post">
 #{list items:sections, as:'section'}
 	<div>		
-		<input type="textbox" name="placement-${section.id}" value="${section.placement}"><a href="@{CourseSections.show(section.id)}">${section.title}</a>
+		<input type="textbox" name="placement-${section.id}" value="${section.placement}">
+		<a href="@{AdminC.manageSection(section.id)}">${section.title}</a> 
+		<a href="@{AdminC.deleteSectionConfirm(section.id)}">X</a>
 	</div>
 #{/list}
 	<p><input type="submit" name="submit" value="Change Placement" /></p>	

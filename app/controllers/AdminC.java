@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import models.Activity;
 import models.Course;
 import models.CourseCategory;
 import models.CourseGroup;
@@ -25,6 +26,7 @@ import models.SocialUser;
 
 import org.yaml.snakeyaml.Yaml;
 
+import play.Logger;
 import play.Play;
 import play.PlayPlugin;
 import play.data.binding.Binder;
@@ -38,6 +40,8 @@ import play.vfs.VirtualFile;
 @Check("admin")
 @With(Secure.class)
 public class AdminC extends Controller{
+	
+	public static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(AdminC.class);
 	
 	public static void index() {
 		render();
@@ -86,12 +90,86 @@ public class AdminC extends Controller{
 		}
 	}
 	
+	public static void manageSection(long sectionId) {
+		CourseSection section = CourseSection.findById(sectionId);
+		notFoundIfNull(section);
+		render(section);
+	}
+	
 	public static void saveSection(long courseId, String title, String contents) {
 		Course course = Course.findById(courseId);
 		notFoundIfNull(course);
 		CourseSection section = new CourseSection(course, title, contents);
 		section.save();
 		manageCourse(course.id);
+	}
+	
+	public static void deleteSectionConfirm(long sectionId) {
+		CourseSection section = CourseSection.findById(sectionId);
+		notFoundIfNull(section);
+		render(section);
+	}
+	
+	public static void deleteSection(long sectionId) {
+		CourseSection section = CourseSection.findById(sectionId);
+		notFoundIfNull(section);
+		section.delete();		
+		manageCourse(section.course.id);
+	}
+	
+	public static void changeActivityPlacements(long sectionId) {
+		Map<String, String[]> all = params.all();
+		for(String key : all.keySet()) {
+			if(key.startsWith("placement")) {
+				String sActivityId = key.substring(key.indexOf("-")+1);
+				long activityId = Long.parseLong(sActivityId);
+				Activity activity = Activity.findById(activityId);
+				notFoundIfNull(activity);
+				String placementArr[] = all.get(key);
+				activity.placement = Integer.parseInt(placementArr[0]);
+				activity.save();
+			}
+		}
+		manageSection(sectionId);
+	}
+	
+	public static void deleteActivityConfirm(long activityId, long sectionId) {
+		Activity activity = Activity.findById(activityId);
+		notFoundIfNull(activity);
+		render(activity, sectionId);
+	}
+	
+	public static void deleteActivity(long activityId, long sectionId) {
+		CourseSection section = CourseSection.findById(sectionId);
+		notFoundIfNull(section);
+		Activity activity = Activity.findById(activityId);
+		notFoundIfNull(activity);
+		section.activities.remove(activity);
+		section.save();
+		try {
+			if(activity.activityResponses.size() == 0) {
+				activity.delete();
+			} else {
+				String  msg = "Did not delete activity with id " + activity.id + 
+					      " because it has some responses. The activity has " +
+					      " however, been removed from section " + section.id;
+				flash.error(msg);
+			}
+						
+		} catch(Exception e) {			
+			//TODO: Generate a random number here for being able to quickly read the real exception
+			cLogger.warn("Could not delete activity " + activity.id, e);
+		}
+		manageSection(sectionId);
+	}
+	
+	public static void saveActivity(long sectionId, String title, String content) {
+		CourseSection section = CourseSection.findById(sectionId);
+		notFoundIfNull(section);
+		Activity activity = new Activity(title, content);
+		section.activities.add(activity);
+		section.save();
+		manageSection(sectionId);
 	}
 	
 	public static void changePlacements(long courseId) {

@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+
+<div>
+<h2>${activity.title}</h2>
+<div>
+	${activity.content}
+</div>
+<h3>Responses</h3>
+<div>
+	#{list items:activity.activityResponses, as:'response'}
+		<div><strong>${response.title}</strong> submitted by ${response.user.screenname}</div>
+	#{/list}
+</div>
+<form action="/adminc/deleteActivity/${activity.id}" method="post">
+	<p>
+		Do you really want to delete this activity ?
+	</p>
+	<p>
+		<input type="hidden" name="sectionId" value="${sectionId}" />
+		<input type="submit" name="submit" value="submit" />
+	</p>
+</form>
+</div>
