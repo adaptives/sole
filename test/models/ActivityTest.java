@@ -11,6 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import other.utils.InitUtils;
+
 import play.test.Fixtures;
 import play.test.UnitTest;
 
@@ -19,6 +21,7 @@ public class ActivityTest extends UnitTest {
 	@Before
 	public void setUp() throws Exception {
 		Fixtures.deleteAll();
+		InitUtils.initData();
 	}
 
 	@After
@@ -32,7 +35,7 @@ public class ActivityTest extends UnitTest {
 		List<Activity> preActivities = Activity.findAll();
 		
 		List<SocialUser> users = SocialUser.findAll();
-		Assert.assertNotSame(0, users.size());
+		
 		List<Course> courses = Course.findAll();
 		Course course = courses.get(0);
 		List<CourseSection> sections = course.fetchSectionsByPlacement();
