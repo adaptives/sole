@@ -33,7 +33,9 @@ public class PastebinTest extends UnitTest {
 		
 		//retrieve
 		List<Pastebin> pastebins = Pastebin.findAll();
-		assertEquals(1, pastebins.size());
+		//We will already have one pre-populated course, which will have a Pastebin
+		//hence 2
+		assertEquals(2, pastebins.size());
 	}
 
 	@Test
