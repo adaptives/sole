@@ -22,7 +22,7 @@ import play.Logger;
 import play.db.jpa.Model;
 
 @Entity
-public class Question extends Model {
+public class Question extends Model implements Comparable<Question> {
 	
 	public String title;
 	public String sanitizedTitle;
@@ -132,5 +132,10 @@ public class Question extends Model {
 	
 	public String toString() {
 		return id + " " + title;
+	}
+
+	@Override
+	public int compareTo(Question other) {
+		return this.askedAt.compareTo(other.askedAt);
 	}
 }
