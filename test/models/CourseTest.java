@@ -1,6 +1,8 @@
 package models;
 import org.junit.*;
 
+import other.utils.InitUtils;
+
 import java.util.*;
 
 import play.test.*;
@@ -10,7 +12,8 @@ public class CourseTest extends UnitTest {
 
 	@Before
 	public void setUp() {
-		Fixtures.deleteAll();		
+		Fixtures.deleteAll();
+		InitUtils.initData();
 	}
 	
 	@After
@@ -37,8 +40,6 @@ public class CourseTest extends UnitTest {
 	
 	@Test
 	public void testAddQuestion() throws Exception {
-		Fixtures.load("users-and-study-sessions.yml");
-		Fixtures.load("diycourses.yml");
 		//create Course
 		Course javaCourse = new Course("Introduction to Java", "Java Programming Description"); 
 		javaCourse.save();
@@ -55,7 +56,6 @@ public class CourseTest extends UnitTest {
 	
 	@Test
 	public void testGetQuestionsAskedBySocialUser() throws Exception {
-		Fixtures.load("users-and-study-sessions.yml");
 		
 		List<SocialUser> socialUsers = SocialUser.findAll();
 		
@@ -73,7 +73,6 @@ public class CourseTest extends UnitTest {
 	
 	@Test
 	public void testGetAnswersGivenBySocialUser() throws Exception {
-		Fixtures.load("users-and-study-sessions.yml");
 		
 		List<SocialUser> socialUsers = SocialUser.findAll();
 		

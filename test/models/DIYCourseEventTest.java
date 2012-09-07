@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import other.utils.InitUtils;
+
 import play.test.Fixtures;
 import play.test.UnitTest;
 
@@ -14,8 +16,7 @@ public class DIYCourseEventTest extends UnitTest {
 	@Before
 	public void setUp() throws Exception {
 		Fixtures.deleteAll();
-		Fixtures.load("users-and-study-sessions.yml");
-		Fixtures.load("diycourses.yml");
+		InitUtils.initData();
 	}
 
 	@After

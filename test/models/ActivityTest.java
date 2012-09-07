@@ -19,7 +19,6 @@ public class ActivityTest extends UnitTest {
 	@Before
 	public void setUp() throws Exception {
 		Fixtures.deleteAll();
-		Fixtures.load("users-and-study-sessions.yml");
 	}
 
 	@After
