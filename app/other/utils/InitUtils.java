@@ -32,7 +32,7 @@ public class InitUtils {
 		createSiteEvents();
 		createCourse();
 		createLevels();
-		createTopic("default-data.csv");
+		createTopic("competencies-data.csv");
 	}
 
 	private static void createRoles() {
