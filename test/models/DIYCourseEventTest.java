@@ -84,12 +84,13 @@ public class DIYCourseEventTest extends UnitTest {
 		section1.save();
 		
 		ActivityResponse activityResponse = new ActivityResponse(user1, activity, "http://diycomputerscience.com", "Peer Learning Environemnt for Computer Science");
+		activityResponse.save();
 		
 		DIYCourseEvent event = DIYCourseEvent.buildFromActivityResponse(user1, activityResponse);
 		
 		String expectedEventString = 
-			"<span id=\"%s\" class=\"user-image-small\"></span><a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/courses/course/introduction-to-java/section/section-1/activity/responses#%s\">activity title</a>'";
-		assertEquals(String.format(expectedEventString, user1.id, user1.id, activity.id), event.render());
+			"<span id=\"%s\" class=\"user-image-small\"></span><a href=\"/users/%s\">anothertestuser</a> submitted an activity response for activity '<a href=\"/course/introduction-to-java/section/section-1/activityResponse/%s/review\">activity title</a>'";
+		assertEquals(String.format(expectedEventString, user1.id, user1.id, activityResponse.id), event.render());
 		
 	}
 
