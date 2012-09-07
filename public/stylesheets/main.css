@@ -19,3 +19,5 @@
 @Import url(submenu.css);
 @Import url(pagedown.css);
 @Import url(reports.css);
+@Import url(competencies.css);
+@Import url(table.css);

@@ -1,0 +1,34 @@
+#{extends 'CompetenciesC/competenciesMain.html' /}
+#{set competencyTitle:topic.title /}
+<div>
+	<a href="@{CompetenciesC.topics}">back</a>
+</div>
+
+<table class="table table-bordered table-striped responsive-utilities">
+<thead>
+	<tr>
+		<th>&nbsp;</th>
+		#{list items:topic.levels, as:'level'}
+			<th>${level.title}</th>	
+		#{/list}
+	</tr>
+</thead>
+<tbody>
+	#{list items:topic.competencyGroups, as:'competencyGroup'}
+		<tr>
+			<th>${competencyGroup.title}</th>
+			#{list items:topic.levels, as:'level'}
+				<td>
+					<table class="table table-bordered table-striped responsive-utilities">
+						<tbody>
+							#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
+								<tr><td>${competency.title}&nbsp;</td></tr>
+							#{/list}
+						</tbody>
+					</table>
+				</td>	
+			#{/list}
+		</tr>
+	#{/list}	
+</tbody>
+</table>
