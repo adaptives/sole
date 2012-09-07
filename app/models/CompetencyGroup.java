@@ -136,6 +136,6 @@ public class CompetencyGroup extends Model implements Comparable {
 
     @Override
     public String toString() {
-        return this.id + " : " + this.title;
+        return this.id + " : " +  this.topic.title + " : " + this.title;
     }
 }

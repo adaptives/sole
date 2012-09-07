@@ -108,7 +108,7 @@ public class Competency extends Model implements Comparable {
 
     @Override
     public String toString() {
-    	return this.id + " : " + this.title;
+    	return this.id + " : " + this.competencyGroup.topic.title + " : " + this.competencyGroup.title + " : " + this.title;
     }
 
     public static Competency findByTitle(String title) {
