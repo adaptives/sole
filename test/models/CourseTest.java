@@ -31,7 +31,7 @@ public class CourseTest extends UnitTest {
 		pythonCourse.save();
 		
 		List<Course> courses = Course.findAll();
-		assertEquals(3, courses.size());
+		assertEquals(4, courses.size());
 		
 		Course retrievedJavaCourse = Course.find("byTitle", "Introduction to Java").first();
 		assertEquals(javaCourse, retrievedJavaCourse);
