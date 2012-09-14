@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Activity;
+import models.BlogPost;
 import models.Competency;
 import models.CompetencyGroup;
 import models.Course;
@@ -28,6 +29,7 @@ public class InitUtils {
 		createRoles();
 		createUsers();
 		createPages();
+		createBlogPosts();
 		createKVData();
 		createSiteEvents();
 		createCourse();
@@ -91,7 +93,8 @@ public class InitUtils {
 
 	private static void createKVData() {
 		KeyValueData kvData = new KeyValueData("recently_pub_ss",
-				"http://feeds.feedburner.com/DIYComputerScienceRecentlyPublishedStudySessions");
+											   "http://feeds.feedburner.com/DIYComputerScienceRecentlyPublishedStudySessions");
+		KeyValueData disqusDev = new KeyValueData("disqus_developer", "1"); 
 	}
 
 	private static void createPages() {
@@ -252,6 +255,14 @@ public class InitUtils {
 		faqPage.save();
 	}
 
+	private static void createBlogPosts() {
+		List<SocialUser> socialUsers = SocialUser.findAll();
+		BlogPost blogPost = new BlogPost(socialUsers.get(0), 
+										 "Blog Post", 
+										 "This is a blog post");
+		blogPost.save();
+	}
+	
 	private static void createLevels() {
 		Level level1 = new Level("Level I", "Level I Description");
 		level1.placement = 1;
