@@ -26,13 +26,15 @@
 			<th>${competencyGroup.title}</th>
 			#{list items:topic.levels, as:'level'}
 				<td>
-					<table class="table table-bordered table-striped responsive-utilities">
-						<tbody>
-							#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
-								<tr><td>${competency.title}&nbsp;</td></tr>
-							#{/list}
-						</tbody>
-					</table>
+					#{if competencyGroup.fetchCompetenciesForLevel(level)}
+						<table class="table table-bordered table-striped responsive-utilities">
+							<tbody>							
+									#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
+										<tr><td>${competency.title}</td></tr>
+									#{/list}							
+							</tbody>
+						</table>
+					#{/if}
 				</td>	
 			#{/list}
 		</tr>
