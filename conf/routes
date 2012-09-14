@@ -101,7 +101,7 @@ GET     /messages/inbox/{messageId}                                             
 POST    /markdown/processmarkdown                                                                                      MarkdownC.processMarkdown
 
 # Competencies
-GET     /competencies/topics                                                                                           CompetenciesC.topics
+GET     /competencies                                                                                                  CompetenciesC.topics
 GET     /competencies/topic/{sanitizedTitle}                                                                           CompetenciesC.topic
 GET     /competencies/topic/{sanitizedTopicTitle}/competencygroup/{sanitizedCompetencyGroupTitle}                      CompetenciesC.competencyGroup
 GET     /competencies/topic/{sanitizedTopicTitle}/competency/{sanitizedCompetencyTitle}                                CompetenciesC.competency
