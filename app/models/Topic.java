@@ -20,6 +20,7 @@ import javax.persistence.PersistenceException;
 import other.utils.StringUtils;
 
 import play.data.validation.Required;
+import play.data.validation.URL;
 import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
@@ -33,6 +34,9 @@ public class Topic extends Model implements Comparable {
 	//TODO: Test
 	@Column(nullable=false)
 	public String sanitizedTitle;
+	
+	@URL
+	public String imageUrl;
 		
 	@Lob
 	public String description;

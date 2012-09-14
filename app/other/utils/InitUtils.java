@@ -294,6 +294,7 @@ public class InitUtils {
 			topic.levels.add(levels.get(0));
 			topic.levels.add(levels.get(1));
 			topic.levels.add(levels.get(2));
+			topic.imageUrl = "/public/images/diycomputerscience_logo_1.gif";
 			topic.save();
 		} catch (IOException ioe) {
 			//cLogger.error("caught IOException while parsing default data ", ioe);
