@@ -5,6 +5,7 @@ package controllers;
 
 import java.util.List;
 
+import models.Competency;
 import models.Topic;
 import play.mvc.Controller;
 
@@ -38,7 +39,9 @@ public class CompetenciesC extends Controller {
 	
 	public static void competency(String sanitizedTopicTitle, 
 								  String sanitizedCompetencyTitle) {
-		render();
+		Competency competency = Competency.fetchBySanitizedTitle(sanitizedCompetencyTitle);
+		notFoundIfNull(competency);
+		render(competency);
 	}
 
 }

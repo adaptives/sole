@@ -1,11 +1,9 @@
-#{extends 'CompetenciesC/competenciesMain.html' /}
+#{extends 'CompetenciesC/competencyTopicMain.html' /}
 
-<p class="course-category-header">
-	Competencies for ${topic.title}
-</p>
-<div>
-	<a href="@{CompetenciesC.topics}">back</a>
-</div>
+%{ route = play.mvc.Router.reverse('CompetenciesC.topics') }%
+									
+#{set backLink:route /}
+
 <div>
 	<div>
 		${topic.description}
@@ -30,7 +28,7 @@
 						<table class="table table-bordered table-striped responsive-utilities">
 							<tbody>							
 									#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
-										<tr><td>${competency.title}</td></tr>
+										<tr><td><a href="@{CompetenciesC.competency(topic.sanitizedTitle, competency.sanitizedTitle)}">${competency.title}</a></td></tr>
 									#{/list}							
 							</tbody>
 						</table>

@@ -1,3 +1,13 @@
-#{extends 'CompetenciesC/competenciesMain.html' /}
+#{extends 'CompetenciesC/competencyTopicMain.html' /}
 
-Competency
+%{ route = play.mvc.Router.reverse('CompetenciesC.topic', [sanitizedTitle:competency.competencyGroup.topic.sanitizedTitle]) }%									
+#{set backLink:route /}
+
+
+<h2>
+${competency.title}
+</h2>
+
+<div>
+${competency.description}
+</div>
