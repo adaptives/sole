@@ -23,6 +23,7 @@ import models.CourseCategory;
 import models.CourseGroup;
 import models.CourseSection;
 import models.SocialUser;
+import models.Topic;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -57,13 +58,18 @@ public class AdminC extends Controller{
 		render(categories, courses);
 	}
 	
+	public static void manageCompetencies() {
+		List<Topic> topics = Topic.findAll();
+		render(topics);
+	}
+
 	public static void manageCourse(long id) {
 		Course course = Course.findById(id);
 		notFoundIfNull(course);
 		List<CourseSection> sections = course.fetchSectionsByPlacement();
 		notFoundIfNull(sections);
 		render(course, sections);
-	}
+	}		
 	
 	public static void saveCourse(String title, String sections, long categoryId) {
 		String callToActionString = "Put course contents here !";
