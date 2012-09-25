@@ -1,0 +1,306 @@
+,Level I,Level II
+"History and motivation","Should understand at a high level what the motivating factors were to create Java","Appreciates the reasons that motivated the creation of Java"
+,"Is aware that Java is a garbage collected language","Understands at a high level what platform portability means"
+,"Understands at a high level what platform portability means","Is aware of the default encoding of Java source files"
+,"Understands at a high level what platform portability means","Is aware that Java has also achieved language portability with languages that compile to bytecode"
+,"Understands the role a VM plays in platform portability",
+,"Understands the difference between compilation and interpretation",
+,,
+"Overall Code structure","Knows that all Java code must be in a file ending in the .java extension","Understands how namespaces lend to modularization of code and can make choices about which package a certain class should belong to"
+,"Understands rules related to classes in a physical Java file",
+,"Knows what can constitute a valid class, and variable name",
+,"Knows what keywords are",
+,"Understands that every Java application (and not Applets) have as their entry point a class with a public static void main function.  Public static void main(String args[])",
+,"Understands the basic structure of a Java class",
+,"Knows the meaning of primitive data types in Java",
+,,
+,"Knows the difference between int and long, short, and byte",
+,,
+,,
+,,
+,,
+"Primitives","Knows about primtive data types in Java","Understands why the creators of Java made primtive data types vs. making everything into an object"
+,"Knows the difference between float and double","Knows that 16 bits are not good enough for storing the extended range of unicode characters"
+,"Understands the difference int and long, short, and byte","Knows that a boolean may not necassarily take only 1 bit of storage on the heap"
+,"Knows the difference between float and double","Knows how to deal with the extended unicode range in code"
+,"Understands why we need a boolean",
+,"Understands that a char represents a 16 bit unicode character",
+,,
+,,
+,,
+,,
+,,
+"Language basics","Knows what is type casting in primitives","Is conceptually aware of new language features planned for the next release of Java"
+,"Understand that java is 'strongly-typed' language and what it means to be a strongly types language",
+,"Knows why an int can automatically cast into a long and a float can automatically cast into a double",
+,"Understands what happens when a long is coerced into a int",
+,"Understands what happens when a float is coerced into an int",
+,"Understands what happens when we perform path with a float and int",
+,"Understands that floats are automatically promoted to double",
+,"Knows that Java does not support operator overloading except in the case of '+' operator for concatenating Strings",
+,"Understands that primitive values are passed by value in Java",
+,"Understands that when objects are passed to another method, their references are passed by value, which in effect means that objects are passed as references.",
+,,
+,,
+,,
+"Flow of control","Understands how to control flow with if...else",
+,"Understands how to control flow with  switch",
+,"Knows how to use the tertiary operator",
+,"Knows what types can be given to a switch statement",
+,"Understands logical expressions using logical operator like &&(and),||(or),!(not) and other operators like <, >, ==, !=, <=, >=, etc.","Is aware of how short circuiting works with conditional operators"
+,"Understands that in Java, logical expressions evaluate to 'true' or 'false' and never to 1(non-zero) or 0.",
+,"Understands how to repeat code using the for statement",
+,"Understands how to repeat code using the while statement",
+,"Understands working of do-while looping construct",
+,"Understands how to use nested loops for complex flow of control",
+,,
+"String handling","Understands the difference between a character and String","Knows that concatenation can be done faster with StringBuffer"
+,"Knows how to concatanate multiple strings using the operator and or API",
+,"Understands what happens when we concatenate a String with another data type","Understands what constitutes a good toString method"
+,"Knows how to get a substring from a String","Knows how to split a string using a regex"
+,"Knows how to determine if a String has a particular substring","Knows how to create a String using unicode characters"
+,"Knows how to split a string on whitespace","Knows what a CharacterSequence is and why a String is a CharacterSequence"
+,"Knows that Strings are immutable",
+,"Knows how to determine the length of a String",
+,"Is aware of and can use various API's for comparing Strings",
+,"Understands difference between equals() and ==",
+,"Knows to search  within Strings using functions indexOf(), lastIndexOf()",
+,"Knows functions to modify a string such as subString(), concat(),replace(),trim(),",
+,"Knows how to use API's to change the case of a String",
+,,
+"OO Java","Knows how to define a class in Java","Clearly gets programming to interfaces"
+,"Knows what an access modifier is and understands the differences between public, private,protected, and package private","Knows why Java chose to have java.lang.Object as the common superclass of all other classes in Java"
+,"Understands the differences between public, private, protected, and package private classes","Understands why upcasting is automatic"
+,"Understands that attributes hold the state of a class and how to declare them","Understands the SOLID principles of OO design"
+,"Is aware of what the keyword 'this' means","Understands the pros and cons between composition and inheritance"
+,"Knows how to initialize attributes in a constructor","Understands why and how we should plan ahead for inheritance"
+,"Understands the difference between a public, private, protected, and package protected methods",
+,"Knows that Java does not support multiple inheritance","Knows how to create constants using enums"
+,"Knows what an interface is and why it is needed","Knows how to make an enum implement an interface and why we would do such a thing"
+,"Knows how to define an interface",
+,"Knows how to implement an interface in a class",
+,"Knows that java.lang.object is the superclass of everything in Java",
+,"Knows the difference between class and object",
+,"Knows how to instantate an object from a class",
+,"Knows how to call a method of an object",
+,"Knows how to access attributes of an object",
+,"Knows why it is a good idea for attributes to be private",
+,"Knows the difference between class and instance attributes as well as methods",
+,"Understands the meaning of type casting",
+,"Understands how to inherit from a superclass and what aspects of the superclass will be available in the subclass",
+,"Understands how to override methods in subclasses",
+,"Understands the runtime behavior of a set of objects that have inheritance relationships among them",
+,"Understand how to pass objects between methods",
+,"Understands how a subclass can refer to members of it's superclass",
+,"Understands the significance and usage of final variables",
+,"Understands that a method can be declared as Final to disallow that method from being overridden",
+,"Understands how to prevent a class from being inherited",
+,"Understands the order in which a class and it's members (static as well as non static) are initialized",
+,"Understands the basic destruction process of an object",
+,"Is aware that String and integer constants are not a good way to represent constants in an OO langugae. Also understands why",
+,,
+,,
+"Collections","Understands why we need to hold a collection of objects","Understands the trade-offs between different list types and when to use which"
+,"Knows that an array is the primtive collection type in Java","Understands how equality is determined when adding elements to Sets"
+,"Knows that arrays in Java are objects and are passed by reference","Understands why it is dangerous to delete elements from a List while iterating it using a for loop"
+,"Understands the limitations of an array",
+,"Knows how to create an array of primitives and an array of objects (included populating the array)","Is aware of what a ListIterator is and can use it"
+,"Understands conceptually what a list is, and why it is needed","Is aware of what ConcurrentModificationException means and why we get it while iterating across a List"
+,"Knows that ArrayList and LinkedList are the two most common types of lists and the basic difference between them","Knows why we should override hashCode when we override equals"
+,"Understands conceptually what a Set is and why it is needed","Knows how to write a good hashCode and equals function"
+,"Knows that HashSet and TreeSet are the two most common types of Sets and is aware of the key difference between them","Is able to access Map elements using the more advanced data structure provided in Maps"
+,"Knows that TreeSet is a type of set and is aware of the time taken for basic operations on a TreeSet","Understands trade-offs for basic operations on different types of Lists"
+,"Knows what an associative array is and knows that maps are associative arrays, Understands the need for associative arrays","Understands trade-offs on basic operations on different types of Sets"
+,"Knows that HashMap and TreeMap are different types of maps and is aware of their main differences","Understands trade-offs on basic operations on different types of Maps"
+,"Knows how to perform basic operations on an ArrayList and is aware of their time complexity","Is aware that the Tree data structure in Java is implemented as Red-Black trees"
+,"Knows how to perform basic operations on an LinkedList and is aware of their time complexity","Clearly understands why we need to use generics with collections"
+,"Knows how to perform basic operations on a HashSet and their time complexity","Knows what Red-Black trees are"
+,"Knows how to perform basic operations on a HashMap and is aware of their time complexity","Knows how to write code that can avoid getting a concurrentModificationException"
+,"Knows how to perform basic operations on a TreeMap and is aware of their time complexity","Is aware of the thread safe collection classes"
+,"Knows how to remove an element from an array and is aware that it will create a hole in the array",
+,"Can iterate across a List and Set using loops (also enhanced for loop)",
+,"Knows how to iterate across a List using the regular for loop",
+,"Knows how to iterate across a List and Set using an Iterator",
+,"Knows how to iterate across a List and Set using the enhanced for loop",
+,"Knows how to determine the size of any Collection object",
+,"Understands why elements that are added to a TreeSet will need to be compared by the TreeSet",
+,"Understands why the keys of a Map are represented as a Set",
+,"Is aware that collections in their underlying form can hold any type of object",
+,"Understands why collections are able to hold any type of object",
+,"Knows how to create a collection object with proper type information using generics",
+,"Knows about legacy classes like Vector, Stack, Dictionary,Hashtable",
+,"Knows how the new collection classes differ from the legacy classes",
+,,
+"Exceptions","Understands why the old way of error control is flawed","Knows when to handle vs. when to propagate an exception"
+,"Understands conceptually what an Exception is and why we need it",
+,"Understands that an exception is a way of returning control to the caller, albiet in an Exceptional way","Understands the importance of how to embed the cause of an Exception"
+,"Is aware that it is a good practice to give approporiate names to Exceptions","Knows how to embed the cause of an Exception"
+,"Kows how to write code that can handle an Exception","Knows why it is important to always catch specific Exception types vs. Exception"
+,"Knows how to propogate an Exception from a method","Understands why it is not good to suppress Exceptions"
+,"Knows how to rethrow an Exception",
+,"Understands what will happen when an Exception is propogated out of the main method","Understands why throw early catch late is good philosophy"
+,"Knows the difference between catching 'Excception' and speific exceptions","Knows why it is a good idea to override all four constructors while creating a custom Exception"
+,"Knows how to print the stack trace","Knows why it is a best practice to log an Exception only once"
+,"Knows how to read a printed stack trace","Knows that Exceptions should be wrapped when crossing a layer boundary, and understands the why"
+,"Knows how to create a custom Exception","Can identify if a particular type of Exception should be a runtime exception"
+,"Knows how to throw an Exception","Knows how to programatically get the call stack from an Exception object"
+,"Understands the difference beyween throw and throws","Knows where in the chain of Exception propagation it should be logged"
+,"Knows what finally means and why we use it","Can make subtle decisions about whether an exception should be handled vs. whether it should be propagated"
+,"Knows that finally can be used without a catch",
+,"Understands that it is not good to suppress Exceptions",
+,"Knows that it is not compulsory to handle RuntimeExceptions",
+,"Know why Runtime exceptions exist",
+,,
+"IO","Knows the meaning of streams","Knows how to use a String as a data source for a Reader"
+,"Is aware that there are different types of input streams and what they represent","Is aware of the drawbacks of buffering"
+,"Is aware that there are different types of output streams and what they represent","Clearly understands what the decorator design pattern is and how it is used in the Java IO API"
+,"Knows how to open a FileInputStrean and read bytes from the file","Is aware that the Java IO API also has classes for zipping and knows how to use them"
+,"Knows how to open a FileOutputStream to write contents to a file","Understands the meaning of blocking and non blocking for IO and knows that Java has an API for nonblocking IO"
+,"Knows that the Java IO API uses the decorator design pattern to compose streams",
+,"Knows how to create a BufferedInputStream and use it to read contents of a file",
+,"Understands why buffering helps us",
+,"Knows why we should close a stream and how to do so",
+,"Knows the difference between a Reader and a Stream",
+,"Knows how to use a FileReader to read contents of a text file",
+,"Knows how to use the FileWriter to write to a file",
+,"Knows how to use a BufferedReader/BufferedWriter for it's API",
+,"Knows how to use a PrintWriter for it's API",
+,,
+,,
+,,
+,,
+,,
+"Concurrency in Java","Understands the difference between multi processing and multi threading","Knows why it is risky to call the stop method of a thread"
+,"Knows how to create a thread class in Java by inheriting from java.lang.Thread","risky threading API's"
+,"Understands the reason for having a runnable interface and how to use it","Thread local"
+,"Knows how to start a thread","Basic concurrency API's"
+,"Knows that we should never call the run method directly","Knows how to protect a peice of code with any random object's monitor"
+,"Knows how to stop a thread","Knows how to protect a block of code and not an entire method and understands the beenfits of doing so"
+,"Knows how to join on another thread","Knows what monitor is used when a static method is synchronized"
+,"Knows how to sleep in a thread","Knows what volatile means and does"
+,"Knows the meaning of critical section","Can write code which does not deadlock"
+,"Knows how to protect a critical section (Understands that everything that accesses a critical section should be protected)","Can write code which does not have race conditions"
+,"Knows which monitor is used when a method is synchronized","Can do a thread dump and read it"
+,"Knows the meaning of race conditions","Memory barrier"
+,"Knows the meaning of deadlocks","Understands the semantics of volatile in greater details"
+,,
+,,
+"Annotations","Knows what is an annotation","Knows that annotations have retention types and knows what they are"
+,"Knows how to use the @Override annotation and why it is important","Knows how to create an annotation"
+,"Knows how to use the @depracated annotation","Knows how to use reflection to get the annotations on a particular element"
+,"Knows how to use the @supress annotation",
+,"Knows that annotations can accept arguments","Knows various uses of annotations in libraries etc"
+,,
+"Generics","Knows why we need generics","Understands why type information is not stored in bytecode"
+,"Knows how to create a list with type information","Knows that a method which accepts a non-typed type can still be given a typed object"
+,"Knows the implications of creating a list with type information","Basically understands the use of wildcards"
+,"Is aware that type information can be associated with classes and methods as well","Knows how to create a class that uses generics in it's type"
+,"Is aware that type information is a compile time artifact and is not stored in bytecode","Knows how to create a method that uses generics"
+,,"Knows that upcasting within generic types is not allowed"
+,,"Basically understands the use of extends and super"
+,,"Knows why upcasting within generic types is not allowed"
+,,
+"Network programming","Understands what is a network Socket","Knows how to create an remote object"
+,"Can create a simple Socket and communicate with a Server socket","Understands various ways in which a client can get a reference to a remote object"
+,"Can create a simple server socket and respond to a request from a client","Is aware that communication between a client and RMI server happen using the IIOP protocol over TCP/IP sockets"
+,"Understands the difference between TCP and UDP sockets","Knows how to configure the Java properties file to control socket communication"
+,"Knows what is RMI and why it is needed","Knows how to make a client communicate over HTTP with an RMI server"
+,"Given a reference to a remote object, can invoke remote methods","Understands the fallback mechanism of how a client chooses the channel / protocol to communicate with an RMI server"
+,"Knows what exceptions need to be managed when invoking remote methods","Unerstands the pros and cons in detail related to socket and RMI communciatiion"
+,,"Is aware of libraries such as Cajo to solve some problems related to RMI calls"
+,,
+"Java properties","Understands what property files are and why they are used","Can pass a system property to the JVM"
+,"Can read and write System properties","Knows how to load a property file from the classpath"
+,"Can read a property from a property file given the fully qualified name of the file","Knows how to store propoerties to a file"
+,"Knows what happens if you try to access a property which does not exist","Knows that property files can contain placeholders and how to give them values at runtime"
+,,
+"I18N","Understands what is I18N and why it is needed","Understands the meaning of Locale"
+,"Is aware that Java has a Locale object and what it signifies","Knows what all need internationalization"
+,,"Is aware that the JVM has a default Locale"
+,,"Knows what a ResourceBundle is"
+,,"Knows how to read values from a ResourceBundle"
+,,"Knows what causes a Locale to be set in the JVM"
+,,"Knows how to change the Locale to be able to get values from a different resource bundle"
+,,"Knows the rules of inheritance in resource bundles"
+,,"Knows naming conventions related to resource bundle files"
+,,"Knows that property files can contain placeholders and how to give them values at runtime"
+,,"Knows how to read date and time values in a Locale sensitive way"
+,,"Knows how to handle currency in a Locale sensitive way"
+,,"Knows how to parse text in a Locale sensitive way"
+,,"Knows how to convert among diferent charcater encodings"
+,,
+"Date & Time handling","Can get the current time using currentTimeMillis and knows what this value represents","Can get nano time using an API and knows what this time represents"
+,"Knows how to create a Date object from the current time","Understands the pros and cons of nano time"
+,,"Knows about the existence of a DateFormat object"
+,,"Knows how to create a Date object given a formatted String"
+,,"Knows how to convert a Date object into a String using the DateFormat class"
+,,
+"Reflection","Understands the meaning of reflection","Can appreciate why we might want to invoke a method without knowing it's name at compile time"
+,"Is aware of the class Class and what it represents","Knows how to load a class using the fully qualified name of the class"
+,"Knows how to load a class and get it's instance by calling the no-arg constructor","Knows how to invoke a public method which does not take any arguments on an object given the name of the method at runtime"
+,"If shown code that invoked a method using reflection, is able to understand what the code does","Knows how to get all the methods from an object"
+,,"Can get the access modifiers of an element using reflection"
+,,"Can construct a simple object using reflection"
+,,"Knows how to imvoke a private method of an object using reflection"
+,,"Knows how to invoke methods which take arguments using reflection"
+,,"Knows about dynamic proxies and how to use them"
+,,"Can get annotations on an element using reflection"
+,,"Can construct a complex object (one which takes constructor arguments) using reflection"
+,,
+"Serialziation","Knows the meaning of a marker interface","Knows the meaning of tranient and can use it effectively"
+,"Knows how to make a class Serializable","Knows that serialization can be controlled at a higher level of granularity using the Externalizable interface"
+,"Knows how to use ObjectOuutputStream to serialzie an object","Knows about the existence of serialVerUid and it's purpose"
+,"Knows how to use ObjectInputStream to read a serialzed object","Knows that objects that are used in remote network communciation need to be serializable"
+,,"Understands the behavior of servialVerUID in detail"
+,,"Knows a little bit about the protocol used in serializing objects in Java"
+,,"Is able to serialzie objects in a non standard way using the Externalizable interface (eg to a database)"
+,,
+"Java Beans","Knows what a Java Bean is","Understands the importance of Java beans especially as components"
+,"Knows the contract a class needs to adhere to be a Java bean","Understands why Java beans must adhere to a certain contract and naming convention"
+,"Understands why Java Beans have the naming convention for getter and setter methods","Unerstands advanced Java beans concepts like vetoable properties etc"
+,,
+"Classloader","Is aware that when a Java class is compiled, it is convered to a bytecode","Is aware of the fact that classloaders have a heirarchy and the process of loading a class"
+,"Can appreciate the reason for compiling to bytecode","Can get the classloader which was used to load a particular class and use it to read a file from the classpath"
+,"Is aware that bytecode is loaded using something called a Classloader","Is aware that classes can also be loaded from the network using a network classloader"
+,"Understands why we need a classpath in Java","Is aware that an application can have custom classloaders to get control over the classloading mechanism"
+,"Understands how a class is lcoated from the classpath","can implement a custom classloader"
+,,
+"Cloning","Understands the meaning of cloning","Is aware that constructoors are never called in Cloning"
+,"Knows how to make a class Cloneable","Understands the difference between shallow and deep cloning and the fact that Cloning in Java is by default shallow"
+,"Knows how to clone a Cloneable object","Understands what exactly happens when an obejct is cloned on the heap"
+,,"Knows that copy constructors provide a better alternative to cloning"
+,,"Can implement deep cloning in the clone method"
+,,"Can use copy constructors to provide cloning functionality in an object"
+,,"Understands clearly the darwbacks of the cloning mechanism in Java"
+,,
+"Swing","Knows that Swing components are Java beans","Knows about common LayoutManagers like Flow, and Grid layout managers"
+,"Is aware of the basic component heirarchy","Can layout simple components using these layout managers"
+,"Knows the difference between a Frame and other components","Can add borders to a component"
+,"Knows the difference between AWT and Swing","Can add menu bars and menu items and make them respond"
+,"can create a simple JFrame with a JPanel, JButton, and JTextbox (Can make the JFrame respond to the X event, and can print the text that is entered in the textbox when the button is clicked)","Is aware that long tasks should be handled on the background thread so that the UI remains responsive"
+,"Can make the JFrame respond to the X event","Can make components scrollable"
+,"Is aware of the concept of event handlers and know how to add event handlers to a component","Is aware of the notion of a viewport"
+,"Is aware that there are layout managers ","Can create simple custom Swing components"
+,,"Know how to associate components with models"
+,,"Can dynamically update a component when it's model is updated"
+,,"Is aware of the internals of how the MVC pattern is implemented in Swing"
+,,"Can change the L&F"
+,,"Can create complex custom Swing components"
+,,"Knows how to do drag and drop in swing"
+,,
+,,
+"Performance","Understands why we should not rely on the finalize method for destroying an object","Is aware of how much faster StringBuffer is as compared to '+' and is also aware that StringBuilder is even faster, and the drawbacks of StringBuilder"
+,"Knows about just-in-time compiler","Is aware that in certain cases code optimization can result in StringBuffer being used even when we have explicitly used a '+' operator in the code. Is aware of the limitations of such optimizations."
+,"Knows why we should use StringBuffer to concatenate Strings instead of using the '+' operator","Is aware that the compilation units created by the JIT compiler are stored in the perm generation which is actually not part of the heap, but can go out of memory"
+,"Knows why we should not call x.size() everytime within a loop","Knows the different regions of the heap and how objects are moved from one to the other during and after the GC phase"
+,"Is aware that the frequency of GC and it's duration has an impact on performance","Knows about VM parameters that can help us fine tune the sizes of different regions of the heap"
+,,"Knows how to Visualize the state of the JVM's heap using Jmap and Jhat"
+,,"Knows how to Visualize the state of the JVM's heap using jVisualVM"
+,,"Knows about VM parameters that can help us fine tune the GC process"
+,,"Knows how to use tools like jStack and jVisualVM to spot thread deadlocks"
+,,"Knows what a WeakHashMap is and can use it as a cache in the software"
+,,
+"Regular Expressions",,"Can create a simple regular expression and use the Java regex classes to determine if a String conforms to it"
+,,"Can create a complex (involving repitition, classes, optional constructs) regex and use Java's regex classes to determine if a String confirms to it"
+,,"Can create a regex containing matching groups and extract sub strings out of a String using the regex"
+,,"Can use Java 7 regex's to work with named groups"

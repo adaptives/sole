@@ -4,14 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import models.Activity;
 import models.BlogPost;
-import models.Competency;
-import models.CompetencyGroup;
 import models.Course;
 import models.CourseCategory;
 import models.CourseSection;
@@ -23,8 +19,11 @@ import models.SiteEvent;
 import models.SocialUser;
 import models.Topic;
 import models.User;
+import play.Logger;
 
 public class InitUtils {
+	
+	private static final org.apache.log4j.Logger cLogger = Logger.log4j.getLogger(InitUtils.class);
 	public static void initData() {
 		createRoles();
 		createUsers();
@@ -34,7 +33,7 @@ public class InitUtils {
 		createSiteEvents();
 		createCourse();
 		createLevels();
-		createTopic("competencies-data.csv");
+		createTopic("java-competencies-data.csv");
 	}
 
 	private static void createRoles() {
@@ -269,10 +268,7 @@ public class InitUtils {
 		level1.save();
 		Level level2 = new Level("Level II", "Level II Description");
 		level2.placement = 2;
-		level2.save();
-		Level level3 = new Level("Level III", "Level III Description");
-		level3.placement = 3;
-		level3.save();
+		level2.save();		
 	}
 
 	private static void createTopic(String fName) {
@@ -292,14 +288,13 @@ public class InitUtils {
 			String csvString = sBuff.toString();
 			Topic topic = DataUtils.parseCSV("Core Java", 0, csvString);
 			topic.levels.add(levels.get(0));
-			topic.levels.add(levels.get(1));
-			topic.levels.add(levels.get(2));
+			topic.levels.add(levels.get(1));			
 			topic.imageUrl = "/public/images/diycomputerscience_logo_1.gif";
 			topic.save();
 		} catch (IOException ioe) {
-			//cLogger.error("caught IOException while parsing default data ", ioe);
+			cLogger.error("caught IOException while parsing default data ", ioe);
 		} catch (ParseException pe) {
-			//cLogger.error("caught ParseException while parsing default data ", pe);
+			cLogger.error("caught ParseException while parsing default data ", pe);
 		} finally {
 			if (reader != null) {
 				try {
