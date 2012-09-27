@@ -12,6 +12,7 @@ GET    /help                                                                    
 GET     /adminc                                                                                                        AdminC.index
 GET     /adminc/data                                                                                                   AdminC.uploadData
 GET     /adminc/manageCompetencies                                                                                     AdminC.manageCompetencies
+POST    /adminc/saveCompetencyTopic                                                                                    AdminC.saveCompetencyTopic
 GET     /adminc/manageCourses                                                                                          AdminC.manageCourses
 GET     /adminc/manageCourse/{id}                                                                                      AdminC.manageCourse
 POST    /adminc/saveCourse                                                                                             AdminC.saveCourse

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.BufferedReader;
+import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Field;
@@ -18,10 +19,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import models.Activity;
+import models.CompetencyGroup;
 import models.Course;
 import models.CourseCategory;
 import models.CourseGroup;
 import models.CourseSection;
+import models.Level;
 import models.SocialUser;
 import models.Topic;
 
@@ -32,9 +35,11 @@ import play.Play;
 import play.PlayPlugin;
 import play.data.binding.Binder;
 import play.data.binding.types.DateBinder;
+import play.data.validation.Required;
 import play.db.Model;
 import play.mvc.Controller;
 import play.mvc.With;
+import play.mvc.results.RenderText;
 import play.test.Fixtures;
 import play.vfs.VirtualFile;
 
@@ -60,7 +65,46 @@ public class AdminC extends Controller{
 	
 	public static void manageCompetencies() {
 		List<Topic> topics = Topic.findAll();
-		render(topics);
+		List<Level> levels = Level.findAll();
+		render(topics, levels);
+	}
+	
+	public static void saveCompetencyTopic(@Required String title,
+										   @Required List<Long> levelId,
+										   @Required String description,
+										   String competencyGroups,
+										   String resources) {
+		
+		if(validation.hasErrors()) {
+			params.flash();
+			validation.keep();
+		} else {
+			Topic topic = new Topic(title, description, resources);
+			for(Long level : levelId) {
+				Level theLevel = Level.findById(level);
+				notFoundIfNull(theLevel);
+				topic.levels.add(theLevel);
+			}
+			if(competencyGroups != null) {
+				char competencyGroupsData[] = competencyGroups.toCharArray();
+				BufferedReader reader = null;
+				try {
+					reader = new BufferedReader(new CharArrayReader(competencyGroupsData));
+					String competencyGroupStr = null;
+					while((competencyGroupStr = reader.readLine()) != null) {
+						CompetencyGroup competencyGroup = new CompetencyGroup(competencyGroupStr, "desc", "resources");
+						competencyGroup.topic = topic;
+						topic.competencyGroups.add(competencyGroup);
+					}
+				} catch(IOException ioe) {
+					cLogger.error("Error reading data for competencyGroups", ioe);
+					flash.error(MessageConstants.INTERNAL_ERROR);
+				}
+			}
+			topic.save();
+			flash.success("The competency topic has been saved '" + topic.title + " '");
+		}
+		manageCompetencies();
 	}
 
 	public static void manageCourse(long id) {

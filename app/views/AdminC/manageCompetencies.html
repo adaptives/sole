@@ -2,3 +2,51 @@
 
 <h2> Create a new competency topic</h2>
 
+#{form @AdminC.saveCompetencyTopic()}
+	#{ifErrors}
+		<p class="error">Please correct these errors.</p>
+	#{/ifErrors}
+	
+	#{field 'title'}
+		<p>
+			<div>#{ifError 'title'}<span class="error">#{error 'title' /}</span>#{/ifError}</div>
+			<div><label>Title <span class="required-field">(required)</span></label></div>
+			<div><input type="text" name="title" value="${flash['title']}"/></div>
+		</p>
+	#{/field}
+	
+	#{field 'levelId'}
+		<p>
+			<div>#{ifError 'levelId'}<span class="error">#{error 'levelId' /}</span>#{/ifError}</div>			
+			#{select 'levelId', size:5, items:levels, multiple:'multiple' /}
+		</p>
+	#{/field}
+	
+	#{field 'description'}
+		<p>
+			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
+			<div>Description: </div>
+			<div>
+				<textarea rows="10" cols="80" name="description">${flash['description']}</textarea>
+			</div>
+		</p>
+	#{/field}
+	
+	<p>
+		<div>Competency Groups: </div>
+		<div>
+			<textarea rows="10" cols="80" name="competencyGroups"></textarea>
+		</div>
+	</p>
+	
+	<p>
+		<div>Resources: </div>
+		<div>
+			<textarea rows="10" cols="80" name="resources"></textarea>
+		</div>
+	</p>
+	
+	<div>
+		<input type="submit" value="submit" name="submit" />
+	</div>
+#{/form}
