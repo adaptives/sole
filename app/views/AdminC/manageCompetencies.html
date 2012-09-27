@@ -50,3 +50,10 @@
 		<input type="submit" value="submit" name="submit" />
 	</div>
 #{/form}
+
+<h2>Edit an existing Topic</h2>
+<div>
+#{list items:topics, as:'topic'}
+	<div><a href="@{AdminC.manageCompetencyTopic(topic.id)}">${topic.title}</a></div>
+#{/list}
+</div>

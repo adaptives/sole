@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import models.Activity;
+import models.Competency;
 import models.CompetencyGroup;
 import models.Course;
 import models.CourseCategory;
@@ -67,6 +68,12 @@ public class AdminC extends Controller{
 		List<Topic> topics = Topic.findAll();
 		List<Level> levels = Level.findAll();
 		render(topics, levels);
+	}
+	
+	public static void manageCompetencyTopic(long id) {
+		Topic topic = Topic.findById(id);
+		notFoundIfNull(id);
+		render(topic);
 	}
 	
 	public static void saveCompetencyTopic(@Required String title,

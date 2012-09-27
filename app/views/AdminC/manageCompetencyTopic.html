@@ -1,0 +1,43 @@
+#{extends 'main.html' /}
+
+<a href="@{AdminC.manageCompetencies}">Back to manage competencies</a>
+<h2>Competency: ${topic.title}</h2>
+Click <a href="#">here</a> to edit competency topic details.
+
+<h2>Competency Groups</h2>
+<div>
+<form action="#" method="post">
+#{list items:topic.competencyGroups, as:'competencyGroup'}
+	<div>		
+		<input type="textbox" name="placement-${competencyGroup.id}" value="${competencyGroup.placement}">
+		<a href="#">${competencyGroup.title}</a> 
+		<a href="#">X</a>
+	</div>
+#{/list}
+	<p><input type="submit" name="submit" value="Change Placement" /></p>	
+</form>
+</div>
+<h3>Add a new competency group</h3>
+<div>
+	<form action="#" method="post">		
+		<p>
+			<div>Title:</div>
+			<div><input type="textbox" name="title"/></div>			
+		</p>
+		<p>
+			<div>Description</div>
+			<div>
+				<textarea name="description" rows="10" cols="80"></textarea>
+			</div>
+		</p>
+		<p>
+			<div>Resources</div>
+			<div>
+				<textarea name="resources" rows="10" cols="80"></textarea>
+			</div>
+		</p>
+		<p>
+			<input type="submit" name="submit" value="submit" />
+		</p>
+	</form>
+</div>
