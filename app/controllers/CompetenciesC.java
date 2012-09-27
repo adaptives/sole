@@ -16,13 +16,7 @@ import play.mvc.Controller;
 public class CompetenciesC extends Controller {
 
 	public static void topics() {
-		List<Topic> topics = Topic.findAll();
-		Topic topic2 = new Topic("Python", "Python", "Python");
-		topics.add(topic2);
-		Topic topic3 = new Topic("Ruby", "Ruby", "Ruby");
-		topics.add(topic3);
-		Topic topic4 = new Topic("Perl", "Perl", "Perl");
-		topics.add(topic4);
+		List<Topic> topics = Topic.findAll();		
 		render(topics);
 	}
 	
