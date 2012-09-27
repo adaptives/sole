@@ -6,7 +6,7 @@ Click <a href="#">here</a> to edit competency topic details.
 
 <h2>Competency Groups</h2>
 <div>
-<form action="#" method="post">
+<form action="@{AdminC.changeCompetencyGroupPlacements(topic.id)}" method="post">
 #{list items:topic.competencyGroups, as:'competencyGroup'}
 	<div>		
 		<input type="textbox" name="placement-${competencyGroup.id}" value="${competencyGroup.placement}">

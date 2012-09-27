@@ -14,6 +14,7 @@ GET     /adminc/data                                                            
 GET     /adminc/manageCompetencies                                                                                     AdminC.manageCompetencies
 POST    /adminc/saveCompetencyTopic                                                                                    AdminC.saveCompetencyTopic
 GET     /adminc/manageCompetencyTopic/{id}                                                                             AdminC.manageCompetencyTopic
+POST    /adminc/changeCompetencyGroupPlacements/{topicId}                                                              AdminC.changeCompetencyGroupPlacements
 GET     /adminc/manageCourses                                                                                          AdminC.manageCourses
 GET     /adminc/manageCourse/{id}                                                                                      AdminC.manageCourse
 POST    /adminc/saveCourse                                                                                             AdminC.saveCourse

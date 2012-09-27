@@ -76,6 +76,26 @@ public class AdminC extends Controller{
 		render(topic);
 	}
 	
+	public static void changeCompetencyGroupPlacements(long topicId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		
+		Map<String, String[]> all = params.all();
+		for(String key : all.keySet()) {
+			if(key.startsWith("placement")) {
+				String sCompetecyGroupId = key.substring(key.indexOf("-")+1);
+				long competencyGroupId = Long.parseLong(sCompetecyGroupId);								
+				CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+				//TODO: Should we ensure that this CompetencyGroup indeed belongs to the Topic
+				notFoundIfNull(competencyGroup);
+				String placementArr[] = all.get(key);
+				competencyGroup.placement = Integer.parseInt(placementArr[0]);
+				competencyGroup.save();
+			}
+		}
+		manageCompetencyTopic(topic.id);
+	}
+	
 	public static void saveCompetencyTopic(@Required String title,
 										   @Required List<Long> levelId,
 										   @Required String description,
@@ -229,6 +249,7 @@ public class AdminC extends Controller{
 		manageSection(sectionId);
 	}
 	
+	//TODO: Change the name... we are managing a whole bunch of things... this cannot be the default
 	public static void changePlacements(long courseId) {
 		Map<String, String[]> all = params.all();
 		for(String key : all.keySet()) {
