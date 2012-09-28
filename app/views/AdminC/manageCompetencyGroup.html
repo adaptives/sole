@@ -1,0 +1,71 @@
+#{extends 'main.html' /}
+
+<div>Click <a href="@{CompetencyGroups.show(competencyGroup.id)}">here</a> to edit this competency group.</div>
+<div>
+<h2>Topic: ${competencyGroup.topic.title}</h2>
+<h2>Competency Group - ${competencyGroup.title}</h2>
+
+<h3>Competencies</h3>
+<div>
+	#{list items:competencyGroup.topic.levels, as:'level'}		
+		<div><strong>${level.title}</strong></div>
+		#{form @AdminC.changeCompetencyPlacements(competencyGroup.topic.id, competencyGroup.id)}
+			<div>			
+				#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
+					<div>
+						<input type="text" name="placement-${competency.id}" value="${competency.placement}"/>
+						<a href="@{AdminC.manageCompetency(competencyGroup.topic.id, competencyGroup.id, competency.id)}">${competency.title}</a>
+						<a href="@{AdminC.deleteCompetencyConfirm(competencyGroup.topic.id, competencyGroup.id, competency.id)}">X</a>
+					</div>	
+				#{/list}			
+			</div>
+			<div>
+				<input type="submit" name="submit" value="Change Placements" />
+			</div>
+		#{/form}
+	#{/list}
+</div>
+
+<h2> Create a new competency</h2>
+
+#{form @AdminC.saveCompetency(competencyGroup.topic.id, competencyGroup.id)}
+	#{ifErrors}
+		<p class="error">Please correct these errors.</p>
+	#{/ifErrors}
+	
+	#{field 'title'}
+		<p>
+			<div>#{ifError 'title'}<span class="error">#{error 'title' /}</span>#{/ifError}</div>
+			<div><label>Title <span class="required-field">(required)</span></label></div>
+			<div><input type="text" name="title" value="${flash['title']}"/></div>
+		</p>
+	#{/field}
+	
+	#{field 'levelId'}
+		<p>
+			<div>#{ifError 'levelId'}<span class="error">#{error 'levelId' /}</span>#{/ifError}</div>			
+			#{select 'levelId', size:5, items:competencyGroup.topic.levels/}
+		</p>
+	#{/field}
+	
+	#{field 'description'}
+		<p>
+			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
+			<div>Description: </div>
+			<div>
+				<textarea rows="10" cols="80" name="description">${flash['description']}</textarea>
+			</div>
+		</p>
+	#{/field}
+	
+	<p>
+		<div>Resources: </div>
+		<div>
+			<textarea rows="10" cols="80" name="resources"></textarea>
+		</div>
+	</p>
+	
+	<div>
+		<input type="submit" value="submit" name="submit" />
+	</div>
+#{/form}

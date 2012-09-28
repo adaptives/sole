@@ -76,10 +76,46 @@ public class AdminC extends Controller{
 		render(topic);
 	}
 	
-	public static void editCompetencyTopic(long id) {
-		Topic topic = Topic.findById(id);
+	public static void changeCompetencyPlacements(long topicId,
+												  long competencyGroupId) {
+		renderText("changing competency placements");
+	}
+	
+	public static void deleteCompetencyConfirm(long topicId,
+											   long competencyGroupId,
+											   long competencyId) {
+		renderText("Do you really want to delete this competency ?");
+	}
+	
+	public static void manageCompetency(long topicId,
+										long competencyGroupId,
+										long competencyId) {
+		Topic topic = Topic.findById(topicId);
 		notFoundIfNull(topic);
-		render(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroupId);
+		Competency competency = Competency.findById(competencyId);
+		notFoundIfNull(competency);
+		render(competency);
+	}
+	
+	public static void saveCompetency(long topicId,
+			                          long competencyGroupId,
+			                          String title,
+			                          long levelId,
+			                          String description,
+			                          String resources) {
+		renderText("saving competencies");
+	}
+	
+	public static void manageCompetencyGroup(long topicId, 
+											 long competencyGroupId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		//TODO: Should we ensure that the competencyGroup indeed belongs to the Topic specified ?
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		render(competencyGroup);
 	}
 	
 	public static void changeCompetencyGroupPlacements(long topicId) {
