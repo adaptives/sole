@@ -76,6 +76,12 @@ public class AdminC extends Controller{
 		render(topic);
 	}
 	
+	public static void editCompetencyTopic(long id) {
+		Topic topic = Topic.findById(id);
+		notFoundIfNull(topic);
+		render(topic);
+	}
+	
 	public static void changeCompetencyGroupPlacements(long topicId) {
 		Topic topic = Topic.findById(topicId);
 		notFoundIfNull(topic);
