@@ -78,7 +78,24 @@ public class AdminC extends Controller{
 	
 	public static void changeCompetencyPlacements(long topicId,
 												  long competencyGroupId) {
-		renderText("changing competency placements");
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		Map<String, String[]> all = params.all();
+		for(String key : all.keySet()) {
+			if(key.startsWith("placement")) {
+				String sCompetecyId = key.substring(key.indexOf("-")+1);
+				long competencyId = Long.parseLong(sCompetecyId);								
+				Competency competency = Competency.findById(competencyId);
+				//TODO: Should we ensure that this CompetencyGroup indeed belongs to the Topic
+				notFoundIfNull(competency);
+				String placementArr[] = all.get(key);
+				competency.placement = Integer.parseInt(placementArr[0]);
+				competency.save();
+			}
+		}
+		manageCompetencyGroup(topicId, competencyGroupId);
 	}
 	
 	public static void deleteCompetencyConfirm(long topicId,
