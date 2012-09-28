@@ -96,6 +96,19 @@ public class AdminC extends Controller{
 		manageCompetencyTopic(topic.id);
 	}
 	
+	public static void saveCompetencyGroup(long id,
+			                               String title,
+			                               String descriptio,
+			                               String resources) {
+		Topic topic = Topic.findById(id);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = new CompetencyGroup(title, descriptio, resources);
+		competencyGroup.topic = topic;
+		topic.competencyGroups.add(competencyGroup);
+		topic.save();
+		manageCompetencyTopic(id);
+	}
+	
 	public static void saveCompetencyTopic(@Required String title,
 										   @Required List<Long> levelId,
 										   @Required String description,
