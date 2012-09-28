@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+
+<div>
+<h2>${competencyGroup.title}</h2>
+<div>
+Topic: ${competencyGroup.topic.title}
+</div>
+<div>
+	${competencyGroup.description}
+</div>
+<h3>Competencies</h3>
+<div>
+	#{list items:competencyGroup.topic.levels, as:'level'}		
+		<div><strong>${level.title}</strong></div>
+		<div>
+			#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
+				<div>${competency.title}</div>	
+			#{/list}
+		</div>
+	#{/list}
+</div>
+<div>
+	<form action="@{AdminC.deleteCompetencyGroup(competencyGroup.topic.id, competencyGroup.id)}" method="post">
+		<p>
+			Do you really want to delete this competency group (all the competencies will also be deleted) ?
+		</p>
+		<p>
+			<input type="submit" name="submit" value="submit" />
+		</p>
+	</form>
+</div>

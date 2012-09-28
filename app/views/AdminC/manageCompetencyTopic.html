@@ -11,7 +11,7 @@ Click <a href="#">here</a> to edit competency topic details.
 	<div>		
 		<input type="textbox" name="placement-${competencyGroup.id}" value="${competencyGroup.placement}">
 		<a href="#">${competencyGroup.title}</a> 
-		<a href="#">X</a>
+		<a href="@{AdminC.deleteCompetencyGroupConfirm(topic.id, competencyGroup.id)}">X</a>
 	</div>
 #{/list}
 	<p><input type="submit" name="submit" value="Change Placement" /></p>	

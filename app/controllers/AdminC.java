@@ -109,6 +109,24 @@ public class AdminC extends Controller{
 		manageCompetencyTopic(id);
 	}
 	
+	public static void deleteCompetencyGroupConfirm(long topicId, 
+													long competencyGroupId) {
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);		
+		render(competencyGroup);
+	}
+	
+	public static void deleteCompetencyGroup(long topicId,
+											 long competencyGroupId) {
+		Topic topic = Topic.findById(topicId);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		topic.competencyGroups.remove(competencyGroup);
+		topic.save();
+		competencyGroup.delete();		
+		manageCompetencyTopic(topicId);
+	}
+	
 	public static void saveCompetencyTopic(@Required String title,
 										   @Required List<Long> levelId,
 										   @Required String description,
