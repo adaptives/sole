@@ -23,6 +23,7 @@ POST    /adminc/deleteCompetencyGroup/topic/{topicId}/competencyGroup/{competenc
 POST    /adminc/changeCompetencyPlacements/topic/{topicId}/competencyGroup/{competencyGroupId}                         AdminC.changeCompetencyPlacements
 GET     /adminc/manageCompetency/topic/{topicId}/competencyGroup/{competencyGroupId}/competency/{competencyId}         AdminC.manageCompetency
 GET     /adminc/deleteCompetencyConfirm/topic/{topicId}/competencyGroup/{competencyGroupId}/competency/{competencyId}  AdminC.deleteCompetencyConfirm
+POST    /adminc/deleteCompetency/topic/{topicId}/competencyGroup/{competencyGroupId}/competency/{competencyId}         AdminC.deleteCompetency
 GET     /adminc/manageCourses                                                                                          AdminC.manageCourses
 GET     /adminc/manageCourse/{id}                                                                                      AdminC.manageCourse
 POST    /adminc/saveCourse                                                                                             AdminC.saveCourse

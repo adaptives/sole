@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+
+<h2>Topic: ${competency.competencyGroup.topic.title}</h2>
+<h2>Competency Group: ${competency.competencyGroup.title}</h2>
+<h2>Competency: ${competency.title}</h2>
+
+<div>
+	${competency.description}
+</div>
+
+<div>
+	<form action="@{AdminC.deleteCompetency(competency.competencyGroup.topic.id, competency.competencyGroup.id, competency.id)}" method="post">
+		<p>
+			Do you really want to delete this competency ?
+		</p>
+		<p>
+			<input type="submit" name="submit" value="submit" />
+		</p>
+	</form>
+</div>
