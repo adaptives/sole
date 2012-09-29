@@ -133,13 +133,51 @@ public class AdminC extends Controller{
 		render(competency);
 	}
 	
+	public static void editCompetency(long topicId,
+									  long competencyGroupId,
+									  long competencyId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroupId);
+		Competency competency = Competency.findById(competencyId);
+		notFoundIfNull(competency);
+		render(competency);
+	}
+	
+	public static void saveCompetencyEdited(long topicId, 
+									  		long competencyGroupId,
+									  		long competencyId,
+									  		String title, 
+									  		long levelId, 
+									  		String description, 
+									  		String resources) {
+		
+		Competency competency = Competency.findById(competencyId);
+		notFoundIfNull(competency);
+		Level level = Level.findById(levelId);
+		competency.title = title;
+		competency.description = description;
+		competency.resources = resources;
+		competency.level = level;
+		competency.save();
+		manageCompetency(topicId, competencyGroupId, competencyId);				
+	}
+	
 	public static void saveCompetency(long topicId,
 			                          long competencyGroupId,
 			                          String title,
 			                          long levelId,
 			                          String description,
 			                          String resources) {
-		renderText("saving competencies");
+		
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup, "CompetencyGroup not found '" + competencyGroup + "'");
+		Level level = Level.findById(levelId);
+		notFoundIfNull(level, "Level not found '" + levelId + "'");
+		Competency competency = new Competency(title, description, competencyGroup, level, resources);
+		competency.save();
+		manageCompetencyGroup(topicId, competencyGroupId);
 	}
 	
 	public static void manageCompetencyGroup(long topicId, 

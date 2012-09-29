@@ -1,0 +1,48 @@
+#{extends 'main.html' /}
+<div>Back to <a href="@{AdminC.manageCompetency(competency.competencyGroup.topic.id, competency.competencyGroup.id, competency.id)}">manage competency</a></div>
+<h2>Topic: ${competency.competencyGroup.topic.title}</h2>
+<h2>Competency Group - ${competency.competencyGroup.title}</h2>
+
+#{form @AdminC.saveCompetencyEdited(competency.competencyGroup.topic.id, competency.competencyGroup.id)}
+	#{ifErrors}
+		<p class="error">Please correct these errors.</p>
+	#{/ifErrors}
+	
+	<input type="hidden" name="competencyId" value="${competency.id}" />
+	
+	#{field 'title'}
+		<p>
+			<div>#{ifError 'title'}<span class="error">#{error 'title' /}</span>#{/ifError}</div>
+			<div><label>Title <span class="required-field">(required)</span></label></div>
+			<div><input type="text" name="title" value="#{ifError 'title'}${flash['title']}#{/ifError}#{else}${competency.title}#{/else}"/></div>
+		</p>
+	#{/field}
+	
+	#{field 'levelId'}
+		<p>
+			<div>#{ifError 'levelId'}<span class="error">#{error 'levelId' /}</span>#{/ifError}</div>			
+			#{select 'levelId', size:5, items:competency.competencyGroup.topic.levels/}
+		</p>
+	#{/field}
+	
+	#{field 'description'}
+		<p>
+			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
+			<div>Description: </div>
+			<div>
+				<textarea rows="10" cols="80" name="description">#{ifError 'description'}${flash['description']}#{/ifError}#{else}${competency.description}#{/else}</textarea>
+			</div>
+		</p>
+	#{/field}
+	
+	<p>
+		<div>Resources: </div>
+		<div>
+			<textarea rows="10" cols="80" name="resources">#{ifError 'resources'}${flash['resources']}#{/ifError}#{else}${competency.resources}#{/else}</textarea>
+		</div>
+	</p>
+	
+	<div>
+		<input type="submit" value="submit" name="submit" />
+	</div>
+#{/form}

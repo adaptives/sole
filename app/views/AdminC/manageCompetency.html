@@ -1,3 +1,16 @@
 #{extends 'main.html' /}
-
-This is the competency
+<div>Back to <a href="@{AdminC.manageCompetencyGroup(competency.competencyGroup.topic.id, competency.competencyGroup.id)}">manage competency group</a></div>
+<div>Click <a href="@{AdminC.editCompetency(competency.competencyGroup.topic.id, competency.competencyGroup.id, competency.id)}">here</a> to edit this competency</div>
+<div>
+<h2>Topic: ${competency.competencyGroup.topic.title}</h2>
+<h2>Competency Group - ${competency.competencyGroup.title}</h2>
+<h2>Competency - ${competency.title}</h2>
+<h4>${competency.level.title}</h4>
+<h4>Description: </h4>
+<div>
+	${competency.description}
+</div>
+<h4>Resources: </h4>
+<div>
+	${competency.resources}
+</div>

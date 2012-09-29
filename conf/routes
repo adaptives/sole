@@ -12,6 +12,8 @@ GET    /help                                                                    
 GET     /adminc                                                                                                        AdminC.index
 GET     /adminc/data                                                                                                   AdminC.uploadData
 GET     /adminc/manageCompetencies                                                                                     AdminC.manageCompetencies
+GET     /adminc/editCompetency/topic/{topicId}/competencyGroup/{competencyGroupId}/competency/{competencyId}           AdminC.editCompetency
+POST    /adminc/saveCompetencyEdited/topic/{topicId}/competencyGroup/{competencyGroupId}                               AdminC.saveCompetencyEdited
 POST    /adminc/saveCompetency/topic/{topicId}/competencyGroup/{competencyGroupId}                                     AdminC.saveCompetency
 POST    /adminc/saveCompetencyTopic                                                                                    AdminC.saveCompetencyTopic
 GET     /adminc/manageCompetencyTopic/{id}                                                                             AdminC.manageCompetencyTopic
