@@ -2,7 +2,7 @@
 
 %{ route = play.mvc.Router.reverse('CompetenciesC.topic', [sanitizedTitle:competency.competencyGroup.topic.sanitizedTitle]) }%									
 #{set backLink:route /}
-
+#{set topicTitle:competency.competencyGroup.topic.title /}
 
 <h2>
 ${competency.title}
