@@ -20,8 +20,13 @@
 	
 	#{field 'levelId'}
 		<p>
-			<div>#{ifError 'levelId'}<span class="error">#{error 'levelId' /}</span>#{/ifError}</div>			
-			#{select 'levelId', size:5, items:competency.competencyGroup.topic.levels/}
+			<div>#{ifError 'levelId'}<span class="error">#{error 'levelId' /}</span>#{/ifError}</div>
+			#{ifError 'levelId'}
+				#{select 'levelId', size:5, items:competency.competencyGroup.topic.levels, value:"${flash['levelId']}" /}
+			#{/ifError}
+			#{else}
+				#{select 'levelId', size:5, items:competency.competencyGroup.topic.levels, value:"${competency.level.id}" /}
+			#{/else}
 		</p>
 	#{/field}
 	
