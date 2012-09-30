@@ -27,11 +27,11 @@
 			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
 			<div>Description: </div>
 			<div>
-				<textarea rows="10" cols="80" name="description">${flash['description']}</textarea>
+				<textarea class="wmd-input" id="wmd-input" rows="10" cols="80" name="description">${flash['description']}</textarea>
 			</div>
 		</p>
 	#{/field}
-	
+	<div id="wmd-preview" class="wmd-panel wmd-preview"></div>	
 	<p>
 		<div>Competency Groups: </div>
 		<div>
@@ -57,3 +57,14 @@
 	<div><a href="@{AdminC.manageCompetencyTopic(topic.id)}">${topic.title}</a></div>
 #{/list}
 </div>
+
+
+<script type="text/javascript">
+	(function () {
+		var help = function () { alert("For help using markdown, please visit http://daringfireball.net/projects/markdown/syntax"); }
+	    var converter1 = Markdown.getSanitizingConverter();
+	    var editor1 = new Markdown.Editor(converter1, "", { handler: help });
+	    editor1.run();
+	    
+	})();
+</script>

@@ -30,24 +30,37 @@
 		</p>
 	#{/field}
 	
-	#{field 'description'}
-		<p>
-			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
-			<div>Description: </div>
-			<div>
-				<textarea rows="10" cols="80" name="description">#{ifError 'description'}${flash['description']}#{/ifError}#{else}${competency.description}#{/else}</textarea>
-			</div>
-		</p>
-	#{/field}
-	
+	#{field 'resources'}
 	<p>
 		<div>Resources: </div>
 		<div>
 			<textarea rows="10" cols="80" name="resources">#{ifError 'resources'}${flash['resources']}#{/ifError}#{else}${competency.resources}#{/else}</textarea>
 		</div>
 	</p>
+	#{/field}
+	
+	#{field 'description'}
+		<p>
+			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
+			<div>Description: </div>
+			<div>
+				<textarea  class="wmd-input" id="wmd-input" rows="10" cols="80" name="description">#{ifError 'description'}${flash['description']}#{/ifError}#{else}${competency.description}#{/else}</textarea>
+			</div>
+		</p>
+	#{/field}
 	
 	<div>
 		<input type="submit" value="submit" name="submit" />
 	</div>
 #{/form}
+
+<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+<script type="text/javascript">
+	(function () {
+		var help = function () { alert("For help using markdown, please visit http://daringfireball.net/projects/markdown/syntax"); }
+	    var converter1 = Markdown.getSanitizingConverter();
+	    var editor1 = new Markdown.Editor(converter1, "", { handler: help });
+	    editor1.run();
+	    
+	})();
+</script>
