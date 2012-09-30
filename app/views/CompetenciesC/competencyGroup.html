@@ -1,3 +1,8 @@
 #{extends 'CompetenciesC/competenciesMain.html' /}
 
-Competency Group
+<h4>Topic ${competencyGroup.topic.title}</h4>
+
+<h4>${competencyGroup.title}</h4>
+<div>
+	<div>${competencyGroup.description.md().sanitize().raw()}</div>
+</div>
