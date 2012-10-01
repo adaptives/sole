@@ -76,10 +76,118 @@ public class AdminC extends Controller{
 		render(topic);
 	}
 	
-	public static void editCompetencyTopic(long id) {
-		Topic topic = Topic.findById(id);
+	public static void changeCompetencyPlacements(long topicId,
+												  long competencyGroupId) {
+		Topic topic = Topic.findById(topicId);
 		notFoundIfNull(topic);
-		render(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		Map<String, String[]> all = params.all();
+		for(String key : all.keySet()) {
+			if(key.startsWith("placement")) {
+				String sCompetecyId = key.substring(key.indexOf("-")+1);
+				long competencyId = Long.parseLong(sCompetecyId);								
+				Competency competency = Competency.findById(competencyId);
+				//TODO: Should we ensure that this CompetencyGroup indeed belongs to the Topic
+				notFoundIfNull(competency);
+				String placementArr[] = all.get(key);
+				competency.placement = Integer.parseInt(placementArr[0]);
+				competency.save();
+			}
+		}
+		manageCompetencyGroup(topicId, competencyGroupId);
+	}
+	
+	public static void deleteCompetencyConfirm(long topicId,
+											   long competencyGroupId,
+											   long competencyId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		Competency competency = Competency.findById(competencyId);
+		render(competency);
+	}
+	
+	public static void deleteCompetency(long topicId,
+										long competencyGroupId, 
+										long competencyId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		Competency competency = Competency.findById(competencyId);
+		competency.delete();
+		manageCompetencyGroup(topicId, competencyGroupId);
+	}
+	
+	public static void manageCompetency(long topicId,
+										long competencyGroupId,
+										long competencyId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroupId);
+		Competency competency = Competency.findById(competencyId);
+		notFoundIfNull(competency);
+		render(competency);
+	}
+	
+	public static void editCompetency(long topicId,
+									  long competencyGroupId,
+									  long competencyId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroupId);
+		Competency competency = Competency.findById(competencyId);
+		notFoundIfNull(competency);
+		render(competency);
+	}
+	
+	public static void saveCompetencyEdited(long topicId, 
+									  		long competencyGroupId,
+									  		long competencyId,
+									  		String title, 
+									  		long levelId, 
+									  		String description, 
+									  		String resources) {
+		
+		Competency competency = Competency.findById(competencyId);
+		notFoundIfNull(competency);
+		Level level = Level.findById(levelId);
+		competency.title = title;
+		competency.description = description;
+		competency.resources = resources;
+		competency.level = level;
+		competency.save();
+		manageCompetency(topicId, competencyGroupId, competencyId);				
+	}
+	
+	public static void saveCompetency(long topicId,
+			                          long competencyGroupId,
+			                          String title,
+			                          long levelId,
+			                          String description,
+			                          String resources) {
+		
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup, "CompetencyGroup not found '" + competencyGroup + "'");
+		Level level = Level.findById(levelId);
+		notFoundIfNull(level, "Level not found '" + levelId + "'");
+		Competency competency = new Competency(title, description, competencyGroup, level, resources);
+		competency.save();
+		manageCompetencyGroup(topicId, competencyGroupId);
+	}
+	
+	public static void manageCompetencyGroup(long topicId, 
+											 long competencyGroupId) {
+		Topic topic = Topic.findById(topicId);
+		notFoundIfNull(topic);
+		//TODO: Should we ensure that the competencyGroup indeed belongs to the Topic specified ?
+		CompetencyGroup competencyGroup = CompetencyGroup.findById(competencyGroupId);
+		notFoundIfNull(competencyGroup);
+		render(competencyGroup);
 	}
 	
 	public static void changeCompetencyGroupPlacements(long topicId) {

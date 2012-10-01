@@ -1,8 +1,34 @@
 #{extends 'main.html' /}
+<div>Back to <a href="@{AdminC.manageCompetencyTopic(competencyGroup.topic.id)}">manage competency topic</a></div>
+<div>Click <a href="@{CompetencyGroups.show(competencyGroup.id)}">here</a> to edit this competency group.</div>
+<div>
+<h2>Topic: ${competencyGroup.topic.title}</h2>
+<h2>Competency Group - ${competencyGroup.title}</h2>
 
-<h2> Create a new competency topic</h2>
+<h3>Competencies</h3>
+<div>
+	#{list items:competencyGroup.topic.levels, as:'level'}		
+		<div><strong>${level.title}</strong></div>
+		#{form @AdminC.changeCompetencyPlacements(competencyGroup.topic.id, competencyGroup.id)}
+			<div>			
+				#{list items:competencyGroup.fetchCompetenciesForLevel(level), as:'competency'}
+					<div>
+						<input type="text" name="placement-${competency.id}" value="${competency.placement}"/>
+						<a href="@{AdminC.manageCompetency(competencyGroup.topic.id, competencyGroup.id, competency.id)}">${competency.title}</a>
+						<a href="@{AdminC.deleteCompetencyConfirm(competencyGroup.topic.id, competencyGroup.id, competency.id)}">X</a>
+					</div>	
+				#{/list}			
+			</div>
+			<div>
+				<input type="submit" name="submit" value="Change Placements" />
+			</div>
+		#{/form}
+	#{/list}
+</div>
 
-#{form @AdminC.saveCompetencyTopic()}
+<h2> Create a new competency</h2>
+
+#{form @AdminC.saveCompetency(competencyGroup.topic.id, competencyGroup.id)}
 	#{ifErrors}
 		<p class="error">Please correct these errors.</p>
 	#{/ifErrors}
@@ -18,7 +44,7 @@
 	#{field 'levelId'}
 		<p>
 			<div>#{ifError 'levelId'}<span class="error">#{error 'levelId' /}</span>#{/ifError}</div>			
-			#{select 'levelId', size:5, items:levels, multiple:'multiple' /}
+			#{select 'levelId', size:5, items:competencyGroup.topic.levels/}
 		</p>
 	#{/field}
 	
@@ -31,14 +57,8 @@
 			</div>
 		</p>
 	#{/field}
-	<div id="wmd-preview" class="wmd-panel wmd-preview"></div>	
-	<p>
-		<div>Competency Groups: </div>
-		<div>
-			<textarea rows="10" cols="80" name="competencyGroups"></textarea>
-		</div>
-	</p>
-	
+	<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+		
 	<p>
 		<div>Resources: </div>
 		<div>
@@ -50,14 +70,6 @@
 		<input type="submit" value="submit" name="submit" />
 	</div>
 #{/form}
-
-<h2>Edit an existing Topic</h2>
-<div>
-#{list items:topics, as:'topic'}
-	<div><a href="@{AdminC.manageCompetencyTopic(topic.id)}">${topic.title}</a></div>
-#{/list}
-</div>
-
 
 <script type="text/javascript">
 	(function () {

@@ -10,7 +10,7 @@ Click <a href="@{Topics.show(topic.id)}">here</a> to edit competency topic detai
 #{list items:topic.competencyGroups, as:'competencyGroup'}
 	<div>		
 		<input type="textbox" name="placement-${competencyGroup.id}" value="${competencyGroup.placement}">
-		<a href="#">${competencyGroup.title}</a> 
+		<a href="@{AdminC.manageCompetencyGroup(topic.id, competencyGroup.id)}">${competencyGroup.title}</a> 
 		<a href="@{AdminC.deleteCompetencyGroupConfirm(topic.id, competencyGroup.id)}">X</a>
 	</div>
 #{/list}
@@ -27,9 +27,10 @@ Click <a href="@{Topics.show(topic.id)}">here</a> to edit competency topic detai
 		<p>
 			<div>Description</div>
 			<div>
-				<textarea name="description" rows="10" cols="80"></textarea>
+				<textarea class="wmd-input" id="wmd-input" name="description" rows="10" cols="80"></textarea>
 			</div>
 		</p>
+		<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 		<p>
 			<div>Resources</div>
 			<div>
@@ -41,3 +42,13 @@ Click <a href="@{Topics.show(topic.id)}">here</a> to edit competency topic detai
 		</p>
 	</form>
 </div>
+
+<script type="text/javascript">
+	(function () {
+		var help = function () { alert("For help using markdown, please visit http://daringfireball.net/projects/markdown/syntax"); }
+	    var converter1 = Markdown.getSanitizingConverter();
+	    var editor1 = new Markdown.Editor(converter1, "", { handler: help });
+	    editor1.run();
+	    
+	})();
+</script>
