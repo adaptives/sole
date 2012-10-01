@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PersistenceException;
 
 import other.utils.StringUtils;
@@ -43,6 +44,7 @@ public class CompetencyGroup extends Model implements Comparable {
 
     // TODO: order by placement
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "competencyGroup")
+    @OrderBy("placement")
     public Set<Competency> competencies;
 
     // Note: The CompetencyGroup should not depend on itself.
@@ -72,7 +74,7 @@ public class CompetencyGroup extends Model implements Comparable {
     }
 
     public List<Competency> fetchCompetenciesForLevel(Level level) {
-        String query = "select c from CompetencyGroup cg join cg.competencies as c where cg.id = ? and c.level.id = ?";
+        String query = "select c from CompetencyGroup cg join cg.competencies as c where cg.id = ? and c.level.id = ? order by c.placement";
         return Competency.find(query, this.id, level.id).fetch();
     }
 
