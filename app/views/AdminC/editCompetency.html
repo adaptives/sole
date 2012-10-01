@@ -2,7 +2,7 @@
 <div>Back to <a href="@{AdminC.manageCompetency(competency.competencyGroup.topic.id, competency.competencyGroup.id, competency.id)}">manage competency</a></div>
 <h2>Topic: ${competency.competencyGroup.topic.title}</h2>
 <h2>Competency Group - ${competency.competencyGroup.title}</h2>
-
+<div class="wmd-panel">
 #{form @AdminC.saveCompetencyEdited(competency.competencyGroup.topic.id, competency.competencyGroup.id)}
 	#{ifErrors}
 		<p class="error">Please correct these errors.</p>
@@ -38,7 +38,7 @@
 		</div>
 	</p>
 	#{/field}
-	
+	<div id="wmd-button-bar"></div>
 	#{field 'description'}
 		<p>
 			<div>#{ifError 'description'}<span class="error">#{error 'description' /}</span>#{/ifError}</div>
@@ -53,6 +53,7 @@
 		<input type="submit" value="submit" name="submit" />
 	</div>
 #{/form}
+</div>
 
 <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 <script type="text/javascript">
