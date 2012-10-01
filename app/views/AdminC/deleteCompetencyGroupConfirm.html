@@ -6,7 +6,7 @@
 Topic: ${competencyGroup.topic.title}
 </div>
 <div>
-	${competencyGroup.description}
+	${competencyGroup.description.md().sanitize().raw()}
 </div>
 <h3>Competencies</h3>
 <div>

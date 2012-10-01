@@ -8,9 +8,9 @@
 <h4>${competency.level.title}</h4>
 <h4>Description: </h4>
 <div>
-	${competency.description}
+	${competency.description.md().sanitize().raw()}
 </div>
 <h4>Resources: </h4>
 <div>
-	${competency.resources}
+	${competency.resources.md().sanitize().raw()}
 </div>

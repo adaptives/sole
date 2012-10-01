@@ -5,7 +5,7 @@
 <h2>Competency: ${competency.title}</h2>
 
 <div>
-	${competency.description}
+	${competency.description.md().sanitize().raw()}
 </div>
 
 <div>
