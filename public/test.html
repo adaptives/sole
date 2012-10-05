@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0135)http://www.diycomputerscience.com/competencies/topic/core-java/competency/understands-the-difference-between-strong-and-weak-references -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title> Do It Yourself Computer Science </title>		.
+        <script type="text/javascript" language="javascript" src="javascripts/prettify/prettify.js"></script>
+        <script type="text/javascript" language="javascript" src="javascripts/jquery-1.4.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/prettify/prettify.css" />
+
+        <script type="text/javascript">
+		$(document).ready(function () {
+			$("pre").addClass("prettyprint");
+		});
+	</script>
+</head>
+    <body onload="prettyPrint()">
+		<pre><code>w = null;</code></pre>
+
+<pre><code>WeakReference&lt;String&gt; wr = new WeakReference&lt;String&gt;(new String("abc"));
+</code></pre>
+
+<pre><code>String s = wr.get();
+if(s != null) {
+    // great the weak ref has not been garbage collected
+} else {
+   // oops the weak ref was garbage collected... now I will have to create another one
+}
+</code></pre>
+
+<pre class="prettyprint"><code>package com.diycomputerscience.webhog;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class WeakWidget {
+
+    private byte buff[];
+    private int id;
+
+    public WeakWidget(int id) {
+        //Each Widget object takes approximately 1MB
+        this.buff = new byte[1024 * 1000];
+        this.id = id;
+    }
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        // Ask the user how many Widget objects they want to create
+        // Remember each Widget takes a little over 1MB
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How many objects do you want to create ?");
+        int count = scanner.nextInt();
+
+        Map&lt;Integer, WeakReference&lt;WeakWidget&gt;&gt; weakWidgets = new HashMap&lt;Integer, WeakReference&lt;WeakWidget&gt;&gt;();
+
+        System.out.println("Creating " + count + " widgets as weak references.");
+
+        for(int i=0; i&lt;count; i++) {
+            weakWidgets.put(i, new WeakReference&lt;WeakWidget&gt;(new WeakWidget(i)));
+        }
+
+        // Here's how we access items from a WeakReference
+        for(int i=0; i&lt;count; i++) {
+            WeakReference&lt;WeakWidget&gt; weakRef = weakWidgets.get(i);
+            WeakWidget ww = weakRef.get();
+            // Find out if the WeakWidget is still there or has it been GC'd
+            if(ww == null) {
+                System.out.println("Oops WeakWidget " + i + " was garbage collected.");
+            } else {
+                System.out.println("Awesome WeakWidget " + i + " is still around. Let's use it");
+            }
+        }
+
+    }
+
+}
+
+</code></pre>
+
+</body>
+</html>
