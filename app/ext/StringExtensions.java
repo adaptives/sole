@@ -35,6 +35,7 @@ public class StringExtensions extends JavaExtensions {
 			Reader in = new StringReader(obj.toString());
 			Writer out = new StringBufferWriter(buff);
 			md.transform(in, out);
+			out.flush();
 			retVal = buff.toString();
 			retVal = HtmlSanitizer.clean(retVal); 
 		} catch (Exception e) {
