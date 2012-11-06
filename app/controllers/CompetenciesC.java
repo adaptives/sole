@@ -8,11 +8,13 @@ import java.util.List;
 import models.Competency;
 import models.Topic;
 import play.mvc.Controller;
+import play.mvc.With;
 
 /**
  * @author pshah
  *
  */
+@With(SocialAuthC.class)
 public class CompetenciesC extends Controller {
 
 	public static void topics() {
