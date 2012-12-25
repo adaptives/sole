@@ -93,7 +93,7 @@ GET     /users/{userId}                                                         
 POST    /users/changepwd/{username}                                                                                    UserProfileC.change
 POST    /users/update/{userId}                                                                                         UserProfileC.update
 
-GET     /blog/list                                                                                                     BlogPostC.list
+GET     /blog/list/{page}/{size}														     						   BlogPostC.list
 GET     /blog                                                                                                          BlogPostC.index
 GET     /blog/post/{year}/{month}/{day}/{sanitizedTitle}                                                               BlogPostC.show
 GET     /blog/form                                                                                                     BlogPostC.form
@@ -136,4 +136,3 @@ GET     /public/                                staticDir:public
 # Catch all
 #*       /{controller}/{action}                  {controller}.{action}
 *       /*                                      404
-

@@ -8,18 +8,37 @@ import models.SocialUser;
 import play.data.validation.Required;
 import play.mvc.Controller;
 import play.mvc.With;
+import play.Logger;
 
 @With(SocialAuthC.class)
 public class BlogPostC extends Controller {
 	
+	public static final org.apache.log4j.Logger cLogger = 
+										Logger.log4j.getLogger(BlogPostC.class);
+	public static final int DEFAULT_PAGE = 1;
+	public static final int DEFAULT_PAGE_SIZE = 4;
+	
 	public static void index() {
-		list();
+		list(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
 	}
 	
-	public static void list() {
+	public static void list(long page, long size) {
+		
+		if(page < 1) {
+			flash.error("Incorrect value for page '" + page + "' . The value must be equal or greater than 1");
+			render("emptypage.html");
+		}
+		if(size < 1) {
+			flash.error("Incorrect value for size '" + size + "' . The value must be equal or greater than 1");
+			render("emptypage.html");
+		}
+		// TODO: Query should be moved to the model class BlogPost.java
 		String query = "select b from BlogPost b order by b.postedAt desc";
-		List<BlogPost> blogPosts = BlogPost.find(query).fetch(1, 10);
-		render(blogPosts);
+		List<BlogPost> allBlogs = BlogPost.find(query).fetch((int)page, (int)size);
+		long count = BlogPost.count();
+		int pages = (int)(count/size);
+		pages++;		
+		render("BlogPostC/list.html", allBlogs, page, size, pages);
 	}
 	
 	public static  void show(String year, 
@@ -57,7 +76,7 @@ public class BlogPostC extends Controller {
 			render("@form", blogPost);
 		}
 		blogPost.save();
-		list();		
+		list(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
 	}
 	
 }

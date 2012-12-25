@@ -7,11 +7,12 @@
 #{/secure.check}
 
 <div class="blog-posts">
-#{list items:blogPosts, as:'post'}
+#{list items:allBlogs, as:'post'}
 	<div>
-		#{blogPost as:'tp', post:post /}
+		#{blogPost as:'tp', post:post /}		
 	</div>
 #{/list}
+#{paginate controllerAction:'BlogPostC.list', size:size, page:page, pages:pages /}
 </div>
 #{set 'blog_related_scripts'}
 	%{blogCommentsService = "blog_comments_service";}%
