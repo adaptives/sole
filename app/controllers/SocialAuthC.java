@@ -11,14 +11,13 @@ import models.KeyValueData;
 import models.SocialUser;
 import models.TwitterRequestToken;
 import models.TwitterUser;
-
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
-import twitter4j.http.AccessToken;
-import twitter4j.http.RequestToken;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 
 public class SocialAuthC extends Controller {
@@ -149,6 +148,6 @@ public class SocialAuthC extends Controller {
 	
 	private static String getTwitterCallbackUrl() {
 		return "http://" + request.host + TWITTER_CALLBACK_PATH;
-	}
+	}	
 
 }
